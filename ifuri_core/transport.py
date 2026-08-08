@@ -197,6 +197,40 @@ class NatsWireClient:
         self.reader = None
         self._subs.clear()
 
+    async def _read_message(self, header: bytes) -> None:
+        assert self.reader is not None
+        parts = header.split()
+        if len(parts) == 4:
+            _, subject_b, sid_b, size_b = parts
+            reply_b = b""
+        elif len(parts) == 5:
+            _, subject_b, sid_b, reply_b, size_b = parts
+        else:
+            raise TransportError(f"unsupported NATS MSG header: {header!r}")
+        size = int(size_b)
+        data = await self.reader.readexactly(size)
+        crlf = await self.reader.readexactly(2)
+        if crlf != b"\r\n":
+            raise TransportError("invalid NATS payload terminator")
+        sid = int(sid_b)
+        queue = self._subs.get(sid)
+        if queue is not None:
+            await queue.put(NatsMessage(subject_b.decode(), sid, reply_b.decode() if reply_b else "", data))
+
+    async def _handle_protocol_line(self, line: bytes) -> None:
+        if line == b"PING":
+            await self._write(b"PONG\r\n")
+        elif line in {b"PONG", b"+OK"} or line.startswith(b"INFO "):
+            return
+        elif line.startswith(b"-ERR"):
+            self.last_error = line.decode("utf-8", errors="replace")
+        elif line.startswith(b"MSG "):
+            await self._read_message(line)
+        elif line.startswith(b"HMSG "):
+            raise TransportError("HMSG is not enabled in this minimal POC client")
+        else:
+            raise TransportError(f"unsupported NATS protocol line: {line!r}")
+
     async def _reader_loop(self) -> None:
         assert self.reader is not None
         try:
@@ -207,50 +241,11 @@ class NatsWireClient:
                 line = line.rstrip(b"\r\n")
                 if not line:
                     continue
-                if line == b"PING":
-                    await self._write(b"PONG\r\n")
-                    continue
-                if line in {b"PONG", b"+OK"} or line.startswith(b"INFO "):
-                    continue
-                if line.startswith(b"-ERR"):
-                    self.last_error = line.decode("utf-8", errors="replace")
-                    continue
-                if line.startswith(b"MSG "):
-                    parts = line.split()
-                    if len(parts) == 4:
-                        _, subject_b, sid_b, size_b = parts
-                        reply_b = b""
-                    elif len(parts) == 5:
-                        _, subject_b, sid_b, reply_b, size_b = parts
-                    else:
-                        raise TransportError(f"unsupported NATS MSG header: {line!r}")
-                    size = int(size_b)
-                    data = await self.reader.readexactly(size)
-                    crlf = await self.reader.readexactly(2)
-                    if crlf != b"\r\n":
-                        raise TransportError("invalid NATS payload terminator")
-                    sid = int(sid_b)
-                    q = self._subs.get(sid)
-                    if q is not None:
-                        await q.put(
-                            NatsMessage(
-                                subject_b.decode(),
-                                sid,
-                                reply_b.decode() if reply_b else "",
-                                data,
-                            )
-                        )
-                    continue
-                if line.startswith(b"HMSG "):
-                    raise TransportError("HMSG is not enabled in this minimal POC client")
-                raise TransportError(f"unsupported NATS protocol line: {line!r}")
+                await self._handle_protocol_line(line)
         except asyncio.CancelledError:
             raise
         except Exception as exc:
             self.last_error = f"{type(exc).__name__}: {exc}"
-            for q in self._subs.values():
-                # Do not fabricate a message; request() will timeout with a deterministic error.
-                pass
 
 
 class NatsJetStream:

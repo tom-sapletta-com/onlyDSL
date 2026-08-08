@@ -33,6 +33,24 @@ class RepairPlan:
     tasks: tuple[RepairTask, ...]
 
 
+_REPAIR_TASK_FIELDS = {
+    "FINDING", "TARGET", "EVIDENCE", "OPERATION", "URI_PROCESS", "EXPECTED_RESULT",
+    "ACCEPTANCE", "ROLLBACK", "DEPENDS_ON", "AUTHORITY_CLASS",
+}
+
+
+def _validate_repair_task(task: RepairTask, task_ids: set[str]) -> list[str]:
+    errors: list[str] = []
+    if not all((task.target, task.evidence, task.operation, task.expected_result, task.acceptance, task.rollback, task.authority_class)):
+        errors.append(f"TASK {task.id} has an empty required field")
+    if not task.uri_process.startswith(("repo://", "process://", "cad://", "vault://")):
+        errors.append(f"TASK {task.id} URI_PROCESS is not system-addressable")
+    unknown = set(task.depends_on) - task_ids
+    if unknown:
+        errors.append(f"TASK {task.id} DEPENDS_ON unknown tasks: {', '.join(sorted(unknown))}")
+    return errors
+
+
 def validate_repair_plan(plan: RepairPlan) -> list[str]:
     errors: list[str] = []
     if plan.from_revision < 1:
@@ -47,13 +65,7 @@ def validate_repair_plan(plan: RepairPlan) -> list[str]:
     if plan.tasks and plan.status == "no-action":
         errors.append("no-action plan cannot contain TASKs")
     for task in plan.tasks:
-        if not task.target or not task.evidence or not task.operation or not task.expected_result or not task.acceptance or not task.rollback or not task.authority_class:
-            errors.append(f"TASK {task.id} has an empty required field")
-        if not task.uri_process.startswith(("repo://", "process://", "cad://", "vault://")):
-            errors.append(f"TASK {task.id} URI_PROCESS is not system-addressable")
-        unknown = set(task.depends_on) - task_ids
-        if unknown:
-            errors.append(f"TASK {task.id} DEPENDS_ON unknown tasks: {', '.join(sorted(unknown))}")
+        errors.extend(_validate_repair_task(task, task_ids))
     return errors
 
 
@@ -79,6 +91,26 @@ def render_repair_plan(plan: RepairPlan) -> str:
     return "\n".join(rows)
 
 
+def _parse_repair_task(lines: list[str], index: int) -> tuple[RepairTask, int]:
+    task_id = lines[index].split(None, 1)[1]
+    fields: dict[str, str] = {}
+    index += 1
+    while index < len(lines) and lines[index] != "END_TASK":
+        key, _, value = lines[index].partition(" ")
+        if key in fields:
+            raise ControlDslError(f"TASK {task_id} repeats {key}")
+        fields[key] = value
+        index += 1
+    if set(fields) != _REPAIR_TASK_FIELDS:
+        raise ControlDslError(f"TASK {task_id} fields differ: {sorted(_REPAIR_TASK_FIELDS - fields.keys())}")
+    return RepairTask(
+        task_id, fields["FINDING"], fields["TARGET"], tuple(parse_json_list(fields["EVIDENCE"], "EVIDENCE")),
+        fields["OPERATION"], fields["URI_PROCESS"], json_string(fields["EXPECTED_RESULT"], "EXPECTED_RESULT"),
+        json_string(fields["ACCEPTANCE"], "ACCEPTANCE"), json_string(fields["ROLLBACK"], "ROLLBACK"),
+        tuple(parse_json_list(fields["DEPENDS_ON"], "DEPENDS_ON")), fields["AUTHORITY_CLASS"],
+    ), index
+
+
 def parse_repair_plan(markdown: str) -> RepairPlan:
     lines = [line.strip() for line in extract_one(markdown, "repairplanddsl").splitlines() if line.strip()]
     if not lines or not lines[0].startswith("REPAIR_PLAN ") or lines[-1] != "END_REPAIR_PLAN":
@@ -88,24 +120,8 @@ def parse_repair_plan(markdown: str) -> RepairPlan:
     index = 1
     while index < len(lines) - 1:
         if lines[index].startswith("TASK "):
-            task_id = lines[index].split(None, 1)[1]
-            fields: dict[str, str] = {}
-            index += 1
-            while index < len(lines) and lines[index] != "END_TASK":
-                key, _, value = lines[index].partition(" ")
-                if key in fields:
-                    raise ControlDslError(f"TASK {task_id} repeats {key}")
-                fields[key] = value
-                index += 1
-            expected = {"FINDING", "TARGET", "EVIDENCE", "OPERATION", "URI_PROCESS", "EXPECTED_RESULT", "ACCEPTANCE", "ROLLBACK", "DEPENDS_ON", "AUTHORITY_CLASS"}
-            if set(fields) != expected:
-                raise ControlDslError(f"TASK {task_id} fields differ: {sorted(expected - fields.keys())}")
-            tasks.append(RepairTask(
-                task_id, fields["FINDING"], fields["TARGET"], tuple(parse_json_list(fields["EVIDENCE"], "EVIDENCE")),
-                fields["OPERATION"], fields["URI_PROCESS"], json_string(fields["EXPECTED_RESULT"], "EXPECTED_RESULT"),
-                json_string(fields["ACCEPTANCE"], "ACCEPTANCE"), json_string(fields["ROLLBACK"], "ROLLBACK"),
-                tuple(parse_json_list(fields["DEPENDS_ON"], "DEPENDS_ON")), fields["AUTHORITY_CLASS"],
-            ))
+            task, index = _parse_repair_task(lines, index)
+            tasks.append(task)
         else:
             key, _, value = lines[index].partition(" ")
             if key in header:

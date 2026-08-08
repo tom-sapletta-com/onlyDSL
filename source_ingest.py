@@ -86,24 +86,31 @@ def _normalize_text(text: str) -> str:
     return " ".join(text.split())
 
 
-def parse_markdown(path: Path, root: Path, source_id: str, *, max_item_chars: int = 1800) -> MarkdownDocument:
-    raw = path.read_text(encoding="utf-8", errors="replace")
-    digest = "sha256:" + hashlib.sha256(raw.encode("utf-8")).hexdigest()
-    rel = path.relative_to(root).as_posix()
-    doc = MarkdownDocument(source_id, f"sources/{rel}", digest)
-
+def _extract_code_blocks(raw: str, max_item_chars: int) -> tuple[list[tuple[str, str, str]], list[tuple[int, int]]]:
     code_re = re.compile(r"```([^\n`]*)\n(.*?)```", re.S)
+    blocks: list[tuple[str, str, str]] = []
     code_spans: list[tuple[int, int]] = []
     for match in code_re.finditer(raw):
         lang = match.group(1).strip().split()[0] if match.group(1).strip() else "text"
         content = match.group(2).strip()
-        content = content[:max_item_chars]
         cdig = "sha256:" + hashlib.sha256(match.group(2).encode("utf-8")).hexdigest()
-        doc.code_blocks.append((lang, cdig, content))
+        blocks.append((lang, cdig, content[:max_item_chars]))
         code_spans.append((match.start(), match.end()))
+    return blocks, code_spans
 
-    def in_code(pos: int) -> bool:
-        return any(a <= pos < b for a, b in code_spans)
+
+def _flush_paragraph(doc: MarkdownDocument, lines: list[str], max_item_chars: int) -> list[str]:
+    value = _normalize_text(" ".join(lines))[:max_item_chars]
+    if value:
+        doc.paragraphs.append(value)
+    return []
+
+
+def _parse_text_content(
+    doc: MarkdownDocument, raw: str, code_spans: list[tuple[int, int]], max_item_chars: int
+) -> None:
+    def in_code(position: int) -> bool:
+        return any(start <= position < end for start, end in code_spans)
 
     para: list[str] = []
     offset = 0
@@ -115,26 +122,17 @@ def parse_markdown(path: Path, root: Path, source_id: str, *, max_item_chars: in
         stripped = line.strip()
         if not stripped:
             if para:
-                value = _normalize_text(" ".join(para))[:max_item_chars]
-                if value:
-                    doc.paragraphs.append(value)
-                para = []
+                para = _flush_paragraph(doc, para, max_item_chars)
             offset += len(raw_line)
             continue
         hm = re.match(r"^(#{1,6})\s+(.+)$", stripped)
         if hm:
             if para:
-                value = _normalize_text(" ".join(para))[:max_item_chars]
-                if value:
-                    doc.paragraphs.append(value)
-                para = []
+                para = _flush_paragraph(doc, para, max_item_chars)
             doc.headings.append((len(hm.group(1)), _normalize_text(hm.group(2))[:max_item_chars]))
         elif re.match(r"^[-*+]\s+", stripped):
             if para:
-                value = _normalize_text(" ".join(para))[:max_item_chars]
-                if value:
-                    doc.paragraphs.append(value)
-                para = []
+                para = _flush_paragraph(doc, para, max_item_chars)
             doc.bullets.append(_normalize_text(re.sub(r"^[-*+]\s+", "", stripped))[:max_item_chars])
         else:
             # Strip common markdown decorations, but keep semantic text as a typed DSL literal.
@@ -143,9 +141,16 @@ def parse_markdown(path: Path, root: Path, source_id: str, *, max_item_chars: in
             para.append(cleaned)
         offset += len(raw_line)
     if para:
-        value = _normalize_text(" ".join(para))[:max_item_chars]
-        if value:
-            doc.paragraphs.append(value)
+        _flush_paragraph(doc, para, max_item_chars)
+
+
+def parse_markdown(path: Path, root: Path, source_id: str, *, max_item_chars: int = 1800) -> MarkdownDocument:
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    digest = "sha256:" + hashlib.sha256(raw.encode("utf-8")).hexdigest()
+    rel = path.relative_to(root).as_posix()
+    doc = MarkdownDocument(source_id, f"sources/{rel}", digest)
+    doc.code_blocks, code_spans = _extract_code_blocks(raw, max_item_chars)
+    _parse_text_content(doc, raw, code_spans, max_item_chars)
     return doc
 
 

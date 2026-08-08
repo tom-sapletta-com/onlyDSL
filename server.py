@@ -8,7 +8,7 @@ import traceback
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 from urllib.parse import parse_qs, urlparse
 from urllib.request import urlopen
 
@@ -93,28 +93,41 @@ def evolution_authority_status():
         return {"configured": False, "error": str(exc)}
 
 
-def _current_external_integrity() -> dict[str, Any]:
-    base = os.getenv("TWIN_DASHBOARD_URL", "http://127.0.0.1:7444").rstrip("/")
-    with urlopen(base + "/api/dsl", timeout=3) as response:
-        dsl = json.load(response)
-    with urlopen(base + "/api/events", timeout=3) as response:
-        events = json.load(response)
-    with urlopen(base + "/api/state", timeout=3) as response:
-        state = json.load(response)
-    artifact_scope = state.get("artifactScope", "current")
-    integrity_name = "latest-candidate/project-integrity.dsl" if artifact_scope == "candidate" else "project-integrity.dsl"
-    document = next((item for item in dsl.get("documents", []) if item.get("name") == integrity_name), None)
+def _fetch_external_json(base_url: str, resource: str) -> dict[str, Any]:
+    with urlopen(base_url + resource, timeout=3) as response:
+        return json.load(response)
+
+
+def _external_document(documents: list[dict[str, Any]], name: str) -> dict[str, Any]:
+    document = next((item for item in documents if item.get("name") == name), None)
     if not document or not document.get("content"):
         raise ValueError("external twin has no ProjectIntegrityDSL")
+    return document
+
+
+def _external_revision(events: dict[str, Any]) -> tuple[int, dict[str, Any]]:
     latest = (events.get("events") or [])[-1] if events.get("events") else {}
     revision = latest.get("streamVersion")
     if not isinstance(revision, int) or revision < 1:
         raise ValueError("external twin has no exact iteration streamVersion")
+    return revision, latest
+
+
+def _current_external_integrity() -> dict[str, Any]:
+    base = os.getenv("TWIN_DASHBOARD_URL", "http://127.0.0.1:7444").rstrip("/")
+    dsl = _fetch_external_json(base, "/api/dsl")
+    events = _fetch_external_json(base, "/api/events")
+    state = _fetch_external_json(base, "/api/state")
+    artifact_scope = state.get("artifactScope", "current")
+    integrity_name = "latest-candidate/project-integrity.dsl" if artifact_scope == "candidate" else "project-integrity.dsl"
+    documents = dsl.get("documents", [])
+    document = _external_document(documents, integrity_name)
+    revision, latest = _external_revision(events)
     parsed = parse_project_integrity(document["content"])
     spatial_source = state.get("candidateTwin") if artifact_scope == "candidate" else state.get("twin")
     spatial = spatial_class_from_twin(spatial_source or state.get("twin") or {}, model_id=parsed.project_id)
     assumptions = assumptions_from_integrity(parsed)
-    evidence_sets = next((item.get("content", "") for item in dsl.get("documents", []) if item.get("name") == "evidence-sets.dsl"), "")
+    evidence_sets = next((item.get("content", "") for item in documents if item.get("name") == "evidence-sets.dsl"), "")
     return {
         "schema": "onlydsl.external-project-integrity/v2", "source": base, "artifact_scope": artifact_scope,
         "project_integrity_markdown": document["content"], "twin_revision": revision,
@@ -321,6 +334,37 @@ def _plan_twin() -> dict[str, Any]:
     }
 
 
+def _compile_context(body: dict[str, Any]) -> dict[str, Any]:
+    markdown = compiler_from_payload(body).to_markdown()
+    return {"markdown": markdown, "validation": validate_context_markdown(markdown)}
+
+
+def _record_guidance(body: dict[str, Any]) -> dict[str, Any]:
+    return EVOLUTION.add_guidance(
+        str(body.get("directive", "")), source=str(body.get("source", "api")),
+        priority=str(body.get("priority", "normal")),
+    )
+
+
+def _record_incident(body: dict[str, Any]) -> dict[str, Any]:
+    return EVOLUTION.add_incident(
+        str(body.get("kind", "reported_bug")), str(body.get("message", "")),
+        source=str(body.get("source", "api")), severity=str(body.get("severity", "error")),
+        route=str(body.get("route", "")), trace=str(body.get("trace", "")),
+        fields=dict(body.get("fields", {}) or {}),
+    )
+
+
+def _run_intent(body: dict[str, Any]) -> dict[str, Any]:
+    program = parse_dsl(extract_intentdsl(str(body.get("markdown", ""))))
+    return run_program(program, dict(body.get("inputs", {}) or {}))
+
+
+def _codegen_intent(body: dict[str, Any]) -> dict[str, Any]:
+    program = parse_dsl(extract_intentdsl(str(body.get("markdown", ""))))
+    return {"code": codegen(program, str(body.get("target", "python")))}
+
+
 class Handler(BaseHTTPRequestHandler):
     server_version = f"IfuriDigitalTwinLab/{_application_version()}"
 
@@ -353,6 +397,24 @@ class Handler(BaseHTTPRequestHandler):
         if not isinstance(value, dict):
             raise ValueError("JSON body must be an object")
         return value
+
+    def _post_routes(self, body: dict[str, Any]) -> dict[str, tuple[int, Callable[[], Any]]]:
+        return {
+            "/api/compile-context": (200, lambda: _compile_context(body)),
+            "/api/analyze-context": (200, lambda: _ifuri_analyze_context(body)),
+            "/api/ifuri/analyze-context": (200, lambda: _ifuri_analyze_context(body)),
+            "/api/convert": (200, lambda: _ifuri_compile_source(str(body.get("text", "")))),
+            "/api/ifuri/compile-source": (200, lambda: _ifuri_compile_source(str(body.get("text", "")))),
+            "/api/twin/bootstrap": (200, lambda: _bootstrap_twin(body)),
+            "/api/twin/update": (200, lambda: _update_twin(body)),
+            "/api/twin/plan": (200, _plan_twin),
+            "/api/integrity/repair-plan": (200, lambda: _integrity_repair_plan(body)),
+            "/api/evolution/guidance": (201, lambda: _record_guidance(body)),
+            "/api/evolution/report": (202, lambda: _record_incident(body)),
+            "/api/validate": (200, lambda: validate_markdown(str(body.get("markdown", "")))),
+            "/api/run": (200, lambda: _run_intent(body)),
+            "/api/codegen": (200, lambda: _codegen_intent(body)),
+        }
 
     def do_GET(self) -> None:  # noqa: N802
         parsed = urlparse(self.path)
@@ -427,63 +489,12 @@ class Handler(BaseHTTPRequestHandler):
         try:
             body = self._body()
             path = urlparse(self.path).path
-            if path == "/api/compile-context":
-                compiler = compiler_from_payload(body)
-                markdown = compiler.to_markdown()
-                self._send(200, {"markdown": markdown, "validation": validate_context_markdown(markdown)})
+            route = self._post_routes(body).get(path)
+            if route is None:
+                self._send(404, {"error": "not_found"})
                 return
-            if path in {"/api/analyze-context", "/api/ifuri/analyze-context"}:
-                self._send(200, _ifuri_analyze_context(body))
-                return
-            if path in {"/api/convert", "/api/ifuri/compile-source"}:
-                self._send(200, _ifuri_compile_source(str(body.get("text", ""))))
-                return
-            if path == "/api/twin/bootstrap":
-                self._send(200, _bootstrap_twin(body))
-                return
-            if path == "/api/twin/update":
-                self._send(200, _update_twin(body))
-                return
-            if path == "/api/twin/plan":
-                self._send(200, _plan_twin())
-                return
-            if path == "/api/integrity/repair-plan":
-                self._send(200, _integrity_repair_plan(body))
-                return
-            if path == "/api/evolution/guidance":
-                result = EVOLUTION.add_guidance(
-                    str(body.get("directive", "")),
-                    source=str(body.get("source", "api")),
-                    priority=str(body.get("priority", "normal")),
-                )
-                self._send(201, result)
-                return
-            if path == "/api/evolution/report":
-                result = EVOLUTION.add_incident(
-                    str(body.get("kind", "reported_bug")),
-                    str(body.get("message", "")),
-                    source=str(body.get("source", "api")),
-                    severity=str(body.get("severity", "error")),
-                    route=str(body.get("route", "")),
-                    trace=str(body.get("trace", "")),
-                    fields=dict(body.get("fields", {}) or {}),
-                )
-                self._send(202, result)
-                return
-            if path == "/api/validate":
-                self._send(200, validate_markdown(str(body.get("markdown", ""))))
-                return
-            if path == "/api/run":
-                markdown = str(body.get("markdown", ""))
-                program = parse_dsl(extract_intentdsl(markdown))
-                self._send(200, run_program(program, dict(body.get("inputs", {}) or {})))
-                return
-            if path == "/api/codegen":
-                markdown = str(body.get("markdown", ""))
-                program = parse_dsl(extract_intentdsl(markdown))
-                self._send(200, {"code": codegen(program, str(body.get("target", "python")))})
-                return
-            self._send(404, {"error": "not_found"})
+            status, handler = route
+            self._send(status, handler())
         except (ValueError, json.JSONDecodeError) as exc:
             self._send(400, {"error": type(exc).__name__, "message": str(exc)})
         except RuntimeError as exc:

@@ -1,13 +1,14 @@
-# onlyDSL | 67f 8387L | python:43,shell:4,txt:2,conf:1,json:5,yaml:4,proto:2,typescript:1,javascript:1,php:1,yml:1,toml:1 | 2026-08-08
+# onlyDSL | 83f 10213L | python:58,shell:4,yaml:4,yml:1,txt:2,toml:1,dsl:1,conf:1,json:5,proto:2,typescript:1,javascript:1,php:1 | 2026-08-08
 # generated in 0.01s
 # producer: code2llm | artifact: map.toon.yaml | schema: 1
-# stats: 331 func | 0 cls | 67 mod | CC̄=4.8 | critical:27 | cycles:0
-# alerts[5]: CC parse_twindsl=68; CC codegen=37; fan-out parse_markdown=34; fan-out parse_twindsl=34; CC parse_context_dsl=33
-# hotspots[5]: parse_markdown fan=34; parse_twindsl fan=34; parse_bound_build_plan fan=26; Handler.do_POST fan=25; parse_context_dsl fan=22
-# evolution: CC̄ 4.6→4.8 (regressed +0.2)
+# stats: 479 func | 0 cls | 83 mod | CC̄=4.2 | critical:18 | cycles:0
+# alerts[5]: fan-out create_candidate=34; fan-out parse_markdown=34; fan-out SsotStore.promote=32; fan-out main=31; fan-out main=26
+# hotspots[5]: parse_markdown fan=34; create_candidate fan=34; SsotStore.promote fan=32; main fan=31; main fan=26
+# evolution: CC̄ 4.3→4.2 (improved -0.1)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[67]:
-  Dockerfile,12
+M[83]:
+  Dockerfile,13
+  SSOT/manifest.dsl,10
   aql.py,151
   boundary.py,249
   config/process-packs/live-evolution/expectations.v1.eql.json,14
@@ -15,11 +16,11 @@ M[67]:
   config/process-packs/live-evolution/process.v1.json,37
   config/process-packs/live-evolution/recipe.v1.urirun.json,17
   config/process-packs/project-integrity-closure/registry.v2.json,43
-  contextdsl.py,420
+  contextdsl.py,468
   contracts/ifuri/v1/dsl.proto,9
   contracts/ifuri/v1/envelope.proto,32
   diagnostics.py,291
-  digital_twin.py,678
+  digital_twin.py,839
   docker-compose.yml,209
   docker-test.sh,5
   evolution.py,286
@@ -41,7 +42,7 @@ M[67]:
   ifuri_core/runtime.py,173
   ifuri_core/transport.py,442
   ifuri_core/uri.py,99
-  intentdsl.py,540
+  intentdsl.py,583
   llm_client.py,507
   manifests/capabilities.yaml,180
   multiruntime/javascript/ifuri.mjs,31
@@ -49,139 +50,75 @@ M[67]:
   multiruntime/typescript/ifuri.ts,18
   nats/nats.conf,8
   onlydsl/__init__.py,7
+  onlydsl/cli.py,15
   onlydsl/dsl/__init__.py,1
-  onlydsl/dsl/assumption.py,111
-  onlydsl/dsl/build_plan.py,128
+  onlydsl/dsl/assumption.py,120
+  onlydsl/dsl/build_plan.py,145
+  onlydsl/dsl/claim.py,121
   onlydsl/dsl/common.py,56
   onlydsl/dsl/evidence_set.py,46
-  onlydsl/dsl/parameter_contract.py,129
-  onlydsl/dsl/repair_plan.py,121
-  onlydsl/dsl/spatial_class.py,149
+  onlydsl/dsl/parameter_contract.py,151
+  onlydsl/dsl/repair_plan.py,137
+  onlydsl/dsl/spatial_class.py,158
+  onlydsl/dsl/trust.py,62
   onlydsl/governance/__init__.py,1
   onlydsl/governance/authority_projection.py,46
   onlydsl/runtime/__init__.py,1
-  onlydsl/runtime/integrity.py,62
+  onlydsl/runtime/integrity.py,78
   onlydsl/runtime/repair_controller.py,96
-  patchdsl.py,146
+  onlydsl/ssot/__init__.py,19
+  onlydsl/ssot/candidate.py,122
+  onlydsl/ssot/cli.py,159
+  onlydsl/ssot/diff.py,35
+  onlydsl/ssot/io.py,36
+  onlydsl/ssot/manifest.py,164
+  onlydsl/ssot/model.py,60
+  onlydsl/ssot/reader.py,60
+  onlydsl/ssot/registry.py,76
+  onlydsl/ssot/validation.py,104
+  onlydsl/ssot/writer.py,224
+  patchdsl.py,165
   project.sh,79
   pyproject.toml,74
   requirements.txt,3
   requirements-testql.txt,6
   run.sh,10
   run-tests.sh,4
-  server.py,520
-  source_ingest.py,222
-  testql/digital-twin-startup.testql.toon.yaml,12
+  scripts/startup_testql.py,171
+  server.py,535
+  source_ingest.py,231
+  testql/digital-twin-startup.testql.toon.yaml,15
   testql/onlydsl-startup.testql.toon.yaml,11
   twin_store.py,55
 D:
-  digital_twin.py:
-    e: TwinDslError,TwinNode,TwinCapability,TwinInvariant,TwinEdge,TwinSourceRef,TwinDocument,BuildTask,BuildPlan,normalize_intent,intent_fingerprint,_quoted,_json_string,extract_twindsl,parse_twindsl,validate_twin,validate_twin_markdown,validate_twin_update,twin_to_mermaid,demo_bootstrap_twin,render_twin,twindsl_schema,buildplandsl_schema,extract_buildplanddsl,validate_buildplan_markdown,demo_build_plan
-    TwinDslError(ValueError):
-    TwinNode:
-    TwinCapability:
-    TwinInvariant:
-    TwinEdge:
-    TwinSourceRef:
-    TwinDocument:
-    BuildTask:
-    BuildPlan:
-    normalize_intent(text)
-    intent_fingerprint(text)
-    _quoted(value)
-    _json_string(raw)
-    extract_twindsl(markdown)
-    parse_twindsl(text)
-    validate_twin(doc)
-    validate_twin_markdown(markdown)
-    validate_twin_update(previous;updated)
-    twin_to_mermaid(doc)
-    demo_bootstrap_twin(user_text)
-    render_twin(doc)
-    twindsl_schema()
-    buildplandsl_schema()
-    extract_buildplanddsl(markdown)
-    validate_buildplan_markdown(markdown;twin)
-    demo_build_plan(doc)
-  intentdsl.py:
-    e: IntentDslError,Operation,Rule,Program,extract_intentdsl,_parse_literal,_parse_call,parse_dsl,_normalize_expr,_expr_tree,expr_names,eval_expr,_type_ok,validate_program,validate_markdown,run_program,_slug_words,demo_english_to_dsl,_js_literal,codegen,php_array
-    IntentDslError(ValueError):
-    Operation:
-    Rule:
-    Program: to_dict(0)
-    extract_intentdsl(markdown)
-    _parse_literal(raw)
-    _parse_call(raw)
-    parse_dsl(dsl)
-    _normalize_expr(expr)
-    _expr_tree(expr)
-    expr_names(expr)
-    eval_expr(expr;env)
-    _type_ok(type_name;value)
-    validate_program(program;action_registry;event_registry)
-    validate_markdown(markdown;action_registry;event_registry)
-    run_program(program;inputs;action_registry;event_registry)
-    _slug_words(text)
-    demo_english_to_dsl(text)
-    _js_literal(value)
-    codegen(program;target)
-    php_array(values)
-  contextdsl.py:
-    e: ContextDslError,ContextRecord,ContextDocument,DslContextEvent,ContextCompiler,_ident,_event_code_from_text,_literal,_parse_literal,_infer_type,_parse_legacy_scalar,render_context_dsl,render_context_markdown,extract_contextdsl,parse_context_dsl,validate_context_markdown,compiler_from_payload
-    ContextDslError(ValueError):
-    ContextRecord:
-    ContextDocument: to_dict(0)
-    DslContextEvent:  # Preferred application/runtime log event: semantic at the sou...
-    ContextCompiler: __init__(4),policy(2),capability(2),state(3),metric(2),record(4),event(1),exception(3),tool_result(3),retrieval(3),memory(3),code_fact(3),database_fact(3),legacy_log(1),to_markdown(0)  # Deterministic application-side compiler. No LLM is called he...
-    _ident(value;fallback)
-    _event_code_from_text(text)
-    _literal(value)
-    _parse_literal(raw)
-    _infer_type(value)
-    _parse_legacy_scalar(raw)
-    render_context_dsl(doc)
-    render_context_markdown(doc)
-    extract_contextdsl(markdown)
-    parse_context_dsl(dsl)
-    validate_context_markdown(markdown)
-    compiler_from_payload(payload)
+  onlydsl/ssot/cli.py:
+    e: _updates,_json,build_parser,main
+    _updates(values)
+    _json(value)
+    build_parser()
+    main(argv)
   onlydsl/dsl/build_plan.py:
-    e: BoundBuildTask,BoundBuildPlan,semantic_twin_hash,parse_bound_build_plan,validate_bound_build_plan
+    e: BoundBuildTask,BoundBuildPlan,semantic_twin_hash,_parse_task,_validate_tasks,parse_bound_build_plan,validate_bound_build_plan
     BoundBuildTask:
     BoundBuildPlan:
     semantic_twin_hash(rendered_twin_markdown)
+    _parse_task(lines;index)
+    _validate_tasks(tasks)
     parse_bound_build_plan(markdown)
     validate_bound_build_plan(markdown;twin;rendered_twin_markdown)
-  onlydsl/runtime/integrity.py:
-    e: IntegrityFinding,ProjectIntegrity,parse_project_integrity
-    IntegrityFinding:
-    ProjectIntegrity:
-    parse_project_integrity(markdown)
-  patchdsl.py:
-    e: PatchDslError,PatchChange,PatchDocument,_json_string,parse_patchdsl,validate_patch_policy,validate_patch_markdown
-    PatchDslError(ValueError):
-    PatchChange:
-    PatchDocument:
-    _json_string(raw;label)
-    parse_patchdsl(markdown)
-    validate_patch_policy(doc;workspace)
-    validate_patch_markdown(markdown;workspace)
-  onlydsl/dsl/parameter_contract.py:
-    e: ParameterContract,ParameterValidation,ParameterContractDocument,parse_parameter_contracts,render_parameter_contracts
-    ParameterContract:
-    ParameterValidation:
-    ParameterContractDocument: validate(0)
-    parse_parameter_contracts(markdown)
-    render_parameter_contracts(document)
-  onlydsl/dsl/spatial_class.py:
-    e: SpatialClass,SpatialTypeContract,SpatialComponent,SpatialClassDocument,parse_spatial_class,render_spatial_class,spatial_class_from_twin
-    SpatialClass(str,Enum):
-    SpatialTypeContract:
-    SpatialComponent:
-    SpatialClassDocument: classify(1),geometry_subjects(0),required_checks(1)
-    parse_spatial_class(markdown)
-    render_spatial_class(document)
-    spatial_class_from_twin(twin)
+  onlydsl/ssot/manifest.py:
+    e: utc_now,digest_bytes,is_immutable_urn,normalize_relative_path,collect_file_hashes,calculate_section_hashes,calculate_revision_hash,create_manifest,validate_manifest,render_manifest,parse_manifest
+    utc_now()
+    digest_bytes(value)
+    is_immutable_urn(value)
+    normalize_relative_path(value)
+    collect_file_hashes(tree)
+    calculate_section_hashes(files)
+    calculate_revision_hash(project_id;sections)
+    create_manifest(project_id;files)
+    validate_manifest(manifest)
+    render_manifest(manifest)
+    parse_manifest(text)
   ifuri_core/transport.py:
     e: TransportError,NatsMessage,IfTransport,InProcessTransport,NatsWireClient,NatsJetStream,NatsTransport,capability_pattern_to_subject,_validate_nats_subject,_js_response
     TransportError(RuntimeError):
@@ -195,13 +132,6 @@ D:
     capability_pattern_to_subject(pattern;prefix)
     _validate_nats_subject(subject)
     _js_response(raw)
-  onlydsl/dsl/repair_plan.py:
-    e: RepairTask,RepairPlan,validate_repair_plan,render_repair_plan,parse_repair_plan
-    RepairTask:
-    RepairPlan:
-    validate_repair_plan(plan)
-    render_repair_plan(plan)
-    parse_repair_plan(markdown)
   ifuri_core/manifest.py:
     e: ManifestError,TransportPolicy,Capability,ResolvedCapability,CapabilityRegistry,_parse_pattern,_validate_capability
     ManifestError(ValueError):
@@ -211,30 +141,29 @@ D:
     CapabilityRegistry: __init__(1),register(1),from_mapping(1),from_file(1),resolve(1),explain(1),dump(0)
     _parse_pattern(raw)
     _validate_capability(capability)
-  server.py:
-    e: Handler,_application_version,_twin_status,evolution_authority_status,_current_external_integrity,_integrity_repair_plan,_json_bytes,_context_registries,_unpack_dsl,_ifuri_analyze_context,_ifuri_compile_source,_twin_payload,_bootstrap_twin,_scan_sources,_update_twin,_plan_twin,main
-    Handler(BaseHTTPRequestHandler): log_message(1),_send(3),_body(0),do_GET(0),do_POST(0)
-    _application_version(root)
-    _twin_status()
-    evolution_authority_status()
-    _current_external_integrity()
-    _integrity_repair_plan(body)
-    _json_bytes(value)
-    _context_registries(context_markdown)
-    _unpack_dsl(reply)
-    _ifuri_analyze_context(body)
-    _ifuri_compile_source(text)
-    _twin_payload(markdown)
-    _bootstrap_twin(body)
-    _scan_sources()
-    _update_twin(body)
-    _plan_twin()
-    main()
+  onlydsl/dsl/parameter_contract.py:
+    e: ParameterContract,ParameterValidation,ParameterContractDocument,_parse_parameter_fields,_parse_range,_parse_allowed,_parse_parameter,parse_parameter_contracts,render_parameter_contracts
+    ParameterContract:
+    ParameterValidation:
+    ParameterContractDocument: validate(0)
+    _parse_parameter_fields(lines;index)
+    _parse_range(fields)
+    _parse_allowed(fields)
+    _parse_parameter(lines;index)
+    parse_parameter_contracts(markdown)
+    render_parameter_contracts(document)
+  onlydsl/ssot/candidate.py:
+    e: _candidate_from_dict,load_candidate,save_candidate,create_candidate,validate_candidate
+    _candidate_from_dict(value)
+    load_candidate(directory)
+    save_candidate(directory;value)
+    create_candidate(candidates_root;current_tree)
+    validate_candidate(directory)
   source_ingest.py:
     e: SourceIngestError,MarkdownDocument,SourceIndex,_q,_sid,_normalize_text,parse_markdown,build_source_index,validate_sourceindex_markdown,extract_source_refs
     SourceIngestError(ValueError):
     MarkdownDocument:
-    SourceIndex: to_markdown(0),source_refs(0)
+    SourceIndex: to_markdown(0),envelope(0),source_refs(0)
     _q(value)
     _sid(path;index)
     _normalize_text(text)
@@ -250,19 +179,95 @@ D:
 Canonical shape:
   ifu...
     canonicalize(raw)
-  onlydsl/dsl/assumption.py:
-    e: Assumption,AssumptionDocument,parse_assumptions,render_assumptions,assumptions_from_integrity
-    Assumption:
-    AssumptionDocument: replace_with_evidence(2)
-    parse_assumptions(markdown)
-    render_assumptions(document)
-    assumptions_from_integrity(integrity)
+  onlydsl/dsl/trust.py:
+    e: TrustRole,TrustPolicy,parse_trust_policy,render_trust_policy
+    TrustRole:
+    TrustPolicy: priority_for(2)
+    parse_trust_policy(markdown)
+    render_trust_policy(policy)
+  onlydsl/ssot/writer.py:
+    e: SsotStore
+    SsotStore(SsotReader): __init__(1),initialize(1),create_candidate(0),validate_candidate(1),candidate_diff(1),promote(2),_candidate_directory(1),_history_path(1),_write_append_only(2),_write_json_append_only(2),_validate_approval(1),_promotion_lock(0),_recover_stale_lock(0)
+  contextdsl.py:
+    e: ContextDslError,ContextRecord,ContextDocument,DslContextEvent,ContextCompiler,_ident,_event_code_from_text,_literal,_parse_literal,_infer_type,_parse_legacy_scalar,render_context_dsl,render_context_markdown,extract_contextdsl,_parse_record_field,_parse_policy,_parse_capability,_parse_state,_parse_metric,_parse_record,_parse_context_declaration,parse_context_dsl,validate_context_markdown,compiler_from_payload,_compile_capabilities,_compile_events,_compile_logs,_compile_tool_results
+    ContextDslError(ValueError):
+    ContextRecord:
+    ContextDocument: to_dict(0)
+    DslContextEvent:  # Preferred application/runtime log event: semantic at the sou...
+    ContextCompiler: __init__(4),policy(2),capability(2),state(3),metric(2),record(4),event(1),exception(3),tool_result(3),retrieval(3),memory(3),code_fact(3),database_fact(3),legacy_log(1),to_markdown(0)  # Deterministic application-side compiler. No LLM is called he...
+    _ident(value;fallback)
+    _event_code_from_text(text)
+    _literal(value)
+    _parse_literal(raw)
+    _infer_type(value)
+    _parse_legacy_scalar(raw)
+    render_context_dsl(doc)
+    render_context_markdown(doc)
+    extract_contextdsl(markdown)
+    _parse_record_field(raw;stripped;lineno)
+    _parse_policy(doc;stripped;lineno)
+    _parse_capability(doc;stripped;lineno)
+    _parse_state(doc;stripped;lineno)
+    _parse_metric(doc;stripped;lineno)
+    _parse_record(stripped;lineno)
+    _parse_context_declaration(doc;stripped;lineno)
+    parse_context_dsl(dsl)
+    validate_context_markdown(markdown)
+    compiler_from_payload(payload)
+    _compile_capabilities(compiler;capabilities)
+    _compile_events(compiler;events)
+    _compile_logs(compiler;logs)
+    _compile_tool_results(compiler;results)
   aql.py:
     e: AqlError,AqlDecision,AqlContract,operation_for_path
     AqlError(ValueError):
     AqlDecision:
     AqlContract: __init__(3),parse(1),from_file(1),_matches(1),decide(3),require(3),require_secret_rotation(2),public_status(0)  # Small compatible reader for Subactor's canonical aql:contrac...
     operation_for_path(path)
+  patchdsl.py:
+    e: PatchDslError,PatchChange,PatchDocument,_json_string,_parse_change,parse_patchdsl,_count_diff_lines,_validate_change,validate_patch_policy,validate_patch_markdown
+    PatchDslError(ValueError):
+    PatchChange:
+    PatchDocument:
+    _json_string(raw;label)
+    _parse_change(lines;index)
+    parse_patchdsl(markdown)
+    _count_diff_lines(diff)
+    _validate_change(change;root;allowed_suffixes)
+    validate_patch_policy(doc;workspace)
+    validate_patch_markdown(markdown;workspace)
+  onlydsl/ssot/validation.py:
+    e: _validate_known_dsl,validate_tree,render_validation
+    _validate_known_dsl(path;content)
+    validate_tree(tree)
+    render_validation(candidate_id)
+  server.py:
+    e: Handler,_application_version,_twin_status,evolution_authority_status,_fetch_external_json,_external_document,_external_revision,_current_external_integrity,_integrity_repair_plan,_json_bytes,_context_registries,_unpack_dsl,_ifuri_analyze_context,_ifuri_compile_source,_twin_payload,_bootstrap_twin,_scan_sources,_update_twin,_plan_twin,_compile_context,_record_guidance,_record_incident,_run_intent,_codegen_intent,main
+    Handler(BaseHTTPRequestHandler): log_message(1),_send(3),_body(0),_post_routes(1),do_GET(0),do_POST(0)
+    _application_version(root)
+    _twin_status()
+    evolution_authority_status()
+    _fetch_external_json(base_url;resource)
+    _external_document(documents;name)
+    _external_revision(events)
+    _current_external_integrity()
+    _integrity_repair_plan(body)
+    _json_bytes(value)
+    _context_registries(context_markdown)
+    _unpack_dsl(reply)
+    _ifuri_analyze_context(body)
+    _ifuri_compile_source(text)
+    _twin_payload(markdown)
+    _bootstrap_twin(body)
+    _scan_sources()
+    _update_twin(body)
+    _plan_twin()
+    _compile_context(body)
+    _record_guidance(body)
+    _record_incident(body)
+    _run_intent(body)
+    _codegen_intent(body)
+    main()
   evolution.py:
     e: EvolutionStore,_now,_qid,_q,_parse_event
     EvolutionStore: __init__(1),_write(4),add_guidance(1),add_incident(2),add_diagnostic(2),add_event(2),add_json_record(3),latest_guidance(1),claim_incident(0),finish_incident(1),defer_incident(1),diagnostic_for_incident(1),latest_diagnostics(1),status(0)  # Filesystem queue whose persisted records are complete, typed...
@@ -286,6 +291,55 @@ Canonical shape:
     _demo_update_twin(previous_markdown;source_index_markdown)
     update_twin(previous_markdown;source_index_markdown;backend)
     plan_build(twin_markdown;backend)
+  intentdsl.py:
+    e: IntentDslError,Operation,Rule,Program,extract_intentdsl,_parse_literal,_parse_call,_parse_rule_statement,_parse_program_declaration,parse_dsl,_normalize_expr,_expr_tree,expr_names,eval_expr,_type_ok,_validate_rule_expressions,_validate_rule_runtime_capabilities,validate_program,validate_markdown,run_program,_slug_words,demo_english_to_dsl,_auth_recovery_lines,_generic_demo_lines,_js_literal,_codegen_python,_codegen_javascript_like,_codegen_php,codegen,php_array
+    IntentDslError(ValueError):
+    Operation:
+    Rule:
+    Program: to_dict(0)
+    extract_intentdsl(markdown)
+    _parse_literal(raw)
+    _parse_call(raw)
+    _parse_rule_statement(raw;lineno;rule)
+    _parse_program_declaration(stripped;lineno;program)
+    parse_dsl(dsl)
+    _normalize_expr(expr)
+    _expr_tree(expr)
+    expr_names(expr)
+    eval_expr(expr;env)
+    _type_ok(type_name;value)
+    _validate_rule_expressions(rule;declared;errors)
+    _validate_rule_runtime_capabilities(rule;program;allowed_actions;allowed_events;errors)
+    validate_program(program;action_registry;event_registry)
+    validate_markdown(markdown;action_registry;event_registry)
+    run_program(program;inputs;action_registry;event_registry)
+    _slug_words(text)
+    demo_english_to_dsl(text)
+    _auth_recovery_lines()
+    _generic_demo_lines(text)
+    _js_literal(value)
+    _codegen_python(program)
+    _codegen_javascript_like(program;target)
+    _codegen_php(program)
+    codegen(program;target)
+    php_array(values)
+  onlydsl/dsl/spatial_class.py:
+    e: SpatialClass,SpatialTypeContract,SpatialComponent,SpatialClassDocument,_parse_type,_parse_component,parse_spatial_class,render_spatial_class,spatial_class_from_twin
+    SpatialClass(str,Enum):
+    SpatialTypeContract:
+    SpatialComponent:
+    SpatialClassDocument: classify(1),geometry_subjects(0),required_checks(1)
+    _parse_type(lines;index)
+    _parse_component(line)
+    parse_spatial_class(markdown)
+    render_spatial_class(document)
+    spatial_class_from_twin(twin)
+  onlydsl/ssot/registry.py:
+    e: RegistryEntry,ProjectRegistry,render_registry,parse_registry
+    RegistryEntry:
+    ProjectRegistry: __init__(1),entries(0),register(1)
+    render_registry(entries)
+    parse_registry(text)
   multiruntime/typescript/ifuri.ts:
     e: IfUri,parseIfUri,u,p,toNatsSubject,x
     IfUri:
@@ -305,17 +359,122 @@ Canonical shape:
     toNatsSubject()
     x()
     raw()
+  onlydsl/runtime/integrity.py:
+    e: IntegrityFinding,ProjectIntegrity,_parse_finding,_readiness,parse_project_integrity
+    IntegrityFinding:
+    ProjectIntegrity:
+    _parse_finding(lines;index)
+    _readiness(result;completeness;findings)
+    parse_project_integrity(markdown)
   onlydsl/dsl/evidence_set.py:
     e: EvidenceSet,create_evidence_set,render_evidence_set,parse_evidence_set
     EvidenceSet:
     create_evidence_set(set_id;query_uri;member_uris)
     render_evidence_set(value)
     parse_evidence_set(markdown)
+  onlydsl/dsl/claim.py:
+    e: Claim,ClaimDocument,_parse_claim_fields,_parse_claim,parse_claims,render_claims
+    Claim:
+    ClaimDocument:
+    _parse_claim_fields(lines;index)
+    _parse_claim(claim_id;fields)
+    parse_claims(markdown)
+    render_claims(document)
+  digital_twin.py:
+    e: TwinDslError,TwinNode,TwinCapability,TwinInvariant,TwinEdge,TwinSourceRef,TwinDocument,BuildTask,BuildPlan,_TwinParseState,normalize_intent,intent_fingerprint,_quoted,_json_string,extract_twindsl,_parse_json_text,_parse_twin_evidence,_parse_twin_node_block,_parse_twin_capability_block,_parse_twin_invariant_block,_parse_twin_evolution_block,_parse_twin_source,_parse_twin_scalar,_parse_twin_declaration,_build_twin_document,parse_twindsl,validate_twin,_validate_twin_basics,_validate_twin_capabilities,_validate_twin_edges,_validate_twin_invariants,_validate_twin_sources,_validate_twin_nodes,validate_twin_markdown,validate_twin_update,twin_to_mermaid,_render_twin_nodes,_render_twin_capabilities,_render_twin_edges,demo_bootstrap_twin,_bootstrap_node_lines,_bootstrap_capability_lines,_bootstrap_edges_lines,_bootstrap_invariant_lines,_bootstrap_evolution_lines,render_twin,_render_twin_header,_render_twin_goals,_render_twin_nodes_block,_render_twin_capabilities_block,_render_twin_edges_block,_render_twin_invariants_block,_render_twin_evolution_block,_render_twin_sources_block,_render_twin_questions_block,twindsl_schema,buildplandsl_schema,extract_buildplanddsl,validate_buildplan_markdown,demo_build_plan
+    TwinDslError(ValueError):
+    TwinNode:
+    TwinCapability:
+    TwinInvariant:
+    TwinEdge:
+    TwinSourceRef:
+    TwinDocument:
+    BuildTask:
+    BuildPlan:
+    _TwinParseState:
+    normalize_intent(text)
+    intent_fingerprint(text)
+    _quoted(value)
+    _json_string(raw)
+    extract_twindsl(markdown)
+    _parse_json_text(raw)
+    _parse_twin_evidence(raw)
+    _parse_twin_node_block(lines;index)
+    _parse_twin_capability_block(lines;index)
+    _parse_twin_invariant_block(lines;index)
+    _parse_twin_evolution_block(lines;index)
+    _parse_twin_source(line;lineno)
+    _parse_twin_scalar(state;line)
+    _parse_twin_declaration(state;lines;index)
+    _build_twin_document(state)
+    parse_twindsl(text)
+    validate_twin(doc)
+    _validate_twin_basics(doc;errors)
+    _validate_twin_capabilities(doc;errors)
+    _validate_twin_edges(doc;symbols;errors)
+    _validate_twin_invariants(doc;errors)
+    _validate_twin_sources(doc;errors)
+    _validate_twin_nodes(doc;known_sources;errors)
+    validate_twin_markdown(markdown)
+    validate_twin_update(previous;updated)
+    twin_to_mermaid(doc)
+    _render_twin_nodes(doc)
+    _render_twin_capabilities(doc)
+    _render_twin_edges(doc)
+    demo_bootstrap_twin(user_text)
+    _bootstrap_node_lines()
+    _bootstrap_capability_lines()
+    _bootstrap_edges_lines()
+    _bootstrap_invariant_lines()
+    _bootstrap_evolution_lines()
+    render_twin(doc)
+    _render_twin_header(doc)
+    _render_twin_goals(doc)
+    _render_twin_nodes_block(doc)
+    _render_twin_capabilities_block(doc)
+    _render_twin_edges_block(doc)
+    _render_twin_invariants_block(doc)
+    _render_twin_evolution_block(doc)
+    _render_twin_sources_block(doc)
+    _render_twin_questions_block(doc)
+    twindsl_schema()
+    buildplandsl_schema()
+    extract_buildplanddsl(markdown)
+    validate_buildplan_markdown(markdown;twin)
+    demo_build_plan(doc)
+  onlydsl/dsl/repair_plan.py:
+    e: RepairTask,RepairPlan,_validate_repair_task,validate_repair_plan,render_repair_plan,_parse_repair_task,parse_repair_plan
+    RepairTask:
+    RepairPlan:
+    _validate_repair_task(task;task_ids)
+    validate_repair_plan(plan)
+    render_repair_plan(plan)
+    _parse_repair_task(lines;index)
+    parse_repair_plan(markdown)
+  scripts/startup_testql.py:
+    e: now,wait_for,render_testqldsl,synthetic_failure,verify,failure_summary,write_twin_observation,main
+    now()
+    wait_for(url;timeout)
+    render_testqldsl(run_id;target;result)
+    synthetic_failure(scenario;message)
+    verify(scenario;target)
+    failure_summary(result)
+    write_twin_observation(path;target;result)
+    main()
   multiruntime/php/ifuri.php:
     e: parse_ifuri,canonical_ifuri,nats_subject
     parse_ifuri()
     canonical_ifuri()
     nats_subject()
+  onlydsl/dsl/assumption.py:
+    e: Assumption,AssumptionDocument,_parse_assumption_fields,_parse_assumption,parse_assumptions,render_assumptions,assumptions_from_integrity
+    Assumption:
+    AssumptionDocument: replace_with_evidence(2)
+    _parse_assumption_fields(lines;index)
+    _parse_assumption(assumption_id;fields)
+    parse_assumptions(markdown)
+    render_assumptions(document)
+    assumptions_from_integrity(integrity)
   boundary.py:
     e: LlmBoundaryError,DslBundle,assert_dsl_only,contract_dsl,task_dsl,source_text_dsl,build_source_compile_bundle,build_context_analysis_bundle,build_twin_bootstrap_bundle,build_twin_update_bundle,build_build_plan_bundle,code_dsl,patchdsl_schema,evolution_policy_dsl,authority_dsl,build_autonomous_repair_bundle,build_repair_bundle
     LlmBoundaryError(ValueError):
@@ -342,6 +501,12 @@ Canonical shape:
     plan_integrity_repairs(integrity_markdown)
     execute_repair_cycle(cycle)
     _receipt(cycle;state;operations;testql;eql;closed)
+  diagnostics.py:
+    e: DiagnosticRule,_q,_candidate_paths,diagnose_incident
+    DiagnosticRule:
+    _q(value)
+    _candidate_paths(text)
+    diagnose_incident(incident_markdown;incident_id)
   ifuri_core/envelope.py:
     e: EnvelopeError,MessageKind,EnvelopeView,EnvelopeCodec
     EnvelopeError(ValueError):
@@ -356,12 +521,6 @@ Canonical shape:
     SqliteEventStore: __init__(1),_init_schema(0),current_version(1),append(3),load_stream(2),pending_outbox(1),mark_outbox_published(1),mark_outbox_failed(2),outbox_stats(0),close(0)  # Reference authoritative ES adapter for tests/local POC.
 
 Pos...
-  diagnostics.py:
-    e: DiagnosticRule,_q,_candidate_paths,diagnose_incident
-    DiagnosticRule:
-    _q(value)
-    _candidate_paths(text)
-    diagnose_incident(incident_markdown;incident_id)
   ifuri_core/runtime.py:
     e: RuntimeErrorIfuri,RouteDecision,IfuriRuntime
     RuntimeErrorIfuri(RuntimeError):
@@ -380,20 +539,6 @@ Domain c...
     build_process_envelope()
     complete_envelope(envelope)
     reject_envelope(envelope)
-  ifuri_core/dsl_document.py:
-    e: DslDocumentError,make_dsl_document,validate_dsl_document
-    DslDocumentError(ValueError):
-    make_dsl_document(dsl_type;markdown;schema_version)
-    validate_dsl_document(doc)
-  onlydsl/dsl/common.py:
-    e: ControlDslError,extract_one,json_string,quoted,canonical_hash,list_value,parse_json_list
-    ControlDslError(ValueError):
-    extract_one(markdown;language)
-    json_string(raw;label)
-    quoted(value)
-    canonical_hash(value)
-    list_value(values)
-    parse_json_list(raw;label)
   ifuri_core/llm_gateway.py:
     e: LlmGatewayError,_reply,build_llm_reasoner_handler,_extract_source_payload,build_llm_semantic_handler,build_llm_twin_bootstrap_handler,_extract_bundle_blocks,build_llm_twin_update_handler,build_llm_build_plan_handler,build_llm_patch_handler,gateway_provider_status
     LlmGatewayError(ValueError):
@@ -407,6 +552,31 @@ Domain c...
     build_llm_build_plan_handler(backend)
     build_llm_patch_handler(backend)
     gateway_provider_status(backend)
+  ifuri_core/dsl_document.py:
+    e: DslDocumentError,make_dsl_document,validate_dsl_document
+    DslDocumentError(ValueError):
+    make_dsl_document(dsl_type;markdown;schema_version)
+    validate_dsl_document(doc)
+  onlydsl/cli.py:
+    e: main
+    main()
+  onlydsl/dsl/common.py:
+    e: ControlDslError,extract_one,json_string,quoted,canonical_hash,list_value,parse_json_list
+    ControlDslError(ValueError):
+    extract_one(markdown;language)
+    json_string(raw;label)
+    quoted(value)
+    canonical_hash(value)
+    list_value(values)
+    parse_json_list(raw;label)
+  onlydsl/ssot/reader.py:
+    e: SsotReader
+    SsotReader: __init__(1),manifest(0),verified_manifest(1),status(0),history(0)
+  onlydsl/ssot/diff.py:
+    e: FileChange,calculate_diff,render_diff
+    FileChange:
+    calculate_diff(before;after)
+    render_diff(candidate_id;base_revision;changes)
   twin_store.py:
     e: TwinStoreError,TwinStore
     TwinStoreError(RuntimeError):
@@ -429,21 +599,46 @@ Domain c...
     e: AggregateRoot,AggregateRepository
     AggregateRoot(ABC): __init__(1),apply(1),load_from_history(1),raise_event(1),pull_uncommitted(0)  # Minimal event-sourced aggregate base; domain state changes o...
     AggregateRepository(<ast.Subscript object at 0x7739c5333b10>): __init__(2),load(1),save(1)
+  onlydsl/ssot/io.py:
+    e: atomic_write_bytes,atomic_write_text,atomic_write_json,fsync_directory
+    atomic_write_bytes(path;value)
+    atomic_write_text(path;value)
+    atomic_write_json(path;value)
+    fsync_directory(path)
   examples/dsl_native_logging.py:
     e: build_llm_context
     build_llm_context()
   run.sh:
+  goal.yaml:
   Dockerfile:
+  docker-compose.yml:
   requirements-testql.txt:
   run-tests.sh:
   docker-test.sh:
   requirements.txt:
+  pyproject.toml:
   project.sh:
   ifuri_core/envelope_pb2.py:
   ifuri_core/dsl_pb2.py:
   ifuri_core/__init__.py:
+  SSOT/manifest.dsl:
+  onlydsl/__init__.py:
+  onlydsl/runtime/__init__.py:
+  onlydsl/governance/__init__.py:
   onlydsl/dsl/__init__.py:
+  onlydsl/ssot/__init__.py:
+  onlydsl/ssot/model.py:
+    e: SsotError,SsotConflict,SsotValidationError,SsotManifest,CandidateRevision,ValidationReport,PromotionApproval
+    SsotError(RuntimeError):
+    SsotConflict(SsotError):
+    SsotValidationError(SsotError):
+    SsotManifest:
+    CandidateRevision:
+    ValidationReport:
+    PromotionApproval:
   nats/nats.conf:
+  config/process-packs/project-integrity-closure/registry.v2.json:
+  config/process-packs/live-evolution/operations.v1.oql.json:
   config/process-packs/live-evolution/process.v1.json:
   config/process-packs/live-evolution/recipe.v1.urirun.json:
   config/process-packs/live-evolution/expectations.v1.eql.json:
@@ -452,11 +647,3 @@ Domain c...
   contracts/ifuri/v1/envelope.proto:
   testql/onlydsl-startup.testql.toon.yaml:
   testql/digital-twin-startup.testql.toon.yaml:
-  goal.yaml:
-  docker-compose.yml:
-  pyproject.toml:
-  onlydsl/__init__.py:
-  onlydsl/runtime/__init__.py:
-  onlydsl/governance/__init__.py:
-  config/process-packs/project-integrity-closure/registry.v2.json:
-  config/process-packs/live-evolution/operations.v1.oql.json:

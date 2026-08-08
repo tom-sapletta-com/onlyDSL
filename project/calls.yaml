@@ -1,226 +1,16 @@
 project: /home/tom/github/tom-sapletta-com/onlyDSL
 generated_from: code2llm call graph analysis
 stats:
-  total_nodes: 175
-  total_edges: 234
-  modules_count: 29
+  total_nodes: 299
+  total_edges: 375
+  modules_count: 42
 nodes:
-  ifuri_core.llm_gateway.build_llm_reasoner_handler:
-    name: build_llm_reasoner_handler
-    module: ifuri_core.llm_gateway
-    line: 43
-    cyclomatic_complexity: 1
-    calls_out: 11
-    calls_in: 0
-  onlydsl.runtime.repair_controller.RepairCycle.to_dict:
-    name: to_dict
-    module: onlydsl.runtime.repair_controller
-    line: 23
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 0
-  server._twin_payload:
-    name: _twin_payload
-    module: server
-    line: 222
-    cyclomatic_complexity: 5
-    calls_out: 8
-    calls_in: 3
-  digital_twin.render_twin:
-    name: render_twin
-    module: digital_twin
-    line: 510
-    cyclomatic_complexity: 22
-    calls_out: 42
-    calls_in: 4
-  patchdsl.validate_patch_policy:
-    name: validate_patch_policy
-    module: patchdsl
-    line: 90
-    cyclomatic_complexity: 22
-    calls_out: 26
-    calls_in: 1
-  ifuri_core.transport.NatsJetStream.publish:
-    name: publish
-    module: ifuri_core.transport
-    line: 285
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 0
-  llm_client.bootstrap_twin:
-    name: bootstrap_twin
-    module: llm_client
-    line: 325
-    cyclomatic_complexity: 7
-    calls_out: 28
-    calls_in: 1
-  onlydsl.governance.authority_projection.project_authority:
-    name: project_authority
-    module: onlydsl.governance.authority_projection
-    line: 20
-    cyclomatic_complexity: 2
+  intentdsl._validate_rule_expressions:
+    name: _validate_rule_expressions
+    module: intentdsl
+    line: 234
+    cyclomatic_complexity: 6
     calls_out: 5
-    calls_in: 1
-  ifuri_core.transport.NatsTransport.serve_capability:
-    name: serve_capability
-    module: ifuri_core.transport
-    line: 351
-    cyclomatic_complexity: 1
-    calls_out: 19
-    calls_in: 0
-  digital_twin.validate_twin_markdown:
-    name: validate_twin_markdown
-    module: digital_twin
-    line: 370
-    cyclomatic_complexity: 2
-    calls_out: 6
-    calls_in: 8
-  server._application_version:
-    name: _application_version
-    module: server
-    line: 67
-    cyclomatic_complexity: 3
-    calls_out: 2
-    calls_in: 3
-  onlydsl.dsl.common.list_value:
-    name: list_value
-    module: onlydsl.dsl.common
-    line: 45
-    cyclomatic_complexity: 2
-    calls_out: 2
-    calls_in: 3
-  onlydsl.runtime.repair_controller.execute_repair_cycle:
-    name: execute_repair_cycle
-    module: onlydsl.runtime.repair_controller
-    line: 71
-    cyclomatic_complexity: 8
-    calls_out: 11
-    calls_in: 0
-  source_ingest.validate_sourceindex_markdown:
-    name: validate_sourceindex_markdown
-    module: source_ingest
-    line: 188
-    cyclomatic_complexity: 12
-    calls_out: 18
-    calls_in: 4
-  intentdsl.demo_english_to_dsl:
-    name: demo_english_to_dsl
-    module: intentdsl
-    line: 388
-    cyclomatic_complexity: 8
-    calls_out: 6
-    calls_in: 1
-  onlydsl.dsl.repair_plan.parse_repair_plan:
-    name: parse_repair_plan
-    module: onlydsl.dsl.repair_plan
-    line: 82
-    cyclomatic_complexity: 15
-    calls_out: 36
-    calls_in: 0
-  intentdsl.extract_intentdsl:
-    name: extract_intentdsl
-    module: intentdsl
-    line: 45
-    cyclomatic_complexity: 3
-    calls_out: 7
-    calls_in: 4
-  intentdsl.expr_names:
-    name: expr_names
-    module: intentdsl
-    line: 203
-    cyclomatic_complexity: 4
-    calls_out: 3
-    calls_in: 2
-  digital_twin.twin_to_mermaid:
-    name: twin_to_mermaid
-    module: digital_twin
-    line: 403
-    cyclomatic_complexity: 5
-    calls_out: 11
-    calls_in: 1
-  ifuri_core.llm_gateway.build_llm_twin_update_handler:
-    name: build_llm_twin_update_handler
-    module: ifuri_core.llm_gateway
-    line: 119
-    cyclomatic_complexity: 1
-    calls_out: 12
-    calls_in: 0
-  llm_client.analyze_context:
-    name: analyze_context
-    module: llm_client
-    line: 310
-    cyclomatic_complexity: 3
-    calls_out: 5
-    calls_in: 1
-  ifuri_core.manifest._validate_capability:
-    name: _validate_capability
-    module: ifuri_core.manifest
-    line: 222
-    cyclomatic_complexity: 7
-    calls_out: 13
-    calls_in: 1
-  ifuri_core.transport.NatsWireClient.subscribe:
-    name: subscribe
-    module: ifuri_core.transport
-    line: 138
-    cyclomatic_complexity: 3
-    calls_out: 8
-    calls_in: 0
-  boundary.build_context_analysis_bundle:
-    name: build_context_analysis_bundle
-    module: boundary
-    line: 101
-    cyclomatic_complexity: 1
-    calls_out: 6
-    calls_in: 2
-  multiruntime.typescript.ifuri.toNatsSubject:
-    name: toNatsSubject
-    module: multiruntime.typescript.ifuri
-    line: 15
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 0
-  onlydsl.dsl.build_plan.parse_bound_build_plan:
-    name: parse_bound_build_plan
-    module: onlydsl.dsl.build_plan
-    line: 37
-    cyclomatic_complexity: 32
-    calls_out: 60
-    calls_in: 1
-  multiruntime.php.ifuri.canonical_ifuri:
-    name: canonical_ifuri
-    module: multiruntime.php.ifuri
-    line: 16
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 0
-  onlydsl.dsl.build_plan.semantic_twin_hash:
-    name: semantic_twin_hash
-    module: onlydsl.dsl.build_plan
-    line: 33
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 3
-  ifuri_core.dsl_document.make_dsl_document:
-    name: make_dsl_document
-    module: ifuri_core.dsl_document
-    line: 18
-    cyclomatic_complexity: 2
-    calls_out: 9
-    calls_in: 6
-  ifuri_core.llm_gateway.build_llm_build_plan_handler:
-    name: build_llm_build_plan_handler
-    module: ifuri_core.llm_gateway
-    line: 139
-    cyclomatic_complexity: 1
-    calls_out: 14
-    calls_in: 0
-  boundary.code_dsl:
-    name: code_dsl
-    module: boundary
-    line: 144
-    cyclomatic_complexity: 2
-    calls_out: 7
     calls_in: 1
   ifuri_core.transport.NatsWireClient.publish:
     name: publish
@@ -229,40 +19,950 @@ nodes:
     cyclomatic_complexity: 2
     calls_out: 7
     calls_in: 0
-  contextdsl.ContextCompiler.__init__:
-    name: __init__
-    module: contextdsl
-    line: 141
+  onlydsl.ssot.writer.SsotStore._promotion_lock:
+    name: _promotion_lock
+    module: onlydsl.ssot.writer
+    line: 191
+    cyclomatic_complexity: 3
+    calls_out: 10
+    calls_in: 0
+  llm_client.analyze_context:
+    name: analyze_context
+    module: llm_client
+    line: 310
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 1
+  ifuri_core.dsl_document.make_dsl_document:
+    name: make_dsl_document
+    module: ifuri_core.dsl_document
+    line: 18
     cyclomatic_complexity: 2
     calls_out: 9
+    calls_in: 6
+  digital_twin._render_twin_nodes:
+    name: _render_twin_nodes
+    module: digital_twin
+    line: 483
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 1
+  governance.build_process_envelope:
+    name: build_process_envelope
+    module: governance
+    line: 36
+    cyclomatic_complexity: 5
+    calls_out: 7
+    calls_in: 0
+  server._record_incident:
+    name: _record_incident
+    module: server
+    line: 349
+    cyclomatic_complexity: 2
+    calls_out: 15
+    calls_in: 1
+  evolution._parse_event:
+    name: _parse_event
+    module: evolution
+    line: 31
+    cyclomatic_complexity: 8
+    calls_out: 11
+    calls_in: 1
+  onlydsl.ssot.manifest.calculate_section_hashes:
+    name: calculate_section_hashes
+    module: onlydsl.ssot.manifest
+    line: 52
+    cyclomatic_complexity: 4
+    calls_out: 10
+    calls_in: 3
+  source_ingest.parse_markdown:
+    name: parse_markdown
+    module: source_ingest
+    line: 89
+    cyclomatic_complexity: 16
+    calls_out: 59
+    calls_in: 1
+  server._plan_twin:
+    name: _plan_twin
+    module: server
+    line: 316
+    cyclomatic_complexity: 1
+    calls_out: 11
+    calls_in: 0
+  onlydsl.ssot.candidate.save_candidate:
+    name: save_candidate
+    module: onlydsl.ssot.candidate
+    line: 40
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 3
+  digital_twin.validate_twin_markdown:
+    name: validate_twin_markdown
+    module: digital_twin
+    line: 442
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 9
+  onlydsl.ssot.cli._json:
+    name: _json
+    module: onlydsl.ssot.cli
+    line: 25
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 10
+  contextdsl.render_context_markdown:
+    name: render_context_markdown
+    module: contextdsl
+    line: 280
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  contextdsl.render_context_dsl:
+    name: render_context_dsl
+    module: contextdsl
+    line: 253
+    cyclomatic_complexity: 9
+    calls_out: 35
+    calls_in: 1
+  ifuri_core.transport.NatsJetStream.publish:
+    name: publish
+    module: ifuri_core.transport
+    line: 285
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 0
+  source_ingest.validate_sourceindex_markdown:
+    name: validate_sourceindex_markdown
+    module: source_ingest
+    line: 197
+    cyclomatic_complexity: 12
+    calls_out: 18
+    calls_in: 5
+  patchdsl._validate_change:
+    name: _validate_change
+    module: patchdsl
+    line: 104
+    cyclomatic_complexity: 14
+    calls_out: 15
+    calls_in: 1
+  llm_client._demo_update_twin:
+    name: _demo_update_twin
+    module: llm_client
+    line: 370
+    cyclomatic_complexity: 11
+    calls_out: 11
+    calls_in: 1
+  boundary.build_source_compile_bundle:
+    name: build_source_compile_bundle
+    module: boundary
+    line: 96
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 1
+  intentdsl._parse_program_declaration:
+    name: _parse_program_declaration
+    module: intentdsl
+    line: 121
+    cyclomatic_complexity: 14
+    calls_out: 35
+    calls_in: 1
+  onlydsl.runtime.repair_controller._receipt:
+    name: _receipt
+    module: onlydsl.runtime.repair_controller
+    line: 90
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 2
+  llm_client.update_twin:
+    name: update_twin
+    module: llm_client
+    line: 398
+    cyclomatic_complexity: 14
+    calls_out: 39
+    calls_in: 1
+  intentdsl.run_program:
+    name: run_program
+    module: intentdsl
+    line: 322
+    cyclomatic_complexity: 14
+    calls_out: 30
+    calls_in: 2
+  onlydsl.dsl.repair_plan.render_repair_plan:
+    name: render_repair_plan
+    module: onlydsl.dsl.repair_plan
+    line: 72
+    cyclomatic_complexity: 3
+    calls_out: 11
+    calls_in: 1
+  digital_twin._render_twin_invariants_block:
+    name: _render_twin_invariants_block
+    module: digital_twin
+    line: 690
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 1
+  server._record_guidance:
+    name: _record_guidance
+    module: server
+    line: 342
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  digital_twin._render_twin_questions_block:
+    name: _render_twin_questions_block
+    module: digital_twin
+    line: 719
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 1
+  digital_twin._render_twin_header:
+    name: _render_twin_header
+    module: digital_twin
+    line: 641
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  ifuri_core.transport._validate_nats_subject:
+    name: _validate_nats_subject
+    module: ifuri_core.transport
+    line: 428
+    cyclomatic_complexity: 7
+    calls_out: 4
+    calls_in: 3
+  onlydsl.ssot.candidate._candidate_from_dict:
+    name: _candidate_from_dict
+    module: onlydsl.ssot.candidate
+    line: 25
+    cyclomatic_complexity: 3
+    calls_out: 13
+    calls_in: 1
+  onlydsl.ssot.cli.main:
+    name: main
+    module: onlydsl.ssot.cli
+    line: 90
+    cyclomatic_complexity: 23
+    calls_out: 62
+    calls_in: 0
+  contextdsl.ContextCompiler.to_markdown:
+    name: to_markdown
+    module: contextdsl
+    line: 249
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  contextdsl._compile_capabilities:
+    name: _compile_capabilities
+    module: contextdsl
+    line: 437
+    cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 1
+  twin_store.TwinStore.load:
+    name: load
+    module: twin_store
+    line: 36
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 0
+  ifuri_core.llm_gateway.build_llm_build_plan_handler:
+    name: build_llm_build_plan_handler
+    module: ifuri_core.llm_gateway
+    line: 139
+    cyclomatic_complexity: 1
+    calls_out: 14
+    calls_in: 0
+  onlydsl.dsl.parameter_contract._parse_parameter:
+    name: _parse_parameter
+    module: onlydsl.dsl.parameter_contract
+    line: 106
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 1
+  digital_twin._render_twin_goals:
+    name: _render_twin_goals
+    module: digital_twin
+    line: 651
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 1
+  patchdsl.parse_patchdsl:
+    name: parse_patchdsl
+    module: patchdsl
+    line: 67
+    cyclomatic_complexity: 15
+    calls_out: 28
+    calls_in: 1
+  server._context_registries:
+    name: _context_registries
+    module: server
+    line: 189
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 1
+  digital_twin.twin_to_mermaid:
+    name: twin_to_mermaid
+    module: digital_twin
+    line: 475
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  digital_twin._parse_twin_evolution_block:
+    name: _parse_twin_evolution_block
+    module: digital_twin
+    line: 137
+    cyclomatic_complexity: 8
+    calls_out: 16
+    calls_in: 1
+  onlydsl.dsl.common.extract_one:
+    name: extract_one
+    module: onlydsl.dsl.common
+    line: 17
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 9
+  source_ingest._sid:
+    name: _sid
+    module: source_ingest
+    line: 21
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 1
+  digital_twin._build_twin_document:
+    name: _build_twin_document
+    module: digital_twin
+    line: 314
+    cyclomatic_complexity: 5
+    calls_out: 2
+    calls_in: 1
+  evolution.EvolutionStore._write:
+    name: _write
+    module: evolution
+    line: 81
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 0
+  onlydsl.dsl.claim._parse_claim_fields:
+    name: _parse_claim_fields
+    module: onlydsl.dsl.claim
+    line: 45
+    cyclomatic_complexity: 5
+    calls_out: 3
+    calls_in: 1
+  intentdsl._codegen_python:
+    name: _codegen_python
+    module: intentdsl
+    line: 467
+    cyclomatic_complexity: 11
+    calls_out: 15
+    calls_in: 1
+  onlydsl.ssot.cli.build_parser:
+    name: build_parser
+    module: onlydsl.ssot.cli
+    line: 29
+    cyclomatic_complexity: 2
+    calls_out: 48
+    calls_in: 1
+  onlydsl.ssot.manifest.digest_bytes:
+    name: digest_bytes
+    module: onlydsl.ssot.manifest
+    line: 24
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  llm_client.plan_build:
+    name: plan_build
+    module: llm_client
+    line: 469
+    cyclomatic_complexity: 4
+    calls_out: 22
+    calls_in: 1
+  server._integrity_repair_plan:
+    name: _integrity_repair_plan
+    module: server
+    line: 146
+    cyclomatic_complexity: 5
+    calls_out: 22
+    calls_in: 1
+  digital_twin._render_twin_nodes_block:
+    name: _render_twin_nodes_block
+    module: digital_twin
+    line: 655
+    cyclomatic_complexity: 4
+    calls_out: 7
+    calls_in: 1
+  digital_twin._validate_twin_edges:
+    name: _validate_twin_edges
+    module: digital_twin
+    line: 412
+    cyclomatic_complexity: 4
+    calls_out: 2
+    calls_in: 1
+  aql.operation_for_path:
+    name: operation_for_path
+    module: aql
+    line: 147
+    cyclomatic_complexity: 6
+    calls_out: 3
+    calls_in: 3
+  ifuri_core.llm_gateway._extract_bundle_blocks:
+    name: _extract_bundle_blocks
+    module: ifuri_core.llm_gateway
+    line: 108
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 1
+  governance.reject_envelope:
+    name: reject_envelope
+    module: governance
+    line: 83
+    cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 0
+  ifuri_core.manifest._validate_capability:
+    name: _validate_capability
+    module: ifuri_core.manifest
+    line: 222
+    cyclomatic_complexity: 7
+    calls_out: 13
+    calls_in: 1
+  onlydsl.dsl.build_plan.semantic_twin_hash:
+    name: semantic_twin_hash
+    module: onlydsl.dsl.build_plan
+    line: 33
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 3
+  digital_twin.demo_bootstrap_twin:
+    name: demo_bootstrap_twin
+    module: digital_twin
+    line: 508
+    cyclomatic_complexity: 2
+    calls_out: 20
+    calls_in: 1
+  ifuri_core.llm_gateway.build_llm_semantic_handler:
+    name: build_llm_semantic_handler
+    module: ifuri_core.llm_gateway
+    line: 75
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 0
+  digital_twin._render_twin_sources_block:
+    name: _render_twin_sources_block
+    module: digital_twin
+    line: 709
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  ifuri_core.transport.NatsTransport.serve_capability:
+    name: serve_capability
+    module: ifuri_core.transport
+    line: 351
+    cyclomatic_complexity: 1
+    calls_out: 19
+    calls_in: 0
+  ifuri_core.llm_gateway.gateway_provider_status:
+    name: gateway_provider_status
+    module: ifuri_core.llm_gateway
+    line: 201
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 5
+  llm_client.propose_code_patch:
+    name: propose_code_patch
+    module: llm_client
+    line: 240
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 1
+  contextdsl.ContextCompiler.record:
+    name: record
+    module: contextdsl
+    line: 177
+    cyclomatic_complexity: 4
+    calls_out: 9
+    calls_in: 0
+  scripts.startup_testql.verify:
+    name: verify
+    module: scripts.startup_testql
+    line: 85
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 1
+  server.Handler._send:
+    name: _send
+    module: server
+    line: 375
+    cyclomatic_complexity: 4
+    calls_out: 12
+    calls_in: 0
+  digital_twin.intent_fingerprint:
+    name: intent_fingerprint
+    module: digital_twin
+    line: 24
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 3
+  digital_twin._bootstrap_invariant_lines:
+    name: _bootstrap_invariant_lines
+    module: digital_twin
+    line: 601
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  digital_twin.validate_twin:
+    name: validate_twin
+    module: digital_twin
+    line: 360
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 2
+  governance.complete_envelope:
+    name: complete_envelope
+    module: governance
+    line: 68
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  ifuri_core.transport.NatsWireClient.subscribe:
+    name: subscribe
+    module: ifuri_core.transport
+    line: 138
+    cyclomatic_complexity: 3
+    calls_out: 8
+    calls_in: 0
+  boundary.DslBundle.validate_for_llm:
+    name: validate_for_llm
+    module: boundary
+    line: 26
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  ifuri_core.llm_gateway._extract_source_payload:
+    name: _extract_source_payload
+    module: ifuri_core.llm_gateway
+    line: 61
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 2
+  digital_twin._quoted:
+    name: _quoted
+    module: digital_twin
+    line: 29
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 39
+  intentdsl._parse_rule_statement:
+    name: _parse_rule_statement
+    module: intentdsl
+    line: 99
+    cyclomatic_complexity: 8
+    calls_out: 25
+    calls_in: 1
+  onlydsl.ssot.manifest.utc_now:
+    name: utc_now
+    module: onlydsl.ssot.manifest
+    line: 20
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 3
+  onlydsl.dsl.parameter_contract._parse_allowed:
+    name: _parse_allowed
+    module: onlydsl.dsl.parameter_contract
+    line: 97
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  ifuri_core.llm_gateway._reply:
+    name: _reply
+    module: ifuri_core.llm_gateway
+    line: 24
+    cyclomatic_complexity: 2
+    calls_out: 14
+    calls_in: 6
+  onlydsl.ssot.io.atomic_write_bytes:
+    name: atomic_write_bytes
+    module: onlydsl.ssot.io
+    line: 9
+    cyclomatic_complexity: 1
+    calls_out: 10
+    calls_in: 1
+  patchdsl._parse_change:
+    name: _parse_change
+    module: patchdsl
+    line: 43
+    cyclomatic_complexity: 10
+    calls_out: 22
+    calls_in: 1
+  evolution._q:
+    name: _q
+    module: evolution
+    line: 27
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 15
+  onlydsl.ssot.writer.SsotStore._write_append_only:
+    name: _write_append_only
+    module: onlydsl.ssot.writer
+    line: 167
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  onlydsl.governance.authority_projection.project_authority:
+    name: project_authority
+    module: onlydsl.governance.authority_projection
+    line: 20
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 1
+  ifuri_core.transport.NatsJetStream.stream_info:
+    name: stream_info
+    module: ifuri_core.transport
+    line: 281
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 0
+  server._twin_payload:
+    name: _twin_payload
+    module: server
+    line: 236
+    cyclomatic_complexity: 5
+    calls_out: 8
+    calls_in: 3
+  server.main:
+    name: main
+    module: server
+    line: 524
+    cyclomatic_complexity: 3
+    calls_out: 10
+    calls_in: 0
+  intentdsl._auth_recovery_lines:
+    name: _auth_recovery_lines
+    module: intentdsl
+    line: 427
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 1
+  scripts.startup_testql.main:
+    name: main
+    module: scripts.startup_testql
+    line: 125
+    cyclomatic_complexity: 10
+    calls_out: 42
+    calls_in: 0
+  server._fetch_external_json:
+    name: _fetch_external_json
+    module: server
+    line: 96
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 3
+  diagnostics._candidate_paths:
+    name: _candidate_paths
+    module: diagnostics
+    line: 243
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 1
+  ifuri_core.manifest._parse_pattern:
+    name: _parse_pattern
+    module: ifuri_core.manifest
+    line: 195
+    cyclomatic_complexity: 18
+    calls_out: 19
+    calls_in: 2
+  intentdsl._codegen_javascript_like:
+    name: _codegen_javascript_like
+    module: intentdsl
+    line: 493
+    cyclomatic_complexity: 13
+    calls_out: 29
+    calls_in: 1
+  source_ingest.build_source_index:
+    name: build_source_index
+    module: source_ingest
+    line: 152
+    cyclomatic_complexity: 9
+    calls_out: 35
+    calls_in: 2
+  onlydsl.ssot.reader.SsotReader.verified_manifest:
+    name: verified_manifest
+    module: onlydsl.ssot.reader
+    line: 20
+    cyclomatic_complexity: 5
+    calls_out: 13
+    calls_in: 0
+  intentdsl.parse_dsl:
+    name: parse_dsl
+    module: intentdsl
+    line: 158
+    cyclomatic_complexity: 10
+    calls_out: 14
+    calls_in: 4
+  contextdsl.ContextCompiler.state:
+    name: state
+    module: contextdsl
+    line: 164
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 0
+  server._ifuri_compile_source:
+    name: _ifuri_compile_source
+    module: server
+    line: 229
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 2
+  llm_client.bootstrap_twin:
+    name: bootstrap_twin
+    module: llm_client
+    line: 325
+    cyclomatic_complexity: 7
+    calls_out: 28
+    calls_in: 1
+  patchdsl.validate_patch_policy:
+    name: validate_patch_policy
+    module: patchdsl
+    line: 140
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 1
+  contextdsl._parse_literal:
+    name: _parse_literal
+    module: contextdsl
+    line: 99
+    cyclomatic_complexity: 7
+    calls_out: 9
+    calls_in: 4
+  evolution.EvolutionStore.add_event:
+    name: add_event
+    module: evolution
+    line: 164
+    cyclomatic_complexity: 3
+    calls_out: 13
+    calls_in: 0
+  server._compile_context:
+    name: _compile_context
+    module: server
+    line: 337
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 1
+  onlydsl.runtime.repair_controller.plan_integrity_repairs:
+    name: plan_integrity_repairs
+    module: onlydsl.runtime.repair_controller
+    line: 39
+    cyclomatic_complexity: 8
+    calls_out: 18
+    calls_in: 1
+  onlydsl.ssot.io.atomic_write_text:
+    name: atomic_write_text
+    module: onlydsl.ssot.io
+    line: 20
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 13
+  digital_twin.validate_twin_update:
+    name: validate_twin_update
+    module: digital_twin
+    line: 459
+    cyclomatic_complexity: 7
+    calls_out: 6
+    calls_in: 2
+  onlydsl.ssot.manifest.collect_file_hashes:
+    name: collect_file_hashes
+    module: onlydsl.ssot.manifest
+    line: 39
+    cyclomatic_complexity: 5
+    calls_out: 12
+    calls_in: 5
+  onlydsl.runtime.integrity.parse_project_integrity:
+    name: parse_project_integrity
+    module: onlydsl.runtime.integrity
+    line: 62
+    cyclomatic_complexity: 12
+    calls_out: 21
+    calls_in: 4
+  twin_store.TwinStore.save:
+    name: save
+    module: twin_store
+    line: 39
+    cyclomatic_complexity: 4
+    calls_out: 15
+    calls_in: 0
+  server.Handler._post_routes:
+    name: _post_routes
+    module: server
+    line: 401
+    cyclomatic_complexity: 1
+    calls_out: 19
+    calls_in: 0
+  evolution._qid:
+    name: _qid
+    module: evolution
+    line: 22
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 10
+  onlydsl.dsl.assumption._parse_assumption:
+    name: _parse_assumption
+    module: onlydsl.dsl.assumption
+    line: 53
+    cyclomatic_complexity: 4
+    calls_out: 13
+    calls_in: 1
+  onlydsl.dsl.evidence_set.parse_evidence_set:
+    name: parse_evidence_set
+    module: onlydsl.dsl.evidence_set
+    line: 34
+    cyclomatic_complexity: 12
+    calls_out: 19
+    calls_in: 1
+  onlydsl.ssot.writer.SsotStore._write_json_append_only:
+    name: _write_json_append_only
+    module: onlydsl.ssot.writer
+    line: 174
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 0
+  server._run_intent:
+    name: _run_intent
+    module: server
+    line: 358
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 1
+  onlydsl.dsl.claim._parse_claim:
+    name: _parse_claim
+    module: onlydsl.dsl.claim
+    line: 57
+    cyclomatic_complexity: 12
+    calls_out: 23
+    calls_in: 1
+  intentdsl._generic_demo_lines:
+    name: _generic_demo_lines
+    module: intentdsl
+    line: 448
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 1
+  intentdsl._codegen_php:
+    name: _codegen_php
+    module: intentdsl
+    line: 525
+    cyclomatic_complexity: 14
+    calls_out: 34
+    calls_in: 1
+  onlydsl.dsl.assumption.render_assumptions:
+    name: render_assumptions
+    module: onlydsl.dsl.assumption
+    line: 88
+    cyclomatic_complexity: 2
+    calls_out: 8
+    calls_in: 2
+  onlydsl.ssot.writer.SsotStore.promote:
+    name: promote
+    module: onlydsl.ssot.writer
+    line: 83
+    cyclomatic_complexity: 16
+    calls_out: 48
+    calls_in: 0
+  server._current_external_integrity:
+    name: _current_external_integrity
+    module: server
+    line: 116
+    cyclomatic_complexity: 9
+    calls_out: 24
+    calls_in: 2
+  boundary.assert_dsl_only:
+    name: assert_dsl_only
+    module: boundary
+    line: 31
+    cyclomatic_complexity: 8
+    calls_out: 16
+    calls_in: 22
+  llm_client.provider_status:
+    name: provider_status
+    module: llm_client
+    line: 170
+    cyclomatic_complexity: 5
+    calls_out: 7
+    calls_in: 1
+  intentdsl.demo_english_to_dsl:
+    name: demo_english_to_dsl
+    module: intentdsl
+    line: 413
+    cyclomatic_complexity: 6
+    calls_out: 5
+    calls_in: 1
+  evolution.EvolutionStore.add_guidance:
+    name: add_guidance
+    module: evolution
+    line: 90
+    cyclomatic_complexity: 2
+    calls_out: 15
+    calls_in: 0
+  multiruntime.php.ifuri.nats_subject:
+    name: nats_subject
+    module: multiruntime.php.ifuri
+    line: 20
+    cyclomatic_complexity: 1
+    calls_out: 1
     calls_in: 0
   intentdsl.validate_markdown:
     name: validate_markdown
     module: intentdsl
-    line: 288
+    line: 307
     cyclomatic_complexity: 2
     calls_out: 4
     calls_in: 3
-  evolution.EvolutionStore.add_diagnostic:
-    name: add_diagnostic
-    module: evolution
-    line: 151
-    cyclomatic_complexity: 1
+  onlydsl.governance.authority_projection.render_authority_projection:
+    name: render_authority_projection
+    module: onlydsl.governance.authority_projection
+    line: 35
+    cyclomatic_complexity: 3
     calls_out: 4
-    calls_in: 0
-  server._ifuri_analyze_context:
-    name: _ifuri_analyze_context
-    module: server
-    line: 187
-    cyclomatic_complexity: 6
-    calls_out: 19
     calls_in: 1
-  boundary.build_twin_bootstrap_bundle:
-    name: build_twin_bootstrap_bundle
-    module: boundary
-    line: 107
+  server._json_bytes:
+    name: _json_bytes
+    module: server
+    line: 185
     cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  digital_twin._validate_twin_capabilities:
+    name: _validate_twin_capabilities
+    module: digital_twin
+    line: 394
+    cyclomatic_complexity: 9
     calls_out: 7
+    calls_in: 1
+  contextdsl.ContextCompiler.tool_result:
+    name: tool_result
+    module: contextdsl
+    line: 199
+    cyclomatic_complexity: 6
+    calls_out: 9
+    calls_in: 0
+  server._application_version:
+    name: _application_version
+    module: server
+    line: 68
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 3
+  digital_twin._render_twin_capabilities_block:
+    name: _render_twin_capabilities_block
+    module: digital_twin
+    line: 667
+    cyclomatic_complexity: 8
+    calls_out: 10
+    calls_in: 1
+  contextdsl._event_code_from_text:
+    name: _event_code_from_text
+    module: contextdsl
+    line: 79
+    cyclomatic_complexity: 4
+    calls_out: 5
     calls_in: 2
   ifuri_core.dsl_document.validate_dsl_document:
     name: validate_dsl_document
@@ -271,41 +971,153 @@ nodes:
     cyclomatic_complexity: 5
     calls_out: 6
     calls_in: 6
-  patchdsl.parse_patchdsl:
-    name: parse_patchdsl
-    module: patchdsl
-    line: 43
-    cyclomatic_complexity: 24
-    calls_out: 49
-    calls_in: 1
-  source_ingest.SourceIndex.to_markdown:
-    name: to_markdown
-    module: source_ingest
-    line: 48
+  intentdsl._parse_call:
+    name: _parse_call
+    module: intentdsl
+    line: 73
+    cyclomatic_complexity: 10
+    calls_out: 12
+    calls_in: 2
+  onlydsl.runtime.integrity._readiness:
+    name: _readiness
+    module: onlydsl.runtime.integrity
+    line: 53
     cyclomatic_complexity: 7
-    calls_out: 15
+    calls_out: 1
+    calls_in: 1
+  onlydsl.ssot.manifest.parse_manifest:
+    name: parse_manifest
+    module: onlydsl.ssot.manifest
+    line: 126
+    cyclomatic_complexity: 21
+    calls_out: 22
+    calls_in: 3
+  evolution.EvolutionStore.status:
+    name: status
+    module: evolution
+    line: 226
+    cyclomatic_complexity: 14
+    calls_out: 35
     calls_in: 0
-  contextdsl._infer_type:
-    name: _infer_type
-    module: contextdsl
-    line: 116
+  digital_twin._render_twin_evolution_block:
+    name: _render_twin_evolution_block
+    module: digital_twin
+    line: 700
+    cyclomatic_complexity: 4
+    calls_out: 7
+    calls_in: 1
+  patchdsl.validate_patch_markdown:
+    name: validate_patch_markdown
+    module: patchdsl
+    line: 160
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 0
+  digital_twin._render_twin_capabilities:
+    name: _render_twin_capabilities
+    module: digital_twin
+    line: 487
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  intentdsl.expr_names:
+    name: expr_names
+    module: intentdsl
+    line: 211
     cyclomatic_complexity: 4
     calls_out: 3
+    calls_in: 2
+  contextdsl._parse_metric:
+    name: _parse_metric
+    module: contextdsl
+    line: 320
+    cyclomatic_complexity: 4
+    calls_out: 8
     calls_in: 1
-  onlydsl.runtime.integrity.parse_project_integrity:
-    name: parse_project_integrity
-    module: onlydsl.runtime.integrity
-    line: 32
-    cyclomatic_complexity: 25
-    calls_out: 34
-    calls_in: 3
-  server.main:
-    name: main
-    module: server
-    line: 512
-    cyclomatic_complexity: 1
+  intentdsl.validate_program:
+    name: validate_program
+    module: intentdsl
+    line: 262
+    cyclomatic_complexity: 14
+    calls_out: 27
+    calls_in: 2
+  digital_twin.parse_twindsl:
+    name: parse_twindsl
+    module: digital_twin
+    line: 328
+    cyclomatic_complexity: 11
+    calls_out: 21
+    calls_in: 12
+  intentdsl._expr_tree:
+    name: _expr_tree
+    module: intentdsl
+    line: 200
+    cyclomatic_complexity: 4
     calls_out: 7
+    calls_in: 2
+  boundary.contract_dsl:
+    name: contract_dsl
+    module: boundary
+    line: 52
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 6
+  onlydsl.dsl.repair_plan._validate_repair_task:
+    name: _validate_repair_task
+    module: onlydsl.dsl.repair_plan
+    line: 42
+    cyclomatic_complexity: 4
+    calls_out: 8
+    calls_in: 1
+  contextdsl.validate_context_markdown:
+    name: validate_context_markdown
+    module: contextdsl
+    line: 404
+    cyclomatic_complexity: 5
+    calls_out: 9
+    calls_in: 3
+  contextdsl.ContextCompiler.policy:
+    name: policy
+    module: contextdsl
+    line: 150
+    cyclomatic_complexity: 1
+    calls_out: 2
     calls_in: 0
+  contextdsl.ContextCompiler.capability:
+    name: capability
+    module: contextdsl
+    line: 154
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  digital_twin._json_string:
+    name: _json_string
+    module: digital_twin
+    line: 33
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  onlydsl.dsl.parameter_contract._parse_range:
+    name: _parse_range
+    module: onlydsl.dsl.parameter_contract
+    line: 82
+    cyclomatic_complexity: 6
+    calls_out: 7
+    calls_in: 1
+  digital_twin._bootstrap_capability_lines:
+    name: _bootstrap_capability_lines
+    module: digital_twin
+    line: 563
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 1
+  llm_client._provider_config:
+    name: _provider_config
+    module: llm_client
+    line: 74
+    cyclomatic_complexity: 9
+    calls_out: 17
+    calls_in: 2
   llm_client._demo_context_analysis:
     name: _demo_context_analysis
     module: llm_client
@@ -313,55 +1125,286 @@ nodes:
     cyclomatic_complexity: 11
     calls_out: 10
     calls_in: 1
-  llm_client._request_json:
-    name: _request_json
-    module: llm_client
-    line: 51
-    cyclomatic_complexity: 5
-    calls_out: 14
-    calls_in: 1
-  server.evolution_authority_status:
-    name: evolution_authority_status
-    module: server
-    line: 87
+  onlydsl.dsl.repair_plan.validate_repair_plan:
+    name: validate_repair_plan
+    module: onlydsl.dsl.repair_plan
+    line: 54
+    cyclomatic_complexity: 10
+    calls_out: 10
+    calls_in: 2
+  onlydsl.ssot.candidate.validate_candidate:
+    name: validate_candidate
+    module: onlydsl.ssot.candidate
+    line: 100
+    cyclomatic_complexity: 4
+    calls_out: 17
+    calls_in: 0
+  ifuri_core.manifest.CapabilityRegistry.register:
+    name: register
+    module: ifuri_core.manifest
+    line: 81
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  contextdsl._parse_state:
+    name: _parse_state
+    module: contextdsl
+    line: 313
     cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 1
+  intentdsl.codegen:
+    name: codegen
+    module: intentdsl
+    line: 564
+    cyclomatic_complexity: 4
     calls_out: 5
     calls_in: 1
-  multiruntime.javascript.ifuri.parseIfUri:
-    name: parseIfUri
-    module: multiruntime.javascript.ifuri
-    line: 6
-    cyclomatic_complexity: 13
+  onlydsl.ssot.registry.render_registry:
+    name: render_registry
+    module: onlydsl.ssot.registry
+    line: 22
+    cyclomatic_complexity: 2
     calls_out: 6
+    calls_in: 1
+  onlydsl.ssot.registry.ProjectRegistry.entries:
+    name: entries
+    module: onlydsl.ssot.registry
+    line: 63
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 0
+  evolution.EvolutionStore.add_diagnostic:
+    name: add_diagnostic
+    module: evolution
+    line: 151
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 0
+  intentdsl._normalize_expr:
+    name: _normalize_expr
+    module: intentdsl
+    line: 196
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 4
+  ifuri_core.llm_gateway.build_llm_patch_handler:
+    name: build_llm_patch_handler
+    module: ifuri_core.llm_gateway
+    line: 157
+    cyclomatic_complexity: 1
+    calls_out: 28
+    calls_in: 0
+  onlydsl.ssot.manifest.render_manifest:
+    name: render_manifest
+    module: onlydsl.ssot.manifest
+    line: 107
+    cyclomatic_complexity: 6
+    calls_out: 17
     calls_in: 2
-  boundary.build_autonomous_repair_bundle:
-    name: build_autonomous_repair_bundle
-    module: boundary
-    line: 205
-    cyclomatic_complexity: 7
+  scripts.startup_testql.synthetic_failure:
+    name: synthetic_failure
+    module: scripts.startup_testql
+    line: 59
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 2
+  server._unpack_dsl:
+    name: _unpack_dsl
+    module: server
+    line: 195
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 5
+  digital_twin._validate_twin_nodes:
+    name: _validate_twin_nodes
+    module: digital_twin
+    line: 432
+    cyclomatic_complexity: 5
+    calls_out: 3
+    calls_in: 1
+  digital_twin._parse_twin_node_block:
+    name: _parse_twin_node_block
+    module: digital_twin
+    line: 64
+    cyclomatic_complexity: 9
+    calls_out: 17
+    calls_in: 1
+  digital_twin._parse_twin_capability_block:
+    name: _parse_twin_capability_block
+    module: digital_twin
+    line: 87
+    cyclomatic_complexity: 12
+    calls_out: 27
+    calls_in: 1
+  ifuri_core.transport.capability_pattern_to_subject:
+    name: capability_pattern_to_subject
+    module: ifuri_core.transport
+    line: 412
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 1
+  onlydsl.ssot.registry.parse_registry:
+    name: parse_registry
+    module: onlydsl.ssot.registry
+    line: 35
+    cyclomatic_complexity: 13
+    calls_out: 16
+    calls_in: 1
+  onlydsl.dsl.assumption.parse_assumptions:
+    name: parse_assumptions
+    module: onlydsl.dsl.assumption
+    line: 69
+    cyclomatic_complexity: 9
     calls_out: 15
     calls_in: 1
-  digital_twin.parse_twindsl:
-    name: parse_twindsl
+  source_ingest.extract_source_refs:
+    name: extract_source_refs
+    module: source_ingest
+    line: 213
+    cyclomatic_complexity: 9
+    calls_out: 16
+    calls_in: 3
+  contextdsl.ContextCompiler.__init__:
+    name: __init__
+    module: contextdsl
+    line: 142
+    cyclomatic_complexity: 2
+    calls_out: 9
+    calls_in: 0
+  digital_twin.validate_buildplan_markdown:
+    name: validate_buildplan_markdown
     module: digital_twin
-    line: 129
-    cyclomatic_complexity: 68
-    calls_out: 149
-    calls_in: 12
+    line: 800
+    cyclomatic_complexity: 2
+    calls_out: 2
+    calls_in: 4
+  governance.canonical_hash:
+    name: canonical_hash
+    module: governance
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 10
+  onlydsl.dsl.common.json_string:
+    name: json_string
+    module: onlydsl.dsl.common
+    line: 26
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 13
+  scripts.startup_testql.now:
+    name: now
+    module: scripts.startup_testql
+    line: 20
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 2
+  boundary.build_repair_bundle:
+    name: build_repair_bundle
+    module: boundary
+    line: 239
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 1
+  intentdsl.extract_intentdsl:
+    name: extract_intentdsl
+    module: intentdsl
+    line: 45
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 4
+  ifuri_core.llm_gateway.build_llm_twin_bootstrap_handler:
+    name: build_llm_twin_bootstrap_handler
+    module: ifuri_core.llm_gateway
+    line: 92
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 0
+  onlydsl.ssot.io.fsync_directory:
+    name: fsync_directory
+    module: onlydsl.ssot.io
+    line: 28
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 2
+  multiruntime.javascript.ifuri.toNatsSubject:
+    name: toNatsSubject
+    module: multiruntime.javascript.ifuri
+    line: 23
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  onlydsl.dsl.spatial_class.parse_spatial_class:
+    name: parse_spatial_class
+    module: onlydsl.dsl.spatial_class
+    line: 91
+    cyclomatic_complexity: 11
+    calls_out: 19
+    calls_in: 1
+  server._ifuri_analyze_context:
+    name: _ifuri_analyze_context
+    module: server
+    line: 201
+    cyclomatic_complexity: 6
+    calls_out: 19
+    calls_in: 2
+  boundary.source_text_dsl:
+    name: source_text_dsl
+    module: boundary
+    line: 79
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 4
+  contextdsl.extract_contextdsl:
+    name: extract_contextdsl
+    module: contextdsl
+    line: 284
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 3
+  ifuri_core.llm_gateway.build_llm_twin_update_handler:
+    name: build_llm_twin_update_handler
+    module: ifuri_core.llm_gateway
+    line: 119
+    cyclomatic_complexity: 1
+    calls_out: 12
+    calls_in: 0
+  scripts.startup_testql.write_twin_observation:
+    name: write_twin_observation
+    module: scripts.startup_testql
+    line: 106
+    cyclomatic_complexity: 4
+    calls_out: 11
+    calls_in: 1
+  ifuri_core.llm_gateway.build_llm_reasoner_handler:
+    name: build_llm_reasoner_handler
+    module: ifuri_core.llm_gateway
+    line: 43
+    cyclomatic_complexity: 1
+    calls_out: 11
+    calls_in: 0
   contextdsl._ident:
     name: _ident
     module: contextdsl
-    line: 69
+    line: 70
     cyclomatic_complexity: 3
     calls_out: 5
     calls_in: 28
-  llm_client._demo_update_twin:
-    name: _demo_update_twin
-    module: llm_client
-    line: 370
-    cyclomatic_complexity: 11
-    calls_out: 11
+  diagnostics.diagnose_incident:
+    name: diagnose_incident
+    module: diagnostics
+    line: 255
+    cyclomatic_complexity: 7
+    calls_out: 18
     calls_in: 1
+  llm_client._backend_call:
+    name: _backend_call
+    module: llm_client
+    line: 102
+    cyclomatic_complexity: 10
+    calls_out: 18
+    calls_in: 3
   boundary.build_build_plan_bundle:
     name: build_build_plan_bundle
     module: boundary
@@ -372,17 +1415,17 @@ nodes:
   contextdsl.parse_context_dsl:
     name: parse_context_dsl
     module: contextdsl
-    line: 290
-    cyclomatic_complexity: 33
-    calls_out: 73
+    line: 363
+    cyclomatic_complexity: 15
+    calls_out: 20
     calls_in: 3
-  multiruntime.javascript.ifuri.canonical:
-    name: canonical
-    module: multiruntime.javascript.ifuri
-    line: 18
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 1
+  patchdsl._json_string:
+    name: _json_string
+    module: patchdsl
+    line: 33
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 3
   multiruntime.php.ifuri.parse_ifuri:
     name: parse_ifuri
     module: multiruntime.php.ifuri
@@ -390,13 +1433,69 @@ nodes:
     cyclomatic_complexity: 10
     calls_out: 11
     calls_in: 2
-  governance.authorize_patch:
-    name: authorize_patch
-    module: governance
-    line: 26
-    cyclomatic_complexity: 4
-    calls_out: 5
+  onlydsl.ssot.validation._validate_known_dsl:
+    name: _validate_known_dsl
+    module: onlydsl.ssot.validation
+    line: 22
+    cyclomatic_complexity: 15
+    calls_out: 21
+    calls_in: 1
+  onlydsl.dsl.build_plan.parse_bound_build_plan:
+    name: parse_bound_build_plan
+    module: onlydsl.dsl.build_plan
+    line: 83
+    cyclomatic_complexity: 21
+    calls_out: 31
+    calls_in: 1
+  intentdsl._slug_words:
+    name: _slug_words
+    module: intentdsl
+    line: 408
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 1
+  onlydsl.ssot.candidate.create_candidate:
+    name: create_candidate
+    module: onlydsl.ssot.candidate
+    line: 46
+    cyclomatic_complexity: 17
+    calls_out: 50
     calls_in: 0
+  contextdsl._compile_events:
+    name: _compile_events
+    module: contextdsl
+    line: 443
+    cyclomatic_complexity: 4
+    calls_out: 11
+    calls_in: 1
+  patchdsl._count_diff_lines:
+    name: _count_diff_lines
+    module: patchdsl
+    line: 94
+    cyclomatic_complexity: 6
+    calls_out: 5
+    calls_in: 1
+  contextdsl._parse_record_field:
+    name: _parse_record_field
+    module: contextdsl
+    line: 291
+    cyclomatic_complexity: 3
+    calls_out: 6
+    calls_in: 1
+  onlydsl.runtime.repair_controller.RepairCycle.to_dict:
+    name: to_dict
+    module: onlydsl.runtime.repair_controller
+    line: 23
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 0
+  onlydsl.dsl.common.quoted:
+    name: quoted
+    module: onlydsl.dsl.common
+    line: 36
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 9
   digital_twin.normalize_intent:
     name: normalize_intent
     module: digital_twin
@@ -404,76 +1503,13 @@ nodes:
     cyclomatic_complexity: 1
     calls_out: 4
     calls_in: 2
-  ifuri_core.llm_gateway.build_llm_patch_handler:
-    name: build_llm_patch_handler
-    module: ifuri_core.llm_gateway
-    line: 157
-    cyclomatic_complexity: 1
-    calls_out: 28
-    calls_in: 0
-  intentdsl._type_ok:
-    name: _type_ok
-    module: intentdsl
-    line: 214
-    cyclomatic_complexity: 7
-    calls_out: 6
-    calls_in: 3
-  contextdsl._event_code_from_text:
-    name: _event_code_from_text
+  contextdsl.ContextCompiler.metric:
+    name: metric
     module: contextdsl
-    line: 78
-    cyclomatic_complexity: 4
-    calls_out: 5
-    calls_in: 2
-  evolution.EvolutionStore.status:
-    name: status
-    module: evolution
-    line: 226
-    cyclomatic_complexity: 14
-    calls_out: 35
-    calls_in: 0
-  server._update_twin:
-    name: _update_twin
-    module: server
-    line: 276
+    line: 171
     cyclomatic_complexity: 3
-    calls_out: 16
-    calls_in: 1
-  server._integrity_repair_plan:
-    name: _integrity_repair_plan
-    module: server
-    line: 132
-    cyclomatic_complexity: 5
-    calls_out: 22
-    calls_in: 1
-  server._scan_sources:
-    name: _scan_sources
-    module: server
-    line: 266
-    cyclomatic_complexity: 1
     calls_out: 4
-    calls_in: 2
-  diagnostics._candidate_paths:
-    name: _candidate_paths
-    module: diagnostics
-    line: 243
-    cyclomatic_complexity: 4
-    calls_out: 5
-    calls_in: 1
-  onlydsl.dsl.common.quoted:
-    name: quoted
-    module: onlydsl.dsl.common
-    line: 36
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 6
-  ifuri_core.llm_gateway.gateway_provider_status:
-    name: gateway_provider_status
-    module: ifuri_core.llm_gateway
-    line: 201
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 5
+    calls_in: 0
   llm_client.convert_english:
     name: convert_english
     module: llm_client
@@ -481,305 +1517,11 @@ nodes:
     cyclomatic_complexity: 3
     calls_out: 5
     calls_in: 1
-  onlydsl.runtime.repair_controller._receipt:
-    name: _receipt
-    module: onlydsl.runtime.repair_controller
-    line: 90
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 2
-  ifuri_core.transport.NatsJetStream.create_stream:
-    name: create_stream
-    module: ifuri_core.transport
-    line: 260
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 0
-  contextdsl.validate_context_markdown:
-    name: validate_context_markdown
-    module: contextdsl
-    line: 372
-    cyclomatic_complexity: 5
-    calls_out: 9
-    calls_in: 3
-  boundary.DslBundle.validate_for_llm:
-    name: validate_for_llm
-    module: boundary
-    line: 26
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 0
-  server.Handler.do_GET:
-    name: do_GET
-    module: server
-    line: 356
-    cyclomatic_complexity: 15
-    calls_out: 37
-    calls_in: 0
-  contextdsl.ContextCompiler.tool_result:
-    name: tool_result
-    module: contextdsl
-    line: 198
-    cyclomatic_complexity: 6
-    calls_out: 9
-    calls_in: 0
-  llm_client.provider_status:
-    name: provider_status
-    module: llm_client
-    line: 170
-    cyclomatic_complexity: 5
-    calls_out: 7
-    calls_in: 1
-  twin_store.TwinStore.save:
-    name: save
-    module: twin_store
-    line: 39
-    cyclomatic_complexity: 4
-    calls_out: 15
-    calls_in: 0
-  onlydsl.dsl.repair_plan.validate_repair_plan:
-    name: validate_repair_plan
-    module: onlydsl.dsl.repair_plan
-    line: 36
-    cyclomatic_complexity: 19
-    calls_out: 15
-    calls_in: 2
-  contextdsl.extract_contextdsl:
-    name: extract_contextdsl
-    module: contextdsl
-    line: 283
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 3
-  server._ifuri_compile_source:
-    name: _ifuri_compile_source
-    module: server
-    line: 215
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 1
-  boundary.build_twin_update_bundle:
-    name: build_twin_update_bundle
-    module: boundary
-    line: 118
-    cyclomatic_complexity: 1
-    calls_out: 8
-    calls_in: 2
-  intentdsl.parse_dsl:
-    name: parse_dsl
-    module: intentdsl
-    line: 99
-    cyclomatic_complexity: 29
-    calls_out: 71
-    calls_in: 4
-  onlydsl.governance.authority_projection.render_authority_projection:
-    name: render_authority_projection
-    module: onlydsl.governance.authority_projection
-    line: 35
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  onlydsl.dsl.repair_plan.render_repair_plan:
-    name: render_repair_plan
-    module: onlydsl.dsl.repair_plan
-    line: 60
-    cyclomatic_complexity: 3
-    calls_out: 11
-    calls_in: 1
-  ifuri_core.manifest.CapabilityRegistry.register:
-    name: register
-    module: ifuri_core.manifest
-    line: 81
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 0
-  llm_client._provider_config:
-    name: _provider_config
-    module: llm_client
-    line: 74
-    cyclomatic_complexity: 9
-    calls_out: 17
-    calls_in: 2
-  evolution.EvolutionStore.add_event:
-    name: add_event
-    module: evolution
-    line: 164
-    cyclomatic_complexity: 3
-    calls_out: 13
-    calls_in: 0
-  intentdsl._normalize_expr:
-    name: _normalize_expr
-    module: intentdsl
-    line: 188
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 4
-  digital_twin._quoted:
-    name: _quoted
-    module: digital_twin
-    line: 29
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 39
-  server._current_external_integrity:
-    name: _current_external_integrity
-    module: server
-    line: 95
-    cyclomatic_complexity: 17
-    calls_out: 35
-    calls_in: 2
-  boundary.task_dsl:
-    name: task_dsl
-    module: boundary
-    line: 69
-    cyclomatic_complexity: 1
-    calls_out: 0
-    calls_in: 6
-  ifuri_core.transport._js_response:
-    name: _js_response
-    module: ifuri_core.transport
-    line: 435
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 3
-  evolution._qid:
-    name: _qid
-    module: evolution
-    line: 22
-    cyclomatic_complexity: 3
-    calls_out: 5
-    calls_in: 10
-  llm_client.update_twin:
-    name: update_twin
-    module: llm_client
-    line: 398
-    cyclomatic_complexity: 14
-    calls_out: 39
-    calls_in: 1
-  governance.build_process_envelope:
-    name: build_process_envelope
-    module: governance
-    line: 36
-    cyclomatic_complexity: 5
-    calls_out: 7
-    calls_in: 0
-  intentdsl.run_program:
-    name: run_program
-    module: intentdsl
-    line: 303
-    cyclomatic_complexity: 20
-    calls_out: 29
-    calls_in: 2
-  server._plan_twin:
-    name: _plan_twin
-    module: server
-    line: 302
-    cyclomatic_complexity: 1
-    calls_out: 11
-    calls_in: 1
-  multiruntime.javascript.ifuri.toNatsSubject:
-    name: toNatsSubject
-    module: multiruntime.javascript.ifuri
-    line: 23
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  ifuri_core.transport.capability_pattern_to_subject:
-    name: capability_pattern_to_subject
-    module: ifuri_core.transport
-    line: 412
-    cyclomatic_complexity: 5
-    calls_out: 11
-    calls_in: 1
-  digital_twin.demo_bootstrap_twin:
-    name: demo_bootstrap_twin
-    module: digital_twin
-    line: 424
-    cyclomatic_complexity: 2
-    calls_out: 25
-    calls_in: 1
-  multiruntime.javascript.ifuri.raw:
-    name: raw
-    module: multiruntime.javascript.ifuri
-    line: 29
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 0
-  onlydsl.runtime.repair_controller.plan_integrity_repairs:
-    name: plan_integrity_repairs
-    module: onlydsl.runtime.repair_controller
-    line: 39
-    cyclomatic_complexity: 8
-    calls_out: 18
-    calls_in: 1
-  source_ingest.extract_source_refs:
-    name: extract_source_refs
-    module: source_ingest
-    line: 204
-    cyclomatic_complexity: 9
-    calls_out: 16
-    calls_in: 3
-  contextdsl.render_context_markdown:
-    name: render_context_markdown
-    module: contextdsl
-    line: 279
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 1
-  contextdsl.ContextCompiler.to_markdown:
-    name: to_markdown
-    module: contextdsl
-    line: 248
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 0
-  boundary.assert_dsl_only:
-    name: assert_dsl_only
-    module: boundary
-    line: 31
-    cyclomatic_complexity: 8
-    calls_out: 16
-    calls_in: 22
-  contextdsl.ContextCompiler.capability:
-    name: capability
-    module: contextdsl
-    line: 153
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 0
-  ifuri_core.llm_gateway.build_llm_semantic_handler:
-    name: build_llm_semantic_handler
-    module: ifuri_core.llm_gateway
-    line: 75
-    cyclomatic_complexity: 1
-    calls_out: 8
-    calls_in: 0
-  onlydsl.dsl.spatial_class.spatial_class_from_twin:
-    name: spatial_class_from_twin
-    module: onlydsl.dsl.spatial_class
-    line: 120
-    cyclomatic_complexity: 4
-    calls_out: 35
-    calls_in: 1
-  onlydsl.dsl.common.extract_one:
-    name: extract_one
-    module: onlydsl.dsl.common
-    line: 17
-    cyclomatic_complexity: 5
-    calls_out: 11
-    calls_in: 7
-  onlydsl.dsl.evidence_set.create_evidence_set:
-    name: create_evidence_set
-    module: onlydsl.dsl.evidence_set
-    line: 17
-    cyclomatic_complexity: 2
-    calls_out: 7
-    calls_in: 0
-  source_ingest._sid:
-    name: _sid
-    module: source_ingest
-    line: 21
-    cyclomatic_complexity: 3
+  onlydsl.dsl.build_plan._validate_tasks:
+    name: _validate_tasks
+    module: onlydsl.dsl.build_plan
+    line: 70
+    cyclomatic_complexity: 7
     calls_out: 7
     calls_in: 1
   multiruntime.typescript.ifuri.parseIfUri:
@@ -789,101 +1531,325 @@ nodes:
     cyclomatic_complexity: 13
     calls_out: 5
     calls_in: 1
-  aql.operation_for_path:
-    name: operation_for_path
-    module: aql
-    line: 147
-    cyclomatic_complexity: 6
-    calls_out: 3
-    calls_in: 3
+  onlydsl.dsl.parameter_contract.parse_parameter_contracts:
+    name: parse_parameter_contracts
+    module: onlydsl.dsl.parameter_contract
+    line: 123
+    cyclomatic_complexity: 9
+    calls_out: 13
+    calls_in: 1
+  onlydsl.dsl.evidence_set.create_evidence_set:
+    name: create_evidence_set
+    module: onlydsl.dsl.evidence_set
+    line: 17
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 0
+  server._external_document:
+    name: _external_document
+    module: server
+    line: 101
+    cyclomatic_complexity: 5
+    calls_out: 4
+    calls_in: 1
+  digital_twin._validate_twin_basics:
+    name: _validate_twin_basics
+    module: digital_twin
+    line: 373
+    cyclomatic_complexity: 11
+    calls_out: 13
+    calls_in: 1
+  onlydsl.dsl.trust.render_trust_policy:
+    name: render_trust_policy
+    module: onlydsl.dsl.trust
+    line: 54
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 0
+  onlydsl.ssot.manifest.normalize_relative_path:
+    name: normalize_relative_path
+    module: onlydsl.ssot.manifest
+    line: 32
+    cyclomatic_complexity: 5
+    calls_out: 6
+    calls_in: 4
+  digital_twin._bootstrap_node_lines:
+    name: _bootstrap_node_lines
+    module: digital_twin
+    line: 534
+    cyclomatic_complexity: 1
+    calls_out: 5
+    calls_in: 1
+  onlydsl.ssot.writer.SsotStore._validate_approval:
+    name: _validate_approval
+    module: onlydsl.ssot.writer
+    line: 182
+    cyclomatic_complexity: 10
+    calls_out: 10
+    calls_in: 0
   digital_twin.demo_build_plan:
     name: demo_build_plan
     module: digital_twin
-    line: 644
+    line: 805
     cyclomatic_complexity: 1
     calls_out: 15
     calls_in: 1
-  boundary.build_repair_bundle:
-    name: build_repair_bundle
-    module: boundary
-    line: 239
-    cyclomatic_complexity: 2
-    calls_out: 7
+  server._update_twin:
+    name: _update_twin
+    module: server
+    line: 290
+    cyclomatic_complexity: 3
+    calls_out: 16
     calls_in: 1
-  contextdsl.render_context_dsl:
-    name: render_context_dsl
-    module: contextdsl
-    line: 252
-    cyclomatic_complexity: 9
-    calls_out: 35
-    calls_in: 1
-  llm_client._backend_call:
-    name: _backend_call
-    module: llm_client
-    line: 102
-    cyclomatic_complexity: 10
-    calls_out: 18
-    calls_in: 3
-  diagnostics.diagnose_incident:
-    name: diagnose_incident
-    module: diagnostics
-    line: 255
-    cyclomatic_complexity: 7
-    calls_out: 18
-    calls_in: 1
-  evolution.EvolutionStore._write:
-    name: _write
-    module: evolution
-    line: 81
-    cyclomatic_complexity: 1
-    calls_out: 6
-    calls_in: 0
-  governance.complete_envelope:
-    name: complete_envelope
-    module: governance
-    line: 68
+  ifuri_core.transport._js_response:
+    name: _js_response
+    module: ifuri_core.transport
+    line: 435
     cyclomatic_complexity: 3
     calls_out: 4
-    calls_in: 0
-  contextdsl.compiler_from_payload:
-    name: compiler_from_payload
-    module: contextdsl
-    line: 387
-    cyclomatic_complexity: 22
-    calls_out: 52
+    calls_in: 3
+  onlydsl.ssot.manifest.validate_manifest:
+    name: validate_manifest
+    module: onlydsl.ssot.manifest
+    line: 84
+    cyclomatic_complexity: 15
+    calls_out: 18
+    calls_in: 3
+  onlydsl.ssot.validation.validate_tree:
+    name: validate_tree
+    module: onlydsl.ssot.validation
+    line: 54
+    cyclomatic_complexity: 15
+    calls_out: 18
     calls_in: 2
-  ifuri_core.llm_gateway.build_llm_twin_bootstrap_handler:
-    name: build_llm_twin_bootstrap_handler
-    module: ifuri_core.llm_gateway
-    line: 92
-    cyclomatic_complexity: 1
+  multiruntime.javascript.ifuri.parseIfUri:
+    name: parseIfUri
+    module: multiruntime.javascript.ifuri
+    line: 6
+    cyclomatic_complexity: 13
+    calls_out: 6
+    calls_in: 2
+  contextdsl._parse_context_declaration:
+    name: _parse_context_declaration
+    module: contextdsl
+    line: 337
+    cyclomatic_complexity: 11
+    calls_out: 23
+    calls_in: 1
+  contextdsl._compile_logs:
+    name: _compile_logs
+    module: contextdsl
+    line: 454
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 1
+  onlydsl.runtime.repair_controller.execute_repair_cycle:
+    name: execute_repair_cycle
+    module: onlydsl.runtime.repair_controller
+    line: 71
+    cyclomatic_complexity: 8
+    calls_out: 11
+    calls_in: 0
+  digital_twin._parse_twin_declaration:
+    name: _parse_twin_declaration
+    module: digital_twin
+    line: 282
+    cyclomatic_complexity: 11
+    calls_out: 21
+    calls_in: 1
+  contextdsl._parse_legacy_scalar:
+    name: _parse_legacy_scalar
+    module: contextdsl
+    line: 127
+    cyclomatic_complexity: 4
+    calls_out: 8
+    calls_in: 1
+  digital_twin._parse_twin_source:
+    name: _parse_twin_source
+    module: digital_twin
+    line: 159
+    cyclomatic_complexity: 3
+    calls_out: 8
+    calls_in: 1
+  server.Handler.do_GET:
+    name: do_GET
+    module: server
+    line: 419
+    cyclomatic_complexity: 15
+    calls_out: 37
+    calls_in: 0
+  digital_twin.extract_twindsl:
+    name: extract_twindsl
+    module: digital_twin
+    line: 43
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 12
+  onlydsl.ssot.registry.ProjectRegistry.register:
+    name: register
+    module: onlydsl.ssot.registry
+    line: 66
+    cyclomatic_complexity: 2
     calls_out: 9
     calls_in: 0
-  contextdsl.ContextCompiler.policy:
-    name: policy
-    module: contextdsl
-    line: 149
-    cyclomatic_complexity: 1
-    calls_out: 2
+  onlydsl.ssot.reader.SsotReader.history:
+    name: history
+    module: onlydsl.ssot.reader
+    line: 56
+    cyclomatic_complexity: 2
+    calls_out: 7
     calls_in: 0
-  multiruntime.php.ifuri.nats_subject:
-    name: nats_subject
+  digital_twin._parse_json_text:
+    name: _parse_json_text
+    module: digital_twin
+    line: 53
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 10
+  server._codegen_intent:
+    name: _codegen_intent
+    module: server
+    line: 363
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  digital_twin._bootstrap_evolution_lines:
+    name: _bootstrap_evolution_lines
+    module: digital_twin
+    line: 614
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 1
+  source_ingest.SourceIndex.to_markdown:
+    name: to_markdown
+    module: source_ingest
+    line: 48
+    cyclomatic_complexity: 7
+    calls_out: 14
+    calls_in: 0
+  digital_twin._parse_twin_scalar:
+    name: _parse_twin_scalar
+    module: digital_twin
+    line: 264
+    cyclomatic_complexity: 7
+    calls_out: 20
+    calls_in: 1
+  onlydsl.dsl.common.list_value:
+    name: list_value
+    module: onlydsl.dsl.common
+    line: 45
+    cyclomatic_complexity: 2
+    calls_out: 2
+    calls_in: 5
+  onlydsl.ssot.writer.SsotStore.validate_candidate:
+    name: validate_candidate
+    module: onlydsl.ssot.writer
+    line: 71
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 2
+  multiruntime.php.ifuri.canonical_ifuri:
+    name: canonical_ifuri
     module: multiruntime.php.ifuri
-    line: 20
+    line: 16
     cyclomatic_complexity: 1
     calls_out: 1
     calls_in: 0
-  ifuri_core.llm_gateway._extract_bundle_blocks:
-    name: _extract_bundle_blocks
-    module: ifuri_core.llm_gateway
-    line: 108
-    cyclomatic_complexity: 3
-    calls_out: 7
+  boundary.build_autonomous_repair_bundle:
+    name: build_autonomous_repair_bundle
+    module: boundary
+    line: 205
+    cyclomatic_complexity: 7
+    calls_out: 15
+    calls_in: 1
+  boundary.task_dsl:
+    name: task_dsl
+    module: boundary
+    line: 69
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 6
+  multiruntime.typescript.ifuri.toNatsSubject:
+    name: toNatsSubject
+    module: multiruntime.typescript.ifuri
+    line: 15
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  ifuri_core.manifest.Capability.match:
+    name: match
+    module: ifuri_core.manifest
+    line: 45
+    cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 0
+  onlydsl.dsl.repair_plan._parse_repair_task:
+    name: _parse_repair_task
+    module: onlydsl.dsl.repair_plan
+    line: 94
+    cyclomatic_complexity: 5
+    calls_out: 16
+    calls_in: 1
+  onlydsl.ssot.io.atomic_write_json:
+    name: atomic_write_json
+    module: onlydsl.ssot.io
+    line: 24
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 3
+  onlydsl.dsl.build_plan.validate_bound_build_plan:
+    name: validate_bound_build_plan
+    module: onlydsl.dsl.build_plan
+    line: 127
+    cyclomatic_complexity: 10
+    calls_out: 10
+    calls_in: 1
+  digital_twin.twindsl_schema:
+    name: twindsl_schema
+    module: digital_twin
+    line: 723
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 4
+  scripts.startup_testql.wait_for:
+    name: wait_for
+    module: scripts.startup_testql
+    line: 24
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 1
+  server.evolution_authority_status:
+    name: evolution_authority_status
+    module: server
+    line: 88
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 1
+  server._twin_status:
+    name: _twin_status
+    module: server
+    line: 75
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 1
+  boundary.build_context_analysis_bundle:
+    name: build_context_analysis_bundle
+    module: boundary
+    line: 101
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 2
+  contextdsl._compile_tool_results:
+    name: _compile_tool_results
+    module: contextdsl
+    line: 461
+    cyclomatic_complexity: 4
+    calls_out: 8
     calls_in: 1
   contextdsl.ContextCompiler.legacy_log:
     name: legacy_log
     module: contextdsl
-    line: 222
+    line: 223
     cyclomatic_complexity: 7
     calls_out: 20
     calls_in: 0
@@ -894,132 +1860,34 @@ nodes:
     cyclomatic_complexity: 1
     calls_out: 3
     calls_in: 3
-  intentdsl._slug_words:
-    name: _slug_words
-    module: intentdsl
-    line: 383
-    cyclomatic_complexity: 3
-    calls_out: 2
+  onlydsl.dsl.repair_plan.parse_repair_plan:
+    name: parse_repair_plan
+    module: onlydsl.dsl.repair_plan
+    line: 114
+    cyclomatic_complexity: 11
+    calls_out: 21
     calls_in: 1
-  digital_twin.intent_fingerprint:
-    name: intent_fingerprint
+  digital_twin.buildplandsl_schema:
+    name: buildplandsl_schema
     module: digital_twin
-    line: 24
+    line: 764
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 2
+  governance.authorize_patch:
+    name: authorize_patch
+    module: governance
+    line: 26
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 0
+  onlydsl.ssot.manifest.calculate_revision_hash:
+    name: calculate_revision_hash
+    module: onlydsl.ssot.manifest
+    line: 61
     cyclomatic_complexity: 1
     calls_out: 4
     calls_in: 3
-  server._json_bytes:
-    name: _json_bytes
-    module: server
-    line: 171
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  ifuri_core.llm_gateway._reply:
-    name: _reply
-    module: ifuri_core.llm_gateway
-    line: 24
-    cyclomatic_complexity: 2
-    calls_out: 14
-    calls_in: 6
-  onlydsl.dsl.assumption.assumptions_from_integrity:
-    name: assumptions_from_integrity
-    module: onlydsl.dsl.assumption
-    line: 93
-    cyclomatic_complexity: 8
-    calls_out: 29
-    calls_in: 2
-  source_ingest.parse_markdown:
-    name: parse_markdown
-    module: source_ingest
-    line: 80
-    cyclomatic_complexity: 16
-    calls_out: 59
-    calls_in: 1
-  intentdsl._expr_tree:
-    name: _expr_tree
-    module: intentdsl
-    line: 192
-    cyclomatic_complexity: 4
-    calls_out: 7
-    calls_in: 2
-  contextdsl._parse_legacy_scalar:
-    name: _parse_legacy_scalar
-    module: contextdsl
-    line: 126
-    cyclomatic_complexity: 4
-    calls_out: 8
-    calls_in: 1
-  server.Handler.do_POST:
-    name: do_POST
-    module: server
-    line: 425
-    cyclomatic_complexity: 18
-    calls_out: 83
-    calls_in: 0
-  contextdsl.ContextCompiler.record:
-    name: record
-    module: contextdsl
-    line: 176
-    cyclomatic_complexity: 4
-    calls_out: 9
-    calls_in: 0
-  governance.reject_envelope:
-    name: reject_envelope
-    module: governance
-    line: 83
-    cyclomatic_complexity: 4
-    calls_out: 4
-    calls_in: 0
-  boundary.contract_dsl:
-    name: contract_dsl
-    module: boundary
-    line: 52
-    cyclomatic_complexity: 1
-    calls_out: 0
-    calls_in: 6
-  intentdsl.validate_program:
-    name: validate_program
-    module: intentdsl
-    line: 226
-    cyclomatic_complexity: 27
-    calls_out: 34
-    calls_in: 2
-  digital_twin.validate_twin:
-    name: validate_twin
-    module: digital_twin
-    line: 311
-    cyclomatic_complexity: 31
-    calls_out: 34
-    calls_in: 2
-  evolution.EvolutionStore.add_guidance:
-    name: add_guidance
-    module: evolution
-    line: 90
-    cyclomatic_complexity: 2
-    calls_out: 15
-    calls_in: 0
-  boundary.build_source_compile_bundle:
-    name: build_source_compile_bundle
-    module: boundary
-    line: 96
-    cyclomatic_complexity: 1
-    calls_out: 6
-    calls_in: 1
-  server._context_registries:
-    name: _context_registries
-    module: server
-    line: 175
-    cyclomatic_complexity: 2
-    calls_out: 3
-    calls_in: 1
-  boundary.source_text_dsl:
-    name: source_text_dsl
-    module: boundary
-    line: 79
-    cyclomatic_complexity: 2
-    calls_out: 7
-    calls_in: 4
   llm_client._call_dsl_validated:
     name: _call_dsl_validated
     module: llm_client
@@ -1027,90 +1895,97 @@ nodes:
     cyclomatic_complexity: 6
     calls_out: 11
     calls_in: 4
-  llm_client.propose_code_patch:
-    name: propose_code_patch
-    module: llm_client
-    line: 240
-    cyclomatic_complexity: 4
-    calls_out: 6
-    calls_in: 1
-  evolution._parse_event:
-    name: _parse_event
-    module: evolution
-    line: 31
-    cyclomatic_complexity: 8
-    calls_out: 11
-    calls_in: 1
-  patchdsl.validate_patch_markdown:
-    name: validate_patch_markdown
-    module: patchdsl
-    line: 141
-    cyclomatic_complexity: 3
-    calls_out: 3
-    calls_in: 0
-  evolution._q:
-    name: _q
-    module: evolution
-    line: 27
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 16
-  digital_twin.extract_twindsl:
-    name: extract_twindsl
-    module: digital_twin
-    line: 43
-    cyclomatic_complexity: 5
-    calls_out: 11
-    calls_in: 12
-  digital_twin.validate_twin_update:
-    name: validate_twin_update
-    module: digital_twin
-    line: 387
-    cyclomatic_complexity: 7
-    calls_out: 6
-    calls_in: 2
-  llm_client.plan_build:
-    name: plan_build
-    module: llm_client
-    line: 469
-    cyclomatic_complexity: 4
-    calls_out: 22
-    calls_in: 1
-  ifuri_core.llm_gateway._extract_source_payload:
-    name: _extract_source_payload
-    module: ifuri_core.llm_gateway
-    line: 61
-    cyclomatic_complexity: 5
+  onlydsl.ssot.manifest.create_manifest:
+    name: create_manifest
+    module: onlydsl.ssot.manifest
+    line: 65
+    cyclomatic_complexity: 2
     calls_out: 11
     calls_in: 2
-  contextdsl.ContextCompiler.state:
-    name: state
-    module: contextdsl
-    line: 163
-    cyclomatic_complexity: 3
-    calls_out: 3
-    calls_in: 0
-  twin_store.TwinStore.load:
-    name: load
-    module: twin_store
-    line: 36
+  onlydsl.ssot.manifest.is_immutable_urn:
+    name: is_immutable_urn
+    module: onlydsl.ssot.manifest
+    line: 28
     cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 0
-  onlydsl.dsl.build_plan.validate_bound_build_plan:
-    name: validate_bound_build_plan
-    module: onlydsl.dsl.build_plan
-    line: 110
-    cyclomatic_complexity: 10
-    calls_out: 10
+    calls_out: 2
+    calls_in: 4
+  server._external_revision:
+    name: _external_revision
+    module: server
+    line: 108
+    cyclomatic_complexity: 5
+    calls_out: 5
     calls_in: 1
-  contextdsl.ContextCompiler.metric:
-    name: metric
+  server._scan_sources:
+    name: _scan_sources
+    module: server
+    line: 280
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 2
+  boundary.build_twin_update_bundle:
+    name: build_twin_update_bundle
+    module: boundary
+    line: 118
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 2
+  onlydsl.dsl.parameter_contract._parse_parameter_fields:
+    name: _parse_parameter_fields
+    module: onlydsl.dsl.parameter_contract
+    line: 70
+    cyclomatic_complexity: 5
+    calls_out: 3
+    calls_in: 1
+  boundary.build_twin_bootstrap_bundle:
+    name: build_twin_bootstrap_bundle
+    module: boundary
+    line: 107
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 2
+  contextdsl._infer_type:
+    name: _infer_type
     module: contextdsl
-    line: 170
-    cyclomatic_complexity: 3
+    line: 117
+    cyclomatic_complexity: 4
+    calls_out: 3
+    calls_in: 1
+  multiruntime.javascript.ifuri.raw:
+    name: raw
+    module: multiruntime.javascript.ifuri
+    line: 29
+    cyclomatic_complexity: 1
     calls_out: 4
     calls_in: 0
+  boundary.code_dsl:
+    name: code_dsl
+    module: boundary
+    line: 144
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 1
+  onlydsl.ssot.writer.SsotStore.initialize:
+    name: initialize
+    module: onlydsl.ssot.writer
+    line: 30
+    cyclomatic_complexity: 8
+    calls_out: 23
+    calls_in: 0
+  onlydsl.dsl.assumption._parse_assumption_fields:
+    name: _parse_assumption_fields
+    module: onlydsl.dsl.assumption
+    line: 41
+    cyclomatic_complexity: 5
+    calls_out: 3
+    calls_in: 1
+  multiruntime.javascript.ifuri.canonical:
+    name: canonical
+    module: multiruntime.javascript.ifuri
+    line: 18
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
   evolution.EvolutionStore.diagnostic_for_incident:
     name: diagnostic_for_incident
     module: evolution
@@ -1118,118 +1993,111 @@ nodes:
     cyclomatic_complexity: 2
     calls_out: 4
     calls_in: 0
-  server._unpack_dsl:
-    name: _unpack_dsl
-    module: server
-    line: 181
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 5
-  ifuri_core.transport._validate_nats_subject:
-    name: _validate_nats_subject
-    module: ifuri_core.transport
-    line: 428
-    cyclomatic_complexity: 7
-    calls_out: 4
-    calls_in: 3
-  server._twin_status:
-    name: _twin_status
-    module: server
-    line: 74
-    cyclomatic_complexity: 2
-    calls_out: 6
-    calls_in: 1
-  onlydsl.dsl.assumption.render_assumptions:
-    name: render_assumptions
-    module: onlydsl.dsl.assumption
-    line: 79
-    cyclomatic_complexity: 2
-    calls_out: 8
-    calls_in: 2
-  intentdsl.eval_expr:
-    name: eval_expr
-    module: intentdsl
-    line: 208
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 4
-  ifuri_core.manifest.Capability.match:
-    name: match
-    module: ifuri_core.manifest
-    line: 45
-    cyclomatic_complexity: 4
-    calls_out: 4
-    calls_in: 0
-  digital_twin.buildplandsl_schema:
-    name: buildplandsl_schema
-    module: digital_twin
-    line: 603
-    cyclomatic_complexity: 1
-    calls_out: 0
-    calls_in: 2
-  ifuri_core.transport.NatsJetStream.stream_info:
-    name: stream_info
-    module: ifuri_core.transport
-    line: 281
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 0
-  digital_twin.twindsl_schema:
-    name: twindsl_schema
-    module: digital_twin
-    line: 562
-    cyclomatic_complexity: 1
-    calls_out: 0
-    calls_in: 4
-  server.Handler._send:
-    name: _send
-    module: server
-    line: 330
-    cyclomatic_complexity: 4
-    calls_out: 12
-    calls_in: 0
-  patchdsl._json_string:
-    name: _json_string
-    module: patchdsl
-    line: 33
+  onlydsl.dsl.claim.render_claims:
+    name: render_claims
+    module: onlydsl.dsl.claim
+    line: 107
     cyclomatic_complexity: 3
+    calls_out: 8
+    calls_in: 0
+  onlydsl.ssot.diff.calculate_diff:
+    name: calculate_diff
+    module: onlydsl.ssot.diff
+    line: 15
+    cyclomatic_complexity: 5
+    calls_out: 10
+    calls_in: 2
+  onlydsl.ssot.candidate.load_candidate:
+    name: load_candidate
+    module: onlydsl.ssot.candidate
+    line: 33
+    cyclomatic_complexity: 2
     calls_out: 4
-    calls_in: 3
+    calls_in: 2
+  contextdsl.compiler_from_payload:
+    name: compiler_from_payload
+    module: contextdsl
+    line: 419
+    cyclomatic_complexity: 9
+    calls_out: 25
+    calls_in: 2
+  digital_twin.render_twin:
+    name: render_twin
+    module: digital_twin
+    line: 627
+    cyclomatic_complexity: 1
+    calls_out: 19
+    calls_in: 4
+  ifuri_core.transport.NatsJetStream.create_stream:
+    name: create_stream
+    module: ifuri_core.transport
+    line: 260
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 0
+  onlydsl.dsl.claim.parse_claims:
+    name: parse_claims
+    module: onlydsl.dsl.claim
+    line: 87
+    cyclomatic_complexity: 9
+    calls_out: 19
+    calls_in: 1
+  onlydsl.dsl.spatial_class.spatial_class_from_twin:
+    name: spatial_class_from_twin
+    module: onlydsl.dsl.spatial_class
+    line: 129
+    cyclomatic_complexity: 4
+    calls_out: 35
+    calls_in: 1
   server._bootstrap_twin:
     name: _bootstrap_twin
     module: server
-    line: 236
+    line: 250
     cyclomatic_complexity: 5
     calls_out: 28
     calls_in: 1
-  governance.canonical_hash:
-    name: canonical_hash
-    module: governance
-    line: 13
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 8
-  ifuri_core.manifest._parse_pattern:
-    name: _parse_pattern
-    module: ifuri_core.manifest
-    line: 195
-    cyclomatic_complexity: 18
-    calls_out: 19
-    calls_in: 2
-  source_ingest.build_source_index:
-    name: build_source_index
-    module: source_ingest
-    line: 143
-    cyclomatic_complexity: 9
-    calls_out: 35
-    calls_in: 1
-  digital_twin.validate_buildplan_markdown:
-    name: validate_buildplan_markdown
+  digital_twin._validate_twin_invariants:
+    name: _validate_twin_invariants
     module: digital_twin
-    line: 639
-    cyclomatic_complexity: 2
+    line: 420
+    cyclomatic_complexity: 3
     calls_out: 2
+    calls_in: 1
+  digital_twin._validate_twin_sources:
+    name: _validate_twin_sources
+    module: digital_twin
+    line: 426
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  digital_twin._render_twin_edges:
+    name: _render_twin_edges
+    module: digital_twin
+    line: 497
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 1
+  onlydsl.ssot.reader.SsotReader.manifest:
+    name: manifest
+    module: onlydsl.ssot.reader
+    line: 17
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 0
+  intentdsl.eval_expr:
+    name: eval_expr
+    module: intentdsl
+    line: 216
+    cyclomatic_complexity: 1
+    calls_out: 3
     calls_in: 4
+  llm_client._request_json:
+    name: _request_json
+    module: llm_client
+    line: 51
+    cyclomatic_complexity: 5
+    calls_out: 14
+    calls_in: 1
 edges:
 - caller: contextdsl._event_code_from_text
   callee: contextdsl._ident
@@ -1270,11 +2138,41 @@ edges:
 - caller: contextdsl.render_context_markdown
   callee: contextdsl.render_context_dsl
   call_type: resolved
+- caller: contextdsl._parse_record_field
+  callee: contextdsl._parse_literal
+  call_type: resolved
+- caller: contextdsl._parse_state
+  callee: contextdsl._parse_literal
+  call_type: resolved
+- caller: contextdsl._parse_metric
+  callee: contextdsl._parse_literal
+  call_type: resolved
+- caller: contextdsl._parse_context_declaration
+  callee: contextdsl._ident
+  call_type: resolved
+- caller: contextdsl.parse_context_dsl
+  callee: contextdsl._parse_context_declaration
+  call_type: resolved
+- caller: contextdsl.parse_context_dsl
+  callee: contextdsl._parse_record_field
+  call_type: resolved
 - caller: contextdsl.validate_context_markdown
   callee: contextdsl.parse_context_dsl
   call_type: resolved
 - caller: contextdsl.validate_context_markdown
   callee: contextdsl.extract_contextdsl
+  call_type: resolved
+- caller: contextdsl.compiler_from_payload
+  callee: contextdsl._compile_capabilities
+  call_type: resolved
+- caller: contextdsl.compiler_from_payload
+  callee: contextdsl._compile_events
+  call_type: resolved
+- caller: contextdsl.compiler_from_payload
+  callee: contextdsl._compile_logs
+  call_type: resolved
+- caller: contextdsl.compiler_from_payload
+  callee: contextdsl._compile_tool_results
   call_type: resolved
 - caller: evolution.EvolutionStore._write
   callee: evolution._qid
@@ -1303,269 +2201,8 @@ edges:
 - caller: evolution.EvolutionStore.status
   callee: evolution._parse_event
   call_type: resolved
-- caller: intentdsl._expr_tree
-  callee: intentdsl._normalize_expr
-  call_type: resolved
-- caller: intentdsl.expr_names
-  callee: intentdsl._expr_tree
-  call_type: resolved
-- caller: intentdsl.eval_expr
-  callee: intentdsl._expr_tree
-  call_type: resolved
-- caller: intentdsl.validate_markdown
-  callee: intentdsl.extract_intentdsl
-  call_type: resolved
-- caller: intentdsl.validate_markdown
-  callee: intentdsl.parse_dsl
-  call_type: resolved
-- caller: intentdsl.validate_markdown
-  callee: intentdsl.validate_program
-  call_type: resolved
-- caller: intentdsl.run_program
-  callee: intentdsl.validate_program
-  call_type: resolved
-- caller: intentdsl.run_program
-  callee: intentdsl.eval_expr
-  call_type: resolved
-- caller: intentdsl.run_program
-  callee: intentdsl._type_ok
-  call_type: resolved
-- caller: intentdsl.demo_english_to_dsl
-  callee: intentdsl._slug_words
-  call_type: resolved
-- caller: patchdsl.parse_patchdsl
-  callee: patchdsl._json_string
-  call_type: resolved
-- caller: patchdsl.validate_patch_markdown
-  callee: patchdsl.parse_patchdsl
-  call_type: resolved
-- caller: patchdsl.validate_patch_markdown
-  callee: patchdsl.validate_patch_policy
-  call_type: resolved
-- caller: governance.authorize_patch
-  callee: aql.operation_for_path
-  call_type: resolved
-- caller: governance.build_process_envelope
-  callee: governance.canonical_hash
-  call_type: resolved
-- caller: governance.build_process_envelope
-  callee: aql.operation_for_path
-  call_type: resolved
-- caller: governance.complete_envelope
-  callee: governance.canonical_hash
-  call_type: resolved
-- caller: governance.reject_envelope
-  callee: governance.canonical_hash
-  call_type: resolved
-- caller: twin_store.TwinStore.load
-  callee: digital_twin.parse_twindsl
-  call_type: resolved
-- caller: twin_store.TwinStore.load
-  callee: digital_twin.extract_twindsl
-  call_type: resolved
-- caller: twin_store.TwinStore.save
-  callee: digital_twin.validate_twin_markdown
-  call_type: resolved
-- caller: twin_store.TwinStore.save
-  callee: digital_twin.parse_twindsl
-  call_type: resolved
-- caller: twin_store.TwinStore.save
-  callee: digital_twin.extract_twindsl
-  call_type: resolved
-- caller: source_ingest.SourceIndex.to_markdown
-  callee: evolution._q
-  call_type: resolved
-- caller: source_ingest.build_source_index
-  callee: source_ingest._sid
-  call_type: resolved
-- caller: source_ingest.build_source_index
-  callee: source_ingest.parse_markdown
-  call_type: resolved
-- caller: source_ingest.extract_source_refs
-  callee: source_ingest.validate_sourceindex_markdown
-  call_type: resolved
-- caller: ifuri_core.manifest.Capability.match
-  callee: ifuri_core.manifest._parse_pattern
-  call_type: resolved
-- caller: ifuri_core.manifest.CapabilityRegistry.register
-  callee: ifuri_core.manifest._validate_capability
-  call_type: resolved
-- caller: ifuri_core.manifest._validate_capability
-  callee: ifuri_core.manifest._parse_pattern
-  call_type: resolved
-- caller: ifuri_core.transport.NatsWireClient.subscribe
-  callee: ifuri_core.transport._validate_nats_subject
-  call_type: resolved
-- caller: ifuri_core.transport.NatsWireClient.publish
-  callee: ifuri_core.transport._validate_nats_subject
-  call_type: resolved
-- caller: ifuri_core.transport.NatsJetStream.create_stream
-  callee: ifuri_core.transport._js_response
-  call_type: resolved
-- caller: ifuri_core.transport.NatsJetStream.stream_info
-  callee: ifuri_core.transport._js_response
-  call_type: resolved
-- caller: ifuri_core.transport.NatsJetStream.publish
-  callee: ifuri_core.transport._js_response
-  call_type: resolved
-- caller: ifuri_core.transport.NatsTransport.serve_capability
-  callee: ifuri_core.transport.capability_pattern_to_subject
-  call_type: resolved
-- caller: multiruntime.typescript.ifuri.toNatsSubject
-  callee: multiruntime.typescript.ifuri.parseIfUri
-  call_type: resolved
-- caller: multiruntime.javascript.ifuri.canonical
-  callee: multiruntime.javascript.ifuri.parseIfUri
-  call_type: resolved
-- caller: multiruntime.javascript.ifuri.toNatsSubject
-  callee: multiruntime.javascript.ifuri.parseIfUri
-  call_type: resolved
-- caller: multiruntime.javascript.ifuri.raw
-  callee: multiruntime.javascript.ifuri.canonical
-  call_type: resolved
-- caller: multiruntime.javascript.ifuri.raw
-  callee: multiruntime.javascript.ifuri.toNatsSubject
-  call_type: resolved
-- caller: multiruntime.php.ifuri.canonical_ifuri
-  callee: multiruntime.php.ifuri.parse_ifuri
-  call_type: resolved
-- caller: multiruntime.php.ifuri.nats_subject
-  callee: multiruntime.php.ifuri.parse_ifuri
-  call_type: resolved
 - caller: diagnostics.diagnose_incident
   callee: diagnostics._candidate_paths
-  call_type: resolved
-- caller: server._current_external_integrity
-  callee: onlydsl.runtime.integrity.parse_project_integrity
-  call_type: resolved
-- caller: server._current_external_integrity
-  callee: onlydsl.dsl.spatial_class.spatial_class_from_twin
-  call_type: resolved
-- caller: server._current_external_integrity
-  callee: onlydsl.dsl.assumption.assumptions_from_integrity
-  call_type: resolved
-- caller: server._integrity_repair_plan
-  callee: server._current_external_integrity
-  call_type: resolved
-- caller: server._integrity_repair_plan
-  callee: onlydsl.runtime.repair_controller.plan_integrity_repairs
-  call_type: resolved
-- caller: server._context_registries
-  callee: contextdsl.parse_context_dsl
-  call_type: resolved
-- caller: server._context_registries
-  callee: contextdsl.extract_contextdsl
-  call_type: resolved
-- caller: server._ifuri_analyze_context
-  callee: contextdsl.validate_context_markdown
-  call_type: resolved
-- caller: server._ifuri_analyze_context
-  callee: ifuri_core.dsl_document.make_dsl_document
-  call_type: resolved
-- caller: server._ifuri_analyze_context
-  callee: server._unpack_dsl
-  call_type: resolved
-- caller: server._ifuri_analyze_context
-  callee: server._context_registries
-  call_type: resolved
-- caller: server._ifuri_analyze_context
-  callee: intentdsl.validate_markdown
-  call_type: resolved
-- caller: server._ifuri_analyze_context
-  callee: intentdsl.parse_dsl
-  call_type: resolved
-- caller: server._ifuri_compile_source
-  callee: ifuri_core.dsl_document.make_dsl_document
-  call_type: resolved
-- caller: server._ifuri_compile_source
-  callee: server._unpack_dsl
-  call_type: resolved
-- caller: server._ifuri_compile_source
-  callee: boundary.source_text_dsl
-  call_type: resolved
-- caller: server._ifuri_compile_source
-  callee: intentdsl.validate_markdown
-  call_type: resolved
-- caller: server._twin_payload
-  callee: digital_twin.parse_twindsl
-  call_type: resolved
-- caller: server._twin_payload
-  callee: digital_twin.extract_twindsl
-  call_type: resolved
-- caller: server._twin_payload
-  callee: digital_twin.validate_twin_markdown
-  call_type: resolved
-- caller: server._twin_payload
-  callee: digital_twin.twin_to_mermaid
-  call_type: resolved
-- caller: server._bootstrap_twin
-  callee: digital_twin.intent_fingerprint
-  call_type: resolved
-- caller: server._bootstrap_twin
-  callee: boundary.source_text_dsl
-  call_type: resolved
-- caller: server._bootstrap_twin
-  callee: ifuri_core.dsl_document.make_dsl_document
-  call_type: resolved
-- caller: server._bootstrap_twin
-  callee: server._unpack_dsl
-  call_type: resolved
-- caller: server._bootstrap_twin
-  callee: server._twin_payload
-  call_type: resolved
-- caller: server._scan_sources
-  callee: source_ingest.build_source_index
-  call_type: resolved
-- caller: server._scan_sources
-  callee: source_ingest.validate_sourceindex_markdown
-  call_type: resolved
-- caller: server._update_twin
-  callee: server._scan_sources
-  call_type: resolved
-- caller: server._update_twin
-  callee: ifuri_core.dsl_document.make_dsl_document
-  call_type: resolved
-- caller: server._update_twin
-  callee: server._unpack_dsl
-  call_type: resolved
-- caller: server._update_twin
-  callee: server._twin_payload
-  call_type: resolved
-- caller: server._plan_twin
-  callee: ifuri_core.dsl_document.make_dsl_document
-  call_type: resolved
-- caller: server._plan_twin
-  callee: server._unpack_dsl
-  call_type: resolved
-- caller: server._plan_twin
-  callee: digital_twin.parse_twindsl
-  call_type: resolved
-- caller: server._plan_twin
-  callee: digital_twin.extract_twindsl
-  call_type: resolved
-- caller: server._plan_twin
-  callee: digital_twin.validate_buildplan_markdown
-  call_type: resolved
-- caller: server._plan_twin
-  callee: ifuri_core.llm_gateway.gateway_provider_status
-  call_type: resolved
-- caller: server.Handler._send
-  callee: server._json_bytes
-  call_type: resolved
-- caller: server.Handler.do_GET
-  callee: server._application_version
-  call_type: resolved
-- caller: server.Handler.do_GET
-  callee: server._twin_status
-  call_type: resolved
-- caller: server.Handler.do_GET
-  callee: server.evolution_authority_status
-  call_type: resolved
-- caller: server.Handler.do_POST
-  callee: contextdsl.compiler_from_payload
-  call_type: resolved
-- caller: server.main
-  callee: server._application_version
   call_type: resolved
 - caller: llm_client._backend_call
   callee: llm_client._provider_config
@@ -1687,41 +2324,95 @@ edges:
 - caller: llm_client.plan_build
   callee: digital_twin.demo_build_plan
   call_type: resolved
-- caller: digital_twin.intent_fingerprint
-  callee: digital_twin.normalize_intent
+- caller: intentdsl._parse_rule_statement
+  callee: intentdsl._parse_call
   call_type: resolved
-- caller: digital_twin.parse_twindsl
-  callee: digital_twin.validate_twin
+- caller: intentdsl.parse_dsl
+  callee: intentdsl._parse_program_declaration
   call_type: resolved
-- caller: digital_twin.validate_twin_markdown
-  callee: digital_twin.parse_twindsl
+- caller: intentdsl.parse_dsl
+  callee: intentdsl._parse_rule_statement
   call_type: resolved
-- caller: digital_twin.validate_twin_markdown
-  callee: digital_twin.extract_twindsl
+- caller: intentdsl._expr_tree
+  callee: intentdsl._normalize_expr
   call_type: resolved
-- caller: digital_twin.validate_twin_update
-  callee: digital_twin.validate_twin
+- caller: intentdsl.expr_names
+  callee: intentdsl._expr_tree
   call_type: resolved
-- caller: digital_twin.demo_bootstrap_twin
-  callee: digital_twin.normalize_intent
+- caller: intentdsl.eval_expr
+  callee: intentdsl._expr_tree
   call_type: resolved
-- caller: digital_twin.demo_bootstrap_twin
-  callee: digital_twin.intent_fingerprint
+- caller: intentdsl._validate_rule_expressions
+  callee: intentdsl.expr_names
   call_type: resolved
-- caller: digital_twin.demo_bootstrap_twin
-  callee: digital_twin._quoted
+- caller: intentdsl.validate_markdown
+  callee: intentdsl.extract_intentdsl
   call_type: resolved
-- caller: digital_twin.validate_buildplan_markdown
-  callee: onlydsl.dsl.build_plan.validate_bound_build_plan
+- caller: intentdsl.validate_markdown
+  callee: intentdsl.parse_dsl
   call_type: resolved
-- caller: digital_twin.validate_buildplan_markdown
-  callee: digital_twin.render_twin
+- caller: intentdsl.validate_markdown
+  callee: intentdsl.validate_program
   call_type: resolved
-- caller: digital_twin.demo_build_plan
-  callee: onlydsl.dsl.build_plan.semantic_twin_hash
+- caller: intentdsl.run_program
+  callee: intentdsl.validate_program
   call_type: resolved
-- caller: digital_twin.demo_build_plan
-  callee: digital_twin._quoted
+- caller: intentdsl.run_program
+  callee: intentdsl.eval_expr
+  call_type: resolved
+- caller: intentdsl.demo_english_to_dsl
+  callee: intentdsl._auth_recovery_lines
+  call_type: resolved
+- caller: intentdsl.demo_english_to_dsl
+  callee: intentdsl._generic_demo_lines
+  call_type: resolved
+- caller: intentdsl._generic_demo_lines
+  callee: intentdsl._slug_words
+  call_type: resolved
+- caller: intentdsl._codegen_python
+  callee: intentdsl._normalize_expr
+  call_type: resolved
+- caller: intentdsl.codegen
+  callee: intentdsl._codegen_php
+  call_type: resolved
+- caller: intentdsl.codegen
+  callee: intentdsl._codegen_python
+  call_type: resolved
+- caller: intentdsl.codegen
+  callee: intentdsl._codegen_javascript_like
+  call_type: resolved
+- caller: patchdsl._parse_change
+  callee: patchdsl._json_string
+  call_type: resolved
+- caller: patchdsl.parse_patchdsl
+  callee: patchdsl._json_string
+  call_type: resolved
+- caller: patchdsl._validate_change
+  callee: patchdsl._count_diff_lines
+  call_type: resolved
+- caller: patchdsl.validate_patch_policy
+  callee: patchdsl._validate_change
+  call_type: resolved
+- caller: patchdsl.validate_patch_markdown
+  callee: patchdsl.parse_patchdsl
+  call_type: resolved
+- caller: patchdsl.validate_patch_markdown
+  callee: patchdsl.validate_patch_policy
+  call_type: resolved
+- caller: governance.authorize_patch
+  callee: aql.operation_for_path
+  call_type: resolved
+- caller: governance.build_process_envelope
+  callee: governance.canonical_hash
+  call_type: resolved
+- caller: governance.build_process_envelope
+  callee: aql.operation_for_path
+  call_type: resolved
+- caller: governance.complete_envelope
+  callee: governance.canonical_hash
+  call_type: resolved
+- caller: governance.reject_envelope
+  callee: governance.canonical_hash
   call_type: resolved
 - caller: boundary.DslBundle.validate_for_llm
   callee: boundary.assert_dsl_only
@@ -1782,6 +2473,33 @@ edges:
   call_type: resolved
 - caller: boundary.build_autonomous_repair_bundle
   callee: boundary.contract_dsl
+  call_type: resolved
+- caller: twin_store.TwinStore.load
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: twin_store.TwinStore.load
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: twin_store.TwinStore.save
+  callee: digital_twin.validate_twin_markdown
+  call_type: resolved
+- caller: twin_store.TwinStore.save
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: twin_store.TwinStore.save
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: source_ingest.SourceIndex.to_markdown
+  callee: evolution._q
+  call_type: resolved
+- caller: source_ingest.build_source_index
+  callee: source_ingest._sid
+  call_type: resolved
+- caller: source_ingest.build_source_index
+  callee: source_ingest.parse_markdown
+  call_type: resolved
+- caller: source_ingest.extract_source_refs
+  callee: source_ingest.validate_sourceindex_markdown
   call_type: resolved
 - caller: ifuri_core.llm_gateway._reply
   callee: ifuri_core.dsl_document.make_dsl_document
@@ -1873,6 +2591,33 @@ edges:
 - caller: ifuri_core.llm_gateway.gateway_provider_status
   callee: llm_client.provider_status
   call_type: resolved
+- caller: ifuri_core.manifest.Capability.match
+  callee: ifuri_core.manifest._parse_pattern
+  call_type: resolved
+- caller: ifuri_core.manifest.CapabilityRegistry.register
+  callee: ifuri_core.manifest._validate_capability
+  call_type: resolved
+- caller: ifuri_core.manifest._validate_capability
+  callee: ifuri_core.manifest._parse_pattern
+  call_type: resolved
+- caller: ifuri_core.transport.NatsWireClient.subscribe
+  callee: ifuri_core.transport._validate_nats_subject
+  call_type: resolved
+- caller: ifuri_core.transport.NatsWireClient.publish
+  callee: ifuri_core.transport._validate_nats_subject
+  call_type: resolved
+- caller: ifuri_core.transport.NatsJetStream.create_stream
+  callee: ifuri_core.transport._js_response
+  call_type: resolved
+- caller: ifuri_core.transport.NatsJetStream.stream_info
+  callee: ifuri_core.transport._js_response
+  call_type: resolved
+- caller: ifuri_core.transport.NatsJetStream.publish
+  callee: ifuri_core.transport._js_response
+  call_type: resolved
+- caller: ifuri_core.transport.NatsTransport.serve_capability
+  callee: ifuri_core.transport.capability_pattern_to_subject
+  call_type: resolved
 - caller: onlydsl.runtime.repair_controller.RepairCycle.to_dict
   callee: onlydsl.dsl.assumption.render_assumptions
   call_type: resolved
@@ -1901,13 +2646,46 @@ edges:
   callee: onlydsl.dsl.common.extract_one
   call_type: resolved
 - caller: onlydsl.runtime.integrity.parse_project_integrity
+  callee: onlydsl.runtime.integrity._readiness
+  call_type: resolved
+- caller: onlydsl.runtime.integrity.parse_project_integrity
   callee: governance.canonical_hash
   call_type: resolved
 - caller: onlydsl.governance.authority_projection.project_authority
   callee: governance.canonical_hash
   call_type: resolved
+- caller: onlydsl.dsl.parameter_contract._parse_parameter
+  callee: onlydsl.dsl.parameter_contract._parse_parameter_fields
+  call_type: resolved
+- caller: onlydsl.dsl.parameter_contract._parse_parameter
+  callee: onlydsl.dsl.parameter_contract._parse_range
+  call_type: resolved
+- caller: onlydsl.dsl.parameter_contract._parse_parameter
+  callee: onlydsl.dsl.parameter_contract._parse_allowed
+  call_type: resolved
+- caller: onlydsl.dsl.parameter_contract.parse_parameter_contracts
+  callee: onlydsl.dsl.parameter_contract._parse_parameter
+  call_type: resolved
+- caller: onlydsl.dsl.trust.render_trust_policy
+  callee: onlydsl.dsl.common.list_value
+  call_type: resolved
 - caller: onlydsl.dsl.evidence_set.create_evidence_set
   callee: governance.canonical_hash
+  call_type: resolved
+- caller: onlydsl.dsl.claim._parse_claim
+  callee: onlydsl.dsl.common.json_string
+  call_type: resolved
+- caller: onlydsl.dsl.claim.parse_claims
+  callee: onlydsl.dsl.claim._parse_claim_fields
+  call_type: resolved
+- caller: onlydsl.dsl.claim.render_claims
+  callee: onlydsl.dsl.common.quoted
+  call_type: resolved
+- caller: onlydsl.dsl.claim.render_claims
+  callee: onlydsl.dsl.common.list_value
+  call_type: resolved
+- caller: onlydsl.dsl.repair_plan.validate_repair_plan
+  callee: onlydsl.dsl.repair_plan._validate_repair_task
   call_type: resolved
 - caller: onlydsl.dsl.repair_plan.render_repair_plan
   callee: onlydsl.dsl.repair_plan.validate_repair_plan
@@ -1918,8 +2696,14 @@ edges:
 - caller: onlydsl.dsl.repair_plan.render_repair_plan
   callee: onlydsl.dsl.common.quoted
   call_type: resolved
+- caller: onlydsl.dsl.repair_plan._parse_repair_task
+  callee: onlydsl.dsl.common.json_string
+  call_type: resolved
 - caller: onlydsl.dsl.repair_plan.parse_repair_plan
   callee: onlydsl.dsl.repair_plan.validate_repair_plan
+  call_type: resolved
+- caller: onlydsl.dsl.build_plan.parse_bound_build_plan
+  callee: onlydsl.dsl.build_plan._validate_tasks
   call_type: resolved
 - caller: onlydsl.dsl.build_plan.validate_bound_build_plan
   callee: onlydsl.dsl.build_plan.parse_bound_build_plan
@@ -1927,11 +2711,518 @@ edges:
 - caller: onlydsl.dsl.build_plan.validate_bound_build_plan
   callee: onlydsl.dsl.build_plan.semantic_twin_hash
   call_type: resolved
+- caller: onlydsl.dsl.assumption._parse_assumption
+  callee: onlydsl.dsl.common.json_string
+  call_type: resolved
+- caller: onlydsl.dsl.assumption.parse_assumptions
+  callee: onlydsl.dsl.assumption._parse_assumption_fields
+  call_type: resolved
+- caller: onlydsl.dsl.assumption.parse_assumptions
+  callee: onlydsl.dsl.assumption._parse_assumption
+  call_type: resolved
 - caller: onlydsl.dsl.assumption.render_assumptions
   callee: onlydsl.dsl.common.quoted
   call_type: resolved
 - caller: onlydsl.dsl.assumption.render_assumptions
   callee: onlydsl.dsl.common.list_value
+  call_type: resolved
+- caller: onlydsl.ssot.cli.main
+  callee: onlydsl.ssot.cli.build_parser
+  call_type: resolved
+- caller: onlydsl.ssot.cli.main
+  callee: onlydsl.ssot.cli._json
+  call_type: resolved
+- caller: onlydsl.ssot.io.atomic_write_bytes
+  callee: onlydsl.ssot.io.fsync_directory
+  call_type: resolved
+- caller: onlydsl.ssot.io.atomic_write_text
+  callee: onlydsl.ssot.io.atomic_write_bytes
+  call_type: resolved
+- caller: onlydsl.ssot.io.atomic_write_json
+  callee: onlydsl.ssot.io.atomic_write_text
+  call_type: resolved
+- caller: onlydsl.ssot.registry.ProjectRegistry.entries
+  callee: onlydsl.ssot.registry.parse_registry
+  call_type: resolved
+- caller: onlydsl.ssot.registry.ProjectRegistry.register
+  callee: onlydsl.ssot.io.atomic_write_text
+  call_type: resolved
+- caller: onlydsl.ssot.registry.ProjectRegistry.register
+  callee: onlydsl.ssot.registry.render_registry
+  call_type: resolved
+- caller: onlydsl.ssot.manifest.collect_file_hashes
+  callee: onlydsl.ssot.manifest.normalize_relative_path
+  call_type: resolved
+- caller: onlydsl.ssot.manifest.collect_file_hashes
+  callee: onlydsl.ssot.manifest.digest_bytes
+  call_type: resolved
+- caller: onlydsl.ssot.manifest.calculate_section_hashes
+  callee: governance.canonical_hash
+  call_type: resolved
+- caller: onlydsl.ssot.manifest.calculate_section_hashes
+  callee: onlydsl.ssot.manifest.normalize_relative_path
+  call_type: resolved
+- caller: onlydsl.ssot.manifest.calculate_revision_hash
+  callee: governance.canonical_hash
+  call_type: resolved
+- caller: onlydsl.ssot.manifest.create_manifest
+  callee: onlydsl.ssot.manifest.calculate_section_hashes
+  call_type: resolved
+- caller: onlydsl.ssot.manifest.create_manifest
+  callee: onlydsl.ssot.manifest.calculate_revision_hash
+  call_type: resolved
+- caller: onlydsl.ssot.manifest.create_manifest
+  callee: onlydsl.ssot.manifest.utc_now
+  call_type: resolved
+- caller: onlydsl.ssot.manifest.validate_manifest
+  callee: onlydsl.ssot.manifest.calculate_section_hashes
+  call_type: resolved
+- caller: onlydsl.ssot.manifest.validate_manifest
+  callee: onlydsl.ssot.manifest.calculate_revision_hash
+  call_type: resolved
+- caller: onlydsl.ssot.manifest.render_manifest
+  callee: onlydsl.ssot.manifest.validate_manifest
+  call_type: resolved
+- caller: onlydsl.ssot.manifest.parse_manifest
+  callee: onlydsl.ssot.manifest.validate_manifest
+  call_type: resolved
+- caller: onlydsl.ssot.candidate.load_candidate
+  callee: onlydsl.ssot.candidate._candidate_from_dict
+  call_type: resolved
+- caller: onlydsl.ssot.candidate.save_candidate
+  callee: onlydsl.ssot.io.atomic_write_json
+  call_type: resolved
+- caller: onlydsl.ssot.candidate.create_candidate
+  callee: onlydsl.ssot.manifest.collect_file_hashes
+  call_type: resolved
+- caller: onlydsl.ssot.candidate.create_candidate
+  callee: onlydsl.ssot.validation.validate_tree
+  call_type: resolved
+- caller: onlydsl.ssot.candidate.validate_candidate
+  callee: onlydsl.ssot.candidate.load_candidate
+  call_type: resolved
+- caller: onlydsl.ssot.candidate.validate_candidate
+  callee: onlydsl.ssot.validation.validate_tree
+  call_type: resolved
+- caller: onlydsl.ssot.candidate.validate_candidate
+  callee: onlydsl.ssot.manifest.calculate_section_hashes
+  call_type: resolved
+- caller: onlydsl.ssot.candidate.validate_candidate
+  callee: onlydsl.ssot.manifest.calculate_revision_hash
+  call_type: resolved
+- caller: onlydsl.ssot.candidate.validate_candidate
+  callee: onlydsl.ssot.diff.calculate_diff
+  call_type: resolved
+- caller: onlydsl.ssot.candidate.validate_candidate
+  callee: onlydsl.ssot.io.atomic_write_text
+  call_type: resolved
+- caller: onlydsl.ssot.candidate.validate_candidate
+  callee: onlydsl.ssot.candidate.save_candidate
+  call_type: resolved
+- caller: onlydsl.ssot.validation._validate_known_dsl
+  callee: onlydsl.dsl.assumption.parse_assumptions
+  call_type: resolved
+- caller: onlydsl.ssot.validation._validate_known_dsl
+  callee: onlydsl.dsl.evidence_set.parse_evidence_set
+  call_type: resolved
+- caller: onlydsl.ssot.validation._validate_known_dsl
+  callee: onlydsl.dsl.parameter_contract.parse_parameter_contracts
+  call_type: resolved
+- caller: onlydsl.ssot.validation._validate_known_dsl
+  callee: onlydsl.dsl.spatial_class.parse_spatial_class
+  call_type: resolved
+- caller: onlydsl.ssot.validation._validate_known_dsl
+  callee: onlydsl.dsl.repair_plan.parse_repair_plan
+  call_type: resolved
+- caller: onlydsl.ssot.validation._validate_known_dsl
+  callee: onlydsl.runtime.integrity.parse_project_integrity
+  call_type: resolved
+- caller: onlydsl.ssot.validation.validate_tree
+  callee: onlydsl.ssot.manifest.collect_file_hashes
+  call_type: resolved
+- caller: onlydsl.ssot.reader.SsotReader.manifest
+  callee: onlydsl.ssot.manifest.parse_manifest
+  call_type: resolved
+- caller: onlydsl.ssot.reader.SsotReader.verified_manifest
+  callee: onlydsl.ssot.manifest.parse_manifest
+  call_type: resolved
+- caller: onlydsl.ssot.reader.SsotReader.verified_manifest
+  callee: onlydsl.ssot.manifest.collect_file_hashes
+  call_type: resolved
+- caller: onlydsl.ssot.reader.SsotReader.verified_manifest
+  callee: onlydsl.ssot.manifest.validate_manifest
+  call_type: resolved
+- caller: onlydsl.ssot.reader.SsotReader.history
+  callee: onlydsl.ssot.manifest.parse_manifest
+  call_type: resolved
+- caller: onlydsl.ssot.writer.SsotStore.initialize
+  callee: onlydsl.ssot.io.atomic_write_text
+  call_type: resolved
+- caller: onlydsl.ssot.writer.SsotStore.initialize
+  callee: onlydsl.ssot.manifest.create_manifest
+  call_type: resolved
+- caller: onlydsl.ssot.writer.SsotStore.initialize
+  callee: onlydsl.ssot.manifest.render_manifest
+  call_type: resolved
+- caller: onlydsl.ssot.writer.SsotStore.promote
+  callee: onlydsl.ssot.candidate.load_candidate
+  call_type: resolved
+- caller: onlydsl.ssot.writer.SsotStore.promote
+  callee: onlydsl.ssot.writer.SsotStore.validate_candidate
+  call_type: resolved
+- caller: onlydsl.ssot.writer.SsotStore._write_append_only
+  callee: onlydsl.ssot.io.atomic_write_text
+  call_type: resolved
+- caller: onlydsl.ssot.writer.SsotStore._write_json_append_only
+  callee: onlydsl.ssot.io.atomic_write_json
+  call_type: resolved
+- caller: onlydsl.ssot.writer.SsotStore._validate_approval
+  callee: onlydsl.ssot.manifest.is_immutable_urn
+  call_type: resolved
+- caller: onlydsl.ssot.writer.SsotStore._promotion_lock
+  callee: onlydsl.ssot.io.atomic_write_json
+  call_type: resolved
+- caller: scripts.startup_testql.verify
+  callee: scripts.startup_testql.synthetic_failure
+  call_type: resolved
+- caller: scripts.startup_testql.write_twin_observation
+  callee: scripts.startup_testql.now
+  call_type: resolved
+- caller: scripts.startup_testql.main
+  callee: scripts.startup_testql.wait_for
+  call_type: resolved
+- caller: multiruntime.typescript.ifuri.toNatsSubject
+  callee: multiruntime.typescript.ifuri.parseIfUri
+  call_type: resolved
+- caller: multiruntime.javascript.ifuri.canonical
+  callee: multiruntime.javascript.ifuri.parseIfUri
+  call_type: resolved
+- caller: multiruntime.javascript.ifuri.toNatsSubject
+  callee: multiruntime.javascript.ifuri.parseIfUri
+  call_type: resolved
+- caller: multiruntime.javascript.ifuri.raw
+  callee: multiruntime.javascript.ifuri.canonical
+  call_type: resolved
+- caller: multiruntime.javascript.ifuri.raw
+  callee: multiruntime.javascript.ifuri.toNatsSubject
+  call_type: resolved
+- caller: multiruntime.php.ifuri.canonical_ifuri
+  callee: multiruntime.php.ifuri.parse_ifuri
+  call_type: resolved
+- caller: multiruntime.php.ifuri.nats_subject
+  callee: multiruntime.php.ifuri.parse_ifuri
+  call_type: resolved
+- caller: server._current_external_integrity
+  callee: server._fetch_external_json
+  call_type: resolved
+- caller: server._current_external_integrity
+  callee: server._external_document
+  call_type: resolved
+- caller: server._current_external_integrity
+  callee: server._external_revision
+  call_type: resolved
+- caller: server._current_external_integrity
+  callee: onlydsl.runtime.integrity.parse_project_integrity
+  call_type: resolved
+- caller: server._current_external_integrity
+  callee: onlydsl.dsl.spatial_class.spatial_class_from_twin
+  call_type: resolved
+- caller: server._integrity_repair_plan
+  callee: server._current_external_integrity
+  call_type: resolved
+- caller: server._integrity_repair_plan
+  callee: onlydsl.runtime.repair_controller.plan_integrity_repairs
+  call_type: resolved
+- caller: server._context_registries
+  callee: contextdsl.parse_context_dsl
+  call_type: resolved
+- caller: server._context_registries
+  callee: contextdsl.extract_contextdsl
+  call_type: resolved
+- caller: server._ifuri_analyze_context
+  callee: contextdsl.validate_context_markdown
+  call_type: resolved
+- caller: server._ifuri_analyze_context
+  callee: ifuri_core.dsl_document.make_dsl_document
+  call_type: resolved
+- caller: server._ifuri_analyze_context
+  callee: server._unpack_dsl
+  call_type: resolved
+- caller: server._ifuri_analyze_context
+  callee: server._context_registries
+  call_type: resolved
+- caller: server._ifuri_analyze_context
+  callee: intentdsl.validate_markdown
+  call_type: resolved
+- caller: server._ifuri_analyze_context
+  callee: intentdsl.parse_dsl
+  call_type: resolved
+- caller: server._ifuri_compile_source
+  callee: ifuri_core.dsl_document.make_dsl_document
+  call_type: resolved
+- caller: server._ifuri_compile_source
+  callee: server._unpack_dsl
+  call_type: resolved
+- caller: server._ifuri_compile_source
+  callee: boundary.source_text_dsl
+  call_type: resolved
+- caller: server._ifuri_compile_source
+  callee: intentdsl.validate_markdown
+  call_type: resolved
+- caller: server._twin_payload
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: server._twin_payload
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: server._twin_payload
+  callee: digital_twin.validate_twin_markdown
+  call_type: resolved
+- caller: server._twin_payload
+  callee: digital_twin.twin_to_mermaid
+  call_type: resolved
+- caller: server._bootstrap_twin
+  callee: digital_twin.intent_fingerprint
+  call_type: resolved
+- caller: server._bootstrap_twin
+  callee: boundary.source_text_dsl
+  call_type: resolved
+- caller: server._bootstrap_twin
+  callee: ifuri_core.dsl_document.make_dsl_document
+  call_type: resolved
+- caller: server._bootstrap_twin
+  callee: server._unpack_dsl
+  call_type: resolved
+- caller: server._bootstrap_twin
+  callee: server._twin_payload
+  call_type: resolved
+- caller: server._scan_sources
+  callee: source_ingest.build_source_index
+  call_type: resolved
+- caller: server._scan_sources
+  callee: source_ingest.validate_sourceindex_markdown
+  call_type: resolved
+- caller: server._update_twin
+  callee: server._scan_sources
+  call_type: resolved
+- caller: server._update_twin
+  callee: ifuri_core.dsl_document.make_dsl_document
+  call_type: resolved
+- caller: server._update_twin
+  callee: server._unpack_dsl
+  call_type: resolved
+- caller: server._update_twin
+  callee: server._twin_payload
+  call_type: resolved
+- caller: server._plan_twin
+  callee: ifuri_core.dsl_document.make_dsl_document
+  call_type: resolved
+- caller: server._plan_twin
+  callee: server._unpack_dsl
+  call_type: resolved
+- caller: server._plan_twin
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: server._plan_twin
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: server._plan_twin
+  callee: digital_twin.validate_buildplan_markdown
+  call_type: resolved
+- caller: server._plan_twin
+  callee: ifuri_core.llm_gateway.gateway_provider_status
+  call_type: resolved
+- caller: server._compile_context
+  callee: contextdsl.validate_context_markdown
+  call_type: resolved
+- caller: server._compile_context
+  callee: contextdsl.compiler_from_payload
+  call_type: resolved
+- caller: server._run_intent
+  callee: intentdsl.parse_dsl
+  call_type: resolved
+- caller: server._run_intent
+  callee: intentdsl.run_program
+  call_type: resolved
+- caller: server._run_intent
+  callee: intentdsl.extract_intentdsl
+  call_type: resolved
+- caller: server._codegen_intent
+  callee: intentdsl.parse_dsl
+  call_type: resolved
+- caller: server._codegen_intent
+  callee: intentdsl.extract_intentdsl
+  call_type: resolved
+- caller: server._codegen_intent
+  callee: intentdsl.codegen
+  call_type: resolved
+- caller: server.Handler._send
+  callee: server._json_bytes
+  call_type: resolved
+- caller: server.Handler._post_routes
+  callee: server._compile_context
+  call_type: resolved
+- caller: server.Handler._post_routes
+  callee: server._ifuri_analyze_context
+  call_type: resolved
+- caller: server.Handler._post_routes
+  callee: server._ifuri_compile_source
+  call_type: resolved
+- caller: server.Handler._post_routes
+  callee: server._bootstrap_twin
+  call_type: resolved
+- caller: server.Handler._post_routes
+  callee: server._update_twin
+  call_type: resolved
+- caller: server.Handler._post_routes
+  callee: server._integrity_repair_plan
+  call_type: resolved
+- caller: server.Handler._post_routes
+  callee: server._record_guidance
+  call_type: resolved
+- caller: server.Handler._post_routes
+  callee: server._record_incident
+  call_type: resolved
+- caller: server.Handler.do_GET
+  callee: server._application_version
+  call_type: resolved
+- caller: server.Handler.do_GET
+  callee: server._twin_status
+  call_type: resolved
+- caller: server.Handler.do_GET
+  callee: server.evolution_authority_status
+  call_type: resolved
+- caller: server.main
+  callee: server._application_version
+  call_type: resolved
+- caller: digital_twin.intent_fingerprint
+  callee: digital_twin.normalize_intent
+  call_type: resolved
+- caller: digital_twin._parse_json_text
+  callee: digital_twin._json_string
+  call_type: resolved
+- caller: digital_twin._parse_twin_node_block
+  callee: digital_twin._parse_json_text
+  call_type: resolved
+- caller: digital_twin._parse_twin_evolution_block
+  callee: digital_twin._parse_json_text
+  call_type: resolved
+- caller: digital_twin._parse_twin_source
+  callee: digital_twin._parse_json_text
+  call_type: resolved
+- caller: digital_twin._parse_twin_scalar
+  callee: digital_twin._parse_json_text
+  call_type: resolved
+- caller: digital_twin._parse_twin_declaration
+  callee: digital_twin._parse_twin_scalar
+  call_type: resolved
+- caller: digital_twin._parse_twin_declaration
+  callee: digital_twin._parse_twin_node_block
+  call_type: resolved
+- caller: digital_twin._parse_twin_declaration
+  callee: digital_twin._parse_twin_capability_block
+  call_type: resolved
+- caller: digital_twin.parse_twindsl
+  callee: digital_twin._build_twin_document
+  call_type: resolved
+- caller: digital_twin.parse_twindsl
+  callee: digital_twin.validate_twin
+  call_type: resolved
+- caller: digital_twin.validate_twin
+  callee: digital_twin._validate_twin_basics
+  call_type: resolved
+- caller: digital_twin.validate_twin
+  callee: digital_twin._validate_twin_capabilities
+  call_type: resolved
+- caller: digital_twin.validate_twin
+  callee: digital_twin._validate_twin_edges
+  call_type: resolved
+- caller: digital_twin.validate_twin
+  callee: digital_twin._validate_twin_invariants
+  call_type: resolved
+- caller: digital_twin.validate_twin
+  callee: digital_twin._validate_twin_sources
+  call_type: resolved
+- caller: digital_twin.validate_twin
+  callee: digital_twin._validate_twin_nodes
+  call_type: resolved
+- caller: digital_twin.validate_twin_markdown
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: digital_twin.validate_twin_markdown
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: digital_twin.validate_twin_update
+  callee: digital_twin.validate_twin
+  call_type: resolved
+- caller: digital_twin.twin_to_mermaid
+  callee: digital_twin._render_twin_nodes
+  call_type: resolved
+- caller: digital_twin.twin_to_mermaid
+  callee: digital_twin._render_twin_capabilities
+  call_type: resolved
+- caller: digital_twin.twin_to_mermaid
+  callee: digital_twin._render_twin_edges
+  call_type: resolved
+- caller: digital_twin.demo_bootstrap_twin
+  callee: digital_twin.normalize_intent
+  call_type: resolved
+- caller: digital_twin.demo_bootstrap_twin
+  callee: digital_twin.intent_fingerprint
+  call_type: resolved
+- caller: digital_twin.demo_bootstrap_twin
+  callee: digital_twin._bootstrap_node_lines
+  call_type: resolved
+- caller: digital_twin._bootstrap_node_lines
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._bootstrap_capability_lines
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._bootstrap_invariant_lines
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._bootstrap_evolution_lines
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin.render_twin
+  callee: digital_twin._render_twin_header
+  call_type: resolved
+- caller: digital_twin._render_twin_header
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_goals
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_nodes_block
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_capabilities_block
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_invariants_block
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_evolution_block
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_sources_block
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_questions_block
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin.validate_buildplan_markdown
+  callee: onlydsl.dsl.build_plan.validate_bound_build_plan
+  call_type: resolved
+- caller: digital_twin.validate_buildplan_markdown
+  callee: digital_twin.render_twin
+  call_type: resolved
+- caller: digital_twin.demo_build_plan
+  callee: onlydsl.dsl.build_plan.semantic_twin_hash
+  call_type: resolved
+- caller: digital_twin.demo_build_plan
+  callee: digital_twin._quoted
   call_type: resolved
 modules:
   aql:
@@ -1960,10 +3251,19 @@ modules:
   - contextdsl.ContextCompiler.state
   - contextdsl.ContextCompiler.to_markdown
   - contextdsl.ContextCompiler.tool_result
+  - contextdsl._compile_capabilities
+  - contextdsl._compile_events
+  - contextdsl._compile_logs
+  - contextdsl._compile_tool_results
   - contextdsl._event_code_from_text
   - contextdsl._ident
   - contextdsl._infer_type
+  - contextdsl._parse_context_declaration
   - contextdsl._parse_legacy_scalar
+  - contextdsl._parse_literal
+  - contextdsl._parse_metric
+  - contextdsl._parse_record_field
+  - contextdsl._parse_state
   - contextdsl.compiler_from_payload
   - contextdsl.extract_contextdsl
   - contextdsl.parse_context_dsl
@@ -1974,7 +3274,37 @@ modules:
   - diagnostics._candidate_paths
   - diagnostics.diagnose_incident
   digital_twin:
+  - digital_twin._bootstrap_capability_lines
+  - digital_twin._bootstrap_evolution_lines
+  - digital_twin._bootstrap_invariant_lines
+  - digital_twin._bootstrap_node_lines
+  - digital_twin._build_twin_document
+  - digital_twin._json_string
+  - digital_twin._parse_json_text
+  - digital_twin._parse_twin_capability_block
+  - digital_twin._parse_twin_declaration
+  - digital_twin._parse_twin_evolution_block
+  - digital_twin._parse_twin_node_block
+  - digital_twin._parse_twin_scalar
+  - digital_twin._parse_twin_source
   - digital_twin._quoted
+  - digital_twin._render_twin_capabilities
+  - digital_twin._render_twin_capabilities_block
+  - digital_twin._render_twin_edges
+  - digital_twin._render_twin_evolution_block
+  - digital_twin._render_twin_goals
+  - digital_twin._render_twin_header
+  - digital_twin._render_twin_invariants_block
+  - digital_twin._render_twin_nodes
+  - digital_twin._render_twin_nodes_block
+  - digital_twin._render_twin_questions_block
+  - digital_twin._render_twin_sources_block
+  - digital_twin._validate_twin_basics
+  - digital_twin._validate_twin_capabilities
+  - digital_twin._validate_twin_edges
+  - digital_twin._validate_twin_invariants
+  - digital_twin._validate_twin_nodes
+  - digital_twin._validate_twin_sources
   - digital_twin.buildplandsl_schema
   - digital_twin.demo_bootstrap_twin
   - digital_twin.demo_build_plan
@@ -2036,10 +3366,19 @@ modules:
   - ifuri_core.transport._validate_nats_subject
   - ifuri_core.transport.capability_pattern_to_subject
   intentdsl:
+  - intentdsl._auth_recovery_lines
+  - intentdsl._codegen_javascript_like
+  - intentdsl._codegen_php
+  - intentdsl._codegen_python
   - intentdsl._expr_tree
+  - intentdsl._generic_demo_lines
   - intentdsl._normalize_expr
+  - intentdsl._parse_call
+  - intentdsl._parse_program_declaration
+  - intentdsl._parse_rule_statement
   - intentdsl._slug_words
-  - intentdsl._type_ok
+  - intentdsl._validate_rule_expressions
+  - intentdsl.codegen
   - intentdsl.demo_english_to_dsl
   - intentdsl.eval_expr
   - intentdsl.expr_names
@@ -2075,52 +3414,141 @@ modules:
   - multiruntime.typescript.ifuri.parseIfUri
   - multiruntime.typescript.ifuri.toNatsSubject
   onlydsl.dsl.assumption:
-  - onlydsl.dsl.assumption.assumptions_from_integrity
+  - onlydsl.dsl.assumption._parse_assumption
+  - onlydsl.dsl.assumption._parse_assumption_fields
+  - onlydsl.dsl.assumption.parse_assumptions
   - onlydsl.dsl.assumption.render_assumptions
   onlydsl.dsl.build_plan:
+  - onlydsl.dsl.build_plan._validate_tasks
   - onlydsl.dsl.build_plan.parse_bound_build_plan
   - onlydsl.dsl.build_plan.semantic_twin_hash
   - onlydsl.dsl.build_plan.validate_bound_build_plan
+  onlydsl.dsl.claim:
+  - onlydsl.dsl.claim._parse_claim
+  - onlydsl.dsl.claim._parse_claim_fields
+  - onlydsl.dsl.claim.parse_claims
+  - onlydsl.dsl.claim.render_claims
   onlydsl.dsl.common:
   - onlydsl.dsl.common.extract_one
+  - onlydsl.dsl.common.json_string
   - onlydsl.dsl.common.list_value
   - onlydsl.dsl.common.quoted
   onlydsl.dsl.evidence_set:
   - onlydsl.dsl.evidence_set.create_evidence_set
+  - onlydsl.dsl.evidence_set.parse_evidence_set
+  onlydsl.dsl.parameter_contract:
+  - onlydsl.dsl.parameter_contract._parse_allowed
+  - onlydsl.dsl.parameter_contract._parse_parameter
+  - onlydsl.dsl.parameter_contract._parse_parameter_fields
+  - onlydsl.dsl.parameter_contract._parse_range
+  - onlydsl.dsl.parameter_contract.parse_parameter_contracts
   onlydsl.dsl.repair_plan:
+  - onlydsl.dsl.repair_plan._parse_repair_task
+  - onlydsl.dsl.repair_plan._validate_repair_task
   - onlydsl.dsl.repair_plan.parse_repair_plan
   - onlydsl.dsl.repair_plan.render_repair_plan
   - onlydsl.dsl.repair_plan.validate_repair_plan
   onlydsl.dsl.spatial_class:
+  - onlydsl.dsl.spatial_class.parse_spatial_class
   - onlydsl.dsl.spatial_class.spatial_class_from_twin
+  onlydsl.dsl.trust:
+  - onlydsl.dsl.trust.render_trust_policy
   onlydsl.governance.authority_projection:
   - onlydsl.governance.authority_projection.project_authority
   - onlydsl.governance.authority_projection.render_authority_projection
   onlydsl.runtime.integrity:
+  - onlydsl.runtime.integrity._readiness
   - onlydsl.runtime.integrity.parse_project_integrity
   onlydsl.runtime.repair_controller:
   - onlydsl.runtime.repair_controller.RepairCycle.to_dict
   - onlydsl.runtime.repair_controller._receipt
   - onlydsl.runtime.repair_controller.execute_repair_cycle
   - onlydsl.runtime.repair_controller.plan_integrity_repairs
+  onlydsl.ssot.candidate:
+  - onlydsl.ssot.candidate._candidate_from_dict
+  - onlydsl.ssot.candidate.create_candidate
+  - onlydsl.ssot.candidate.load_candidate
+  - onlydsl.ssot.candidate.save_candidate
+  - onlydsl.ssot.candidate.validate_candidate
+  onlydsl.ssot.cli:
+  - onlydsl.ssot.cli._json
+  - onlydsl.ssot.cli.build_parser
+  - onlydsl.ssot.cli.main
+  onlydsl.ssot.diff:
+  - onlydsl.ssot.diff.calculate_diff
+  onlydsl.ssot.io:
+  - onlydsl.ssot.io.atomic_write_bytes
+  - onlydsl.ssot.io.atomic_write_json
+  - onlydsl.ssot.io.atomic_write_text
+  - onlydsl.ssot.io.fsync_directory
+  onlydsl.ssot.manifest:
+  - onlydsl.ssot.manifest.calculate_revision_hash
+  - onlydsl.ssot.manifest.calculate_section_hashes
+  - onlydsl.ssot.manifest.collect_file_hashes
+  - onlydsl.ssot.manifest.create_manifest
+  - onlydsl.ssot.manifest.digest_bytes
+  - onlydsl.ssot.manifest.is_immutable_urn
+  - onlydsl.ssot.manifest.normalize_relative_path
+  - onlydsl.ssot.manifest.parse_manifest
+  - onlydsl.ssot.manifest.render_manifest
+  - onlydsl.ssot.manifest.utc_now
+  - onlydsl.ssot.manifest.validate_manifest
+  onlydsl.ssot.reader:
+  - onlydsl.ssot.reader.SsotReader.history
+  - onlydsl.ssot.reader.SsotReader.manifest
+  - onlydsl.ssot.reader.SsotReader.verified_manifest
+  onlydsl.ssot.registry:
+  - onlydsl.ssot.registry.ProjectRegistry.entries
+  - onlydsl.ssot.registry.ProjectRegistry.register
+  - onlydsl.ssot.registry.parse_registry
+  - onlydsl.ssot.registry.render_registry
+  onlydsl.ssot.validation:
+  - onlydsl.ssot.validation._validate_known_dsl
+  - onlydsl.ssot.validation.validate_tree
+  onlydsl.ssot.writer:
+  - onlydsl.ssot.writer.SsotStore._promotion_lock
+  - onlydsl.ssot.writer.SsotStore._validate_approval
+  - onlydsl.ssot.writer.SsotStore._write_append_only
+  - onlydsl.ssot.writer.SsotStore._write_json_append_only
+  - onlydsl.ssot.writer.SsotStore.initialize
+  - onlydsl.ssot.writer.SsotStore.promote
+  - onlydsl.ssot.writer.SsotStore.validate_candidate
   patchdsl:
+  - patchdsl._count_diff_lines
   - patchdsl._json_string
+  - patchdsl._parse_change
+  - patchdsl._validate_change
   - patchdsl.parse_patchdsl
   - patchdsl.validate_patch_markdown
   - patchdsl.validate_patch_policy
+  scripts.startup_testql:
+  - scripts.startup_testql.main
+  - scripts.startup_testql.now
+  - scripts.startup_testql.synthetic_failure
+  - scripts.startup_testql.verify
+  - scripts.startup_testql.wait_for
+  - scripts.startup_testql.write_twin_observation
   server:
+  - server.Handler._post_routes
   - server.Handler._send
   - server.Handler.do_GET
-  - server.Handler.do_POST
   - server._application_version
   - server._bootstrap_twin
+  - server._codegen_intent
+  - server._compile_context
   - server._context_registries
   - server._current_external_integrity
+  - server._external_document
+  - server._external_revision
+  - server._fetch_external_json
   - server._ifuri_analyze_context
   - server._ifuri_compile_source
   - server._integrity_repair_plan
   - server._json_bytes
   - server._plan_twin
+  - server._record_guidance
+  - server._record_incident
+  - server._run_intent
   - server._scan_sources
   - server._twin_payload
   - server._twin_status
@@ -2297,29 +3725,54 @@ entry_points:
 - multiruntime.typescript.ifuri.toNatsSubject
 - multiruntime.typescript.ifuri.u
 - multiruntime.typescript.ifuri.x
+- onlydsl.cli.main
 - onlydsl.dsl.assumption.AssumptionDocument.replace_with_evidence
-- onlydsl.dsl.assumption.parse_assumptions
+- onlydsl.dsl.claim.render_claims
 - onlydsl.dsl.common.canonical_hash
 - onlydsl.dsl.evidence_set.create_evidence_set
-- onlydsl.dsl.evidence_set.parse_evidence_set
 - onlydsl.dsl.evidence_set.render_evidence_set
 - onlydsl.dsl.parameter_contract.ParameterContractDocument.validate
-- onlydsl.dsl.parameter_contract.parse_parameter_contracts
 - onlydsl.dsl.parameter_contract.render_parameter_contracts
-- onlydsl.dsl.repair_plan.parse_repair_plan
 - onlydsl.dsl.spatial_class.SpatialClassDocument.classify
 - onlydsl.dsl.spatial_class.SpatialClassDocument.geometry_subjects
 - onlydsl.dsl.spatial_class.SpatialClassDocument.required_checks
-- onlydsl.dsl.spatial_class.parse_spatial_class
+- onlydsl.dsl.trust.TrustPolicy.priority_for
+- onlydsl.dsl.trust.render_trust_policy
 - onlydsl.runtime.repair_controller.RepairCycle.to_dict
 - onlydsl.runtime.repair_controller.execute_repair_cycle
+- onlydsl.ssot.candidate.create_candidate
+- onlydsl.ssot.candidate.validate_candidate
+- onlydsl.ssot.cli.main
+- onlydsl.ssot.reader.SsotReader.__init__
+- onlydsl.ssot.reader.SsotReader.history
+- onlydsl.ssot.reader.SsotReader.manifest
+- onlydsl.ssot.reader.SsotReader.status
+- onlydsl.ssot.reader.SsotReader.verified_manifest
+- onlydsl.ssot.registry.ProjectRegistry.__init__
+- onlydsl.ssot.registry.ProjectRegistry.entries
+- onlydsl.ssot.registry.ProjectRegistry.register
+- onlydsl.ssot.writer.SsotStore.__init__
+- onlydsl.ssot.writer.SsotStore._candidate_directory
+- onlydsl.ssot.writer.SsotStore._history_path
+- onlydsl.ssot.writer.SsotStore._promotion_lock
+- onlydsl.ssot.writer.SsotStore._recover_stale_lock
+- onlydsl.ssot.writer.SsotStore._validate_approval
+- onlydsl.ssot.writer.SsotStore._write_append_only
+- onlydsl.ssot.writer.SsotStore._write_json_append_only
+- onlydsl.ssot.writer.SsotStore.candidate_diff
+- onlydsl.ssot.writer.SsotStore.initialize
+- onlydsl.ssot.writer.SsotStore.promote
 - patchdsl.validate_patch_markdown
+- scripts.startup_testql.main
 - server.Handler._body
+- server.Handler._post_routes
 - server.Handler._send
 - server.Handler.do_GET
 - server.Handler.do_POST
 - server.Handler.log_message
+- server._plan_twin
 - server.main
+- source_ingest.SourceIndex.envelope
 - source_ingest.SourceIndex.source_refs
 - source_ingest.SourceIndex.to_markdown
 - source_ingest._q

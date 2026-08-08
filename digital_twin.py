@@ -50,6 +50,122 @@ def extract_twindsl(markdown: str) -> str:
     return blocks[0]
 
 
+def _parse_json_text(raw: str, *, label: str) -> str:
+    return _json_string(raw, label=label)
+
+
+def _parse_twin_evidence(raw: str, *, line_no: int) -> str:
+    evidence = raw.split(None, 1)[1].strip()
+    if not _ID_RE.fullmatch(evidence):
+        raise TwinDslError(f"line {line_no}: invalid EVIDENCE id")
+    return evidence
+
+
+def _parse_twin_node_block(lines: list[tuple[int, str]], index: int) -> tuple[int, TwinNode]:
+    lineno, line = lines[index]
+    match = re.fullmatch(r"NODE\s+([A-Za-z][A-Za-z0-9_.-]{0,95})\s+KIND\s+([A-Za-z][A-Za-z0-9_.-]{0,95})", line)
+    if not match:
+        raise TwinDslError(f"line {lineno}: invalid NODE header")
+    node = TwinNode(match.group(1), match.group(2))
+    index += 1
+    while index < len(lines) and lines[index][1] != "END":
+        subline_no, sub = lines[index]
+        if sub.startswith("RESPONSIBILITY "):
+            node.responsibility = _parse_json_text(sub[len("RESPONSIBILITY "):], label="RESPONSIBILITY")
+        elif sub.startswith("SPATIAL_CLASS "):
+            node.spatial_class = sub.split(None, 1)[1]
+        elif sub.startswith("EVIDENCE "):
+            node.evidence.append(_parse_twin_evidence(sub, line_no=subline_no))
+        else:
+            raise TwinDslError(f"line {subline_no}: unknown NODE directive {sub!r}")
+        index += 1
+    if index >= len(lines) or lines[index][1] != "END":
+        raise TwinDslError(f"line {lineno}: NODE missing END")
+    return index, node
+
+
+def _parse_twin_capability_block(lines: list[tuple[int, str]], index: int) -> tuple[int, TwinCapability]:
+    lineno, line = lines[index]
+    cap_id = line.split(None, 1)[1].strip()
+    if not _ID_RE.fullmatch(cap_id):
+        raise TwinDslError(f"line {lineno}: invalid capability id")
+    cap = TwinCapability(cap_id)
+    index += 1
+    while index < len(lines) and lines[index][1] != "END":
+        subline_no, sub = lines[index]
+        if sub.startswith("URI "):
+            cap.uri = sub.split(None, 1)[1].strip()
+        elif sub.startswith("OWNER "):
+            cap.owner = sub.split(None, 1)[1].strip()
+        elif sub.startswith("INPUT "):
+            cap.input_type = sub.split(None, 1)[1].strip()
+        elif sub.startswith("OUTPUT "):
+            cap.output_type = sub.split(None, 1)[1].strip()
+        elif sub.startswith("RESPONSIBILITY "):
+            cap.responsibility = _parse_json_text(sub[len("RESPONSIBILITY "):], label="RESPONSIBILITY")
+        elif sub.startswith("EVIDENCE "):
+            cap.evidence.append(_parse_twin_evidence(sub, line_no=subline_no))
+        else:
+            raise TwinDslError(f"line {subline_no}: unknown CAPABILITY directive {sub!r}")
+        index += 1
+    if index >= len(lines) or lines[index][1] != "END":
+        raise TwinDslError(f"line {lineno}: CAPABILITY missing END")
+    return index, cap
+
+
+def _parse_twin_invariant_block(lines: list[tuple[int, str]], index: int) -> tuple[int, TwinInvariant]:
+    lineno, line = lines[index]
+    inv_id = line.split(None, 1)[1].strip()
+    if not _ID_RE.fullmatch(inv_id):
+        raise TwinDslError(f"line {lineno}: invalid invariant id")
+    inv = TwinInvariant(inv_id)
+    index += 1
+    while index < len(lines) and lines[index][1] != "END":
+        subline_no, sub = lines[index]
+        if sub.startswith("ASSERT "):
+            inv.assertions.append(_parse_json_text(sub[len("ASSERT "):], label="ASSERT"))
+        elif sub.startswith("EVIDENCE "):
+            inv.evidence.append(_parse_twin_evidence(sub, line_no=subline_no))
+        else:
+            raise TwinDslError(f"line {subline_no}: unknown INVARIANT directive {sub!r}")
+        index += 1
+    if index >= len(lines) or lines[index][1] != "END":
+        raise TwinDslError(f"line {lineno}: INVARIANT missing END")
+    return index, inv
+
+
+def _parse_twin_evolution_block(lines: list[tuple[int, str]], index: int) -> tuple[int, tuple[list[str], list[str], list[str]]]:
+    lineno = lines[index][0]
+    allow: list[str] = []
+    require: list[str] = []
+    forbid: list[str] = []
+    index += 1
+    while index < len(lines) and lines[index][1] != "END":
+        subline_no, sub = lines[index]
+        if sub.startswith("ALLOW "):
+            allow.append(_parse_json_text(sub[len("ALLOW "):], label="ALLOW"))
+        elif sub.startswith("REQUIRE "):
+            require.append(_parse_json_text(sub[len("REQUIRE "):], label="REQUIRE"))
+        elif sub.startswith("FORBID "):
+            forbid.append(_parse_json_text(sub[len("FORBID "):], label="FORBID"))
+        else:
+            raise TwinDslError(f"line {subline_no}: unknown EVOLUTION directive {sub!r}")
+        index += 1
+    if index >= len(lines) or lines[index][1] != "END":
+        raise TwinDslError(f"line {lineno}: EVOLUTION missing END")
+    return index, (allow, require, forbid)
+
+
+def _parse_twin_source(line: str, lineno: int) -> TwinSourceRef:
+    match = re.fullmatch(r"SOURCE\s+([A-Za-z][A-Za-z0-9_.-]{0,95})\s+HASH\s+(sha256:[0-9a-f]{64})(?:\s+PATH\s+(.+))?", line)
+    if not match:
+        raise TwinDslError(f"line {lineno}: invalid SOURCE")
+    path = ""
+    if match.group(3):
+        path = _parse_json_text(match.group(3), label="SOURCE PATH")
+    return TwinSourceRef(match.group(1), match.group(2), path)
+
+
 @dataclass(slots=True)
 class TwinNode:
     id: str
@@ -126,6 +242,89 @@ class BuildPlan:
     phases: list[tuple[str, list[BuildTask]]]
 
 
+@dataclass(slots=True)
+class _TwinParseState:
+    name: str
+    version: int | None = None
+    revision: int | None = None
+    fingerprint: str | None = None
+    summary: str | None = None
+    goals: list[str] = field(default_factory=list)
+    nodes: dict[str, TwinNode] = field(default_factory=dict)
+    capabilities: dict[str, TwinCapability] = field(default_factory=dict)
+    edges: list[TwinEdge] = field(default_factory=list)
+    invariants: dict[str, TwinInvariant] = field(default_factory=dict)
+    evolution_allow: list[str] = field(default_factory=list)
+    evolution_require: list[str] = field(default_factory=list)
+    evolution_forbid: list[str] = field(default_factory=list)
+    sources: dict[str, TwinSourceRef] = field(default_factory=dict)
+    questions: list[str] = field(default_factory=list)
+
+
+def _parse_twin_scalar(state: _TwinParseState, line: str) -> bool:
+    if line.startswith("VERSION "):
+        state.version = int(line.split(None, 1)[1])
+    elif line.startswith("REVISION "):
+        state.revision = int(line.split(None, 1)[1])
+    elif line.startswith("INTENT_FINGERPRINT "):
+        state.fingerprint = line.split(None, 1)[1].strip()
+    elif line.startswith("INTENT_SUMMARY "):
+        state.summary = _parse_json_text(line[len("INTENT_SUMMARY "):], label="INTENT_SUMMARY")
+    elif line.startswith("GOAL "):
+        state.goals.append(_parse_json_text(line[len("GOAL "):], label="GOAL"))
+    elif line.startswith("OPEN_QUESTION "):
+        state.questions.append(_parse_json_text(line[len("OPEN_QUESTION "):], label="OPEN_QUESTION"))
+    else:
+        return False
+    return True
+
+
+def _parse_twin_declaration(state: _TwinParseState, lines: list[tuple[int, str]], index: int) -> int:
+    lineno, line = lines[index]
+    if _parse_twin_scalar(state, line):
+        return index
+    if line.startswith("NODE "):
+        index, node = _parse_twin_node_block(lines, index)
+        if node.id in state.nodes:
+            raise TwinDslError(f"duplicate node {node.id}")
+        state.nodes[node.id] = node
+    elif line.startswith("CAPABILITY "):
+        index, capability = _parse_twin_capability_block(lines, index)
+        if capability.id in state.capabilities:
+            raise TwinDslError(f"duplicate capability {capability.id}")
+        state.capabilities[capability.id] = capability
+    elif line.startswith("EDGE "):
+        match = re.fullmatch(r"EDGE\s+([A-Za-z][A-Za-z0-9_.-]{0,95})\s+->\s+([A-Za-z][A-Za-z0-9_.-]{0,95})\s+REL\s+([A-Za-z][A-Za-z0-9_.-]{0,95})", line)
+        if not match:
+            raise TwinDslError(f"line {lineno}: invalid EDGE")
+        state.edges.append(TwinEdge(match.group(1), match.group(2), match.group(3)))
+    elif line.startswith("INVARIANT "):
+        index, invariant = _parse_twin_invariant_block(lines, index)
+        state.invariants[invariant.id] = invariant
+    elif line == "EVOLUTION":
+        index, (state.evolution_allow, state.evolution_require, state.evolution_forbid) = _parse_twin_evolution_block(lines, index)
+    elif line.startswith("SOURCE "):
+        source = _parse_twin_source(line, lineno)
+        state.sources[source.id] = source
+    else:
+        raise TwinDslError(f"line {lineno}: unknown TwinDSL directive {line!r}")
+    return index
+
+
+def _build_twin_document(state: _TwinParseState) -> TwinDocument:
+    if state.version is None or state.revision is None or state.fingerprint is None or state.summary is None:
+        raise TwinDslError("TwinDSL requires VERSION, REVISION, INTENT_FINGERPRINT and INTENT_SUMMARY")
+    return TwinDocument(
+        name=state.name, version=state.version, revision=state.revision,
+        intent_fingerprint=state.fingerprint, intent_summary=state.summary,
+        goals=state.goals, nodes=state.nodes, capabilities=state.capabilities,
+        edges=state.edges, invariants=state.invariants,
+        evolution_allow=state.evolution_allow, evolution_require=state.evolution_require,
+        evolution_forbid=state.evolution_forbid, sources=state.sources,
+        open_questions=state.questions,
+    )
+
+
 def parse_twindsl(text: str) -> TwinDocument:
     lines = [(idx + 1, raw.strip()) for idx, raw in enumerate(text.splitlines()) if raw.strip()]
     if not lines:
@@ -136,20 +335,7 @@ def parse_twindsl(text: str) -> TwinDocument:
     name = lines[0][1][len("TWIN "):].strip()
     if not _ID_RE.fullmatch(name):
         raise TwinDslError(f"invalid twin name {name!r}")
-
-    version = revision = None
-    fp = summary = None
-    goals: list[str] = []
-    nodes: dict[str, TwinNode] = {}
-    caps: dict[str, TwinCapability] = {}
-    edges: list[TwinEdge] = []
-    invariants: dict[str, TwinInvariant] = {}
-    evo_allow: list[str] = []
-    evo_require: list[str] = []
-    evo_forbid: list[str] = []
-    sources: dict[str, TwinSourceRef] = {}
-    questions: list[str] = []
-
+    state = _TwinParseState(name)
     i = 1
     saw_end = False
     while i < len(lines):
@@ -159,149 +345,12 @@ def parse_twindsl(text: str) -> TwinDocument:
                 raise TwinDslError(f"line {lineno}: END_TWIN must be last")
             saw_end = True
             break
-        if line.startswith("VERSION "):
-            version = int(line.split(None, 1)[1])
-        elif line.startswith("REVISION "):
-            revision = int(line.split(None, 1)[1])
-        elif line.startswith("INTENT_FINGERPRINT "):
-            fp = line.split(None, 1)[1].strip()
-        elif line.startswith("INTENT_SUMMARY "):
-            summary = _json_string(line[len("INTENT_SUMMARY "):], label="INTENT_SUMMARY")
-        elif line.startswith("GOAL "):
-            goals.append(_json_string(line[len("GOAL "):], label="GOAL"))
-        elif line.startswith("OPEN_QUESTION "):
-            questions.append(_json_string(line[len("OPEN_QUESTION "):], label="OPEN_QUESTION"))
-        elif line.startswith("NODE "):
-            m = re.fullmatch(r"NODE\s+([A-Za-z][A-Za-z0-9_.-]{0,95})\s+KIND\s+([A-Za-z][A-Za-z0-9_.-]{0,95})", line)
-            if not m:
-                raise TwinDslError(f"line {lineno}: invalid NODE header")
-            node = TwinNode(m.group(1), m.group(2))
-            i += 1
-            while i < len(lines) and lines[i][1] != "END":
-                subline_no, sub = lines[i]
-                if sub.startswith("RESPONSIBILITY "):
-                    node.responsibility = _json_string(sub[len("RESPONSIBILITY "):], label="RESPONSIBILITY")
-                elif sub.startswith("SPATIAL_CLASS "):
-                    node.spatial_class = sub.split(None, 1)[1]
-                elif sub.startswith("EVIDENCE "):
-                    ev = sub.split(None, 1)[1].strip()
-                    if not _ID_RE.fullmatch(ev):
-                        raise TwinDslError(f"line {subline_no}: invalid EVIDENCE id")
-                    node.evidence.append(ev)
-                else:
-                    raise TwinDslError(f"line {subline_no}: unknown NODE directive {sub!r}")
-                i += 1
-            if i >= len(lines) or lines[i][1] != "END":
-                raise TwinDslError(f"line {lineno}: NODE missing END")
-            if node.id in nodes:
-                raise TwinDslError(f"duplicate node {node.id}")
-            nodes[node.id] = node
-        elif line.startswith("CAPABILITY "):
-            cap_id = line.split(None, 1)[1].strip()
-            if not _ID_RE.fullmatch(cap_id):
-                raise TwinDslError(f"line {lineno}: invalid capability id")
-            cap = TwinCapability(cap_id)
-            i += 1
-            while i < len(lines) and lines[i][1] != "END":
-                subline_no, sub = lines[i]
-                if sub.startswith("URI "):
-                    cap.uri = sub.split(None, 1)[1].strip()
-                elif sub.startswith("OWNER "):
-                    cap.owner = sub.split(None, 1)[1].strip()
-                elif sub.startswith("INPUT "):
-                    cap.input_type = sub.split(None, 1)[1].strip()
-                elif sub.startswith("OUTPUT "):
-                    cap.output_type = sub.split(None, 1)[1].strip()
-                elif sub.startswith("RESPONSIBILITY "):
-                    cap.responsibility = _json_string(sub[len("RESPONSIBILITY "):], label="RESPONSIBILITY")
-                elif sub.startswith("EVIDENCE "):
-                    ev = sub.split(None, 1)[1].strip()
-                    if not _ID_RE.fullmatch(ev):
-                        raise TwinDslError(f"line {subline_no}: invalid EVIDENCE id")
-                    cap.evidence.append(ev)
-                else:
-                    raise TwinDslError(f"line {subline_no}: unknown CAPABILITY directive {sub!r}")
-                i += 1
-            if i >= len(lines) or lines[i][1] != "END":
-                raise TwinDslError(f"line {lineno}: CAPABILITY missing END")
-            if cap.id in caps:
-                raise TwinDslError(f"duplicate capability {cap.id}")
-            caps[cap.id] = cap
-        elif line.startswith("EDGE "):
-            m = re.fullmatch(r"EDGE\s+([A-Za-z][A-Za-z0-9_.-]{0,95})\s+->\s+([A-Za-z][A-Za-z0-9_.-]{0,95})\s+REL\s+([A-Za-z][A-Za-z0-9_.-]{0,95})", line)
-            if not m:
-                raise TwinDslError(f"line {lineno}: invalid EDGE")
-            edges.append(TwinEdge(m.group(1), m.group(2), m.group(3)))
-        elif line.startswith("INVARIANT "):
-            inv_id = line.split(None, 1)[1].strip()
-            if not _ID_RE.fullmatch(inv_id):
-                raise TwinDslError(f"line {lineno}: invalid invariant id")
-            inv = TwinInvariant(inv_id)
-            i += 1
-            while i < len(lines) and lines[i][1] != "END":
-                subline_no, sub = lines[i]
-                if sub.startswith("ASSERT "):
-                    inv.assertions.append(_json_string(sub[len("ASSERT "):], label="ASSERT"))
-                elif sub.startswith("EVIDENCE "):
-                    ev = sub.split(None, 1)[1].strip()
-                    if not _ID_RE.fullmatch(ev):
-                        raise TwinDslError(f"line {subline_no}: invalid EVIDENCE id")
-                    inv.evidence.append(ev)
-                else:
-                    raise TwinDslError(f"line {subline_no}: unknown INVARIANT directive {sub!r}")
-                i += 1
-            if i >= len(lines) or lines[i][1] != "END":
-                raise TwinDslError(f"line {lineno}: INVARIANT missing END")
-            invariants[inv.id] = inv
-        elif line == "EVOLUTION":
-            i += 1
-            while i < len(lines) and lines[i][1] != "END":
-                subline_no, sub = lines[i]
-                if sub.startswith("ALLOW "):
-                    evo_allow.append(_json_string(sub[len("ALLOW "):], label="ALLOW"))
-                elif sub.startswith("REQUIRE "):
-                    evo_require.append(_json_string(sub[len("REQUIRE "):], label="REQUIRE"))
-                elif sub.startswith("FORBID "):
-                    evo_forbid.append(_json_string(sub[len("FORBID "):], label="FORBID"))
-                else:
-                    raise TwinDslError(f"line {subline_no}: unknown EVOLUTION directive {sub!r}")
-                i += 1
-            if i >= len(lines) or lines[i][1] != "END":
-                raise TwinDslError(f"line {lineno}: EVOLUTION missing END")
-        elif line.startswith("SOURCE "):
-            m = re.fullmatch(r"SOURCE\s+([A-Za-z][A-Za-z0-9_.-]{0,95})\s+HASH\s+(sha256:[0-9a-f]{64})(?:\s+PATH\s+(.+))?", line)
-            if not m:
-                raise TwinDslError(f"line {lineno}: invalid SOURCE")
-            path = ""
-            if m.group(3):
-                path = _json_string(m.group(3), label="SOURCE PATH")
-            sources[m.group(1)] = TwinSourceRef(m.group(1), m.group(2), path)
-        else:
-            raise TwinDslError(f"line {lineno}: unknown TwinDSL directive {line!r}")
+        i = _parse_twin_declaration(state, lines, i)
         i += 1
 
     if not saw_end:
         raise TwinDslError("TwinDSL missing END_TWIN")
-    if version is None or revision is None or fp is None or summary is None:
-        raise TwinDslError("TwinDSL requires VERSION, REVISION, INTENT_FINGERPRINT and INTENT_SUMMARY")
-
-    doc = TwinDocument(
-        name=name,
-        version=version,
-        revision=revision,
-        intent_fingerprint=fp,
-        intent_summary=summary,
-        goals=goals,
-        nodes=nodes,
-        capabilities=caps,
-        edges=edges,
-        invariants=invariants,
-        evolution_allow=evo_allow,
-        evolution_require=evo_require,
-        evolution_forbid=evo_forbid,
-        sources=sources,
-        open_questions=questions,
-    )
+    doc = _build_twin_document(state)
     errors = validate_twin(doc)
     if errors:
         raise TwinDslError("; ".join(errors))
@@ -310,6 +359,18 @@ def parse_twindsl(text: str) -> TwinDocument:
 
 def validate_twin(doc: TwinDocument) -> list[str]:
     errors: list[str] = []
+    _validate_twin_basics(doc, errors)
+    symbols = set(doc.nodes) | set(doc.capabilities)
+    known_sources = set(doc.sources)
+    _validate_twin_capabilities(doc, errors)
+    _validate_twin_edges(doc, symbols, errors)
+    _validate_twin_invariants(doc, errors)
+    _validate_twin_sources(doc, errors)
+    _validate_twin_nodes(doc, known_sources, errors)
+    return errors
+
+
+def _validate_twin_basics(doc: TwinDocument, errors: list[str]) -> None:
     if doc.version != 1:
         errors.append("VERSION must be 1")
     if doc.revision < 1:
@@ -329,7 +390,8 @@ def validate_twin(doc: TwinDocument) -> list[str]:
     if not any("intent" in x.lower() for x in doc.evolution_require):
         errors.append("EVOLUTION REQUIRE must preserve user intent")
 
-    symbols = set(doc.nodes) | set(doc.capabilities)
+
+def _validate_twin_capabilities(doc: TwinDocument, errors: list[str]) -> None:
     for cap in doc.capabilities.values():
         if cap.owner and cap.owner not in doc.nodes:
             errors.append(f"capability {cap.id} OWNER {cap.owner!r} is not a declared NODE")
@@ -342,29 +404,39 @@ def validate_twin(doc: TwinDocument) -> list[str]:
                 errors.append(f"capability {cap.id} URI invalid: {exc}")
         if not cap.responsibility:
             errors.append(f"capability {cap.id} requires RESPONSIBILITY")
+        for ev in cap.evidence:
+            if ev not in doc.sources:
+                errors.append(f"capability {cap.id} references unknown evidence {ev}")
+
+
+def _validate_twin_edges(doc: TwinDocument, symbols: set[str], errors: list[str]) -> None:
     for edge in doc.edges:
         if edge.source not in symbols:
             errors.append(f"EDGE source {edge.source!r} is undeclared")
         if edge.target not in symbols:
             errors.append(f"EDGE target {edge.target!r} is undeclared")
+
+
+def _validate_twin_invariants(doc: TwinDocument, errors: list[str]) -> None:
     for inv in doc.invariants.values():
         if not inv.assertions:
             errors.append(f"invariant {inv.id} requires ASSERT")
+
+
+def _validate_twin_sources(doc: TwinDocument, errors: list[str]) -> None:
     for source in doc.sources.values():
         if not _HASH_RE.fullmatch(source.digest):
             errors.append(f"source {source.id} has invalid hash")
-    known_sources = set(doc.sources)
+
+
+def _validate_twin_nodes(doc: TwinDocument, known_sources: set[str], errors: list[str]) -> None:
+    allowed_spatial = {"physical", "cyber", "logical", "hybrid"}
     for node in doc.nodes.values():
-        if node.spatial_class not in {"physical", "cyber", "logical", "hybrid"}:
+        if node.spatial_class not in allowed_spatial:
             errors.append(f"node {node.id} requires SPATIAL_CLASS physical|cyber|logical|hybrid")
         for ev in node.evidence:
             if ev not in known_sources:
                 errors.append(f"node {node.id} references unknown evidence {ev}")
-    for cap in doc.capabilities.values():
-        for ev in cap.evidence:
-            if ev not in known_sources:
-                errors.append(f"capability {cap.id} references unknown evidence {ev}")
-    return errors
 
 
 def validate_twin_markdown(markdown: str) -> dict[str, Any]:
@@ -402,23 +474,35 @@ def validate_twin_update(previous: TwinDocument, updated: TwinDocument) -> list[
 
 def twin_to_mermaid(doc: TwinDocument) -> str:
     lines = ["flowchart LR"]
-    for node in doc.nodes.values():
-        label = f"{node.id}\\n[{node.kind}]"
-        lines.append(f'  {node.id}["{label}"]')
+    lines.extend(_render_twin_nodes(doc))
+    lines.extend(_render_twin_capabilities(doc))
+    lines.extend(_render_twin_edges(doc))
+    return "\n".join(lines)
+
+
+def _render_twin_nodes(doc: TwinDocument) -> list[str]:
+    return [f'  {node.id}["{node.id}\\n[{node.kind}]"]' for node in doc.nodes.values()]
+
+
+def _render_twin_capabilities(doc: TwinDocument) -> list[str]:
+    lines: list[str] = []
     for cap in doc.capabilities.values():
         cap_node = "cap_" + re.sub(r"[^A-Za-z0-9_]", "_", cap.id)
         lines.append(f'  {cap_node}(("{cap.id}"))')
         if cap.owner in doc.nodes:
             lines.append(f"  {cap.owner} -->|owns| {cap_node}")
+    return lines
+
+
+def _render_twin_edges(doc: TwinDocument) -> list[str]:
     def ref(symbol: str) -> str:
         if symbol in doc.nodes:
             return symbol
         if symbol in doc.capabilities:
             return "cap_" + re.sub(r"[^A-Za-z0-9_]", "_", symbol)
         return symbol
-    for edge in doc.edges:
-        lines.append(f"  {ref(edge.source)} -->|{edge.relation}| {ref(edge.target)}")
-    return "\n".join(lines)
+
+    return [f"  {ref(edge.source)} -->|{edge.relation}| {ref(edge.target)}" for edge in doc.edges]
 
 
 def demo_bootstrap_twin(user_text: str) -> str:
@@ -426,13 +510,29 @@ def demo_bootstrap_twin(user_text: str) -> str:
     fp = intent_fingerprint(user_text)
     user_hash = "sha256:" + hashlib.sha256(user_text.encode("utf-8")).hexdigest()
     summary = normalized[:420] or "Build an application from user intent and validated external sources."
-    return "```twindsl\n" + "\n".join([
+    lines = [
         "TWIN application",
         "VERSION 1",
         "REVISION 1",
         f"INTENT_FINGERPRINT {fp}",
         f"INTENT_SUMMARY {_quoted(summary)}",
         f"GOAL {_quoted('Build a correct application whose evolution remains bounded by the user intent and source-backed evidence.')}",
+    ]
+    lines.extend(_bootstrap_node_lines())
+    lines.extend(_bootstrap_capability_lines())
+    lines.extend(_bootstrap_edges_lines())
+    lines.extend(_bootstrap_invariant_lines())
+    lines.extend(_bootstrap_evolution_lines())
+    lines.extend([
+        f"SOURCE user_intent HASH {user_hash}",
+        f"OPEN_QUESTION {_quoted('Which concrete domain entities, workflows and external integrations should be refined from sources/?')}",
+        "END_TWIN",
+    ])
+    return "```twindsl\n" + "\n".join(lines) + "\n```"
+
+
+def _bootstrap_node_lines() -> list[str]:
+    return [
         "NODE user KIND actor",
         "  SPATIAL_CLASS logical",
         f"  RESPONSIBILITY {_quoted('Provides intent, desired outcome, constraints and acceptance direction.')}",
@@ -457,6 +557,11 @@ def demo_bootstrap_twin(user_text: str) -> str:
         f"  RESPONSIBILITY {_quoted('Derives implementation plans and code changes from the validated digital twin, never from raw context.')}",
         "  EVIDENCE user_intent",
         "END",
+    ]
+
+
+def _bootstrap_capability_lines() -> list[str]:
+    return [
         "CAPABILITY compile_user_intent",
         "  URI ifuri://llm/twin/default/commands/bootstrap",
         "  OWNER intent_compiler",
@@ -480,11 +585,21 @@ def demo_bootstrap_twin(user_text: str) -> str:
         f"  RESPONSIBILITY {_quoted('Generate a source-backed build plan from the current twin revision.')}",
         "  EVIDENCE user_intent",
         "END",
+    ]
+
+
+def _bootstrap_edges_lines() -> list[str]:
+    return [
         "EDGE user -> compile_user_intent REL invokes",
         "EDGE compile_user_intent -> digital_twin REL creates",
         "EDGE source_ingest -> update_from_sources REL supplies",
         "EDGE update_from_sources -> digital_twin REL revises",
         "EDGE digital_twin -> plan_build REL constrains",
+    ]
+
+
+def _bootstrap_invariant_lines() -> list[str]:
+    return [
         "INVARIANT preserve_user_intent",
         f"  ASSERT {_quoted('Every revision must keep the original INTENT_FINGERPRINT and must not contradict explicit user intent.')}",
         "  EVIDENCE user_intent",
@@ -493,6 +608,11 @@ def demo_bootstrap_twin(user_text: str) -> str:
         f"  ASSERT {_quoted('New requirements or capabilities require evidence from user_intent or a source document; unsupported assumptions remain OPEN_QUESTION.')}",
         "  EVIDENCE user_intent",
         "END",
+    ]
+
+
+def _bootstrap_evolution_lines() -> list[str]:
+    return [
         "EVOLUTION",
         f"  ALLOW {_quoted('Refine architecture, implementation details, capabilities and acceptance criteria when supported by sources.')}",
         f"  ALLOW {_quoted('Add implementation-specific nodes without changing the original product outcome.')}",
@@ -501,21 +621,39 @@ def demo_bootstrap_twin(user_text: str) -> str:
         f"  FORBID {_quoted('Invent product requirements that are unsupported by user intent or sources.')}",
         f"  FORBID {_quoted('Remove invariants solely to make an implementation easier.')}",
         "END",
-        f"SOURCE user_intent HASH {user_hash}",
-        f"OPEN_QUESTION {_quoted('Which concrete domain entities, workflows and external integrations should be refined from sources/?')}",
-        "END_TWIN",
-    ]) + "\n```"
+    ]
 
 
 def render_twin(doc: TwinDocument) -> str:
-    lines = [
+    lines = _render_twin_header(doc)
+    lines.extend(_render_twin_goals(doc))
+    lines.extend(_render_twin_nodes_block(doc))
+    lines.extend(_render_twin_capabilities_block(doc))
+    lines.extend(_render_twin_edges_block(doc))
+    lines.extend(_render_twin_invariants_block(doc))
+    lines.extend(_render_twin_evolution_block(doc))
+    lines.extend(_render_twin_sources_block(doc))
+    lines.extend(_render_twin_questions_block(doc))
+    lines.append("END_TWIN")
+    return "```twindsl\n" + "\n".join(lines) + "\n```"
+
+
+def _render_twin_header(doc: TwinDocument) -> list[str]:
+    return [
         f"TWIN {doc.name}",
         f"VERSION {doc.version}",
         f"REVISION {doc.revision}",
         f"INTENT_FINGERPRINT {doc.intent_fingerprint}",
         f"INTENT_SUMMARY {_quoted(doc.intent_summary)}",
     ]
-    lines.extend(f"GOAL {_quoted(g)}" for g in doc.goals)
+
+
+def _render_twin_goals(doc: TwinDocument) -> list[str]:
+    return [f"GOAL {_quoted(g)}" for g in doc.goals]
+
+
+def _render_twin_nodes_block(doc: TwinDocument) -> list[str]:
+    lines: list[str] = []
     for node in doc.nodes.values():
         lines.append(f"NODE {node.id} KIND {node.kind}")
         lines.append(f"  SPATIAL_CLASS {node.spatial_class}")
@@ -523,6 +661,11 @@ def render_twin(doc: TwinDocument) -> str:
             lines.append(f"  RESPONSIBILITY {_quoted(node.responsibility)}")
         lines.extend(f"  EVIDENCE {e}" for e in node.evidence)
         lines.append("END")
+    return lines
+
+
+def _render_twin_capabilities_block(doc: TwinDocument) -> list[str]:
+    lines: list[str] = []
     for cap in doc.capabilities.values():
         lines.append(f"CAPABILITY {cap.id}")
         if cap.uri:
@@ -537,26 +680,44 @@ def render_twin(doc: TwinDocument) -> str:
             lines.append(f"  RESPONSIBILITY {_quoted(cap.responsibility)}")
         lines.extend(f"  EVIDENCE {e}" for e in cap.evidence)
         lines.append("END")
-    for edge in doc.edges:
-        lines.append(f"EDGE {edge.source} -> {edge.target} REL {edge.relation}")
+    return lines
+
+
+def _render_twin_edges_block(doc: TwinDocument) -> list[str]:
+    return [f"EDGE {edge.source} -> {edge.target} REL {edge.relation}" for edge in doc.edges]
+
+
+def _render_twin_invariants_block(doc: TwinDocument) -> list[str]:
+    lines: list[str] = []
     for inv in doc.invariants.values():
         lines.append(f"INVARIANT {inv.id}")
         lines.extend(f"  ASSERT {_quoted(x)}" for x in inv.assertions)
         lines.extend(f"  EVIDENCE {e}" for e in inv.evidence)
         lines.append("END")
-    lines.append("EVOLUTION")
+    return lines
+
+
+def _render_twin_evolution_block(doc: TwinDocument) -> list[str]:
+    lines = ["EVOLUTION"]
     lines.extend(f"  ALLOW {_quoted(x)}" for x in doc.evolution_allow)
     lines.extend(f"  REQUIRE {_quoted(x)}" for x in doc.evolution_require)
     lines.extend(f"  FORBID {_quoted(x)}" for x in doc.evolution_forbid)
     lines.append("END")
+    return lines
+
+
+def _render_twin_sources_block(doc: TwinDocument) -> list[str]:
+    lines: list[str] = []
     for src in doc.sources.values():
         row = f"SOURCE {src.id} HASH {src.digest}"
         if src.path:
             row += f" PATH {_quoted(src.path)}"
         lines.append(row)
-    lines.extend(f"OPEN_QUESTION {_quoted(x)}" for x in doc.open_questions)
-    lines.append("END_TWIN")
-    return "```twindsl\n" + "\n".join(lines) + "\n```"
+    return lines
+
+
+def _render_twin_questions_block(doc: TwinDocument) -> list[str]:
+    return [f"OPEN_QUESTION {_quoted(x)}" for x in doc.open_questions]
 
 
 def twindsl_schema() -> str:

@@ -29,6 +29,36 @@ class ProjectIntegrity:
     findings: tuple[IntegrityFinding, ...]
 
 
+def _parse_finding(lines: list[str], index: int) -> tuple[IntegrityFinding, int]:
+    parts = lines[index].split()
+    if len(parts) != 8 or parts[2] != "SEVERITY" or parts[4] != "CATEGORY" or parts[6] != "LAYER":
+        raise ControlDslError("invalid ProjectIntegrityDSL FINDING header")
+    fields: dict[str, str] = {}
+    index += 1
+    while index < len(lines) and lines[index] != "END_FINDING":
+        key, _, value = lines[index].partition(" ")
+        fields[key] = value
+        index += 1
+    if set(fields) != {"SUBJECTS", "EVIDENCE", "REPAIR", "MESSAGE"}:
+        raise ControlDslError("FINDING requires subjects, evidence, repair and message")
+    finding = IntegrityFinding(
+        parts[1], parts[3].lower(), parts[5], parts[7],
+        tuple(parse_json_list(fields["SUBJECTS"], "SUBJECTS")),
+        tuple(parse_json_list(fields["EVIDENCE"], "EVIDENCE")),
+        fields["REPAIR"], json.loads(fields["MESSAGE"]),
+    )
+    return finding, index
+
+
+def _readiness(result: str, completeness: str, findings: list[IntegrityFinding]) -> tuple[str, str]:
+    operational = "READY" if result == "PASS" and completeness == "COMPLETE" else "PARTIAL" if result == "PASS" else "BLOCKED"
+    autonomy = "BLOCKED" if any(
+        finding.severity == "error" or finding.category in {"broken-dependency", "inconsistency"}
+        for finding in findings
+    ) else "PASS"
+    return operational, autonomy
+
+
 def parse_project_integrity(markdown: str) -> ProjectIntegrity:
     body = extract_one(markdown, "projectintegritydsl")
     lines = [line.strip() for line in body.splitlines() if line.strip()]
@@ -41,22 +71,8 @@ def parse_project_integrity(markdown: str) -> ProjectIntegrity:
     index = 1
     while index < len(lines) - 1:
         if lines[index].startswith("FINDING "):
-            parts = lines[index].split()
-            if len(parts) != 8 or parts[2] != "SEVERITY" or parts[4] != "CATEGORY" or parts[6] != "LAYER":
-                raise ControlDslError("invalid ProjectIntegrityDSL FINDING header")
-            fields: dict[str, str] = {}
-            index += 1
-            while index < len(lines) and lines[index] != "END_FINDING":
-                key, _, value = lines[index].partition(" ")
-                fields[key] = value
-                index += 1
-            if set(fields) != {"SUBJECTS", "EVIDENCE", "REPAIR", "MESSAGE"}:
-                raise ControlDslError("FINDING requires subjects, evidence, repair and message")
-            findings.append(IntegrityFinding(
-                parts[1], parts[3].lower(), parts[5], parts[7], tuple(parse_json_list(fields["SUBJECTS"], "SUBJECTS")),
-                tuple(parse_json_list(fields["EVIDENCE"], "EVIDENCE")), fields["REPAIR"], json.loads(fields["MESSAGE"]),
-            ))
+            finding, index = _parse_finding(lines, index)
+            findings.append(finding)
         index += 1
-    operational = "READY" if result == "PASS" and completeness == "COMPLETE" else "PARTIAL" if result == "PASS" else "BLOCKED"
-    autonomy = "BLOCKED" if any(f.severity == "error" or f.category in {"broken-dependency", "inconsistency"} for f in findings) else "PASS"
+    operational, autonomy = _readiness(result, completeness, findings)
     return ProjectIntegrity(project_id, result, completeness, operational, autonomy, canonical_hash(body), tuple(findings))

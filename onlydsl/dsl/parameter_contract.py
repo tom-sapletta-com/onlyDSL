@@ -10,6 +10,8 @@ from .common import ControlDslError, extract_one
 
 PARAMETER_TYPES = {"decimal", "integer", "boolean", "string"}
 QUALITIES = {"observed", "measured", "derived", "declared"}
+PARAMETER_FIELDS = {"SUBJECT_TYPE", "TYPE", "UNIT", "QUALITY", "RANGE", "ALLOWED"}
+REQUIRED_PARAMETER_FIELDS = {"SUBJECT_TYPE", "TYPE", "UNIT", "QUALITY"}
 
 
 @dataclass(frozen=True, slots=True)
@@ -65,6 +67,59 @@ class ParameterContractDocument:
         return ParameterValidation(True, "PARAMETER_VALID", "value satisfies the exact contract")
 
 
+def _parse_parameter_fields(lines: list[str], index: int) -> tuple[dict[str, str], int]:
+    fields: dict[str, str] = {}
+    index += 1
+    while index < len(lines) and lines[index] != "END_PARAMETER":
+        key, _, value = lines[index].partition(" ")
+        if key not in PARAMETER_FIELDS or key in fields:
+            raise ControlDslError(f"invalid or duplicate parameter field {key!r}")
+        fields[key] = value
+        index += 1
+    return fields, index
+
+
+def _parse_range(fields: dict[str, str]) -> tuple[Decimal | None, Decimal | None]:
+    if "RANGE" not in fields:
+        return None, None
+    try:
+        range_value = json.loads(fields["RANGE"], parse_float=Decimal, parse_int=Decimal)
+        if not isinstance(range_value, list) or len(range_value) != 2:
+            raise ValueError
+        minimum, maximum = Decimal(range_value[0]), Decimal(range_value[1])
+    except (ValueError, TypeError, InvalidOperation, json.JSONDecodeError) as exc:
+        raise ControlDslError("RANGE must be [minimum, maximum]") from exc
+    if minimum > maximum:
+        raise ControlDslError("RANGE minimum cannot exceed maximum")
+    return minimum, maximum
+
+
+def _parse_allowed(fields: dict[str, str]) -> tuple[Any, ...]:
+    if "ALLOWED" not in fields:
+        return ()
+    parsed = json.loads(fields["ALLOWED"])
+    if not isinstance(parsed, list):
+        raise ControlDslError("ALLOWED must be a JSON list")
+    return tuple(parsed)
+
+
+def _parse_parameter(lines: list[str], index: int) -> tuple[ParameterContract, int]:
+    name = lines[index].split(None, 1)[1]
+    fields, index = _parse_parameter_fields(lines, index)
+    missing = REQUIRED_PARAMETER_FIELDS - fields.keys()
+    if missing:
+        raise ControlDslError(f"parameter {name} missing: {', '.join(sorted(missing))}")
+    if fields["TYPE"] not in PARAMETER_TYPES or fields["QUALITY"] not in QUALITIES:
+        raise ControlDslError(f"parameter {name} has invalid TYPE or QUALITY")
+    if fields["UNIT"] == "mixed":
+        raise ControlDslError("UNIT mixed is forbidden; split heterogeneous observations")
+    minimum, maximum = _parse_range(fields)
+    return ParameterContract(
+        name, fields["SUBJECT_TYPE"], fields["TYPE"], fields["UNIT"], fields["QUALITY"],
+        minimum, maximum, _parse_allowed(fields),
+    ), index
+
+
 def parse_parameter_contracts(markdown: str) -> ParameterContractDocument:
     lines = [line.strip() for line in extract_one(markdown, "parametercontractdsl").splitlines() if line.strip()]
     if not lines or not lines[0].startswith("PARAMETER_CONTRACTS ") or lines[-1] != "END_PARAMETER_CONTRACTS":
@@ -74,40 +129,7 @@ def parse_parameter_contracts(markdown: str) -> ParameterContractDocument:
     while index < len(lines) - 1:
         if not lines[index].startswith("PARAMETER "):
             raise ControlDslError(f"expected PARAMETER, got {lines[index]!r}")
-        name = lines[index].split(None, 1)[1]
-        fields: dict[str, str] = {}
-        index += 1
-        while index < len(lines) and lines[index] != "END_PARAMETER":
-            key, _, value = lines[index].partition(" ")
-            if key not in {"SUBJECT_TYPE", "TYPE", "UNIT", "QUALITY", "RANGE", "ALLOWED"} or key in fields:
-                raise ControlDslError(f"invalid or duplicate parameter field {key!r}")
-            fields[key] = value
-            index += 1
-        missing = {"SUBJECT_TYPE", "TYPE", "UNIT", "QUALITY"} - fields.keys()
-        if missing:
-            raise ControlDslError(f"parameter {name} missing: {', '.join(sorted(missing))}")
-        if fields["TYPE"] not in PARAMETER_TYPES or fields["QUALITY"] not in QUALITIES:
-            raise ControlDslError(f"parameter {name} has invalid TYPE or QUALITY")
-        if fields["UNIT"] == "mixed":
-            raise ControlDslError("UNIT mixed is forbidden; split heterogeneous observations")
-        minimum = maximum = None
-        if "RANGE" in fields:
-            try:
-                range_value = json.loads(fields["RANGE"], parse_float=Decimal, parse_int=Decimal)
-                if not isinstance(range_value, list) or len(range_value) != 2:
-                    raise ValueError
-                minimum, maximum = Decimal(range_value[0]), Decimal(range_value[1])
-            except (ValueError, TypeError, InvalidOperation, json.JSONDecodeError) as exc:
-                raise ControlDslError("RANGE must be [minimum, maximum]") from exc
-            if minimum > maximum:
-                raise ControlDslError("RANGE minimum cannot exceed maximum")
-        allowed: tuple[Any, ...] = ()
-        if "ALLOWED" in fields:
-            parsed = json.loads(fields["ALLOWED"])
-            if not isinstance(parsed, list):
-                raise ControlDslError("ALLOWED must be a JSON list")
-            allowed = tuple(parsed)
-        contract = ParameterContract(name, fields["SUBJECT_TYPE"], fields["TYPE"], fields["UNIT"], fields["QUALITY"], minimum, maximum, allowed)
+        contract, index = _parse_parameter(lines, index)
         key = (contract.subject_type, contract.name)
         if key in result.parameters:
             raise ControlDslError(f"duplicate parameter contract {key}")

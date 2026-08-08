@@ -18,6 +18,7 @@ LEGACY_LOG_RE = re.compile(
     re.I,
 )
 KV_RE = re.compile(r"\b([A-Za-z_][A-Za-z0-9_.-]*)=([^\s]+)")
+RECORD_KINDS = "event|log|error|exception|tool|retrieval|trace|memory|document|code|database"
 
 
 class ContextDslError(ValueError):
@@ -287,6 +288,78 @@ def extract_contextdsl(markdown: str) -> str:
     return match.group("body").strip() + "\n"
 
 
+def _parse_record_field(raw: str, stripped: str, lineno: int) -> tuple[str, Any]:
+    match = re.fullmatch(rf"FIELD ({IDENT_RE})\s*=\s*(.+)", stripped)
+    if not match or not raw.startswith("  "):
+        raise ContextDslError(f"Line {lineno}: expected indented FIELD or END")
+    return match.group(1), _parse_literal(match.group(2))
+
+
+def _parse_policy(doc: ContextDocument, stripped: str, lineno: int) -> None:
+    match = re.fullmatch(rf"POLICY ({IDENT_RE}) (true|false)", stripped)
+    if not match:
+        raise ContextDslError(f"Line {lineno}: invalid POLICY")
+    doc.policies[match.group(1)] = match.group(2) == "true"
+
+
+def _parse_capability(doc: ContextDocument, stripped: str, lineno: int) -> None:
+    match = re.fullmatch(rf"CAPABILITY (action|event) ({IDENT_RE})", stripped)
+    if not match:
+        raise ContextDslError(f"Line {lineno}: invalid CAPABILITY")
+    capabilities = doc.action_capabilities if match.group(1) == "action" else doc.event_capabilities
+    capabilities.add(match.group(2))
+
+
+def _parse_state(doc: ContextDocument, stripped: str, lineno: int) -> None:
+    match = re.fullmatch(rf"STATE ({IDENT_RE}) ({'|'.join(TYPE_NAMES)})\s*=\s*(.+)", stripped)
+    if not match:
+        raise ContextDslError(f"Line {lineno}: invalid STATE")
+    doc.states[match.group(1)] = {"type": match.group(2), "value": _parse_literal(match.group(3))}
+
+
+def _parse_metric(doc: ContextDocument, stripped: str, lineno: int) -> None:
+    match = re.fullmatch(rf"METRIC ({IDENT_RE})\s*=\s*(.+)", stripped)
+    if not match:
+        raise ContextDslError(f"Line {lineno}: invalid METRIC")
+    value = _parse_literal(match.group(2))
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ContextDslError(f"Line {lineno}: METRIC must be numeric")
+    doc.metrics[match.group(1)] = value
+
+
+def _parse_record(stripped: str, lineno: int) -> ContextRecord:
+    match = re.fullmatch(rf"RECORD ({RECORD_KINDS}) ({IDENT_RE}) ({IDENT_RE})", stripped)
+    if not match:
+        raise ContextDslError(f"Line {lineno}: invalid RECORD")
+    return ContextRecord(match.group(1), match.group(2), match.group(3))
+
+
+def _parse_context_declaration(doc: ContextDocument, stripped: str, lineno: int) -> ContextRecord | bool | None:
+    if stripped == "END_CONTEXT":
+        return True
+    if stripped.startswith("VERSION "):
+        doc.version = int(stripped[8:].strip())
+    elif stripped.startswith("ORIGIN "):
+        doc.origin = _ident(stripped[7:].strip())
+    elif stripped.startswith("PURPOSE "):
+        doc.purpose = _ident(stripped[8:].strip())
+    elif stripped.startswith("TRACE "):
+        doc.trace_id = str(_parse_literal(stripped[6:]))
+    elif stripped.startswith("POLICY "):
+        _parse_policy(doc, stripped, lineno)
+    elif stripped.startswith("CAPABILITY "):
+        _parse_capability(doc, stripped, lineno)
+    elif stripped.startswith("STATE "):
+        _parse_state(doc, stripped, lineno)
+    elif stripped.startswith("METRIC "):
+        _parse_metric(doc, stripped, lineno)
+    elif stripped.startswith("RECORD "):
+        return _parse_record(stripped, lineno)
+    else:
+        raise ContextDslError(f"Line {lineno}: unknown declaration: {stripped}")
+    return None
+
+
 def parse_context_dsl(dsl: str) -> ContextDocument:
     lines = dsl.splitlines()
     doc: ContextDocument | None = None
@@ -298,13 +371,11 @@ def parse_context_dsl(dsl: str) -> ContextDocument:
         stripped = raw.strip()
         if current is not None:
             if stripped == "END":
-                doc.records.append(current)  # type: ignore[union-attr]
+                doc.records.append(current)
                 current = None
                 continue
-            m = re.fullmatch(rf"FIELD ({IDENT_RE})\s*=\s*(.+)", stripped)
-            if not m or not raw.startswith("  "):
-                raise ContextDslError(f"Line {lineno}: expected indented FIELD or END")
-            current.fields[m.group(1)] = _parse_literal(m.group(2))
+            key, value = _parse_record_field(raw, stripped, lineno)
+            current.fields[key] = value
             continue
 
         if stripped.startswith("CONTEXT "):
@@ -314,52 +385,13 @@ def parse_context_dsl(dsl: str) -> ContextDocument:
             continue
         if doc is None:
             raise ContextDslError(f"Line {lineno}: CONTEXT must be first")
-        if stripped == "END_CONTEXT":
-            ended = True
-            continue
         if ended:
             raise ContextDslError(f"Line {lineno}: content after END_CONTEXT")
-        if stripped.startswith("VERSION "):
-            doc.version = int(stripped[8:].strip())
-        elif stripped.startswith("ORIGIN "):
-            doc.origin = _ident(stripped[7:].strip())
-        elif stripped.startswith("PURPOSE "):
-            doc.purpose = _ident(stripped[8:].strip())
-        elif stripped.startswith("TRACE "):
-            doc.trace_id = str(_parse_literal(stripped[6:]))
-        elif stripped.startswith("POLICY "):
-            m = re.fullmatch(rf"POLICY ({IDENT_RE}) (true|false)", stripped)
-            if not m:
-                raise ContextDslError(f"Line {lineno}: invalid POLICY")
-            doc.policies[m.group(1)] = m.group(2) == "true"
-        elif stripped.startswith("CAPABILITY "):
-            m = re.fullmatch(rf"CAPABILITY (action|event) ({IDENT_RE})", stripped)
-            if not m:
-                raise ContextDslError(f"Line {lineno}: invalid CAPABILITY")
-            if m.group(1) == "action":
-                doc.action_capabilities.add(m.group(2))
-            else:
-                doc.event_capabilities.add(m.group(2))
-        elif stripped.startswith("STATE "):
-            m = re.fullmatch(rf"STATE ({IDENT_RE}) ({'|'.join(TYPE_NAMES)})\s*=\s*(.+)", stripped)
-            if not m:
-                raise ContextDslError(f"Line {lineno}: invalid STATE")
-            doc.states[m.group(1)] = {"type": m.group(2), "value": _parse_literal(m.group(3))}
-        elif stripped.startswith("METRIC "):
-            m = re.fullmatch(rf"METRIC ({IDENT_RE})\s*=\s*(.+)", stripped)
-            if not m:
-                raise ContextDslError(f"Line {lineno}: invalid METRIC")
-            value = _parse_literal(m.group(2))
-            if isinstance(value, bool) or not isinstance(value, (int, float)):
-                raise ContextDslError(f"Line {lineno}: METRIC must be numeric")
-            doc.metrics[m.group(1)] = value
-        elif stripped.startswith("RECORD "):
-            m = re.fullmatch(rf"RECORD (event|log|error|exception|tool|retrieval|trace|memory|document|code|database) ({IDENT_RE}) ({IDENT_RE})", stripped)
-            if not m:
-                raise ContextDslError(f"Line {lineno}: invalid RECORD")
-            current = ContextRecord(m.group(1), m.group(2), m.group(3))
-        else:
-            raise ContextDslError(f"Line {lineno}: unknown declaration: {stripped}")
+        result = _parse_context_declaration(doc, stripped, lineno)
+        if result is True:
+            ended = True
+        elif isinstance(result, ContextRecord):
+            current = result
     if current is not None:
         raise ContextDslError("Unclosed RECORD block")
     if doc is None:
@@ -391,16 +423,25 @@ def compiler_from_payload(payload: dict[str, Any]) -> ContextCompiler:
         purpose=str(payload.get("purpose", "analysis")),
         trace_id=str(payload.get("trace_id", "")),
     )
-    capabilities = payload.get("capabilities", {}) or {}
-    for action in capabilities.get("actions", []) or []:
-        compiler.capability("action", str(action))
-    for event in capabilities.get("events", []) or []:
-        compiler.capability("event", str(event))
+    _compile_capabilities(compiler, payload.get("capabilities", {}) or {})
     for name, value in (payload.get("state", {}) or {}).items():
         compiler.state(str(name), value)
     for name, value in (payload.get("metrics", {}) or {}).items():
         compiler.metric(str(name), value)
-    for row in payload.get("events", []) or []:
+    _compile_events(compiler, payload.get("events", []) or [])
+    _compile_logs(compiler, payload.get("logs", []) or [])
+    _compile_tool_results(compiler, payload.get("tool_results", []) or [])
+    return compiler
+
+
+def _compile_capabilities(compiler: ContextCompiler, capabilities: dict[str, Any]) -> None:
+    for kind, values in (("action", capabilities.get("actions", [])), ("event", capabilities.get("events", []))):
+        for value in values or []:
+            compiler.capability(kind, str(value))
+
+
+def _compile_events(compiler: ContextCompiler, events: Iterable[Any]) -> None:
+    for row in events:
         if isinstance(row, dict):
             compiler.event(DslContextEvent(
                 source=str(row.get("source", "application")),
@@ -408,13 +449,20 @@ def compiler_from_payload(payload: dict[str, Any]) -> ContextCompiler:
                 severity=str(row.get("severity", "info")),
                 fields=dict(row.get("fields", {}) or {}),
             ))
-    logs = payload.get("logs", []) or []
-    if isinstance(logs, str):
-        logs = logs.splitlines()
-    for line in logs:
+
+
+def _compile_logs(compiler: ContextCompiler, logs: Iterable[Any] | str) -> None:
+    lines = logs.splitlines() if isinstance(logs, str) else logs
+    for line in lines:
         if str(line).strip():
             compiler.legacy_log(str(line))
-    for row in payload.get("tool_results", []) or []:
+
+
+def _compile_tool_results(compiler: ContextCompiler, results: Iterable[Any]) -> None:
+    for row in results:
         if isinstance(row, dict):
-            compiler.tool_result(str(row.get("tool", "tool")), bool(row.get("ok", False)), dict(row.get("data", {}) or {}))
-    return compiler
+            compiler.tool_result(
+                str(row.get("tool", "tool")),
+                bool(row.get("ok", False)),
+                dict(row.get("data", {}) or {}),
+            )

@@ -192,7 +192,7 @@ class CapabilityRegistry:
         ]
 
 
-def _parse_pattern(raw: str) -> tuple[str, str, str, str, str]:
+def _pattern_tokens(raw: str) -> list[str]:
     parsed = urlsplit(raw)
     if parsed.scheme != "ifuri" or not parsed.netloc:
         raise ManifestError(f"invalid IFURI pattern: {raw!r}")
@@ -201,7 +201,10 @@ def _parse_pattern(raw: str) -> tuple[str, str, str, str, str]:
     segments = [seg for seg in parsed.path.split("/") if seg]
     if len(segments) != 4:
         raise ManifestError("IFURI pattern requires entity/identity/kind/operation")
-    tokens = [parsed.hostname or "", *segments]
+    return [parsed.hostname or "", *segments]
+
+
+def _validate_pattern_tokens(tokens: list[str]) -> None:
     seen_params: set[str] = set()
     for index, token in enumerate(tokens):
         pm = _PARAM_RE.fullmatch(token)
@@ -216,6 +219,11 @@ def _parse_pattern(raw: str) -> tuple[str, str, str, str, str]:
             raise ManifestError(f"invalid pattern token: {token!r}")
     if tokens[3] not in _VALID_KINDS:
         raise ManifestError(f"invalid kind in pattern: {tokens[3]}")
+
+
+def _parse_pattern(raw: str) -> tuple[str, str, str, str, str]:
+    tokens = _pattern_tokens(raw)
+    _validate_pattern_tokens(tokens)
     return tuple(tokens)  # type: ignore[return-value]
 
 

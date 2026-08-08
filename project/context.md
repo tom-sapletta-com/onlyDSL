@@ -5,44 +5,44 @@
 
 - **Project**: /home/tom/github/tom-sapletta-com/onlyDSL
 - **Primary Language**: python
-- **Languages**: python: 43, json: 5, shell: 4, yaml: 4, txt: 2
+- **Languages**: python: 58, json: 5, shell: 4, yaml: 4, txt: 2
 - **Analysis Mode**: static
-- **Total Functions**: 331
-- **Total Classes**: 90
-- **Modules**: 67
-- **Entry Points**: 190
+- **Total Functions**: 479
+- **Total Classes**: 107
+- **Modules**: 83
+- **Entry Points**: 215
 
 ## Architecture by Module
+
+### digital_twin
+- **Functions**: 50
+- **Classes**: 10
+- **File**: `digital_twin.py`
+
+### contextdsl
+- **Functions**: 39
+- **Classes**: 5
+- **File**: `contextdsl.py`
 
 ### ifuri_core.transport
 - **Functions**: 32
 - **Classes**: 7
 - **File**: `transport.py`
 
-### contextdsl
-- **Functions**: 28
-- **Classes**: 5
-- **File**: `contextdsl.py`
-
 ### server
-- **Functions**: 21
+- **Functions**: 30
 - **Classes**: 1
 - **File**: `server.py`
+
+### intentdsl
+- **Functions**: 27
+- **Classes**: 4
+- **File**: `intentdsl.py`
 
 ### evolution
 - **Functions**: 18
 - **Classes**: 1
 - **File**: `evolution.py`
-
-### intentdsl
-- **Functions**: 18
-- **Classes**: 4
-- **File**: `intentdsl.py`
-
-### digital_twin
-- **Functions**: 17
-- **Classes**: 9
-- **File**: `digital_twin.py`
 
 ### boundary
 - **Functions**: 16
@@ -54,30 +54,39 @@
 - **Classes**: 1
 - **File**: `llm_client.py`
 
+### onlydsl.ssot.writer
+- **Functions**: 13
+- **Classes**: 1
+- **File**: `writer.py`
+
 ### ifuri_core.manifest
 - **Functions**: 11
 - **Classes**: 5
 - **File**: `manifest.py`
 
-### ifuri_core.event_store
+### onlydsl.ssot.manifest
+- **Functions**: 11
+- **File**: `manifest.py`
+
+### source_ingest
 - **Functions**: 10
-- **Classes**: 4
-- **File**: `event_store.py`
+- **Classes**: 3
+- **File**: `source_ingest.py`
 
 ### ifuri_core.llm_gateway
 - **Functions**: 10
 - **Classes**: 1
 - **File**: `llm_gateway.py`
 
+### ifuri_core.event_store
+- **Functions**: 10
+- **Classes**: 4
+- **File**: `event_store.py`
+
 ### aql
 - **Functions**: 9
 - **Classes**: 3
 - **File**: `aql.py`
-
-### source_ingest
-- **Functions**: 9
-- **Classes**: 3
-- **File**: `source_ingest.py`
 
 ### ifuri_core.postgres_store
 - **Functions**: 9
@@ -93,52 +102,39 @@
 - **Classes**: 2
 - **File**: `cqrs.py`
 
-### ifuri_core.runtime
-- **Functions**: 7
-- **Classes**: 3
-- **File**: `runtime.py`
-
-### ifuri_core.envelope
-- **Functions**: 7
+### onlydsl.dsl.spatial_class
+- **Functions**: 8
 - **Classes**: 4
-- **File**: `envelope.py`
+- **File**: `spatial_class.py`
 
-### governance
-- **Functions**: 6
-- **File**: `governance.py`
-
-### twin_store
-- **Functions**: 6
-- **Classes**: 2
-- **File**: `twin_store.py`
+### scripts.startup_testql
+- **Functions**: 8
+- **File**: `startup_testql.py`
 
 ## Key Entry Points
 
 Main execution flows into the system:
 
-### server.Handler.do_POST
-- **Calls**: self._body, self._send, urlparse, contextdsl.compiler_from_payload, compiler.to_markdown, self._send, self._send, self._send
+### onlydsl.ssot.cli.main
+- **Calls**: None.parse_args, onlydsl.ssot.cli.build_parser, None.initialize, onlydsl.ssot.cli._json, onlydsl.ssot.cli._json, SsotStore, onlydsl.ssot.cli._json, SsotStore
+
+### onlydsl.ssot.candidate.create_candidate
+- **Calls**: directory.exists, candidates_root.mkdir, temporary.exists, temporary.mkdir, onlydsl.ssot.manifest.collect_file_hashes, shutil.copytree, tuple, normalized_updates.items
+
+### onlydsl.ssot.writer.SsotStore.promote
+- **Calls**: self._validate_approval, self._promotion_lock, self.verified_manifest, self._candidate_directory, onlydsl.ssot.candidate.load_candidate, onlydsl.ssot.writer.SsotStore.validate_candidate, None.lower, None.lower
+
+### scripts.startup_testql.main
+- **Calls**: EvolutionStore, output.mkdir, float, os.getenv, os.getenv, scripts.startup_testql.wait_for, None.strftime, None.write_text
 
 ### ifuri_core.manifest.CapabilityRegistry.from_mapping
 - **Calls**: cls, int, ManifestError, raw.get, isinstance, caps.append, raw.get, isinstance
 
-### onlydsl.dsl.spatial_class.parse_spatial_class
-- **Calls**: sorted, SpatialClassDocument, line.strip, ControlDslError, None.split, line.startswith, ControlDslError, None.splitlines
-
 ### server.Handler.do_GET
 - **Calls**: urlparse, self._send, self._send, self._send, EVOLUTION.status, server._application_version, server._twin_status, server.evolution_authority_status
 
-### onlydsl.dsl.repair_plan.parse_repair_plan
-- **Calls**: RepairPlan, onlydsl.dsl.repair_plan.validate_repair_plan, line.strip, ControlDslError, None.startswith, set, ControlDslError, int
-
 ### evolution.EvolutionStore.status
 - **Calls**: sorted, next, sum, self.events.glob, evolution._parse_event, str, str, None.lower
-
-### onlydsl.dsl.parameter_contract.parse_parameter_contracts
-- **Calls**: ParameterContractDocument, line.strip, ControlDslError, ParameterContract, None.splitlines, line.strip, None.startswith, None.split
-
-### onlydsl.dsl.assumption.parse_assumptions
-- **Calls**: AssumptionDocument, line.strip, ControlDslError, Assumption, None.splitlines, line.strip, None.startswith, None.split
 
 ### evolution.EvolutionStore.add_incident
 - **Calls**: sorted, rows.extend, None.join, self._write, self.add_event, self.add_diagnostic, Path, uuid.uuid4
@@ -149,6 +145,9 @@ Main execution flows into the system:
 ### ifuri_core.transport.NatsWireClient._reader_loop
 - **Calls**: line.rstrip, line.startswith, line.startswith, line.startswith, TransportError, self._subs.values, self.reader.readline, line.startswith
 
+### server.Handler.do_POST
+- **Calls**: self._body, None.get, self._send, urlparse, self._send, handler, self._send, EVOLUTION.add_event
+
 ### aql.AqlContract.parse
 - **Calls**: enumerate, sorted, cls, text.splitlines, raw.strip, line.split, AqlError, AqlError
 
@@ -157,6 +156,9 @@ Main execution flows into the system:
 
 ### ifuri_core.event_store.SqliteEventStore.append
 - **Calls**: list, self.conn.cursor, cur.execute, cur.execute, None.fetchone, int, cur.execute, cur.execute
+
+### onlydsl.ssot.writer.SsotStore.initialize
+- **Calls**: self.manifest_path.exists, self.current_root.mkdir, source.is_file, onlydsl.ssot.io.atomic_write_text, onlydsl.ssot.io.atomic_write_text, onlydsl.ssot.io.atomic_write_text, onlydsl.ssot.manifest.create_manifest, onlydsl.ssot.manifest.render_manifest
 
 ### ifuri_core.postgres_store.PostgresEventStore.append
 - **Calls**: list, self.conn.transaction, self.conn.cursor, cur.execute, cur.execute, int, cur.execute, int
@@ -171,11 +173,14 @@ Main execution flows into the system:
 ### ifuri_core.transport.NatsTransport.serve_capability
 - **Calls**: ifuri_core.transport.capability_pattern_to_subject, self._service_sids.append, self._service_tasks.append, self.client.subscribe, asyncio.create_task, loop, q.get, EnvelopeCodec.parse
 
-### onlydsl.dsl.evidence_set.parse_evidence_set
-- **Calls**: dict, int, EvidenceSet, line.strip, ControlDslError, set, ControlDslError, ControlDslError
+### server.Handler._post_routes
+- **Calls**: server._compile_context, server._ifuri_analyze_context, server._ifuri_analyze_context, server._ifuri_compile_source, server._ifuri_compile_source, server._bootstrap_twin, server._update_twin, server._integrity_repair_plan
 
 ### ifuri_core.runtime.IfuriRuntime.emit
 - **Calls**: self.registry.resolve, EnvelopeCodec.create, self._validate_payload_contract, list, RouteDecision, RuntimeErrorIfuri, RuntimeErrorIfuri, resolved.capability.transport.ordered
+
+### onlydsl.ssot.candidate.validate_candidate
+- **Calls**: onlydsl.ssot.candidate.load_candidate, onlydsl.ssot.validation.validate_tree, list, onlydsl.ssot.manifest.calculate_section_hashes, onlydsl.ssot.manifest.calculate_revision_hash, onlydsl.ssot.diff.calculate_diff, ValidationReport, onlydsl.ssot.io.atomic_write_text
 
 ### evolution.EvolutionStore.add_guidance
 - **Calls**: None.join, self._write, self.add_event, None.strip, ValueError, uuid.uuid4, str, str
@@ -183,59 +188,56 @@ Main execution flows into the system:
 ### twin_store.TwinStore.save
 - **Calls**: digital_twin.validate_twin_markdown, digital_twin.parse_twindsl, self.exists, None.strftime, hist.write_text, tmp.replace, TwinStoreError, digital_twin.extract_twindsl
 
-### source_ingest.SourceIndex.to_markdown
-- **Calls**: lines.append, lines.extend, lines.append, lines.append, lines.append, lines.append, lines.append, None.join
-
 ### ifuri_core.uri.IfUri.parse
 - **Calls**: urlsplit, cls, IfUriError, IfUriError, IfUriError, IfUriError, IfUriError, len
+
+### source_ingest.SourceIndex.to_markdown
+- **Calls**: lines.append, lines.extend, lines.append, lines.append, lines.append, lines.append, lines.append, None.join
 
 ### ifuri_core.runtime.IfuriRuntime.call_envelope
 - **Calls**: list, RouteDecision, RuntimeErrorIfuri, resolved.capability.transport.ordered, self.transports.get, dict, decision.attempted.append, errors.append
 
-### ifuri_core.transport.NatsWireClient.connect
-- **Calls**: asyncio.create_task, asyncio.open_connection, asyncio.wait_for, info_line.startswith, TransportError, json.loads, self._write, self._reader_loop
-
 ### ifuri_core.llm_gateway.build_llm_build_plan_handler
 - **Calls**: DslDocument, EnvelopeCodec.unpack, ifuri_core.dsl_document.validate_dsl_document, llm_client.plan_build, None.parse_twindsl, ifuri_core.llm_gateway._reply, LlmGatewayError, LlmGatewayError
 
+### ifuri_core.transport.NatsWireClient.connect
+- **Calls**: asyncio.create_task, asyncio.open_connection, asyncio.wait_for, info_line.startswith, TransportError, json.loads, self._write, self._reader_loop
+
 ### evolution.EvolutionStore.add_event
 - **Calls**: sorted, rows.extend, self._write, uuid.uuid4, None.items, rows.append, None.join, evolution._q
-
-### ifuri_core.transport.NatsJetStream.get_message
-- **Calls**: json.loads, msg.get, self.client.request, raw.decode, TransportError, body.get, base64.b64decode, None.encode
-
-### server.Handler._send
-- **Calls**: self.send_response, self.send_header, self.send_header, self.end_headers, self.wfile.write, isinstance, server._json_bytes, str
 
 ## Process Flows
 
 Key execution flows identified:
 
-### Flow 1: do_POST
+### Flow 1: main
 ```
-do_POST [server.Handler]
-  └─ →> compiler_from_payload
+main [onlydsl.ssot.cli]
+  └─> build_parser
+  └─> _json
 ```
 
-### Flow 2: from_mapping
+### Flow 2: create_candidate
+```
+create_candidate [onlydsl.ssot.candidate]
+  └─ →> collect_file_hashes
+```
+
+### Flow 3: promote
+```
+promote [onlydsl.ssot.writer.SsotStore]
+  └─ →> load_candidate
+      └─> _candidate_from_dict
+```
+
+### Flow 4: from_mapping
 ```
 from_mapping [ifuri_core.manifest.CapabilityRegistry]
 ```
 
-### Flow 3: parse_spatial_class
-```
-parse_spatial_class [onlydsl.dsl.spatial_class]
-```
-
-### Flow 4: do_GET
+### Flow 5: do_GET
 ```
 do_GET [server.Handler]
-```
-
-### Flow 5: parse_repair_plan
-```
-parse_repair_plan [onlydsl.dsl.repair_plan]
-  └─> validate_repair_plan
 ```
 
 ### Flow 6: status
@@ -244,26 +246,26 @@ status [evolution.EvolutionStore]
   └─ →> _parse_event
 ```
 
-### Flow 7: parse_parameter_contracts
-```
-parse_parameter_contracts [onlydsl.dsl.parameter_contract]
-```
-
-### Flow 8: parse_assumptions
-```
-parse_assumptions [onlydsl.dsl.assumption]
-```
-
-### Flow 9: add_incident
+### Flow 7: add_incident
 ```
 add_incident [evolution.EvolutionStore]
 ```
 
-### Flow 10: build_llm_patch_handler
+### Flow 8: build_llm_patch_handler
 ```
 build_llm_patch_handler [ifuri_core.llm_gateway]
   └─ →> validate_dsl_document
   └─ →> assert_dsl_only
+```
+
+### Flow 9: _reader_loop
+```
+_reader_loop [ifuri_core.transport.NatsWireClient]
+```
+
+### Flow 10: do_POST
+```
+do_POST [server.Handler]
 ```
 
 ## Key Classes
@@ -277,6 +279,11 @@ build_llm_patch_handler [ifuri_core.llm_gateway]
 > Filesystem queue whose persisted records are complete, typed DSL documents.
 - **Methods**: 14
 - **Key Methods**: evolution.EvolutionStore.__init__, evolution.EvolutionStore._write, evolution.EvolutionStore.add_guidance, evolution.EvolutionStore.add_incident, evolution.EvolutionStore.add_diagnostic, evolution.EvolutionStore.add_event, evolution.EvolutionStore.add_json_record, evolution.EvolutionStore.latest_guidance, evolution.EvolutionStore.claim_incident, evolution.EvolutionStore.finish_incident
+
+### onlydsl.ssot.writer.SsotStore
+- **Methods**: 13
+- **Key Methods**: onlydsl.ssot.writer.SsotStore.__init__, onlydsl.ssot.writer.SsotStore.initialize, onlydsl.ssot.writer.SsotStore.create_candidate, onlydsl.ssot.writer.SsotStore.validate_candidate, onlydsl.ssot.writer.SsotStore.candidate_diff, onlydsl.ssot.writer.SsotStore.promote, onlydsl.ssot.writer.SsotStore._candidate_directory, onlydsl.ssot.writer.SsotStore._history_path, onlydsl.ssot.writer.SsotStore._write_append_only, onlydsl.ssot.writer.SsotStore._write_json_append_only
+- **Inherits**: SsotReader
 
 ### ifuri_core.transport.NatsWireClient
 > Small dependency-free NATS protocol client used by the POC.
@@ -331,6 +338,11 @@ Domain code sees only logical URI + protobuf pay
 - **Methods**: 6
 - **Key Methods**: ifuri_core.transport.NatsTransport.__init__, ifuri_core.transport.NatsTransport.call, ifuri_core.transport.NatsTransport.publish, ifuri_core.transport.NatsTransport.ensure_event_stream, ifuri_core.transport.NatsTransport.serve_capability, ifuri_core.transport.NatsTransport.stop_services
 
+### server.Handler
+- **Methods**: 6
+- **Key Methods**: server.Handler.log_message, server.Handler._send, server.Handler._body, server.Handler._post_routes, server.Handler.do_GET, server.Handler.do_POST
+- **Inherits**: BaseHTTPRequestHandler
+
 ### ifuri_core.artifacts.LocalFileArtifactStore
 > Maps logical IFURI artifact identity to a safe local file placement.
 
@@ -356,24 +368,13 @@ Canonical shape:
 - **Methods**: 5
 - **Key Methods**: ifuri_core.transport.InProcessTransport.__init__, ifuri_core.transport.InProcessTransport.register, ifuri_core.transport.InProcessTransport.has_handler, ifuri_core.transport.InProcessTransport.call, ifuri_core.transport.InProcessTransport.publish
 
-### server.Handler
+### onlydsl.ssot.reader.SsotReader
 - **Methods**: 5
-- **Key Methods**: server.Handler.log_message, server.Handler._send, server.Handler._body, server.Handler.do_GET, server.Handler.do_POST
-- **Inherits**: BaseHTTPRequestHandler
+- **Key Methods**: onlydsl.ssot.reader.SsotReader.__init__, onlydsl.ssot.reader.SsotReader.manifest, onlydsl.ssot.reader.SsotReader.verified_manifest, onlydsl.ssot.reader.SsotReader.status, onlydsl.ssot.reader.SsotReader.history
 
-### ifuri_core.outbox.OutboxStore
+### source_ingest.SourceIndex
 - **Methods**: 3
-- **Key Methods**: ifuri_core.outbox.OutboxStore.pending_outbox, ifuri_core.outbox.OutboxStore.mark_outbox_published, ifuri_core.outbox.OutboxStore.mark_outbox_failed
-- **Inherits**: Protocol
-
-### ifuri_core.cqrs.AggregateRepository
-- **Methods**: 3
-- **Key Methods**: ifuri_core.cqrs.AggregateRepository.__init__, ifuri_core.cqrs.AggregateRepository.load, ifuri_core.cqrs.AggregateRepository.save
-- **Inherits**: <ast.Subscript object at 0x7739c5333b10>
-
-### onlydsl.dsl.spatial_class.SpatialClassDocument
-- **Methods**: 3
-- **Key Methods**: onlydsl.dsl.spatial_class.SpatialClassDocument.classify, onlydsl.dsl.spatial_class.SpatialClassDocument.geometry_subjects, onlydsl.dsl.spatial_class.SpatialClassDocument.required_checks
+- **Key Methods**: source_ingest.SourceIndex.to_markdown, source_ingest.SourceIndex.envelope, source_ingest.SourceIndex.source_refs
 
 ## Data Transformation Functions
 
@@ -385,14 +386,42 @@ Key functions that process and transform data:
 ### contextdsl._parse_legacy_scalar
 - **Output to**: None.strip, raw.lower, re.fullmatch, re.fullmatch, raw.strip
 
+### contextdsl._parse_record_field
+- **Output to**: re.fullmatch, ContextDslError, match.group, contextdsl._parse_literal, raw.startswith
+
+### contextdsl._parse_policy
+- **Output to**: re.fullmatch, ContextDslError, match.group, match.group
+
+### contextdsl._parse_capability
+- **Output to**: re.fullmatch, capabilities.add, ContextDslError, match.group, match.group
+
+### contextdsl._parse_state
+- **Output to**: re.fullmatch, ContextDslError, match.group, match.group, contextdsl._parse_literal
+
+### contextdsl._parse_metric
+- **Output to**: re.fullmatch, contextdsl._parse_literal, ContextDslError, match.group, isinstance
+
+### contextdsl._parse_record
+- **Output to**: re.fullmatch, ContextRecord, ContextDslError, match.group, match.group
+
+### contextdsl._parse_context_declaration
+- **Output to**: stripped.startswith, int, stripped.startswith, None.strip, contextdsl._ident
+
 ### contextdsl.parse_context_dsl
-- **Output to**: dsl.splitlines, enumerate, raw.strip, stripped.startswith, stripped.startswith
+- **Output to**: dsl.splitlines, enumerate, raw.strip, stripped.startswith, contextdsl._parse_context_declaration
 
 ### contextdsl.validate_context_markdown
 - **Output to**: contextdsl.parse_context_dsl, errors.append, doc.policies.get, errors.append, doc.policies.get
 
 ### evolution._parse_event
 - **Output to**: path.read_text, re.search, re.search, re.search, re.findall
+
+### llm_client._call_dsl_validated
+- **Output to**: max, range, LlmProviderError, int, os.getenv
+
+### llm_client.convert_english
+> User text reaches the LLM only inside runtime-generated SourceDSL.
+- **Output to**: None.lower, boundary.build_source_compile_bundle, llm_client._backend_call, intentdsl.demo_english_to_dsl, os.getenv
 
 ### aql.AqlContract.parse
 - **Output to**: enumerate, sorted, cls, text.splitlines, raw.strip
@@ -403,8 +432,20 @@ Key functions that process and transform data:
 ### intentdsl._parse_call
 - **Output to**: raw.strip, re.fullmatch, re.fullmatch, match.groups, arg_src.strip
 
+### intentdsl._parse_rule_statement
+- **Output to**: raw.startswith, None.strip, raw.startswith, intentdsl._parse_call, rule.operations.append
+
+### intentdsl._parse_program_declaration
+- **Output to**: stripped.startswith, stripped.startswith, None.strip, IntentDslError, re.fullmatch
+
 ### intentdsl.parse_dsl
-- **Output to**: dsl.splitlines, enumerate, raw.strip, stripped.startswith, stripped.startswith
+- **Output to**: dsl.splitlines, enumerate, raw.strip, intentdsl._parse_program_declaration, IntentDslError
+
+### intentdsl._validate_rule_expressions
+- **Output to**: intentdsl.expr_names, errors.append, errors.append, None.join, sorted
+
+### intentdsl._validate_rule_runtime_capabilities
+- **Output to**: errors.append, errors.append, errors.append
 
 ### intentdsl.validate_program
 - **Output to**: program.states.items, set, set, set, set
@@ -412,92 +453,65 @@ Key functions that process and transform data:
 ### intentdsl.validate_markdown
 - **Output to**: intentdsl.extract_intentdsl, intentdsl.parse_dsl, intentdsl.validate_program, str
 
-### patchdsl.parse_patchdsl
-- **Output to**: _FENCE_RE.fullmatch, patchdsl._json_string, PatchDocument, markdown.strip, PatchDslError
+### patchdsl._parse_change
+- **Output to**: patchdsl._json_string, None.strip, patchdsl._json_string, PatchChange, PatchDslError
 
-### patchdsl.validate_patch_policy
-- **Output to**: None.resolve, PurePosixPath, None.resolve, change.diff.splitlines, errors.append
+## Behavioral Patterns
 
-### patchdsl.validate_patch_markdown
-- **Output to**: patchdsl.parse_patchdsl, patchdsl.validate_patch_policy, str
+### recursion_create_candidate
+- **Type**: recursion
+- **Confidence**: 0.90
+- **Functions**: onlydsl.ssot.writer.SsotStore.create_candidate
 
-### governance.load_process_pack
-- **Output to**: Path, json.loads, None.read_text
-
-### governance.build_process_envelope
-- **Output to**: governance.canonical_hash, governance.canonical_hash, sorted, sorted, asdict
-
-### source_ingest.parse_markdown
-- **Output to**: path.read_text, None.as_posix, MarkdownDocument, re.compile, code_re.finditer
-
-### source_ingest.validate_sourceindex_markdown
-- **Output to**: SourceIngestError, None.rsplit, x.strip, SourceIngestError, len
-
-### ifuri_core.runtime.IfuriRuntime._validate_payload_contract
-- **Output to**: resolved.capability.input_type.strip, expected.startswith, RuntimeErrorIfuri, envelope.payload.type_url.rsplit
-
-### ifuri_core.manifest._parse_pattern
-- **Output to**: urlsplit, set, enumerate, tuple, ManifestError
-
-### ifuri_core.manifest._validate_capability
-- **Output to**: ifuri_core.manifest._parse_pattern, None.get, capability.transport.ordered, re.fullmatch, ManifestError
-
-### ifuri_core.uri.IfUri.parse
-- **Output to**: urlsplit, cls, IfUriError, IfUriError, IfUriError
-
-### ifuri_core.envelope.EnvelopeCodec.validate
-- **Output to**: IfUri.parse, IfUri.parse, EnvelopeCodec._validate_kind_uri, EnvelopeError, EnvelopeError
-
-### ifuri_core.envelope.EnvelopeCodec._validate_kind_uri
-- **Output to**: None.get, EnvelopeError
-
-### ifuri_core.envelope.EnvelopeCodec.serialize
-- **Output to**: EnvelopeCodec.validate, env.SerializeToString
+### recursion_validate_candidate
+- **Type**: recursion
+- **Confidence**: 0.90
+- **Functions**: onlydsl.ssot.writer.SsotStore.validate_candidate
 
 ## Public API Surface
 
 Functions exposed as public API (no underscore prefix):
 
-- `digital_twin.parse_twindsl` - 149 calls
-- `intentdsl.codegen` - 88 calls
-- `server.Handler.do_POST` - 83 calls
-- `contextdsl.parse_context_dsl` - 73 calls
-- `intentdsl.parse_dsl` - 71 calls
-- `onlydsl.dsl.build_plan.parse_bound_build_plan` - 60 calls
+- `onlydsl.ssot.cli.main` - 62 calls
 - `source_ingest.parse_markdown` - 59 calls
-- `contextdsl.compiler_from_payload` - 52 calls
-- `patchdsl.parse_patchdsl` - 49 calls
-- `digital_twin.render_twin` - 42 calls
-- `ifuri_core.manifest.CapabilityRegistry.from_mapping` - 39 calls
+- `onlydsl.ssot.candidate.create_candidate` - 50 calls
+- `onlydsl.ssot.cli.build_parser` - 48 calls
+- `onlydsl.ssot.writer.SsotStore.promote` - 48 calls
+- `scripts.startup_testql.main` - 42 calls
 - `llm_client.update_twin` - 39 calls
-- `onlydsl.dsl.spatial_class.parse_spatial_class` - 39 calls
+- `ifuri_core.manifest.CapabilityRegistry.from_mapping` - 39 calls
 - `server.Handler.do_GET` - 37 calls
-- `onlydsl.dsl.repair_plan.parse_repair_plan` - 36 calls
 - `contextdsl.render_context_dsl` - 35 calls
 - `evolution.EvolutionStore.status` - 35 calls
 - `source_ingest.build_source_index` - 35 calls
 - `onlydsl.dsl.spatial_class.spatial_class_from_twin` - 35 calls
-- `intentdsl.validate_program` - 34 calls
-- `onlydsl.dsl.parameter_contract.parse_parameter_contracts` - 34 calls
-- `digital_twin.validate_twin` - 34 calls
-- `onlydsl.runtime.integrity.parse_project_integrity` - 34 calls
-- `intentdsl.run_program` - 29 calls
-- `onlydsl.dsl.assumption.parse_assumptions` - 29 calls
+- `onlydsl.dsl.build_plan.parse_bound_build_plan` - 31 calls
+- `intentdsl.run_program` - 30 calls
 - `onlydsl.dsl.assumption.assumptions_from_integrity` - 29 calls
 - `evolution.EvolutionStore.add_incident` - 28 calls
 - `llm_client.bootstrap_twin` - 28 calls
+- `patchdsl.parse_patchdsl` - 28 calls
 - `ifuri_core.llm_gateway.build_llm_patch_handler` - 28 calls
-- `patchdsl.validate_patch_policy` - 26 calls
-- `digital_twin.demo_bootstrap_twin` - 25 calls
+- `intentdsl.validate_program` - 27 calls
+- `contextdsl.compiler_from_payload` - 25 calls
+- `server.Handler.do_POST` - 25 calls
 - `aql.AqlContract.parse` - 24 calls
 - `ifuri_core.envelope.EnvelopeCodec.create` - 23 calls
 - `ifuri_core.event_store.SqliteEventStore.append` - 23 calls
+- `onlydsl.ssot.writer.SsotStore.initialize` - 23 calls
 - `llm_client.plan_build` - 22 calls
+- `onlydsl.dsl.trust.parse_trust_policy` - 22 calls
+- `onlydsl.ssot.manifest.parse_manifest` - 22 calls
 - `ifuri_core.postgres_store.PostgresEventStore.append` - 21 calls
+- `onlydsl.runtime.integrity.parse_project_integrity` - 21 calls
+- `onlydsl.dsl.repair_plan.parse_repair_plan` - 21 calls
+- `digital_twin.parse_twindsl` - 21 calls
 - `contextdsl.ContextCompiler.legacy_log` - 20 calls
+- `contextdsl.parse_context_dsl` - 20 calls
 - `onlydsl.dsl.parameter_contract.ParameterContractDocument.validate` - 20 calls
+- `scripts.startup_testql.render_testqldsl` - 20 calls
+- `digital_twin.demo_bootstrap_twin` - 20 calls
 - `ifuri_core.transport.NatsTransport.serve_capability` - 19 calls
-- `onlydsl.dsl.evidence_set.parse_evidence_set` - 19 calls
 
 ## System Interactions
 
@@ -505,36 +519,36 @@ How components interact:
 
 ```mermaid
 graph TD
-    do_POST --> _body
-    do_POST --> _send
-    do_POST --> urlparse
-    do_POST --> compiler_from_payloa
-    do_POST --> to_markdown
+    main --> parse_args
+    main --> build_parser
+    main --> initialize
+    main --> _json
+    create_candidate --> exists
+    create_candidate --> mkdir
+    create_candidate --> collect_file_hashes
+    promote --> _validate_approval
+    promote --> _promotion_lock
+    promote --> verified_manifest
+    promote --> _candidate_directory
+    promote --> load_candidate
+    main --> EvolutionStore
+    main --> mkdir
+    main --> float
+    main --> getenv
     from_mapping --> cls
     from_mapping --> int
     from_mapping --> ManifestError
     from_mapping --> get
     from_mapping --> isinstance
-    parse_spatial_class --> sorted
-    parse_spatial_class --> SpatialClassDocument
-    parse_spatial_class --> strip
-    parse_spatial_class --> ControlDslError
-    parse_spatial_class --> split
     do_GET --> urlparse
     do_GET --> _send
     do_GET --> status
-    parse_repair_plan --> RepairPlan
-    parse_repair_plan --> validate_repair_plan
-    parse_repair_plan --> strip
-    parse_repair_plan --> ControlDslError
-    parse_repair_plan --> startswith
     status --> sorted
     status --> next
     status --> sum
     status --> glob
     status --> _parse_event
-    parse_parameter_cont --> ParameterContractDoc
-    parse_parameter_cont --> strip
+    add_incident --> sorted
 ```
 
 ## Reverse Engineering Guidelines

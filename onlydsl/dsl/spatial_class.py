@@ -52,6 +52,42 @@ class SpatialClassDocument:
         return self.types[component.subject_type].require
 
 
+def _parse_type(lines: list[str], index: int) -> tuple[SpatialTypeContract, int]:
+    subject_type = lines[index].split(None, 1)[1]
+    spatial_class = None
+    requirements = {"REQUIRE": set(), "OPTIONAL": set(), "FORBID": set()}
+    index += 1
+    while index < len(lines) and lines[index] != "END_TYPE":
+        key, _, value = lines[index].partition(" ")
+        if key == "CLASS":
+            try:
+                spatial_class = SpatialClass(value)
+            except ValueError as exc:
+                raise ControlDslError(f"invalid spatial class {value!r}") from exc
+        elif key in requirements:
+            if value not in KNOWN_REQUIREMENTS:
+                raise ControlDslError(f"unknown spatial requirement {value!r}")
+            requirements[key].add(value)
+        else:
+            raise ControlDslError(f"unknown TYPE directive {key!r}")
+        index += 1
+    if spatial_class is None:
+        raise ControlDslError(f"TYPE {subject_type} requires CLASS")
+    require, optional, forbid = (requirements[key] for key in ("REQUIRE", "OPTIONAL", "FORBID"))
+    if (require & forbid) or (optional & forbid):
+        raise ControlDslError(f"TYPE {subject_type} has contradictory requirements")
+    if spatial_class not in PHYSICAL_CLASSES and ({"position", "size", "orientation"} & require):
+        raise ControlDslError(f"non-physical TYPE {subject_type} cannot require physical pose")
+    return SpatialTypeContract(subject_type, spatial_class, frozenset(require), frozenset(optional), frozenset(forbid)), index
+
+
+def _parse_component(line: str) -> SpatialComponent:
+    parts = line.split()
+    if len(parts) != 4 or parts[2] != "TYPE":
+        raise ControlDslError("COMPONENT syntax is COMPONENT <id> TYPE <type>")
+    return SpatialComponent(parts[1], parts[3])
+
+
 def parse_spatial_class(markdown: str) -> SpatialClassDocument:
     lines = [line.strip() for line in extract_one(markdown, "spatialclassdsl").splitlines() if line.strip()]
     if not lines or not lines[0].startswith("SPATIAL_MODEL ") or lines[-1] != "END_SPATIAL_MODEL":
@@ -63,38 +99,11 @@ def parse_spatial_class(markdown: str) -> SpatialClassDocument:
     while index < len(lines) - 1:
         line = lines[index]
         if line.startswith("TYPE "):
-            subject_type = line.split(None, 1)[1]
-            spatial_class = None
-            require: set[str] = set()
-            optional: set[str] = set()
-            forbid: set[str] = set()
-            index += 1
-            while index < len(lines) and lines[index] != "END_TYPE":
-                key, _, value = lines[index].partition(" ")
-                if key == "CLASS":
-                    try:
-                        spatial_class = SpatialClass(value)
-                    except ValueError as exc:
-                        raise ControlDslError(f"invalid spatial class {value!r}") from exc
-                elif key in {"REQUIRE", "OPTIONAL", "FORBID"}:
-                    if value not in KNOWN_REQUIREMENTS:
-                        raise ControlDslError(f"unknown spatial requirement {value!r}")
-                    {"REQUIRE": require, "OPTIONAL": optional, "FORBID": forbid}[key].add(value)
-                else:
-                    raise ControlDslError(f"unknown TYPE directive {key!r}")
-                index += 1
-            if spatial_class is None:
-                raise ControlDslError(f"TYPE {subject_type} requires CLASS")
-            if (require & forbid) or (optional & forbid):
-                raise ControlDslError(f"TYPE {subject_type} has contradictory requirements")
-            if spatial_class not in PHYSICAL_CLASSES and ({"position", "size", "orientation"} & require):
-                raise ControlDslError(f"non-physical TYPE {subject_type} cannot require physical pose")
-            types[subject_type] = SpatialTypeContract(subject_type, spatial_class, frozenset(require), frozenset(optional), frozenset(forbid))
+            contract, index = _parse_type(lines, index)
+            types[contract.subject_type] = contract
         elif line.startswith("COMPONENT "):
-            parts = line.split()
-            if len(parts) != 4 or parts[2] != "TYPE":
-                raise ControlDslError("COMPONENT syntax is COMPONENT <id> TYPE <type>")
-            components[parts[1]] = SpatialComponent(parts[1], parts[3])
+            component = _parse_component(line)
+            components[component.component_id] = component
         else:
             raise ControlDslError(f"unknown SpatialClassDSL directive {line!r}")
         index += 1

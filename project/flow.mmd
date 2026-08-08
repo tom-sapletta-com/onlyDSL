@@ -18,6 +18,7 @@ flowchart TD
         llm_client___demo_update_twin["_demo_update_twin"]
         llm_client__update_twin["update_twin"]
         llm_client__plan_build["plan_build"]
+        onlydsl__cli__main["main"]
     end
 
     subgraph Core
@@ -36,7 +37,7 @@ flowchart TD
         contextdsl__ContextCompiler__database_fact["database_fact"]
         contextdsl__ContextCompiler__legacy_log["legacy_log"]
         contextdsl__ContextCompiler__to_markdown["to_markdown"]
-        ...["+180 more"]
+        ...["+197 more"]
     end
 
     class contextdsl__ContextDocument__to_dict,contextdsl__ContextCompiler__policy,contextdsl__ContextCompiler__capability,contextdsl__ContextCompiler__state,contextdsl__ContextCompiler__metric,contextdsl__ContextCompiler__record,contextdsl__ContextCompiler__event,contextdsl__ContextCompiler__exception,contextdsl__ContextCompiler__tool_result,contextdsl__ContextCompiler__retrieval entry

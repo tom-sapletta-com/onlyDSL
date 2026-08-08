@@ -96,6 +96,65 @@ def _parse_call(raw: str) -> tuple[str, dict[str, Any]]:
     return name, args
 
 
+def _parse_rule_statement(raw: str, lineno: int, rule: Rule) -> None:
+    if raw.startswith("WHEN "):
+        rule.when = raw[5:].strip()
+    elif raw.startswith("DO "):
+        name, args = _parse_call(raw[3:])
+        rule.operations.append(Operation("do", name, args))
+    elif raw.startswith("EMIT "):
+        name, args = _parse_call(raw[5:])
+        rule.operations.append(Operation("emit", name, args))
+    elif raw.startswith("SET "):
+        match = re.fullmatch(rf"SET ({IDENT_RE})\s*=\s*(.+)", raw)
+        if not match:
+            raise IntentDslError(f"Line {lineno}: invalid SET")
+        rule.operations.append(Operation("set", match.group(2).strip(), {"target": match.group(1)}))
+    elif raw.startswith("ASSERT "):
+        rule.operations.append(Operation("assert", raw[7:].strip()))
+    elif raw == "STOP":
+        rule.operations.append(Operation("stop"))
+    else:
+        raise IntentDslError(f"Line {lineno}: unknown rule statement: {raw}")
+
+
+def _parse_program_declaration(stripped: str, lineno: int, program: Program | None) -> tuple[Program | None, Rule | None]:
+    if stripped.startswith("INTENT "):
+        name = stripped[7:].strip()
+        if not re.fullmatch(IDENT_RE, name):
+            raise IntentDslError(f"Line {lineno}: invalid intent identifier")
+        if program is not None:
+            raise IntentDslError(f"Line {lineno}: INTENT already declared")
+        return Program(intent=name), None
+    if program is None:
+        raise IntentDslError(f"Line {lineno}: INTENT must be the first declaration")
+    if stripped.startswith("INPUT "):
+        match = re.fullmatch(rf"INPUT ({IDENT_RE}) ({'|'.join(TYPE_NAMES)})", stripped)
+        if not match:
+            raise IntentDslError(f"Line {lineno}: invalid INPUT")
+        program.inputs[match.group(1)] = match.group(2)
+    elif stripped.startswith("STATE "):
+        match = re.fullmatch(rf"STATE ({IDENT_RE}) ({'|'.join(TYPE_NAMES)})\s*=\s*(.+)", stripped)
+        if not match:
+            raise IntentDslError(f"Line {lineno}: invalid STATE")
+        program.states[match.group(1)] = {"type": match.group(2), "initial": _parse_literal(match.group(3))}
+    elif stripped.startswith("RULE "):
+        name = stripped[5:].strip()
+        if not re.fullmatch(IDENT_RE, name):
+            raise IntentDslError(f"Line {lineno}: invalid RULE identifier")
+        return program, Rule(name=name)
+    elif stripped.startswith("FORBID "):
+        program.forbids.append(stripped[7:].strip())
+    elif stripped.startswith("OUTPUT "):
+        name = stripped[7:].strip()
+        if not re.fullmatch(IDENT_RE, name):
+            raise IntentDslError(f"Line {lineno}: invalid OUTPUT identifier")
+        program.outputs.append(name)
+    else:
+        raise IntentDslError(f"Line {lineno}: unknown declaration: {stripped}")
+    return program, None
+
+
 def parse_dsl(dsl: str) -> Program:
     lines = dsl.splitlines()
     program: Program | None = None
@@ -108,68 +167,17 @@ def parse_dsl(dsl: str) -> Program:
 
         if current_rule is not None:
             if stripped == "END":
-                program.rules.append(current_rule)  # type: ignore[union-attr]
+                if program is None:
+                    raise IntentDslError(f"Line {lineno}: rule block cannot appear before INTENT")
+                program.rules.append(current_rule)
                 current_rule = None
                 continue
             if not raw.startswith("  "):
                 raise IntentDslError(f"Line {lineno}: rule statements require two-space indentation")
-            if stripped.startswith("WHEN "):
-                current_rule.when = stripped[5:].strip()
-            elif stripped.startswith("DO "):
-                name, args = _parse_call(stripped[3:])
-                current_rule.operations.append(Operation("do", name, args))
-            elif stripped.startswith("EMIT "):
-                name, args = _parse_call(stripped[5:])
-                current_rule.operations.append(Operation("emit", name, args))
-            elif stripped.startswith("SET "):
-                m = re.fullmatch(rf"SET ({IDENT_RE})\s*=\s*(.+)", stripped)
-                if not m:
-                    raise IntentDslError(f"Line {lineno}: invalid SET")
-                current_rule.operations.append(Operation("set", m.group(2).strip(), {"target": m.group(1)}))
-            elif stripped.startswith("ASSERT "):
-                current_rule.operations.append(Operation("assert", stripped[7:].strip()))
-            elif stripped == "STOP":
-                current_rule.operations.append(Operation("stop"))
-            else:
-                raise IntentDslError(f"Line {lineno}: unknown rule statement: {stripped}")
+            _parse_rule_statement(stripped, lineno, current_rule)
             continue
 
-        if stripped.startswith("INTENT "):
-            name = stripped[7:].strip()
-            if not re.fullmatch(IDENT_RE, name):
-                raise IntentDslError(f"Line {lineno}: invalid intent identifier")
-            if program is not None:
-                raise IntentDslError(f"Line {lineno}: INTENT already declared")
-            program = Program(intent=name)
-            continue
-
-        if program is None:
-            raise IntentDslError(f"Line {lineno}: INTENT must be the first declaration")
-
-        if stripped.startswith("INPUT "):
-            m = re.fullmatch(rf"INPUT ({IDENT_RE}) ({'|'.join(TYPE_NAMES)})", stripped)
-            if not m:
-                raise IntentDslError(f"Line {lineno}: invalid INPUT")
-            program.inputs[m.group(1)] = m.group(2)
-        elif stripped.startswith("STATE "):
-            m = re.fullmatch(rf"STATE ({IDENT_RE}) ({'|'.join(TYPE_NAMES)})\s*=\s*(.+)", stripped)
-            if not m:
-                raise IntentDslError(f"Line {lineno}: invalid STATE")
-            program.states[m.group(1)] = {"type": m.group(2), "initial": _parse_literal(m.group(3))}
-        elif stripped.startswith("RULE "):
-            name = stripped[5:].strip()
-            if not re.fullmatch(IDENT_RE, name):
-                raise IntentDslError(f"Line {lineno}: invalid RULE identifier")
-            current_rule = Rule(name=name)
-        elif stripped.startswith("FORBID "):
-            program.forbids.append(stripped[7:].strip())
-        elif stripped.startswith("OUTPUT "):
-            name = stripped[7:].strip()
-            if not re.fullmatch(IDENT_RE, name):
-                raise IntentDslError(f"Line {lineno}: invalid OUTPUT identifier")
-            program.outputs.append(name)
-        else:
-            raise IntentDslError(f"Line {lineno}: unknown declaration: {stripped}")
+        program, current_rule = _parse_program_declaration(stripped, lineno, program)
 
     if current_rule is not None:
         raise IntentDslError(f"Rule {current_rule.name!r} is missing END")
@@ -223,6 +231,34 @@ def _type_ok(type_name: str, value: Any) -> bool:
     return False
 
 
+def _validate_rule_expressions(rule: Rule, declared: set[str], errors: list[str]) -> None:
+    for expr in [rule.when, *[op.value for op in rule.operations if op.kind in {"assert", "set"}]]:
+        try:
+            unknown = expr_names(expr) - declared
+            if unknown:
+                errors.append(f"Rule {rule.name}: unknown symbols in {expr!r}: {', '.join(sorted(unknown))}")
+        except IntentDslError as exc:
+            errors.append(f"Rule {rule.name}: {exc}")
+
+
+def _validate_rule_runtime_capabilities(
+    rule: Rule,
+    program: Program,
+    allowed_actions: set[str] | None,
+    allowed_events: set[str] | None,
+    errors: list[str],
+) -> None:
+    for op in rule.operations:
+        if op.kind == "set":
+            target = op.args["target"]
+            if target not in program.states:
+                errors.append(f"SET target {target!r} is not a STATE")
+        elif op.kind == "do" and allowed_actions is not None and op.value not in allowed_actions:
+            errors.append(f"Rule {rule.name}: DO action {op.value!r} is not declared by runtime capabilities")
+        elif op.kind == "emit" and allowed_events is not None and op.value not in allowed_events:
+            errors.append(f"Rule {rule.name}: EMIT event {op.value!r} is not declared by runtime capabilities")
+
+
 def validate_program(
     program: Program,
     action_registry: Iterable[str] | None = None,
@@ -249,25 +285,8 @@ def validate_program(
         seen_rules.add(rule.name)
         if not rule.operations:
             warnings.append(f"Rule {rule.name} has no operations")
-        expressions = [rule.when]
-        for op in rule.operations:
-            if op.kind in {"assert", "set"}:
-                expressions.append(op.value)
-            if op.kind == "set":
-                target = op.args["target"]
-                if target not in program.states:
-                    errors.append(f"SET target {target!r} is not a STATE")
-            elif op.kind == "do" and allowed_actions is not None and op.value not in allowed_actions:
-                errors.append(f"Rule {rule.name}: DO action {op.value!r} is not declared by runtime capabilities")
-            elif op.kind == "emit" and allowed_events is not None and op.value not in allowed_events:
-                errors.append(f"Rule {rule.name}: EMIT event {op.value!r} is not declared by runtime capabilities")
-        for expr in expressions:
-            try:
-                unknown = expr_names(expr) - declared
-                if unknown:
-                    errors.append(f"Rule {rule.name}: unknown symbols in {expr!r}: {', '.join(sorted(unknown))}")
-            except IntentDslError as exc:
-                errors.append(f"Rule {rule.name}: {exc}")
+        _validate_rule_runtime_capabilities(rule, program, allowed_actions, allowed_events, errors)
+        _validate_rule_expressions(rule, declared, errors)
 
     for expr in program.forbids:
         try:
@@ -335,6 +354,38 @@ def run_program(
                 return False
         return True
 
+    def apply_operation(rule_name: str, op: Operation) -> bool:
+        nonlocal halted
+        if op.kind == "set":
+            value = eval_expr(op.value, env)
+            target = op.args["target"]
+            expected = program.states[target]["type"]
+            if not _type_ok(expected, value):
+                errors.append(f"SET {target}: expected {expected}, got {type(value).__name__}")
+                halted = True
+                return False
+            state[target] = value
+            env[target] = value
+            trace.append({"kind": "set", "target": target, "value": value})
+        elif op.kind == "assert":
+            ok = bool(eval_expr(op.value, env))
+            trace.append({"kind": "assert", "expr": op.value, "ok": ok})
+            if not ok:
+                errors.append(f"ASSERT failed: {op.value}")
+                halted = True
+                return False
+        elif op.kind == "do":
+            trace.append({"kind": "action", "name": op.value, "args": op.args})
+        elif op.kind == "emit":
+            event = {"name": op.value, "args": op.args}
+            events.append(event)
+            trace.append({"kind": "emit", **event})
+        elif op.kind == "stop":
+            trace.append({"kind": "stop"})
+            halted = True
+            return False
+        return True
+
     if not check_forbids("start"):
         return {"ok": False, "errors": errors, "trace": trace, "events": events, "state": state}
 
@@ -344,33 +395,7 @@ def run_program(
         if not cond:
             continue
         for op in rule.operations:
-            if op.kind == "set":
-                value = eval_expr(op.value, env)
-                target = op.args["target"]
-                expected = program.states[target]["type"]
-                if not _type_ok(expected, value):
-                    errors.append(f"SET {target}: expected {expected}, got {type(value).__name__}")
-                    halted = True
-                    break
-                state[target] = value
-                env[target] = value
-                trace.append({"kind": "set", "target": target, "value": value})
-            elif op.kind == "assert":
-                ok = bool(eval_expr(op.value, env))
-                trace.append({"kind": "assert", "expr": op.value, "ok": ok})
-                if not ok:
-                    errors.append(f"ASSERT failed: {op.value}")
-                    halted = True
-                    break
-            elif op.kind == "do":
-                trace.append({"kind": "action", "name": op.value, "args": op.args})
-            elif op.kind == "emit":
-                event = {"name": op.value, "args": op.args}
-                events.append(event)
-                trace.append({"kind": "emit", **event})
-            elif op.kind == "stop":
-                trace.append({"kind": "stop"})
-                halted = True
+            if not apply_operation(rule.name, op):
                 break
             if not check_forbids(f"rule:{rule.name}"):
                 break
@@ -395,109 +420,112 @@ def demo_english_to_dsl(text: str) -> str:
         intent = "refund_policy"
 
     lines = [f"INTENT {intent}"]
-
-    if intent == "auth_recovery":
-        lines += [
-            "INPUT api_status integer",
-            "INPUT refresh_status integer",
-            "STATE retry_count integer = 0",
-            "RULE unauthorized",
-            "  WHEN api_status == 401",
-            "  DO refresh_token",
-            "  SET retry_count = retry_count + 1",
-            "  ASSERT retry_count <= 2",
-            "END",
-            "RULE refresh_failed",
-            "  WHEN refresh_status == 401 and retry_count >= 1",
-            "  EMIT auth_error(reason=\"refresh_failed\")",
-            "  STOP",
-            "END",
-            "FORBID retry_count > 2",
-            "OUTPUT auth_recovery_result",
-        ]
-    else:
-        # Generic, safe representation: preserve content as an event payload and force explicit follow-up refinement.
-        label = "_".join(_slug_words(text)[:5]) or "unclassified"
-        safe_text = json.dumps(text.strip()[:500], ensure_ascii=False)
-        lines += [
-            "STATE accepted boolean = false",
-            "RULE capture",
-            "  WHEN true",
-            f"  EMIT source_intent(label=\"{label}\",text={safe_text})",
-            "  SET accepted = true",
-            "END",
-            "ASSERTION_PLACEHOLDER" if False else "OUTPUT captured_intent",
-        ]
+    lines.extend(_auth_recovery_lines() if intent == "auth_recovery" else _generic_demo_lines(text))
     return "```intentdsl\n" + "\n".join(lines) + "\n```"
+
+
+def _auth_recovery_lines() -> list[str]:
+    return [
+        "INPUT api_status integer",
+        "INPUT refresh_status integer",
+        "STATE retry_count integer = 0",
+        "RULE unauthorized",
+        "  WHEN api_status == 401",
+        "  DO refresh_token",
+        "  SET retry_count = retry_count + 1",
+        "  ASSERT retry_count <= 2",
+        "END",
+        "RULE refresh_failed",
+        "  WHEN refresh_status == 401 and retry_count >= 1",
+        "  EMIT auth_error(reason=\"refresh_failed\")",
+        "  STOP",
+        "END",
+        "FORBID retry_count > 2",
+        "OUTPUT auth_recovery_result",
+    ]
+
+
+def _generic_demo_lines(text: str) -> list[str]:
+    # Generic, safe representation: preserve content as an event payload and force explicit follow-up refinement.
+    label = "_".join(_slug_words(text)[:5]) or "unclassified"
+    safe_text = json.dumps(text.strip()[:500], ensure_ascii=False)
+    return [
+        "STATE accepted boolean = false",
+        "RULE capture",
+        "  WHEN true",
+        f"  EMIT source_intent(label=\"{label}\",text={safe_text})",
+        "  SET accepted = true",
+        "END",
+        "OUTPUT captured_intent",
+    ]
 
 
 def _js_literal(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
-def codegen(program: Program, target: str) -> str:
-    target = target.lower()
-    if target not in {"python", "typescript", "javascript", "php"}:
-        raise IntentDslError(f"Unsupported codegen target: {target}")
+def _codegen_python(program: Program) -> str:
+    lines = ["def run(ctx):", "    actions = []", "    events = []"]
+    for name in program.inputs:
+        lines.append(f"    {name} = ctx[{name!r}]")
+    for name, spec in program.states.items():
+        lines.append(f"    {name} = {spec['initial']!r}")
+    for rule in program.rules:
+        expr = _normalize_expr(rule.when)
+        lines.append(f"    if {expr}:")
+        if not rule.operations:
+            lines.append("        pass")
+        for op in rule.operations:
+            if op.kind == "do":
+                lines.append(f"        actions.append(({op.value!r}, {op.args!r}))")
+            elif op.kind == "emit":
+                lines.append(f"        events.append({{'name': {op.value!r}, 'args': {op.args!r}}})")
+            elif op.kind == "set":
+                lines.append(f"        {op.args['target']} = {_normalize_expr(op.value)}")
+            elif op.kind == "assert":
+                lines.append(f"        assert {_normalize_expr(op.value)}")
+            elif op.kind == "stop":
+                lines.append("        return {'actions': actions, 'events': events}")
+    lines.append("    return {'actions': actions, 'events': events}")
+    return "\n".join(lines)
 
-    if target == "python":
-        lines = ["def run(ctx):", "    actions = []", "    events = []"]
-        for name in program.inputs:
-            lines.append(f"    {name} = ctx[{name!r}]")
-        for name, spec in program.states.items():
-            lines.append(f"    {name} = {spec['initial']!r}")
-        for rule in program.rules:
-            expr = _normalize_expr(rule.when)
-            lines.append(f"    if {expr}:")
-            if not rule.operations:
-                lines.append("        pass")
-            for op in rule.operations:
-                if op.kind == "do":
-                    lines.append(f"        actions.append(({op.value!r}, {op.args!r}))")
-                elif op.kind == "emit":
-                    lines.append(f"        events.append({{'name': {op.value!r}, 'args': {op.args!r}}})")
-                elif op.kind == "set":
-                    lines.append(f"        {op.args['target']} = {_normalize_expr(op.value)}")
-                elif op.kind == "assert":
-                    lines.append(f"        assert {_normalize_expr(op.value)}")
-                elif op.kind == "stop":
-                    lines.append("        return {'actions': actions, 'events': events}")
-        lines.append("    return {'actions': actions, 'events': events}")
-        return "\n".join(lines)
 
-    if target in {"typescript", "javascript"}:
-        sig = "export function run(ctx: Record<string, unknown>)" if target == "typescript" else "export function run(ctx)"
-        lines = [f"{sig} {{", "  const actions = [];", "  const events = [];"]
-        for name, spec in program.states.items():
-            decl = f"let {name}" + (f": { {'string':'string','number':'number','integer':'number','boolean':'boolean'}[spec['type']] }" if target == "typescript" else "")
-            lines.append(f"  {decl} = {_js_literal(spec['initial'])};")
-        for inp in program.inputs:
-            typecast = " as any" if target == "typescript" else ""
-            lines.append(f"  const {inp} = ctx[{_js_literal(inp)}]{typecast};")
-        for rule in program.rules:
-            expr = rule.when.replace(" and ", " && ").replace(" or ", " || ").replace(" not ", " !")
-            expr = re.sub(r"\btrue\b", "true", re.sub(r"\bfalse\b", "false", expr, flags=re.I), flags=re.I)
-            lines.append(f"  if ({expr}) {{")
-            for op in rule.operations:
-                if op.kind == "do":
-                    lines.append(f"    actions.push({{name: {_js_literal(op.value)}, args: {_js_literal(op.args)}}});")
-                elif op.kind == "emit":
-                    lines.append(f"    events.push({{name: {_js_literal(op.value)}, args: {_js_literal(op.args)}}});")
-                elif op.kind == "set":
-                    value = op.value.replace(" and ", " && ").replace(" or ", " || ")
-                    lines.append(f"    {op.args['target']} = {value};")
-                elif op.kind == "assert":
-                    expr2 = op.value.replace(" and ", " && ").replace(" or ", " || ")
-                    lines.append(f"    if (!({expr2})) throw new Error({_js_literal('ASSERT failed: ' + op.value)});")
-                elif op.kind == "stop":
-                    lines.append("    return {actions, events};")
-            lines.append("  }")
-        lines.append("  return {actions, events};")
-        lines.append("}")
-        return "\n".join(lines)
+def _codegen_javascript_like(program: Program, target: str) -> str:
+    sig = "export function run(ctx: Record<string, unknown>)" if target == "typescript" else "export function run(ctx)"
+    lines = [f"{sig} {{", "  const actions = [];", "  const events = [];"]
+    for name, spec in program.states.items():
+        decl = f"let {name}" + (f": { {'string':'string','number':'number','integer':'number','boolean':'boolean'}[spec['type']] }" if target == "typescript" else "")
+        lines.append(f"  {decl} = {_js_literal(spec['initial'])};")
+    for inp in program.inputs:
+        typecast = " as any" if target == "typescript" else ""
+        lines.append(f"  const {inp} = ctx[{_js_literal(inp)}]{typecast};")
+    for rule in program.rules:
+        expr = rule.when.replace(" and ", " && ").replace(" or ", " || ").replace(" not ", " !")
+        expr = re.sub(r"\btrue\b", "true", re.sub(r"\bfalse\b", "false", expr, flags=re.I), flags=re.I)
+        lines.append(f"  if ({expr}) {{")
+        for op in rule.operations:
+            if op.kind == "do":
+                lines.append(f"    actions.push({{name: {_js_literal(op.value)}, args: {_js_literal(op.args)}}});")
+            elif op.kind == "emit":
+                lines.append(f"    events.push({{name: {_js_literal(op.value)}, args: {_js_literal(op.args)}}});")
+            elif op.kind == "set":
+                value = op.value.replace(" and ", " && ").replace(" or ", " || ")
+                lines.append(f"    {op.args['target']} = {value};")
+            elif op.kind == "assert":
+                expr2 = op.value.replace(" and ", " && ").replace(" or ", " || ")
+                lines.append(f"    if (!({expr2})) throw new Error({_js_literal('ASSERT failed: ' + op.value)});")
+            elif op.kind == "stop":
+                lines.append("    return {actions, events};")
+        lines.append("  }")
+    lines.append("  return {actions, events};")
+    lines.append("}")
+    return "\n".join(lines)
 
-    # PHP
+
+def _codegen_php(program: Program) -> str:
     lines = ["<?php", "function runIntent(array $ctx): array {", "    $actions = [];", "    $events = [];"]
+    symbols = program.inputs.keys() | program.states.keys()
+    symbol_pattern = rf"\b({'|'.join(map(re.escape, symbols))})\b" if symbols else None
     for name, spec in program.states.items():
         val = json.dumps(spec["initial"], ensure_ascii=False)
         val = {"true": "true", "false": "false"}.get(val, val)
@@ -506,7 +534,8 @@ def codegen(program: Program, target: str) -> str:
         lines.append(f"    ${inp} = $ctx[{json.dumps(inp)}];")
     for rule in program.rules:
         expr = rule.when.replace(" and ", " && ").replace(" or ", " || ")
-        expr = re.sub(rf"\b({'|'.join(map(re.escape, program.inputs.keys() | program.states.keys()))})\b", r"$\1", expr) if (program.inputs or program.states) else expr
+        if symbol_pattern is not None:
+            expr = re.sub(symbol_pattern, r"$\1", expr)
         expr = expr.replace("true", "true").replace("false", "false")
         lines.append(f"    if ({expr}) {{")
         for op in rule.operations:
@@ -516,10 +545,13 @@ def codegen(program: Program, target: str) -> str:
                 lines.append(f"        $events[] = ['name' => {json.dumps(op.value)}, 'args' => {php_array(op.args)}];")
             elif op.kind == "set":
                 value = op.value.replace(" and ", " && ").replace(" or ", " || ")
-                value = re.sub(rf"\b({'|'.join(map(re.escape, program.inputs.keys() | program.states.keys()))})\b", r"$\1", value)
+                if symbol_pattern is not None:
+                    value = re.sub(symbol_pattern, r"$\1", value)
                 lines.append(f"        ${op.args['target']} = {value};")
             elif op.kind == "assert":
-                value = re.sub(rf"\b({'|'.join(map(re.escape, program.inputs.keys() | program.states.keys()))})\b", r"$\1", op.value)
+                value = op.value
+                if symbol_pattern is not None:
+                    value = re.sub(symbol_pattern, r"$\1", value)
                 lines.append(f"        if (!({value})) throw new RuntimeException({json.dumps('ASSERT failed: ' + op.value)});")
             elif op.kind == "stop":
                 lines.append("        return ['actions' => $actions, 'events' => $events];")
@@ -527,6 +559,17 @@ def codegen(program: Program, target: str) -> str:
     lines.append("    return ['actions' => $actions, 'events' => $events];")
     lines.append("}")
     return "\n".join(lines)
+
+
+def codegen(program: Program, target: str) -> str:
+    target = target.lower()
+    if target not in {"python", "typescript", "javascript", "php"}:
+        raise IntentDslError(f"Unsupported codegen target: {target}")
+    if target == "python":
+        return _codegen_python(program)
+    if target in {"typescript", "javascript"}:
+        return _codegen_javascript_like(program, target)
+    return _codegen_php(program)
 
 
 def php_array(values: dict[str, Any]) -> str:

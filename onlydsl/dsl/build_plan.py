@@ -34,6 +34,52 @@ def semantic_twin_hash(rendered_twin_markdown: str) -> str:
     return "sha256:" + hashlib.sha256(rendered_twin_markdown.encode("utf-8")).hexdigest()
 
 
+_TASK_FIELDS = {
+    "TARGET_URI", "EVIDENCE", "OPERATION", "EXPECTED_RESULT", "ACCEPTANCE", "ROLLBACK", "DEPENDS_ON", "AUTHORITY_CLASS",
+}
+
+
+def _parse_task(lines: list[str], index: int) -> tuple[BoundBuildTask, int]:
+    task_id = lines[index].split(None, 1)[1]
+    fields: dict[str, str] = {}
+    index += 1
+    while index < len(lines) and lines[index] != "END_TASK":
+        key, _, value = lines[index].partition(" ")
+        if key in fields:
+            raise ControlDslError(f"TASK {task_id} repeats {key}")
+        fields[key] = value
+        index += 1
+    if set(fields) != _TASK_FIELDS:
+        raise ControlDslError(
+            f"TASK {task_id} requires exact fields; missing {sorted(_TASK_FIELDS - fields.keys())}, "
+            f"extra {sorted(fields.keys() - _TASK_FIELDS)}"
+        )
+    target = IfUri.parse(fields["TARGET_URI"])
+    operation = fields["OPERATION"]
+    if operation.split(".")[-1].replace("-", "_") != target.operation.replace("-", "_"):
+        raise ControlDslError(f"TASK {task_id} OPERATION does not match TARGET_URI operation")
+    task = BoundBuildTask(
+        task_id, str(target), tuple(parse_json_list(fields["EVIDENCE"], "EVIDENCE")), operation,
+        json_string(fields["EXPECTED_RESULT"], "EXPECTED_RESULT"), json_string(fields["ACCEPTANCE"], "ACCEPTANCE"),
+        json_string(fields["ROLLBACK"], "ROLLBACK"), tuple(parse_json_list(fields["DEPENDS_ON"], "DEPENDS_ON")),
+        fields["AUTHORITY_CLASS"],
+    )
+    return task, index
+
+
+def _validate_tasks(tasks: list[BoundBuildTask]) -> None:
+    if not tasks:
+        raise ControlDslError("BuildPlanDSL requires at least one TASK")
+    ids = {task.id for task in tasks}
+    if len(ids) != len(tasks):
+        raise ControlDslError("duplicate TASK id")
+    for task in tasks:
+        if not task.evidence:
+            raise ControlDslError(f"TASK {task.id} requires exact EVIDENCE")
+        if set(task.depends_on) - ids:
+            raise ControlDslError(f"TASK {task.id} has unknown DEPENDS_ON")
+
+
 def parse_bound_build_plan(markdown: str) -> BoundBuildPlan:
     lines = [line.strip() for line in extract_one(markdown, "buildplanddsl").splitlines() if line.strip()]
     if not lines or not lines[0].startswith("BUILD_PLAN ") or lines[-1] != "END_BUILD_PLAN":
@@ -61,28 +107,8 @@ def parse_bound_build_plan(markdown: str) -> BoundBuildPlan:
         elif line.startswith("TASK "):
             if not phase_depth:
                 raise ControlDslError("TASK must be inside PHASE")
-            task_id = line.split(None, 1)[1]
-            fields: dict[str, str] = {}
-            index += 1
-            while index < len(lines) and lines[index] != "END_TASK":
-                key, _, value = lines[index].partition(" ")
-                if key in fields:
-                    raise ControlDslError(f"TASK {task_id} repeats {key}")
-                fields[key] = value
-                index += 1
-            expected = {"TARGET_URI", "EVIDENCE", "OPERATION", "EXPECTED_RESULT", "ACCEPTANCE", "ROLLBACK", "DEPENDS_ON", "AUTHORITY_CLASS"}
-            if set(fields) != expected:
-                raise ControlDslError(f"TASK {task_id} requires exact fields; missing {sorted(expected-fields.keys())}, extra {sorted(fields.keys()-expected)}")
-            target = IfUri.parse(fields["TARGET_URI"])
-            operation = fields["OPERATION"]
-            if operation.split(".")[-1].replace("-", "_") != target.operation.replace("-", "_"):
-                raise ControlDslError(f"TASK {task_id} OPERATION does not match TARGET_URI operation")
-            tasks.append(BoundBuildTask(
-                task_id, str(target), tuple(parse_json_list(fields["EVIDENCE"], "EVIDENCE")), operation,
-                json_string(fields["EXPECTED_RESULT"], "EXPECTED_RESULT"), json_string(fields["ACCEPTANCE"], "ACCEPTANCE"),
-                json_string(fields["ROLLBACK"], "ROLLBACK"), tuple(parse_json_list(fields["DEPENDS_ON"], "DEPENDS_ON")),
-                fields["AUTHORITY_CLASS"],
-            ))
+            task, index = _parse_task(lines, index)
+            tasks.append(task)
         elif line == "END_PHASE":
             if not phase_depth:
                 raise ControlDslError("END_PHASE without PHASE")
@@ -94,16 +120,7 @@ def parse_bound_build_plan(markdown: str) -> BoundBuildPlan:
         raise ControlDslError("PHASE missing END_PHASE")
     if revision is None or twin_hash is None or not HASH_RE.fullmatch(twin_hash):
         raise ControlDslError("BuildPlanDSL requires exact FROM_REVISION and FROM_TWIN_HASH")
-    if not tasks:
-        raise ControlDslError("BuildPlanDSL requires at least one TASK")
-    ids = {task.id for task in tasks}
-    if len(ids) != len(tasks):
-        raise ControlDslError("duplicate TASK id")
-    for task in tasks:
-        if not task.evidence:
-            raise ControlDslError(f"TASK {task.id} requires exact EVIDENCE")
-        if set(task.depends_on) - ids:
-            raise ControlDslError(f"TASK {task.id} has unknown DEPENDS_ON")
+    _validate_tasks(tasks)
     return BoundBuildPlan(twin_id, revision, twin_hash, tuple(tasks))
 
 

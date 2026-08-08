@@ -145,7 +145,10 @@ Status `verified` powstaje dopiero po testach i health read-back. Niepowodzenie 
 Jednorazowa usługa `testql-startup` używa publicznego kontraktu TestQL `testql.verification-result.v1`. Uruchamia dwa natywne scenariusze TestTOON:
 
 - `testql/onlydsl-startup.testql.toon.yaml` — health, DSL-only, IFURI, AQL i granica wykonywania;
-- `testql/digital-twin-startup.testql.toon.yaml` — `/api/state`, schemat twin/scene/iteration, walidacja iteracji i dostępność event logu pod portem 7444.
+- `testql/digital-twin-startup.testql.toon.yaml` — `/api/state`, jawny kontrakt
+  `renderedScope=current`, `active.status=accepted`, schemat aktywnego Twin/scene, walidacja
+  iteracji i dostępność event logu pod portem 7444. Odrzucony kandydat nie jest traktowany jako
+  renderowana rewizja.
 
 Wyniki trafiają do `runtime/evolution/testql/` równocześnie jako kanoniczny JSON TestQL oraz `TestQLDSL`. Błąd onlyDSL tworzy `IncidentDSL`, który agent może wykorzystać w następnej naprawie; odpowiadający mu `TestQLDSL` jest dołączany do typowanego pakietu naprawczego. Wynik zewnętrznego Digital Twin jest zapisywany jako obserwacja `logs/testql-verification.jsonl` oraz pełny `logs/testql-latest.testqldsl` w projekcie twin. Skaner twin traktuje rozszerzenie `.testqldsl` jako tekst, dzięki czemu następna iteracja pobiera zarówno pola obserwacji, jak i kompletny dowód DSL zamiast binarnego placeholdera.
 
@@ -159,7 +162,7 @@ docker compose -p onlydsl-evolution --profile evolution run --rm --no-deps testq
 
 Runner ma osobny, mały obraz `Dockerfile.testql`. Używa TestQL `1.2.66` i tylko zależności potrzebnych do scenariuszy API; opcjonalne GUI, Playwright, LLM i autofix nie są instalowane. Adres i katalog zewnętrznego twin można zmienić przez `TESTQL_TWIN_URL` oraz `TESTQL_TWIN_PROJECT_DIR`.
 
-Lokalny checkout `/home/tom/github/oqlos/testql` ponownie obsługuje natywny `python -m testql run-ir`: naprawiono import `TestToonAdapter`, przywrócono wyzerowane moduły interpretera oraz poprawiono mapowanie skróconych asercji API do pola IR `data` wraz z typowaniem `true/false`. Jego zestaw rdzeniowy przechodzi `1459 passed, 57 skipped`. Scenariusz onlyDSL uruchomiony bezpośrednio przez lokalny checkout przechodzi `6/6`; scenariusz twin poprawnie raportuje bieżący czerwony stan runtime jako `6/7`, zamiast błędu parsera.
+Lokalny checkout `/home/tom/github/oqlos/testql` ponownie obsługuje natywny `python -m testql run-ir`: naprawiono import `TestToonAdapter`, przywrócono wyzerowane moduły interpretera oraz poprawiono mapowanie skróconych asercji API do pola IR `data` wraz z typowaniem `true/false`. Jego zestaw rdzeniowy przechodzi `1459 passed, 57 skipped`. Bieżący odbiór Compose przechodzi dla obu celów: `onlyDSL OK` oraz `digital-twin OK`; wynik Twin jest zapisywany z osobnymi `observedAt` i `receivedAt`, aby projekcja freshness nie zgadywała czasu przyjęcia próbki.
 
 Izolowany obraz startowy nadal instaluje opublikowany wheel `testql==1.2.66`, aby build Compose nie zależał od absolutnej ścieżki repozytorium znajdującego się poza kontekstem Dockera. Nie używa własnego formatu wyniku: scenariusze pozostają natywnym TestTOON, a zapis korzysta z publicznego kontraktu `testql.verification-result.v1`. Po opublikowaniu poprawionej wersji TestQL pin obrazu można podnieść bez zmiany scenariuszy ani DSL wyniku.
 

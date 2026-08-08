@@ -40,6 +40,30 @@ def _json_string(raw: str, label: str) -> str:
     return value
 
 
+def _parse_change(lines: list[str], index: int) -> PatchChange:
+    if lines[index] not in {"CHANGE", "BLOCK", "BLOCK CHANGE"}:
+        raise PatchDslError(f"unexpected directive {lines[index]!r}")
+    if index + 4 >= len(lines):
+        raise PatchDslError("truncated CHANGE block")
+    path_line, hash_line, diff_line, end_line = lines[index + 1:index + 5]
+    if not path_line.startswith("PATH "):
+        raise PatchDslError("CHANGE requires PATH")
+    if not hash_line.startswith("BASE_SHA256 "):
+        raise PatchDslError("CHANGE requires BASE_SHA256")
+    if not diff_line.startswith("DIFF "):
+        raise PatchDslError("CHANGE requires DIFF")
+    if end_line not in {"END", "END_CHANGE"}:
+        raise PatchDslError("CHANGE requires END")
+    path = _json_string(path_line[len("PATH "):], "PATH")
+    base_hash = hash_line[len("BASE_SHA256 "):].strip()
+    diff = _json_string(diff_line[len("DIFF "):], "DIFF")
+    if not _HASH_RE.fullmatch(base_hash):
+        raise PatchDslError("invalid BASE_SHA256")
+    if not diff.endswith("\n") or not diff.startswith("diff --git a/"):
+        raise PatchDslError("DIFF must be a complete git-style unified diff ending with newline")
+    return PatchChange(path, base_hash, diff)
+
+
 def parse_patchdsl(markdown: str) -> PatchDocument:
     match = _FENCE_RE.fullmatch(markdown.strip())
     if not match:
@@ -56,27 +80,7 @@ def parse_patchdsl(markdown: str) -> PatchDocument:
     changes: list[PatchChange] = []
     i = 2
     while i < len(lines) - 1:
-        if lines[i] not in {"CHANGE", "BLOCK", "BLOCK CHANGE"}:
-            raise PatchDslError(f"unexpected directive {lines[i]!r}")
-        if i + 4 >= len(lines):
-            raise PatchDslError("truncated CHANGE block")
-        path_line, hash_line, diff_line, end_line = lines[i + 1:i + 5]
-        if not path_line.startswith("PATH "):
-            raise PatchDslError("CHANGE requires PATH")
-        if not hash_line.startswith("BASE_SHA256 "):
-            raise PatchDslError("CHANGE requires BASE_SHA256")
-        if not diff_line.startswith("DIFF "):
-            raise PatchDslError("CHANGE requires DIFF")
-        if end_line not in {"END", "END_CHANGE"}:
-            raise PatchDslError("CHANGE requires END")
-        path = _json_string(path_line[len("PATH "):], "PATH")
-        base_hash = hash_line[len("BASE_SHA256 "):].strip()
-        diff = _json_string(diff_line[len("DIFF "):], "DIFF")
-        if not _HASH_RE.fullmatch(base_hash):
-            raise PatchDslError("invalid BASE_SHA256")
-        if not diff.endswith("\n") or not diff.startswith("diff --git a/"):
-            raise PatchDslError("DIFF must be a complete git-style unified diff ending with newline")
-        changes.append(PatchChange(path, base_hash, diff))
+        changes.append(_parse_change(lines, i))
         i += 5
     if not changes:
         raise PatchDslError("PATCH requires at least one CHANGE")
@@ -85,6 +89,52 @@ def parse_patchdsl(markdown: str) -> PatchDocument:
     if len({change.path for change in changes}) != len(changes):
         raise PatchDslError("duplicate PATH in PATCH")
     return PatchDocument(patch_id, summary, tuple(changes))
+
+
+def _count_diff_lines(diff: str) -> tuple[int, int]:
+    added = removed = 0
+    for line in diff.splitlines():
+        if line.startswith("+") and not line.startswith("+++"):
+            added += 1
+        elif line.startswith("-") and not line.startswith("---"):
+            removed += 1
+    return added, removed
+
+
+def _validate_change(
+    change: PatchChange,
+    root: Path,
+    allowed_suffixes: set[str],
+) -> tuple[list[str], int, int]:
+    errors: list[str] = []
+    posix = PurePosixPath(change.path)
+    if posix.is_absolute() or ".." in posix.parts or str(posix) != change.path:
+        return [f"unsafe path {change.path!r}"], 0, 0
+    if change.path == ".env" or change.path.startswith((
+        ".git/", "secrets/", "state/", "runtime/evolution/",
+        "config/contracts/", "config/process-packs/",
+    )) or change.path in {
+        "aql.py", "diagnostics.py", "governance.py", "patchdsl.py", "scripts/autonomous_repair.py",
+    }:
+        return [f"path {change.path!r} cannot cross PatchDSL"], 0, 0
+    if posix.name != "Dockerfile" and posix.suffix.lower() not in allowed_suffixes:
+        errors.append(f"path {change.path!r} has a forbidden file type")
+    target = (root / change.path).resolve()
+    try:
+        target.relative_to(root)
+    except ValueError:
+        return errors + [f"path {change.path!r} escapes workspace"], 0, 0
+    if not target.is_file():
+        return errors + [f"target {change.path!r} does not exist"], 0, 0
+    digest = "sha256:" + hashlib.sha256(target.read_bytes()).hexdigest()
+    if digest != change.base_sha256:
+        errors.append(f"base hash mismatch for {change.path}")
+    expected_old = f"--- a/{change.path}\n"
+    expected_new = f"+++ b/{change.path}\n"
+    if expected_old not in change.diff or expected_new not in change.diff:
+        errors.append(f"diff headers do not match PATH {change.path}")
+    added, removed = _count_diff_lines(change.diff)
+    return errors, added, removed
 
 
 def validate_patch_policy(doc: PatchDocument, workspace: str | Path) -> list[str]:
@@ -98,41 +148,10 @@ def validate_patch_policy(doc: PatchDocument, workspace: str | Path) -> list[str
     }
     total_added = total_removed = 0
     for change in doc.changes:
-        posix = PurePosixPath(change.path)
-        if posix.is_absolute() or ".." in posix.parts or str(posix) != change.path:
-            errors.append(f"unsafe path {change.path!r}")
-            continue
-        if change.path == ".env" or change.path.startswith((
-            ".git/", "secrets/", "state/", "runtime/evolution/",
-            "config/contracts/", "config/process-packs/",
-        )) or change.path in {
-            "aql.py", "diagnostics.py", "governance.py", "patchdsl.py", "scripts/autonomous_repair.py",
-        }:
-            errors.append(f"path {change.path!r} cannot cross PatchDSL")
-            continue
-        if posix.name != "Dockerfile" and posix.suffix.lower() not in allowed_suffixes:
-            errors.append(f"path {change.path!r} has a forbidden file type")
-        target = (root / change.path).resolve()
-        try:
-            target.relative_to(root)
-        except ValueError:
-            errors.append(f"path {change.path!r} escapes workspace")
-            continue
-        if not target.is_file():
-            errors.append(f"target {change.path!r} does not exist")
-            continue
-        digest = "sha256:" + hashlib.sha256(target.read_bytes()).hexdigest()
-        if digest != change.base_sha256:
-            errors.append(f"base hash mismatch for {change.path}")
-        expected_old = f"--- a/{change.path}\n"
-        expected_new = f"+++ b/{change.path}\n"
-        if expected_old not in change.diff or expected_new not in change.diff:
-            errors.append(f"diff headers do not match PATH {change.path}")
-        for line in change.diff.splitlines():
-            if line.startswith("+") and not line.startswith("+++"):
-                total_added += 1
-            elif line.startswith("-") and not line.startswith("---"):
-                total_removed += 1
+        change_errors, added, removed = _validate_change(change, root, allowed_suffixes)
+        errors.extend(change_errors)
+        total_added += added
+        total_removed += removed
     if total_added > 200 or total_removed > 200:
         errors.append("patch exceeds the 200 added/removed line limit")
     return errors

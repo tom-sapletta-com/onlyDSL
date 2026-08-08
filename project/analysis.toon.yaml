@@ -1,35 +1,35 @@
-# code2llm | 67f 8387L | python:43,json:5,shell:4,yaml:4,txt:2,proto:2,conf:1,typescript:1,javascript:1,php:1,yml:1,toml:1 | 2026-08-08
+# code2llm | 83f 10213L | python:58,json:5,shell:4,yaml:4,txt:2,proto:2,yml:1,toml:1,dsl:1,conf:1,typescript:1,javascript:1,php:1 | 2026-08-08
 # generated in 0.02s
-# CC̅=4.8 | critical:27/331 | dups:0 | cycles:0
+# CC̅=4.2 | critical:18/479 | dups:0 | cycles:0
 
 HEALTH[20]:
-  🔴 GOD   intentdsl.py = 540L, 4 classes, 18m, max CC=37
-  🔴 GOD   digital_twin.py = 678L, 9 classes, 17m, max CC=68
-  🟡 CC    parse_context_dsl CC=33 (limit:15)
-  🟡 CC    compiler_from_payload CC=22 (limit:15)
+  🔴 GOD   intentdsl.py = 583L, 4 classes, 27m, max CC=14
+  🔴 GOD   digital_twin.py = 839L, 10 classes, 50m, max CC=12
+  🟡 CC    parse_context_dsl CC=15 (limit:15)
   🟡 CC    parse CC=15 (limit:15)
-  🟡 CC    parse_dsl CC=29 (limit:15)
-  🟡 CC    validate_program CC=27 (limit:15)
-  🟡 CC    run_program CC=20 (limit:15)
-  🟡 CC    codegen CC=37 (limit:15)
-  🟡 CC    parse_patchdsl CC=24 (limit:15)
-  🟡 CC    validate_patch_policy CC=22 (limit:15)
+  🟡 CC    parse_patchdsl CC=15 (limit:15)
   🟡 CC    parse_markdown CC=16 (limit:15)
   🟡 CC    _parse_pattern CC=18 (limit:15)
   🟡 CC    parse CC=16 (limit:15)
   🟡 CC    _reader_loop CC=19 (limit:15)
   🟡 CC    validate CC=17 (limit:15)
-  🟡 CC    parse_parameter_contracts CC=24 (limit:15)
-  🟡 CC    _current_external_integrity CC=17 (limit:15)
+  🟡 CC    parse_trust_policy CC=16 (limit:15)
+  🟡 CC    parse_bound_build_plan CC=21 (limit:15)
+  🟡 CC    main CC=23 (limit:15)
+  🟡 CC    validate_manifest CC=15 (limit:15)
+  🟡 CC    parse_manifest CC=21 (limit:15)
+  🟡 CC    create_candidate CC=17 (limit:15)
+  🟡 CC    _validate_known_dsl CC=15 (limit:15)
+  🟡 CC    validate_tree CC=15 (limit:15)
+  🟡 CC    promote CC=16 (limit:15)
   🟡 CC    do_GET CC=15 (limit:15)
-  🟡 CC    do_POST CC=18 (limit:15)
 
 REFACTOR[3]:
   1. split intentdsl.py  (god module)
   2. split digital_twin.py  (god module)
   3. split 18 high-CC methods  (CC>15)
 
-PIPELINES[168]:
+PIPELINES[193]:
   [1] Src [to_dict]: to_dict
       PURITY: 100% pure
   [2] Src [__init__]: __init__ → _ident
@@ -120,58 +120,75 @@ PIPELINES[168]:
       PURITY: 100% pure
   [45] Src [reject_envelope]: reject_envelope → canonical_hash
       PURITY: 100% pure
-  [46] Src [__init__]: __init__
+  [46] Src [validate_for_llm]: validate_for_llm → assert_dsl_only
       PURITY: 100% pure
-  [47] Src [exists]: exists
+  [47] Src [authority_dsl]: authority_dsl
       PURITY: 100% pure
-  [48] Src [reset_current]: reset_current
+  [48] Src [__init__]: __init__
       PURITY: 100% pure
-  [49] Src [load_markdown]: load_markdown
+  [49] Src [exists]: exists
       PURITY: 100% pure
-  [50] Src [load]: load → parse_twindsl → validate_twin
+  [50] Src [reset_current]: reset_current
       PURITY: 100% pure
 
 LAYERS:
-  onlydsl/                        CC̄=7.7    ←in:0  →out:0
-  │ !! spatial_class              149L  4C    6m  CC=24     ←1
-  │ !! parameter_contract         129L  3C    3m  CC=24     ←0
-  │ !! build_plan                 128L  2C    3m  CC=32     ←2
-  │ !! repair_plan                121L  2C    3m  CC=19     ←1
-  │ !! assumption                 111L  2C    4m  CC=16     ←2
+  onlydsl/                        CC̄=5.4    ←in:0  →out:0
+  │ !! writer                     224L  1C   13m  CC=16     ←0
+  │ !! manifest                   164L  0C   11m  CC=21     ←4
+  │ !! cli                        159L  0C    4m  CC=23     ←0
+  │ spatial_class              158L  4C    8m  CC=13     ←2
+  │ !! parameter_contract         151L  3C    7m  CC=17     ←1
+  │ !! build_plan                 145L  2C    5m  CC=21     ←2
+  │ repair_plan                137L  2C    5m  CC=11     ←2
+  │ !! candidate                  122L  0C    5m  CC=17     ←1
+  │ claim                      121L  2C    4m  CC=12     ←1
+  │ assumption                 120L  2C    6m  CC=9      ←3
+  │ !! validation                 104L  0C    3m  CC=15     ←1
   │ repair_controller           96L  1C    5m  CC=8      ←1
-  │ !! integrity                   62L  2C    1m  CC=25     ←2
-  │ common                      56L  1C    6m  CC=5      ←7
+  │ integrity                   78L  2C    3m  CC=12     ←3
+  │ registry                    76L  2C    5m  CC=13     ←0
+  │ !! trust                       62L  2C    3m  CC=16     ←1
+  │ reader                      60L  1C    5m  CC=5      ←0
+  │ model                       60L  7C    0m  CC=0.0    ←0
+  │ common                      56L  1C    6m  CC=5      ←9
   │ authority_projection        46L  1C    2m  CC=3      ←1
-  │ evidence_set                46L  1C    3m  CC=12     ←0
+  │ evidence_set                46L  1C    3m  CC=12     ←1
+  │ io                          36L  0C    4m  CC=2      ←3
+  │ diff                        35L  1C    2m  CC=5      ←1
+  │ __init__                    19L  0C    0m  CC=0.0    ←0
+  │ cli                         15L  0C    1m  CC=5      ←0
   │ __init__                     7L  0C    0m  CC=0.0    ←0
   │ __init__                     1L  0C    0m  CC=0.0    ←0
   │ __init__                     1L  0C    0m  CC=0.0    ←0
   │ __init__                     1L  0C    0m  CC=0.0    ←0
   │
-  ./                              CC̄=5.7    ←in:0  →out:0
-  │ !! digital_twin               678L  9C   17m  CC=68     ←4
-  │ !! intentdsl                  540L  4C   18m  CC=37     ←2
+  ./                              CC̄=4.3    ←in:0  →out:0
+  │ !! digital_twin               839L  10C   50m  CC=12     ←5
+  │ !! intentdsl                  583L  4C   27m  CC=14     ←2
+  │ !! server                     535L  1C   30m  CC=15     ←0
   │ !! goal.yaml                  526L  0C    0m  CC=0.0    ←0
-  │ !! server                     520L  1C   21m  CC=18     ←0
   │ !! llm_client                 507L  1C   13m  CC=14     ←1
-  │ !! contextdsl                 420L  5C   28m  CC=33     ←3
+  │ !! contextdsl                 468L  5C   39m  CC=15     ←3
   │ diagnostics                291L  1C    3m  CC=7      ←1
   │ evolution                  286L  1C   18m  CC=14     ←1
   │ boundary                   249L  2C   16m  CC=8      ←3
-  │ !! source_ingest              222L  3C    9m  CC=16     ←3
+  │ !! source_ingest              231L  3C   10m  CC=16     ←5
   │ docker-compose.yml         209L  0C    0m  CC=0.0    ←0
+  │ !! patchdsl                   165L  3C    7m  CC=15     ←0
   │ !! aql                        151L  3C    9m  CC=15     ←1
-  │ !! patchdsl                   146L  3C    4m  CC=24     ←0
-  │ governance                  95L  0C    6m  CC=5      ←4
+  │ governance                  95L  0C    6m  CC=5      ←5
   │ project.sh                  79L  0C    0m  CC=0.0    ←0
   │ pyproject.toml              74L  0C    0m  CC=0.0    ←0
   │ twin_store                  55L  2C    6m  CC=4      ←0
-  │ Dockerfile                  12L  0C    0m  CC=0.0    ←0
+  │ Dockerfile                  13L  0C    0m  CC=0.0    ←0
   │ run.sh                      10L  0C    0m  CC=0.0    ←0
   │ requirements-testql.txt      6L  0C    0m  CC=0.0    ←0
   │ docker-test.sh               5L  0C    0m  CC=0.0    ←0
   │ run-tests.sh                 4L  0C    0m  CC=0.0    ←0
   │ requirements.txt             3L  0C    0m  CC=0.0    ←0
+  │
+  scripts/                        CC̄=3.8    ←in:0  →out:0
+  │ startup_testql             171L  0C    8m  CC=10     ←0
   │
   multiruntime/                   CC̄=3.1    ←in:0  →out:0
   │ ifuri.mjs                   31L  0C    8m  CC=13     ←0
@@ -198,6 +215,9 @@ LAYERS:
   examples/                       CC̄=1.0    ←in:0  →out:0
   │ dsl_native_logging          34L  0C    1m  CC=1      ←0
   │
+  SSOT/                           CC̄=0.0    ←in:0  →out:0
+  │ manifest.dsl                10L  0C    0m  CC=0.0    ←0
+  │
   nats/                           CC̄=0.0    ←in:0  →out:0
   │ nats.conf                    8L  0C    0m  CC=0.0    ←0
   │
@@ -216,41 +236,43 @@ LAYERS:
   │ dsl.proto                    9L  0C    0m  CC=0.0    ←0
   │
   testql/                         CC̄=0.0    ←in:0  →out:0
-  │ digital-twin-startup.testql.toon.yaml    12L  0C    0m  CC=0.0    ←0
+  │ digital-twin-startup.testql.toon.yaml    15L  0C    0m  CC=0.0    ←0
   │ onlydsl-startup.testql.toon.yaml    11L  0C    0m  CC=0.0    ←0
   │
 
 COUPLING:
-                              llm_client              server        digital_twin          ifuri_core            boundary         onlydsl.dsl       source_ingest           intentdsl     onlydsl.runtime          contextdsl           evolution          governance          twin_store                 aql  onlydsl.governance
-          llm_client                  ──                                      30                  ←7                  10                   1                   4                   1                                       2                                                                                                      hub
-              server                                      ──                  11                  10                   5                   4                   2                  12                   3                   6                                                                                                      !! fan-out
-        digital_twin                 ←30                 ←11                  ──                  ←3                                       2                                                                                                                                          ←5                                          hub
-          ifuri_core                   7                 ←10                   3                  ──                   6                                       1                                                           1                                                                                                      hub
-            boundary                 ←10                  ←5                                      ←6                  ──                                                                                                                                                                                                          hub
-         onlydsl.dsl                  ←1                  ←4                  ←2                                                          ──                                                          ←6                                                           1                                                              hub
-       source_ingest                  ←4                  ←2                                      ←1                                                          ──                                                                               7                                                                                  hub
-           intentdsl                  ←1                 ←12                                                                                                                      ──                                                                                                                                              hub
-     onlydsl.runtime                                      ←3                                                                               6                                                          ──                                                           2                                                           2  !! fan-out
-          contextdsl                  ←2                  ←6                                      ←1                                                                                                                      ──                                                                                                      hub
-           evolution                                                                                                                                          ←7                                                                              ──                                                                                  hub
-          governance                                                                                                                      ←1                                                          ←2                                                          ──                                       3                  ←1
-          twin_store                                                           5                                                                                                                                                                                                      ──                                        
-                 aql                                                                                                                                                                                                                                              ←3                                      ──                    
-  onlydsl.governance                                                                                                                                                                                  ←2                                                           1                                                          ──
+                        llm_client           server     digital_twin       ifuri_core         boundary      onlydsl.dsl    source_ingest  onlydsl.runtime        intentdsl     onlydsl.ssot       contextdsl       governance        evolution       twin_store              aql
+       llm_client               ──                                30               ←7               10                1                4                                 1                                 2                                                                      hub
+           server                                ──               11               10                5                4                2                3               12                                 6                                                                      !! fan-out
+     digital_twin              ←30              ←11               ──               ←3                                 2                                                                  ←1                                                                  ←5                   hub
+       ifuri_core                7              ←10                3               ──                6                                 1                                                                   1                                                                      hub
+         boundary              ←10               ←5                                ←6               ──                                                                                                                                                                            hub
+      onlydsl.dsl               ←1               ←4               ←2                                                 ──                                ←6                                ←7                                 1                                                     hub
+    source_ingest               ←4               ←2                                ←1                                                 ──                                                 ←2                                                  6                                    hub
+  onlydsl.runtime                                ←3                                                                   6                                ──                                ←1                                 2                                                     !! fan-out
+        intentdsl               ←1              ←12                                                                                                                     ──                                                                                                        hub
+     onlydsl.ssot                                                  1                                                  7                2                1                                ──                                 2                                                     !! fan-out
+       contextdsl               ←2               ←6                                ←1                                                                                                                     ──                                                                      hub
+       governance                                                                                                    ←1                                ←2                                ←2                                ──                                                  3  hub
+        evolution                                                                                                                     ←6                                                                                                    ──                                    hub
+       twin_store                                                  5                                                                                                                                                                                         ──                 
+              aql                                                                                                                                                                                                          ←3                                                 ──
   CYCLES: none
-  HUB: contextdsl/ (fan-in=9)
-  HUB: boundary/ (fan-in=21)
-  HUB: ifuri_core/ (fan-in=10)
-  HUB: onlydsl.dsl/ (fan-in=13)
-  HUB: source_ingest/ (fan-in=7)
-  HUB: evolution/ (fan-in=7)
   HUB: intentdsl/ (fan-in=13)
+  HUB: onlydsl.dsl/ (fan-in=20)
+  HUB: ifuri_core/ (fan-in=10)
+  HUB: digital_twin/ (fan-in=50)
+  HUB: source_ingest/ (fan-in=9)
+  HUB: boundary/ (fan-in=21)
+  HUB: contextdsl/ (fan-in=9)
+  HUB: governance/ (fan-in=6)
   HUB: llm_client/ (fan-in=7)
-  HUB: digital_twin/ (fan-in=49)
+  HUB: evolution/ (fan-in=6)
   SMELL: ifuri_core/ fan-out=18 → split needed
-  SMELL: onlydsl.runtime/ fan-out=10 → split needed
+  SMELL: onlydsl.ssot/ fan-out=13 → split needed
   SMELL: server/ fan-out=53 → split needed
   SMELL: llm_client/ fan-out=48 → split needed
+  SMELL: onlydsl.runtime/ fan-out=10 → split needed
 
 EXTERNAL:
   validation: run `vallm batch .` → validation.toon
