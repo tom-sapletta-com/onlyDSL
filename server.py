@@ -50,8 +50,8 @@ from ifuri_core.runtime import IfuriRuntime
 from ifuri_core.transport import InProcessTransport
 from onlydsl.runtime.repair_controller import load_repair_registry, plan_integrity_repairs
 from onlydsl.runtime.integrity import parse_project_integrity
-from onlydsl.dsl.assumption import assumptions_from_integrity, render_assumptions
-from onlydsl.dsl.spatial_class import render_spatial_class, spatial_class_from_twin
+from onlydsl_contracts.dsl.assumption import assumptions_from_integrity, render_assumptions
+from onlydsl_contracts.dsl.spatial_class import render_spatial_class, spatial_class_from_twin
 
 ROOT = Path(__file__).resolve().parent
 STATIC = ROOT / "static"

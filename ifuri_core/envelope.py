@@ -11,7 +11,7 @@ from google.protobuf.message import Message
 from google.protobuf.timestamp_pb2 import Timestamp
 
 from . import envelope_pb2
-from .uri import IfUri
+from onlydsl_contracts.ifuri import IfUri
 
 
 class EnvelopeError(ValueError):

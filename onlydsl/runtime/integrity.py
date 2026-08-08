@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 
-from onlydsl.dsl.common import ControlDslError, canonical_hash, extract_one, parse_json_list
+from onlydsl_contracts.dsl.common import ControlDslError, canonical_hash, extract_one, parse_json_list
 
 
 @dataclass(frozen=True, slots=True)

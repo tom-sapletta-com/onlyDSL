@@ -1,4 +1,4 @@
-from .uri import IfUri, IfUriError, canonicalize
+from onlydsl_contracts.ifuri import IfUri, IfUriError, canonicalize
 from .envelope import EnvelopeCodec, MessageKind
 from .manifest import Capability, CapabilityRegistry, ManifestError
 from .runtime import IfuriRuntime, RouteDecision, RuntimeErrorIfuri

@@ -7,7 +7,7 @@ import os
 import re
 import urllib.error
 import urllib.request
-from pathlib import Path
+from importlib.resources import files
 from typing import Any, Callable
 
 from boundary import (
@@ -40,8 +40,7 @@ from intentdsl import demo_english_to_dsl
 from patchdsl import validate_patch_markdown
 from source_ingest import extract_source_refs, validate_sourceindex_markdown
 
-ROOT = Path(__file__).resolve().parent
-GRAMMAR = (ROOT / "grammar" / "intentdsl.gbnf").read_text(encoding="utf-8")
+GRAMMAR = files("onlydsl_contracts").joinpath("schemas/intentdsl.gbnf").read_text(encoding="utf-8")
 
 
 class LlmProviderError(RuntimeError):
@@ -484,7 +483,7 @@ def plan_build(twin_markdown: str, backend: str | None = None) -> dict[str, Any]
             validation = validate_buildplan_markdown(markdown, doc)
             return list(validation["errors"])
 
-        from onlydsl.dsl.build_plan import semantic_twin_hash
+        from onlydsl_contracts.dsl.build_plan import semantic_twin_hash
 
         exact_hash = semantic_twin_hash(render_twin(doc))
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Generated for the POC from contracts/ifuri/v1/envelope.proto. DO NOT EDIT BY HAND.
+# Generated from onlydsl_contracts/schemas/ifuri/v1/envelope.proto. DO NOT EDIT BY HAND.
 from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import symbol_database as _symbol_database
 from google.protobuf.internal import builder as _builder

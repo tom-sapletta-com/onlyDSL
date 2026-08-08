@@ -9,7 +9,7 @@ from typing import Any, Awaitable, Callable, Protocol
 
 from .envelope import EnvelopeCodec, MessageKind
 from .manifest import Capability, CapabilityRegistry, ResolvedCapability
-from .uri import IfUri
+from onlydsl_contracts.ifuri import IfUri
 
 
 class TransportError(RuntimeError):

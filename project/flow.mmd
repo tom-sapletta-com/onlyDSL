@@ -1,10 +1,11 @@
 flowchart TD
-%% generated in 0.01s
+%% generated in 0.02s
 
     %% Entry points (blue)
     classDef entry fill:#4dabf7,stroke:#1971c2,color:#fff
 
     subgraph CLI
+        onlydsl__cli__main["main"]
         llm_client___request_json["_request_json"]
         llm_client___provider_config["_provider_config"]
         llm_client___backend_call["_backend_call"]
@@ -18,7 +19,6 @@ flowchart TD
         llm_client___demo_update_twin["_demo_update_twin"]
         llm_client__update_twin["update_twin"]
         llm_client__plan_build["plan_build"]
-        onlydsl__cli__main["main"]
     end
 
     subgraph Core

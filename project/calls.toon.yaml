@@ -1,13 +1,11 @@
 # code2llm call graph | /home/tom/github/tom-sapletta-com/onlyDSL
-# generated in 0.13s
-# nodes: 299 | edges: 375 | modules: 42
-# CC̄=4.2
+# generated in 0.16s
+# nodes: 305 | edges: 381 | modules: 42
+# CC̄=4.1
 
 HUBS[20]:
   onlydsl.ssot.cli.main
     CC=23  in:0  out:62  total:62
-  source_ingest.parse_markdown
-    CC=16  in:1  out:59  total:60
   onlydsl.ssot.candidate.create_candidate
     CC=17  in:0  out:50  total:50
   onlydsl.ssot.cli.build_parser
@@ -26,12 +24,12 @@ HUBS[20]:
     CC=9  in:2  out:35  total:37
   server.Handler.do_GET
     CC=15  in:0  out:37  total:37
-  contextdsl.render_context_dsl
-    CC=9  in:1  out:35  total:36
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.spatial_class_from_twin
+    CC=4  in:1  out:35  total:36
   intentdsl._parse_program_declaration
     CC=14  in:1  out:35  total:36
-  onlydsl.dsl.spatial_class.spatial_class_from_twin
-    CC=4  in:1  out:35  total:36
+  contextdsl.render_context_dsl
+    CC=9  in:1  out:35  total:36
   intentdsl._codegen_php
     CC=14  in:1  out:34  total:35
   evolution.EvolutionStore.status
@@ -40,10 +38,12 @@ HUBS[20]:
     CC=11  in:12  out:21  total:33
   contextdsl._ident
     CC=3  in:28  out:5  total:33
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan.parse_bound_build_plan
+    CC=21  in:1  out:31  total:32
   intentdsl.run_program
     CC=14  in:2  out:30  total:32
-  onlydsl.dsl.build_plan.parse_bound_build_plan
-    CC=21  in:1  out:31  total:32
+  intentdsl._codegen_javascript_like
+    CC=13  in:1  out:29  total:30
 
 MODULES:
   aql  [1 funcs]
@@ -115,11 +115,13 @@ MODULES:
     build_llm_twin_bootstrap_handler  CC=1  out:9
     build_llm_twin_update_handler  CC=1  out:12
     gateway_provider_status  CC=1  out:1
-  ifuri_core.manifest  [4 funcs]
+  ifuri_core.manifest  [6 funcs]
     match  CC=4  out:4
     register  CC=3  out:4
-    _parse_pattern  CC=18  out:19
+    _parse_pattern  CC=1  out:3
+    _pattern_tokens  CC=12  out:6
     _validate_capability  CC=7  out:13
+    _validate_pattern_tokens  CC=7  out:12
   ifuri_core.transport  [9 funcs]
     create_stream  CC=1  out:4
     publish  CC=1  out:2
@@ -164,46 +166,6 @@ MODULES:
   multiruntime.typescript.ifuri  [2 funcs]
     parseIfUri  CC=13  out:5
     toNatsSubject  CC=1  out:1
-  onlydsl.dsl.assumption  [4 funcs]
-    _parse_assumption  CC=4  out:13
-    _parse_assumption_fields  CC=5  out:3
-    parse_assumptions  CC=9  out:15
-    render_assumptions  CC=2  out:8
-  onlydsl.dsl.build_plan  [4 funcs]
-    _validate_tasks  CC=7  out:7
-    parse_bound_build_plan  CC=21  out:31
-    semantic_twin_hash  CC=1  out:3
-    validate_bound_build_plan  CC=10  out:10
-  onlydsl.dsl.claim  [4 funcs]
-    _parse_claim  CC=12  out:23
-    _parse_claim_fields  CC=5  out:3
-    parse_claims  CC=9  out:19
-    render_claims  CC=3  out:8
-  onlydsl.dsl.common  [4 funcs]
-    extract_one  CC=5  out:11
-    json_string  CC=3  out:4
-    list_value  CC=2  out:2
-    quoted  CC=1  out:2
-  onlydsl.dsl.evidence_set  [2 funcs]
-    create_evidence_set  CC=2  out:7
-    parse_evidence_set  CC=12  out:19
-  onlydsl.dsl.parameter_contract  [5 funcs]
-    _parse_allowed  CC=3  out:4
-    _parse_parameter  CC=5  out:11
-    _parse_parameter_fields  CC=5  out:3
-    _parse_range  CC=6  out:7
-    parse_parameter_contracts  CC=9  out:13
-  onlydsl.dsl.repair_plan  [5 funcs]
-    _parse_repair_task  CC=5  out:16
-    _validate_repair_task  CC=4  out:8
-    parse_repair_plan  CC=11  out:21
-    render_repair_plan  CC=3  out:11
-    validate_repair_plan  CC=10  out:10
-  onlydsl.dsl.spatial_class  [2 funcs]
-    parse_spatial_class  CC=11  out:19
-    spatial_class_from_twin  CC=4  out:35
-  onlydsl.dsl.trust  [1 funcs]
-    render_trust_policy  CC=2  out:6
   onlydsl.governance.authority_projection  [2 funcs]
     project_authority  CC=2  out:5
     render_authority_projection  CC=3  out:4
@@ -263,6 +225,46 @@ MODULES:
     initialize  CC=8  out:23
     promote  CC=16  out:48
     validate_candidate  CC=1  out:3
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption  [4 funcs]
+    _parse_assumption  CC=4  out:13
+    _parse_assumption_fields  CC=5  out:3
+    parse_assumptions  CC=9  out:15
+    render_assumptions  CC=2  out:8
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan  [4 funcs]
+    _validate_tasks  CC=7  out:7
+    parse_bound_build_plan  CC=21  out:31
+    semantic_twin_hash  CC=1  out:3
+    validate_bound_build_plan  CC=10  out:10
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim  [4 funcs]
+    _parse_claim  CC=12  out:23
+    _parse_claim_fields  CC=5  out:3
+    parse_claims  CC=9  out:19
+    render_claims  CC=3  out:8
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common  [4 funcs]
+    extract_one  CC=5  out:11
+    json_string  CC=3  out:4
+    list_value  CC=2  out:2
+    quoted  CC=1  out:2
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.evidence_set  [2 funcs]
+    create_evidence_set  CC=2  out:7
+    parse_evidence_set  CC=12  out:19
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract  [5 funcs]
+    _parse_allowed  CC=3  out:4
+    _parse_parameter  CC=5  out:11
+    _parse_parameter_fields  CC=5  out:3
+    _parse_range  CC=6  out:7
+    parse_parameter_contracts  CC=9  out:13
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan  [5 funcs]
+    _parse_repair_task  CC=5  out:16
+    _validate_repair_task  CC=4  out:8
+    parse_repair_plan  CC=11  out:21
+    render_repair_plan  CC=3  out:11
+    validate_repair_plan  CC=10  out:10
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class  [2 funcs]
+    parse_spatial_class  CC=11  out:19
+    spatial_class_from_twin  CC=4  out:35
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust  [1 funcs]
+    render_trust_policy  CC=2  out:6
   patchdsl  [7 funcs]
     _count_diff_lines  CC=6  out:5
     _json_string  CC=3  out:4
@@ -289,12 +291,16 @@ MODULES:
     _context_registries  CC=2  out:3
     _current_external_integrity  CC=9  out:24
     _external_document  CC=5  out:4
-  source_ingest  [6 funcs]
+  source_ingest  [10 funcs]
     to_markdown  CC=7  out:14
+    _extract_code_blocks  CC=3  out:17
+    _flush_paragraph  CC=2  out:3
+    _normalize_text  CC=1  out:2
+    _parse_text_content  CC=10  out:27
     _sid  CC=3  out:7
     build_source_index  CC=9  out:35
     extract_source_refs  CC=9  out:16
-    parse_markdown  CC=16  out:59
+    parse_markdown  CC=1  out:9
     validate_sourceindex_markdown  CC=12  out:18
   twin_store  [2 funcs]
     load  CC=1  out:3
@@ -336,18 +342,18 @@ EDGES:
   evolution.EvolutionStore.diagnostic_for_incident → evolution._qid
   evolution.EvolutionStore.status → evolution._parse_event
   diagnostics.diagnose_incident → diagnostics._candidate_paths
-  llm_client._backend_call → llm_client._provider_config
-  llm_client._backend_call → llm_client._request_json
-  llm_client._backend_call → boundary.assert_dsl_only
-  llm_client.provider_status → llm_client._provider_config
-  llm_client._call_dsl_validated → llm_client._backend_call
-  llm_client._call_dsl_validated → boundary.build_repair_bundle
-  llm_client.convert_english → boundary.build_source_compile_bundle
-  llm_client.convert_english → llm_client._backend_call
-  llm_client.convert_english → intentdsl.demo_english_to_dsl
-  llm_client.propose_code_patch → boundary.build_autonomous_repair_bundle
-  llm_client.propose_code_patch → llm_client._call_dsl_validated
-  llm_client._demo_context_analysis → contextdsl.parse_context_dsl
-  llm_client._demo_context_analysis → contextdsl.extract_contextdsl
-  llm_client.analyze_context → boundary.build_context_analysis_bundle
-  llm_client.analyze_context → llm_client._backend_call
+  intentdsl._parse_rule_statement → intentdsl._parse_call
+  intentdsl.parse_dsl → intentdsl._parse_program_declaration
+  intentdsl.parse_dsl → intentdsl._parse_rule_statement
+  intentdsl._expr_tree → intentdsl._normalize_expr
+  intentdsl.expr_names → intentdsl._expr_tree
+  intentdsl.eval_expr → intentdsl._expr_tree
+  intentdsl._validate_rule_expressions → intentdsl.expr_names
+  intentdsl.validate_markdown → intentdsl.extract_intentdsl
+  intentdsl.validate_markdown → intentdsl.parse_dsl
+  intentdsl.validate_markdown → intentdsl.validate_program
+  intentdsl.run_program → intentdsl.validate_program
+  intentdsl.run_program → intentdsl.eval_expr
+  intentdsl.demo_english_to_dsl → intentdsl._auth_recovery_lines
+  intentdsl.demo_english_to_dsl → intentdsl._generic_demo_lines
+  intentdsl._generic_demo_lines → intentdsl._slug_words

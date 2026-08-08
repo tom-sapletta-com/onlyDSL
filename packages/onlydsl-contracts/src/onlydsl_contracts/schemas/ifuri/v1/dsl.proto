@@ -1,3 +1,4 @@
+// Canonical wire contract distributed by onlydsl-contracts.
 syntax = "proto3";
 package ifuri.v1;
 

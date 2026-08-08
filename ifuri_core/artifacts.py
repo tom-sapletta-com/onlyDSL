@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .uri import IfUri
+from onlydsl_contracts.ifuri import IfUri
 
 
 class ArtifactError(ValueError):

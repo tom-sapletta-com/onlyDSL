@@ -45,7 +45,8 @@ PostgresEventStore
 
 ## Protobuf Envelope
 
-`contracts/ifuri/v1/envelope.proto` keeps the required core small:
+`packages/onlydsl-contracts/src/onlydsl_contracts/schemas/ifuri/v1/envelope.proto`
+keeps the required core small:
 
 - `envelope_version`,
 - `id`,

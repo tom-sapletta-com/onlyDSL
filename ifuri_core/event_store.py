@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from .envelope import EnvelopeCodec, MessageKind
-from .uri import IfUri
+from onlydsl_contracts.ifuri import IfUri
 
 
 class EventStoreError(RuntimeError):

@@ -9,7 +9,7 @@ from urllib.parse import urlsplit
 
 import yaml
 
-from .uri import IfUri, IfUriError
+from onlydsl_contracts.ifuri import IfUri, IfUriError
 
 
 class ManifestError(ValueError):

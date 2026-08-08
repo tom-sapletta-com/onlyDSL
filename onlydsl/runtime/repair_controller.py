@@ -7,8 +7,8 @@ from typing import Callable
 
 from aql import AqlContract
 from governance import canonical_hash
-from onlydsl.dsl.repair_plan import RepairPlan, RepairTask, render_repair_plan
-from onlydsl.dsl.assumption import AssumptionDocument, assumptions_from_integrity, render_assumptions
+from onlydsl_contracts.dsl.repair_plan import RepairPlan, RepairTask, render_repair_plan
+from onlydsl_contracts.dsl.assumption import AssumptionDocument, assumptions_from_integrity, render_assumptions
 from onlydsl.governance.authority_projection import AuthorityProjection, project_authority, render_authority_projection
 from onlydsl.runtime.integrity import ProjectIntegrity, parse_project_integrity
 

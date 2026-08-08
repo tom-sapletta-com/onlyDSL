@@ -4,7 +4,7 @@ from typing import Any, Iterable
 
 from .envelope import EnvelopeCodec, MessageKind
 from .event_store import ConcurrencyError, EventStoreError, OutboxItem
-from .uri import IfUri
+from onlydsl_contracts.ifuri import IfUri
 
 
 SCHEMA_SQL = """

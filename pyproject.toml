@@ -10,10 +10,20 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = "Apache-2.0"
 dependencies = [
+  "onlydsl-contracts==0.0.8",
   "protobuf>=6.30,<7",
   "PyYAML>=6,<7",
   "psycopg[binary]>=3.2,<4",
 ]
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv.sources]
+onlydsl-contracts = {workspace = true}
+
+[dependency-groups]
+dev = ["pytest>=9.0,<10"]
 
 [project.scripts]
 onlydsl = "onlydsl.cli:main"

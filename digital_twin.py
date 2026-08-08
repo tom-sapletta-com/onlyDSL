@@ -6,7 +6,7 @@ import re
 from dataclasses import dataclass, field
 from typing import Any
 
-from ifuri_core.uri import IfUri, IfUriError
+from onlydsl_contracts.ifuri import IfUri, IfUriError
 
 _FENCE_RE = re.compile(r"```(?P<lang>[A-Za-z][A-Za-z0-9_.-]*)\s*\n(?P<body>.*?)```", re.S)
 _ID_RE = re.compile(r"^[A-Za-z][A-Za-z0-9_.-]{0,95}$")
@@ -798,12 +798,12 @@ def extract_buildplanddsl(markdown: str) -> str:
 
 
 def validate_buildplan_markdown(markdown: str, twin: TwinDocument | None = None) -> dict[str, Any]:
-    from onlydsl.dsl.build_plan import validate_bound_build_plan
+    from onlydsl_contracts.dsl.build_plan import validate_bound_build_plan
     return validate_bound_build_plan(markdown, twin, render_twin(twin) if twin is not None else "")
 
 
 def demo_build_plan(doc: TwinDocument) -> str:
-    from onlydsl.dsl.build_plan import semantic_twin_hash
+    from onlydsl_contracts.dsl.build_plan import semantic_twin_hash
     evidence = next(iter(doc.sources), "user_intent")
     return "```buildplanddsl\n" + "\n".join([
         f"BUILD_PLAN {doc.name}",

@@ -1,4 +1,4 @@
-# code2llm/evolution | 470 func | 50f | 2026-08-08
+# code2llm/evolution | 477 func | 50f | 2026-08-08
 # generated in 0.00s
 
 NEXT[10] (ranked by impact):
@@ -22,25 +22,25 @@ NEXT[10] (ranked by impact):
       WHY: CC=17 exceeds 15
       EFFORT: ~1h  IMPACT: 578
 
-  [6] !  SPLIT-FUNC      parse_markdown  CC=16  fan=34
-      WHY: CC=16 exceeds 15
-      EFFORT: ~1h  IMPACT: 544
-
-  [7] !  SPLIT-FUNC      SsotStore.promote  CC=16  fan=32
+  [6] !  SPLIT-FUNC      SsotStore.promote  CC=16  fan=32
       WHY: CC=16 exceeds 15
       EFFORT: ~1h  IMPACT: 512
 
-  [8] !  SPLIT-FUNC      parse_bound_build_plan  CC=21  fan=17
+  [7] !  SPLIT-FUNC      parse_bound_build_plan  CC=21  fan=17
       WHY: CC=21 exceeds 15
       EFFORT: ~1h  IMPACT: 357
 
-  [9] !  SPLIT-FUNC      Handler.do_GET  CC=15  fan=22
+  [8] !  SPLIT-FUNC      Handler.do_GET  CC=15  fan=22
       WHY: CC=15 exceeds 15
       EFFORT: ~1h  IMPACT: 330
 
-  [10] !  SPLIT-FUNC      NatsWireClient._reader_loop  CC=19  fan=17
-      WHY: CC=19 exceeds 15
-      EFFORT: ~1h  IMPACT: 323
+  [9] !  SPLIT-FUNC      parse_manifest  CC=21  fan=14
+      WHY: CC=21 exceeds 15
+      EFFORT: ~1h  IMPACT: 294
+
+  [10] !  SPLIT-FUNC      _validate_known_dsl  CC=15  fan=18
+      WHY: CC=15 exceeds 15
+      EFFORT: ~1h  IMPACT: 270
 
 
 RISKS[3]:
@@ -49,10 +49,10 @@ RISKS[3]:
   ⚠ Splitting server.py may break 30 import paths
 
 METRICS-TARGET:
-  CC̄:          4.2 → ≤2.9
+  CC̄:          4.1 → ≤2.9
   max-CC:      23 → ≤11
   god-modules: 5 → 0
-  high-CC(≥15): 18 → ≤9
+  high-CC(≥15): 15 → ≤7
   hub-types:   0 → ≤0
 
 PATTERNS (language parser shared logic):
@@ -80,4 +80,4 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  prev CC̄=4.3 → now CC̄=4.2
+  prev CC̄=4.2 → now CC̄=4.1

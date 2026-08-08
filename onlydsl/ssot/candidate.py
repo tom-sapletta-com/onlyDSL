@@ -6,7 +6,7 @@ import uuid
 from dataclasses import asdict
 from pathlib import Path
 
-from onlydsl.dsl.common import ID_RE
+from onlydsl_contracts.dsl.common import ID_RE
 
 from .diff import calculate_diff, render_diff
 from .io import atomic_write_json, atomic_write_text
@@ -18,7 +18,7 @@ from .manifest import (
     normalize_relative_path,
     utc_now,
 )
-from .model import CandidateRevision, SsotValidationError, ValidationReport
+from onlydsl_contracts.ssot import CandidateRevision, SsotValidationError, ValidationReport
 from .validation import render_validation, validate_tree
 
 

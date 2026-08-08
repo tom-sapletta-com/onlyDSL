@@ -5,13 +5,13 @@ from pathlib import Path
 from digital_twin import validate_twin_markdown
 from source_ingest import validate_sourceindex_markdown
 
-from onlydsl.dsl.assumption import parse_assumptions
-from onlydsl.dsl.claim import parse_claims
-from onlydsl.dsl.evidence_set import parse_evidence_set
-from onlydsl.dsl.parameter_contract import parse_parameter_contracts
-from onlydsl.dsl.repair_plan import parse_repair_plan
-from onlydsl.dsl.spatial_class import parse_spatial_class
-from onlydsl.dsl.trust import parse_trust_policy
+from onlydsl_contracts.dsl.assumption import parse_assumptions
+from onlydsl_contracts.dsl.claim import parse_claims
+from onlydsl_contracts.dsl.evidence_set import parse_evidence_set
+from onlydsl_contracts.dsl.parameter_contract import parse_parameter_contracts
+from onlydsl_contracts.dsl.repair_plan import parse_repair_plan
+from onlydsl_contracts.dsl.spatial_class import parse_spatial_class
+from onlydsl_contracts.dsl.trust import parse_trust_policy
 from onlydsl.runtime.integrity import parse_project_integrity
 
 from .manifest import collect_file_hashes

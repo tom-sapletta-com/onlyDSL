@@ -1,12 +1,12 @@
-# onlyDSL | 83f 10213L | python:58,shell:4,yaml:4,yml:1,txt:2,toml:1,dsl:1,conf:1,json:5,proto:2,typescript:1,javascript:1,php:1 | 2026-08-08
-# generated in 0.01s
+# onlyDSL | 97f 10344L | python:71,shell:4,yaml:4,yml:1,txt:2,dsl:1,conf:1,json:5,typescript:1,javascript:1,php:1,toml:2,proto:2 | 2026-08-08
+# generated in 0.02s
 # producer: code2llm | artifact: map.toon.yaml | schema: 1
-# stats: 479 func | 0 cls | 83 mod | CC̄=4.2 | critical:18 | cycles:0
-# alerts[5]: fan-out create_candidate=34; fan-out parse_markdown=34; fan-out SsotStore.promote=32; fan-out main=31; fan-out main=26
-# hotspots[5]: parse_markdown fan=34; create_candidate fan=34; SsotStore.promote fan=32; main fan=31; main fan=26
-# evolution: CC̄ 4.3→4.2 (improved -0.1)
+# stats: 486 func | 0 cls | 97 mod | CC̄=4.1 | critical:15 | cycles:0
+# alerts[5]: fan-out create_candidate=34; fan-out SsotStore.promote=32; fan-out main=31; fan-out main=26; fan-out Handler.do_GET=22
+# hotspots[5]: create_candidate fan=34; SsotStore.promote fan=32; main fan=31; main fan=26; Handler.do_GET fan=22
+# evolution: CC̄ 4.2→4.1 (improved -0.1)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[83]:
+M[97]:
   Dockerfile,13
   SSOT/manifest.dsl,10
   aql.py,151
@@ -17,8 +17,6 @@ M[83]:
   config/process-packs/live-evolution/recipe.v1.urirun.json,17
   config/process-packs/project-integrity-closure/registry.v2.json,43
   contextdsl.py,468
-  contracts/ifuri/v1/dsl.proto,9
-  contracts/ifuri/v1/envelope.proto,32
   diagnostics.py,291
   digital_twin.py,839
   docker-compose.yml,209
@@ -36,12 +34,12 @@ M[83]:
   ifuri_core/envelope_pb2.py,11
   ifuri_core/event_store.py,168
   ifuri_core/llm_gateway.py,202
-  ifuri_core/manifest.py,245
+  ifuri_core/manifest.py,253
   ifuri_core/outbox.py,37
   ifuri_core/postgres_store.py,154
   ifuri_core/runtime.py,173
-  ifuri_core/transport.py,442
-  ifuri_core/uri.py,99
+  ifuri_core/transport.py,437
+  ifuri_core/uri.py,5
   intentdsl.py,583
   llm_client.py,507
   manifests/capabilities.yaml,180
@@ -52,15 +50,15 @@ M[83]:
   onlydsl/__init__.py,7
   onlydsl/cli.py,15
   onlydsl/dsl/__init__.py,1
-  onlydsl/dsl/assumption.py,120
-  onlydsl/dsl/build_plan.py,145
-  onlydsl/dsl/claim.py,121
-  onlydsl/dsl/common.py,56
-  onlydsl/dsl/evidence_set.py,46
-  onlydsl/dsl/parameter_contract.py,151
-  onlydsl/dsl/repair_plan.py,137
-  onlydsl/dsl/spatial_class.py,158
-  onlydsl/dsl/trust.py,62
+  onlydsl/dsl/assumption.py,3
+  onlydsl/dsl/build_plan.py,3
+  onlydsl/dsl/claim.py,3
+  onlydsl/dsl/common.py,3
+  onlydsl/dsl/evidence_set.py,3
+  onlydsl/dsl/parameter_contract.py,3
+  onlydsl/dsl/repair_plan.py,3
+  onlydsl/dsl/spatial_class.py,3
+  onlydsl/dsl/trust.py,3
   onlydsl/governance/__init__.py,1
   onlydsl/governance/authority_projection.py,46
   onlydsl/runtime/__init__.py,1
@@ -72,21 +70,37 @@ M[83]:
   onlydsl/ssot/diff.py,35
   onlydsl/ssot/io.py,36
   onlydsl/ssot/manifest.py,164
-  onlydsl/ssot/model.py,60
+  onlydsl/ssot/model.py,16
   onlydsl/ssot/reader.py,60
   onlydsl/ssot/registry.py,76
   onlydsl/ssot/validation.py,104
   onlydsl/ssot/writer.py,224
+  packages/onlydsl-contracts/pyproject.toml,18
+  packages/onlydsl-contracts/src/onlydsl_contracts/__init__.py,25
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/__init__.py,1
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/assumption.py,122
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/build_plan.py,147
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/claim.py,123
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/common.py,58
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/evidence_set.py,48
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/parameter_contract.py,153
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/repair_plan.py,139
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/spatial_class.py,160
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/trust.py,64
+  packages/onlydsl-contracts/src/onlydsl_contracts/ifuri.py,101
+  packages/onlydsl-contracts/src/onlydsl_contracts/schemas/ifuri/v1/dsl.proto,10
+  packages/onlydsl-contracts/src/onlydsl_contracts/schemas/ifuri/v1/envelope.proto,33
+  packages/onlydsl-contracts/src/onlydsl_contracts/ssot.py,62
   patchdsl.py,165
   project.sh,79
-  pyproject.toml,74
+  pyproject.toml,81
   requirements.txt,3
   requirements-testql.txt,6
   run.sh,10
   run-tests.sh,4
   scripts/startup_testql.py,171
   server.py,535
-  source_ingest.py,231
+  source_ingest.py,236
   testql/digital-twin-startup.testql.toon.yaml,15
   testql/onlydsl-startup.testql.toon.yaml,11
   twin_store.py,55
@@ -97,7 +111,7 @@ D:
     _json(value)
     build_parser()
     main(argv)
-  onlydsl/dsl/build_plan.py:
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/build_plan.py:
     e: BoundBuildTask,BoundBuildPlan,semantic_twin_hash,_parse_task,_validate_tasks,parse_bound_build_plan,validate_bound_build_plan
     BoundBuildTask:
     BoundBuildPlan:
@@ -119,29 +133,14 @@ D:
     validate_manifest(manifest)
     render_manifest(manifest)
     parse_manifest(text)
-  ifuri_core/transport.py:
-    e: TransportError,NatsMessage,IfTransport,InProcessTransport,NatsWireClient,NatsJetStream,NatsTransport,capability_pattern_to_subject,_validate_nats_subject,_js_response
-    TransportError(RuntimeError):
-    NatsMessage:
-    IfTransport(Protocol): call(3),publish(2)
-    InProcessTransport: __init__(0),register(2),has_handler(1),call(3),publish(2)
-    NatsWireClient: __init__(3),connect(0),_write(1),flush(1),subscribe(1),unsubscribe(1),publish(3),request(3),close(0),_reader_loop(0)  # Small dependency-free NATS protocol client used by the POC.
-...
-    NatsJetStream: __init__(1),create_stream(2),stream_info(1),publish(2),get_message(2),replay(1)
-    NatsTransport: __init__(1),call(3),publish(2),ensure_event_stream(1),serve_capability(3),stop_services(0)
-    capability_pattern_to_subject(pattern;prefix)
-    _validate_nats_subject(subject)
-    _js_response(raw)
-  ifuri_core/manifest.py:
-    e: ManifestError,TransportPolicy,Capability,ResolvedCapability,CapabilityRegistry,_parse_pattern,_validate_capability
-    ManifestError(ValueError):
-    TransportPolicy: ordered(0)
-    Capability: match(1)
-    ResolvedCapability:
-    CapabilityRegistry: __init__(1),register(1),from_mapping(1),from_file(1),resolve(1),explain(1),dump(0)
-    _parse_pattern(raw)
-    _validate_capability(capability)
-  onlydsl/dsl/parameter_contract.py:
+  onlydsl/ssot/candidate.py:
+    e: _candidate_from_dict,load_candidate,save_candidate,create_candidate,validate_candidate
+    _candidate_from_dict(value)
+    load_candidate(directory)
+    save_candidate(directory;value)
+    create_candidate(candidates_root;current_tree)
+    validate_candidate(directory)
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/parameter_contract.py:
     e: ParameterContract,ParameterValidation,ParameterContractDocument,_parse_parameter_fields,_parse_range,_parse_allowed,_parse_parameter,parse_parameter_contracts,render_parameter_contracts
     ParameterContract:
     ParameterValidation:
@@ -152,26 +151,7 @@ D:
     _parse_parameter(lines;index)
     parse_parameter_contracts(markdown)
     render_parameter_contracts(document)
-  onlydsl/ssot/candidate.py:
-    e: _candidate_from_dict,load_candidate,save_candidate,create_candidate,validate_candidate
-    _candidate_from_dict(value)
-    load_candidate(directory)
-    save_candidate(directory;value)
-    create_candidate(candidates_root;current_tree)
-    validate_candidate(directory)
-  source_ingest.py:
-    e: SourceIngestError,MarkdownDocument,SourceIndex,_q,_sid,_normalize_text,parse_markdown,build_source_index,validate_sourceindex_markdown,extract_source_refs
-    SourceIngestError(ValueError):
-    MarkdownDocument:
-    SourceIndex: to_markdown(0),envelope(0),source_refs(0)
-    _q(value)
-    _sid(path;index)
-    _normalize_text(text)
-    parse_markdown(path;root;source_id)
-    build_source_index(root)
-    validate_sourceindex_markdown(markdown)
-    extract_source_refs(markdown)
-  ifuri_core/uri.py:
+  packages/onlydsl-contracts/src/onlydsl_contracts/ifuri.py:
     e: IfUriError,IfUri,canonicalize
     IfUriError(ValueError):
     IfUri: parse(1),__str__(0),to_subject(1)  # Location-independent capability URI.
@@ -179,7 +159,7 @@ D:
 Canonical shape:
   ifu...
     canonicalize(raw)
-  onlydsl/dsl/trust.py:
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/trust.py:
     e: TrustRole,TrustPolicy,parse_trust_policy,render_trust_policy
     TrustRole:
     TrustPolicy: priority_for(2)
@@ -275,22 +255,6 @@ Canonical shape:
     _qid(value)
     _q(value)
     _parse_event(path)
-  llm_client.py:
-    e: LlmProviderError,_request_json,_provider_config,_backend_call,provider_status,_call_dsl_validated,convert_english,propose_code_patch,_demo_context_analysis,analyze_context,bootstrap_twin,_demo_update_twin,update_twin,plan_build
-    LlmProviderError(RuntimeError):
-    _request_json(url;payload;api_key)
-    _provider_config(backend)
-    _backend_call(bundle;backend)
-    provider_status(backend)
-    _call_dsl_validated(bundle;backend)
-    convert_english(text;backend)
-    propose_code_patch(incident_markdown;guidance_markdown;code_files;backend)
-    _demo_context_analysis(context_markdown)
-    analyze_context(context_markdown;backend)
-    bootstrap_twin(user_text;backend)
-    _demo_update_twin(previous_markdown;source_index_markdown)
-    update_twin(previous_markdown;source_index_markdown;backend)
-    plan_build(twin_markdown;backend)
   intentdsl.py:
     e: IntentDslError,Operation,Rule,Program,extract_intentdsl,_parse_literal,_parse_call,_parse_rule_statement,_parse_program_declaration,parse_dsl,_normalize_expr,_expr_tree,expr_names,eval_expr,_type_ok,_validate_rule_expressions,_validate_rule_runtime_capabilities,validate_program,validate_markdown,run_program,_slug_words,demo_english_to_dsl,_auth_recovery_lines,_generic_demo_lines,_js_literal,_codegen_python,_codegen_javascript_like,_codegen_php,codegen,php_array
     IntentDslError(ValueError):
@@ -323,17 +287,22 @@ Canonical shape:
     _codegen_php(program)
     codegen(program;target)
     php_array(values)
-  onlydsl/dsl/spatial_class.py:
-    e: SpatialClass,SpatialTypeContract,SpatialComponent,SpatialClassDocument,_parse_type,_parse_component,parse_spatial_class,render_spatial_class,spatial_class_from_twin
-    SpatialClass(str,Enum):
-    SpatialTypeContract:
-    SpatialComponent:
-    SpatialClassDocument: classify(1),geometry_subjects(0),required_checks(1)
-    _parse_type(lines;index)
-    _parse_component(line)
-    parse_spatial_class(markdown)
-    render_spatial_class(document)
-    spatial_class_from_twin(twin)
+  llm_client.py:
+    e: LlmProviderError,_request_json,_provider_config,_backend_call,provider_status,_call_dsl_validated,convert_english,propose_code_patch,_demo_context_analysis,analyze_context,bootstrap_twin,_demo_update_twin,update_twin,plan_build
+    LlmProviderError(RuntimeError):
+    _request_json(url;payload;api_key)
+    _provider_config(backend)
+    _backend_call(bundle;backend)
+    provider_status(backend)
+    _call_dsl_validated(bundle;backend)
+    convert_english(text;backend)
+    propose_code_patch(incident_markdown;guidance_markdown;code_files;backend)
+    _demo_context_analysis(context_markdown)
+    analyze_context(context_markdown;backend)
+    bootstrap_twin(user_text;backend)
+    _demo_update_twin(previous_markdown;source_index_markdown)
+    update_twin(previous_markdown;source_index_markdown;backend)
+    plan_build(twin_markdown;backend)
   onlydsl/ssot/registry.py:
     e: RegistryEntry,ProjectRegistry,render_registry,parse_registry
     RegistryEntry:
@@ -359,6 +328,28 @@ Canonical shape:
     toNatsSubject()
     x()
     raw()
+  ifuri_core/manifest.py:
+    e: ManifestError,TransportPolicy,Capability,ResolvedCapability,CapabilityRegistry,_pattern_tokens,_validate_pattern_tokens,_parse_pattern,_validate_capability
+    ManifestError(ValueError):
+    TransportPolicy: ordered(0)
+    Capability: match(1)
+    ResolvedCapability:
+    CapabilityRegistry: __init__(1),register(1),from_mapping(1),from_file(1),resolve(1),explain(1),dump(0)
+    _pattern_tokens(raw)
+    _validate_pattern_tokens(tokens)
+    _parse_pattern(raw)
+    _validate_capability(capability)
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/spatial_class.py:
+    e: SpatialClass,SpatialTypeContract,SpatialComponent,SpatialClassDocument,_parse_type,_parse_component,parse_spatial_class,render_spatial_class,spatial_class_from_twin
+    SpatialClass(str,Enum):
+    SpatialTypeContract:
+    SpatialComponent:
+    SpatialClassDocument: classify(1),geometry_subjects(0),required_checks(1)
+    _parse_type(lines;index)
+    _parse_component(line)
+    parse_spatial_class(markdown)
+    render_spatial_class(document)
+    spatial_class_from_twin(twin)
   onlydsl/runtime/integrity.py:
     e: IntegrityFinding,ProjectIntegrity,_parse_finding,_readiness,parse_project_integrity
     IntegrityFinding:
@@ -366,20 +357,27 @@ Canonical shape:
     _parse_finding(lines;index)
     _readiness(result;completeness;findings)
     parse_project_integrity(markdown)
-  onlydsl/dsl/evidence_set.py:
+  source_ingest.py:
+    e: SourceIngestError,MarkdownDocument,SourceIndex,_q,_sid,_normalize_text,_extract_code_blocks,_flush_paragraph,_parse_text_content,parse_markdown,build_source_index,validate_sourceindex_markdown,extract_source_refs
+    SourceIngestError(ValueError):
+    MarkdownDocument:
+    SourceIndex: to_markdown(0),envelope(0),source_refs(0)
+    _q(value)
+    _sid(path;index)
+    _normalize_text(text)
+    _extract_code_blocks(raw;max_item_chars)
+    _flush_paragraph(doc;lines;max_item_chars)
+    _parse_text_content(doc;raw;code_spans;max_item_chars)
+    parse_markdown(path;root;source_id)
+    build_source_index(root)
+    validate_sourceindex_markdown(markdown)
+    extract_source_refs(markdown)
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/evidence_set.py:
     e: EvidenceSet,create_evidence_set,render_evidence_set,parse_evidence_set
     EvidenceSet:
     create_evidence_set(set_id;query_uri;member_uris)
     render_evidence_set(value)
     parse_evidence_set(markdown)
-  onlydsl/dsl/claim.py:
-    e: Claim,ClaimDocument,_parse_claim_fields,_parse_claim,parse_claims,render_claims
-    Claim:
-    ClaimDocument:
-    _parse_claim_fields(lines;index)
-    _parse_claim(claim_id;fields)
-    parse_claims(markdown)
-    render_claims(document)
   digital_twin.py:
     e: TwinDslError,TwinNode,TwinCapability,TwinInvariant,TwinEdge,TwinSourceRef,TwinDocument,BuildTask,BuildPlan,_TwinParseState,normalize_intent,intent_fingerprint,_quoted,_json_string,extract_twindsl,_parse_json_text,_parse_twin_evidence,_parse_twin_node_block,_parse_twin_capability_block,_parse_twin_invariant_block,_parse_twin_evolution_block,_parse_twin_source,_parse_twin_scalar,_parse_twin_declaration,_build_twin_document,parse_twindsl,validate_twin,_validate_twin_basics,_validate_twin_capabilities,_validate_twin_edges,_validate_twin_invariants,_validate_twin_sources,_validate_twin_nodes,validate_twin_markdown,validate_twin_update,twin_to_mermaid,_render_twin_nodes,_render_twin_capabilities,_render_twin_edges,demo_bootstrap_twin,_bootstrap_node_lines,_bootstrap_capability_lines,_bootstrap_edges_lines,_bootstrap_invariant_lines,_bootstrap_evolution_lines,render_twin,_render_twin_header,_render_twin_goals,_render_twin_nodes_block,_render_twin_capabilities_block,_render_twin_edges_block,_render_twin_invariants_block,_render_twin_evolution_block,_render_twin_sources_block,_render_twin_questions_block,twindsl_schema,buildplandsl_schema,extract_buildplanddsl,validate_buildplan_markdown,demo_build_plan
     TwinDslError(ValueError):
@@ -442,7 +440,15 @@ Canonical shape:
     extract_buildplanddsl(markdown)
     validate_buildplan_markdown(markdown;twin)
     demo_build_plan(doc)
-  onlydsl/dsl/repair_plan.py:
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/claim.py:
+    e: Claim,ClaimDocument,_parse_claim_fields,_parse_claim,parse_claims,render_claims
+    Claim:
+    ClaimDocument:
+    _parse_claim_fields(lines;index)
+    _parse_claim(claim_id;fields)
+    parse_claims(markdown)
+    render_claims(document)
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/repair_plan.py:
     e: RepairTask,RepairPlan,_validate_repair_task,validate_repair_plan,render_repair_plan,_parse_repair_task,parse_repair_plan
     RepairTask:
     RepairPlan:
@@ -466,7 +472,7 @@ Canonical shape:
     parse_ifuri()
     canonical_ifuri()
     nats_subject()
-  onlydsl/dsl/assumption.py:
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/assumption.py:
     e: Assumption,AssumptionDocument,_parse_assumption_fields,_parse_assumption,parse_assumptions,render_assumptions,assumptions_from_integrity
     Assumption:
     AssumptionDocument: replace_with_evidence(2)
@@ -507,12 +513,6 @@ Canonical shape:
     _q(value)
     _candidate_paths(text)
     diagnose_incident(incident_markdown;incident_id)
-  ifuri_core/envelope.py:
-    e: EnvelopeError,MessageKind,EnvelopeView,EnvelopeCodec
-    EnvelopeError(ValueError):
-    MessageKind(IntEnum):
-    EnvelopeView:
-    EnvelopeCodec: create(-1),validate(0),_validate_kind_uri(1),serialize(0),parse(0),unpack(1),view(0)
   ifuri_core/event_store.py:
     e: EventStoreError,ConcurrencyError,OutboxItem,SqliteEventStore
     EventStoreError(RuntimeError):
@@ -521,6 +521,25 @@ Canonical shape:
     SqliteEventStore: __init__(1),_init_schema(0),current_version(1),append(3),load_stream(2),pending_outbox(1),mark_outbox_published(1),mark_outbox_failed(2),outbox_stats(0),close(0)  # Reference authoritative ES adapter for tests/local POC.
 
 Pos...
+  ifuri_core/envelope.py:
+    e: EnvelopeError,MessageKind,EnvelopeView,EnvelopeCodec
+    EnvelopeError(ValueError):
+    MessageKind(IntEnum):
+    EnvelopeView:
+    EnvelopeCodec: create(-1),validate(0),_validate_kind_uri(1),serialize(0),parse(0),unpack(1),view(0)
+  ifuri_core/transport.py:
+    e: TransportError,NatsMessage,IfTransport,InProcessTransport,NatsWireClient,NatsJetStream,NatsTransport,capability_pattern_to_subject,_validate_nats_subject,_js_response
+    TransportError(RuntimeError):
+    NatsMessage:
+    IfTransport(Protocol): call(3),publish(2)
+    InProcessTransport: __init__(0),register(2),has_handler(1),call(3),publish(2)
+    NatsWireClient: __init__(3),connect(0),_write(1),flush(1),subscribe(1),unsubscribe(1),publish(3),request(3),close(0),_read_message(1),_handle_protocol_line(1),_reader_loop(0)  # Small dependency-free NATS protocol client used by the POC.
+...
+    NatsJetStream: __init__(1),create_stream(2),stream_info(1),publish(2),get_message(2),replay(1)
+    NatsTransport: __init__(1),call(3),publish(2),ensure_event_stream(1),serve_capability(3),stop_services(0)
+    capability_pattern_to_subject(pattern;prefix)
+    _validate_nats_subject(subject)
+    _js_response(raw)
   ifuri_core/runtime.py:
     e: RuntimeErrorIfuri,RouteDecision,IfuriRuntime
     RuntimeErrorIfuri(RuntimeError):
@@ -560,7 +579,12 @@ Domain c...
   onlydsl/cli.py:
     e: main
     main()
-  onlydsl/dsl/common.py:
+  onlydsl/ssot/diff.py:
+    e: FileChange,calculate_diff,render_diff
+    FileChange:
+    calculate_diff(before;after)
+    render_diff(candidate_id;base_revision;changes)
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/common.py:
     e: ControlDslError,extract_one,json_string,quoted,canonical_hash,list_value,parse_json_list
     ControlDslError(ValueError):
     extract_one(markdown;language)
@@ -572,11 +596,6 @@ Domain c...
   onlydsl/ssot/reader.py:
     e: SsotReader
     SsotReader: __init__(1),manifest(0),verified_manifest(1),status(0),history(0)
-  onlydsl/ssot/diff.py:
-    e: FileChange,calculate_diff,render_diff
-    FileChange:
-    calculate_diff(before;after)
-    render_diff(candidate_id;base_revision;changes)
   twin_store.py:
     e: TwinStoreError,TwinStore
     TwinStoreError(RuntimeError):
@@ -616,18 +635,32 @@ Domain c...
   run-tests.sh:
   docker-test.sh:
   requirements.txt:
-  pyproject.toml:
   project.sh:
-  ifuri_core/envelope_pb2.py:
-  ifuri_core/dsl_pb2.py:
-  ifuri_core/__init__.py:
   SSOT/manifest.dsl:
   onlydsl/__init__.py:
   onlydsl/runtime/__init__.py:
   onlydsl/governance/__init__.py:
   onlydsl/dsl/__init__.py:
   onlydsl/ssot/__init__.py:
-  onlydsl/ssot/model.py:
+  nats/nats.conf:
+  config/process-packs/project-integrity-closure/registry.v2.json:
+  config/process-packs/live-evolution/operations.v1.oql.json:
+  config/process-packs/live-evolution/process.v1.json:
+  config/process-packs/live-evolution/recipe.v1.urirun.json:
+  config/process-packs/live-evolution/expectations.v1.eql.json:
+  manifests/capabilities.yaml:
+  testql/onlydsl-startup.testql.toon.yaml:
+  testql/digital-twin-startup.testql.toon.yaml:
+  pyproject.toml:
+  packages/onlydsl-contracts/pyproject.toml:
+  packages/onlydsl-contracts/src/onlydsl_contracts/schemas/ifuri/v1/envelope.proto:
+  packages/onlydsl-contracts/src/onlydsl_contracts/schemas/ifuri/v1/dsl.proto:
+  ifuri_core/envelope_pb2.py:
+  ifuri_core/dsl_pb2.py:
+  ifuri_core/uri.py:
+  ifuri_core/__init__.py:
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/__init__.py:
+  packages/onlydsl-contracts/src/onlydsl_contracts/ssot.py:
     e: SsotError,SsotConflict,SsotValidationError,SsotManifest,CandidateRevision,ValidationReport,PromotionApproval
     SsotError(RuntimeError):
     SsotConflict(SsotError):
@@ -636,14 +669,14 @@ Domain c...
     CandidateRevision:
     ValidationReport:
     PromotionApproval:
-  nats/nats.conf:
-  config/process-packs/project-integrity-closure/registry.v2.json:
-  config/process-packs/live-evolution/operations.v1.oql.json:
-  config/process-packs/live-evolution/process.v1.json:
-  config/process-packs/live-evolution/recipe.v1.urirun.json:
-  config/process-packs/live-evolution/expectations.v1.eql.json:
-  manifests/capabilities.yaml:
-  contracts/ifuri/v1/dsl.proto:
-  contracts/ifuri/v1/envelope.proto:
-  testql/onlydsl-startup.testql.toon.yaml:
-  testql/digital-twin-startup.testql.toon.yaml:
+  packages/onlydsl-contracts/src/onlydsl_contracts/__init__.py:
+  onlydsl/dsl/parameter_contract.py:
+  onlydsl/dsl/trust.py:
+  onlydsl/dsl/spatial_class.py:
+  onlydsl/dsl/common.py:
+  onlydsl/dsl/evidence_set.py:
+  onlydsl/dsl/claim.py:
+  onlydsl/dsl/repair_plan.py:
+  onlydsl/dsl/build_plan.py:
+  onlydsl/dsl/assumption.py:
+  onlydsl/ssot/model.py:

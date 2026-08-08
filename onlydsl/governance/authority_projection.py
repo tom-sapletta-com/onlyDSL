@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from aql import AqlContract, AqlDecision
-from onlydsl.dsl.common import canonical_hash
+from onlydsl_contracts.dsl.common import canonical_hash
 
 
 @dataclass(frozen=True, slots=True)

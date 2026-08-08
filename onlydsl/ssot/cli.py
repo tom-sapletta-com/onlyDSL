@@ -7,7 +7,7 @@ from pathlib import Path
 
 from source_ingest import build_source_index
 
-from .model import PromotionApproval, SsotError
+from onlydsl_contracts.ssot import PromotionApproval, SsotError
 from .registry import ProjectRegistry
 from .writer import SsotStore
 

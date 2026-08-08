@@ -8,12 +8,12 @@ import uuid
 from contextlib import contextmanager
 from pathlib import Path
 
-from onlydsl.dsl.common import HASH_RE, ID_RE
+from onlydsl_contracts.dsl.common import HASH_RE, ID_RE
 
 from .candidate import create_candidate, load_candidate, save_candidate, validate_candidate
 from .io import atomic_write_json, atomic_write_text, fsync_directory
 from .manifest import collect_file_hashes, create_manifest, is_immutable_urn, render_manifest
-from .model import CandidateRevision, PromotionApproval, SsotConflict, SsotManifest, SsotValidationError, ValidationReport
+from onlydsl_contracts.ssot import CandidateRevision, PromotionApproval, SsotConflict, SsotManifest, SsotValidationError, ValidationReport
 from .reader import SsotReader
 
 

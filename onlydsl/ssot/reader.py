@@ -4,7 +4,7 @@ import time
 from pathlib import Path
 
 from .manifest import collect_file_hashes, parse_manifest, validate_manifest
-from .model import SsotManifest, SsotValidationError
+from onlydsl_contracts.ssot import SsotManifest, SsotValidationError
 
 
 class SsotReader:

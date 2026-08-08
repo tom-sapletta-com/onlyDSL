@@ -7,9 +7,9 @@ import shlex
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 
-from onlydsl.dsl.common import HASH_RE, canonical_hash
+from onlydsl_contracts.dsl.common import HASH_RE, canonical_hash
 
-from .model import SsotManifest, SsotValidationError
+from onlydsl_contracts.ssot import SsotManifest, SsotValidationError
 
 SCHEMA = "onlydsl.ssot/v1"
 INTEGRITY_VALUES = {"pass", "fail", "unverified"}

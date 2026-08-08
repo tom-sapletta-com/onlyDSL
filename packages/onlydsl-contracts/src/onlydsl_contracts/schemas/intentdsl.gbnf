@@ -1,3 +1,4 @@
+# Canonical grammar distributed by onlydsl-contracts.
 # IntentDSL v1 response grammar.
 # The LLM must return one fenced Markdown block; no prose can be emitted around it.
 root ::= "```intentdsl" nl intent (input | state | rule | forbid | output)+ "```"

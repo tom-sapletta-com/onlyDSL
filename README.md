@@ -15,6 +15,27 @@ Generated on 2026-08-08 using [openrouter/qwen/qwen3-coder-next](https://openrou
 
 A reference implementation for building software from user intent and external Markdown sources while keeping the LLM behind a strict DSL-only boundary.
 
+## Package workspace
+
+The first reusable package boundary is now explicit:
+
+```text
+packages/onlydsl-contracts  pure DSL, IFURI, SSOT models and schemas
+onlyDSL                     governance, runtime, adapters and service composition
+```
+
+`onlydsl-contracts` is independently buildable and has no runtime, transport,
+LLM or authority dependencies. Existing `onlydsl.dsl.*`, `ifuri_core.uri` and
+`onlydsl.ssot.model` imports remain compatibility facades, while new code may
+depend directly on `onlydsl_contracts`. A uv workspace keeps both distributions
+on the same version during this extraction phase.
+
+```bash
+uv sync
+uv run pytest -q
+uv build --package onlydsl-contracts
+```
+
 ## Project Integrity Closure v2
 
 onlyDSL now acts as a control plane above the external `twin-dsl` engine. It consumes live

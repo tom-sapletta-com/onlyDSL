@@ -1,45 +1,45 @@
-# onlyDSL | 479 func | 52f | 10213L | python | 2026-08-08
+# onlyDSL | 486 func | 52f | 10344L | python | 2026-08-08
 # generated in 0.00s
 
 HEALTH:
-  CC̄=4.2  critical=56 (limit:10)  dup=1  cycles=0
+  CC̄=4.1  critical=55 (limit:10)  dup=1  cycles=0
 
 ALERTS[20]:
-  !!! high_fan_out     parse_markdown = 34 (limit:10)
   !!! high_fan_out     create_candidate = 34 (limit:10)
   !!! high_fan_out     SsotStore.promote = 32 (limit:10)
   !!! high_fan_out     main = 31 (limit:10)
   !!! high_fan_out     main = 26 (limit:10)
   !!! high_fan_out     Handler.do_GET = 22 (limit:10)
   !!! high_fan_out     build_source_index = 21 (limit:10)
-  !!! high_fan_out     update_twin = 20 (limit:10)
   !!! high_fan_out     _bootstrap_twin = 20 (limit:10)
+  !!! high_fan_out     update_twin = 20 (limit:10)
   !!  cc_exceeded      main = 23 (limit:15)
+  !!  cc_exceeded      parse_bound_build_plan = 21 (limit:15)
 
-MODULES[83] (top by size):
+MODULES[97] (top by size):
   M[digital_twin.py] 839L C:10 F:50 CC↑12 D:5 (python)
   M[intentdsl.py] 583L C:4 F:27 CC↑14 D:2 (python)
   M[server.py] 535L C:1 F:30 CC↑15 D:0 (python)
   M[goal.yaml] 526L C:0 F:0 CC↑0 D:0 (yaml)
   M[llm_client.py] 507L C:1 F:13 CC↑14 D:1 (python)
   M[contextdsl.py] 468L C:5 F:39 CC↑15 D:3 (python)
-  M[ifuri_core/transport.py] 442L C:7 F:32 CC↑19 D:0 (python)
+  M[ifuri_core/transport.py] 437L C:7 F:34 CC↑7 D:0 (python)
   M[diagnostics.py] 291L C:1 F:3 CC↑7 D:1 (python)
   M[evolution.py] 286L C:1 F:18 CC↑14 D:1 (python)
+  M[ifuri_core/manifest.py] 253L C:5 F:13 CC↑13 D:0 (python)
   M[boundary.py] 249L C:2 F:16 CC↑8 D:3 (python)
-  M[ifuri_core/manifest.py] 245L C:5 F:11 CC↑18 D:0 (python)
-  M[source_ingest.py] 231L C:3 F:10 CC↑16 D:5 (python)
+  M[source_ingest.py] 236L C:3 F:13 CC↑12 D:5 (python)
   M[onlydsl/ssot/writer.py] 224L C:1 F:13 CC↑16 D:0 (python)
   M[docker-compose.yml] 209L C:0 F:0 CC↑0 D:0 (yml)
   M[ifuri_core/llm_gateway.py] 202L C:1 F:10 CC↑5 D:1 (python)
-  LANGS: python:58/json:5/shell:4/yaml:4/proto:2/txt:2/javascript:1/typescript:1/php:1/other:1/dsl:1/yml:1/conf:1/toml:1
+  LANGS: python:71/json:5/shell:4/yaml:4/toml:2/proto:2/txt:2/javascript:1/typescript:1/php:1/other:1/dsl:1/yml:1/conf:1
 
 HOTSPOTS[10]:
-  ★ parse_markdown fan=34  // Orchestrates 34 calls
   ★ create_candidate fan=34  // Orchestrates 34 calls
   ★ SsotStore.promote fan=32  // Orchestrates 32 calls
   ★ main fan=31  // Orchestrates 31 calls
   ★ main fan=26  // Orchestrates 26 calls
+  ★ Handler.do_GET fan=22  // Orchestrates 22 calls
 
 REFACTOR[15]:
   [1] H/H Split god module server.py (535L, 1 classes)
@@ -49,4 +49,4 @@ REFACTOR[15]:
   [5] H/H Split god module goal.yaml (526L, 0 classes)
 
 EVOLUTION:
-  2026-08-08 CC̄=4.2 crit=56 10213L // Automated analysis
+  2026-08-08 CC̄=4.1 crit=55 10344L // Automated analysis
