@@ -1,5 +1,31 @@
 services:
-  intentdsl-lab:
+  nats:
+    image: nats:2.14-alpine
+    command: ["-c", "/etc/nats/nats.conf"]
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    volumes:
+      - ./nats/nats.conf:/etc/nats/nats.conf:ro
+      - nats-data:/data
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ifuri
+      POSTGRES_PASSWORD: ifuri
+      POSTGRES_DB: ifuri
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ifuri -d ifuri"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  app:
     build: .
     ports:
       - "8787:8787"
@@ -10,3 +36,27 @@ services:
       LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:8000/v1}
       LLM_MODEL: ${LLM_MODEL:-}
       LLM_API_KEY: ${LLM_API_KEY:-}
+      NATS_HOST: nats
+      NATS_PORT: 4222
+      POSTGRES_DSN: postgresql://ifuri:ifuri@postgres:5432/ifuri
+    depends_on:
+      - nats
+      - postgres
+
+  integration:
+    build: .
+    environment:
+      LLM_BACKEND: demo
+      NATS_HOST: nats
+      NATS_PORT: 4222
+      POSTGRES_DSN: postgresql://ifuri:ifuri@postgres:5432/ifuri
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nats:
+        condition: service_started
+    command: ["python3", "scripts/docker_integration.py"]
+
+volumes:
+  nats-data:
+  postgres-data:

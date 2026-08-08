@@ -1,0 +1,9 @@
+syntax = "proto3";
+package ifuri.v1;
+
+message DslDocument {
+  uint32 schema_version = 1;
+  string dsl_type = 2;
+  string markdown = 3;
+  string sha256 = 4;
+}

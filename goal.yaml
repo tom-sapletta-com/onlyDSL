@@ -1,5 +1,5 @@
 # goal.yaml - Goal configuration file
-# Generated: 2026-08-08 13:01:14
+# Generated: 2026-08-08 13:15:08
 # Documentation: https://github.com/wronai/goal#configuration
 #
 # This file configures Goal's behavior for:
@@ -14,7 +14,8 @@
 version: '1.0'
 project:
   name: onlyDSL
-  type: []
+  type:
+  - python
   description: ''
 versioning:
   strategy: semver

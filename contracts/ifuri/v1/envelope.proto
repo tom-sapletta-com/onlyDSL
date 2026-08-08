@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package ifuri.v1;
+
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+
+enum MessageKind {
+  MESSAGE_KIND_UNSPECIFIED = 0;
+  COMMAND = 1;
+  QUERY = 2;
+  EVENT = 3;
+  REPLY = 4;
+}
+
+message Envelope {
+  uint32 envelope_version = 1;
+  string id = 2;
+  string target_uri = 3;
+  string source_uri = 4;
+  MessageKind kind = 5;
+  google.protobuf.Any payload = 6;
+  google.protobuf.Timestamp created_at = 7;
+
+  // Optional by convention: empty unless the message participates in the relation.
+  string correlation_id = 8;
+  string causation_id = 9;
+  string aggregate_id = 10;
+  uint64 aggregate_version = 11;
+
+  map<string, string> metadata = 12;
+}

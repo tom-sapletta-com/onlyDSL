@@ -1,0 +1,90 @@
+version: 1
+capabilities:
+  - id: auth.token.refresh
+    uri_pattern: ifuri://auth/token/{token_id}/commands/refresh
+    contract:
+      input: google.protobuf.Struct
+      output: google.protobuf.Struct
+    semantics:
+      kind: command
+      idempotent: true
+      durable: false
+    placement:
+      runtime: auth-runtime
+    transport:
+      preferred: inproc
+      fallback: [nats]
+
+  - id: scenario.execute
+    uri_pattern: ifuri://scenario/scenario/{scenario_id}/commands/execute
+    contract:
+      input: google.protobuf.Struct
+      output: google.protobuf.Struct
+    semantics:
+      kind: command
+      idempotent: false
+      durable: true
+    placement:
+      runtime: scenario-runtime
+    transport:
+      preferred: nats
+      fallback: [inproc]
+
+  - id: scenario.status
+    uri_pattern: ifuri://scenario/scenario/{scenario_id}/queries/status
+    contract:
+      input: google.protobuf.Struct
+      output: google.protobuf.Struct
+    semantics:
+      kind: query
+      idempotent: true
+      durable: false
+    placement:
+      runtime: scenario-runtime
+    transport:
+      preferred: nats
+      fallback: [inproc]
+
+  - id: scenario.executed
+    uri_pattern: ifuri://scenario/scenario/{scenario_id}/events/executed
+    contract:
+      input: google.protobuf.Struct
+      output: ""
+    semantics:
+      kind: event
+      idempotent: true
+      durable: true
+    placement:
+      runtime: event-fabric
+    transport:
+      preferred: nats
+
+  - id: llm.reasoner.analyze
+    uri_pattern: ifuri://llm/reasoner/{reasoner_id}/commands/analyze
+    contract:
+      input: ifuri.v1.DslDocument
+      output: ifuri.v1.DslDocument
+    semantics:
+      kind: command
+      idempotent: true
+      durable: false
+    placement:
+      runtime: llm-gateway
+    transport:
+      preferred: inproc
+      fallback: [nats]
+  - id: llm.semantic.compile
+    uri_pattern: ifuri://llm/semantic/{compiler_id}/commands/compile
+    contract:
+      input: ifuri.v1.DslDocument
+      output: ifuri.v1.DslDocument
+    semantics:
+      kind: command
+      idempotent: true
+      durable: false
+    placement:
+      runtime: llm-gateway
+    transport:
+      preferred: inproc
+      fallback: [nats]
+
