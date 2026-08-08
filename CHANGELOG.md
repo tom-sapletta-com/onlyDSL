@@ -38,6 +38,31 @@
 - Controlled supervisor shutdown no longer creates a false crash incident.
 - PatchDSL contract now explicitly requires the `patchdsl` fence and accepts the provider's safe block alias.
 
+## [0.0.6] - 2026-08-08
+
+### Docs
+- Update README.md
+- Update TEST_REPORT.md
+- Update docs/AUDYT_DOCKER_OPENROUTER_2026-08-08.md
+- Update docs/PROJECT_INTEGRITY_CLOSURE_V2.md
+
+### Test
+- Update tests/test_evolution.py
+- Update tests/test_openrouter.py
+- Update tests/test_project_integrity_closure.py
+
+### Other
+- Update config/process-packs/project-integrity-closure/registry.v2.json
+- Update diagnostics.py
+- Update digital_twin.py
+- Update llm_client.py
+- Update onlydsl/dsl/assumption.py
+- Update onlydsl/dsl/repair_plan.py
+- Update onlydsl/dsl/spatial_class.py
+- Update onlydsl/runtime/repair_controller.py
+- Update server.py
+- Update static/index.html
+
 ## [0.0.5] - 2026-08-08
 
 ### Docs

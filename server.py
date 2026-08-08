@@ -48,6 +48,9 @@ from ifuri_core.manifest import CapabilityRegistry
 from ifuri_core.runtime import IfuriRuntime
 from ifuri_core.transport import InProcessTransport
 from onlydsl.runtime.repair_controller import load_repair_registry, plan_integrity_repairs
+from onlydsl.runtime.integrity import parse_project_integrity
+from onlydsl.dsl.assumption import assumptions_from_integrity, render_assumptions
+from onlydsl.dsl.spatial_class import render_spatial_class, spatial_class_from_twin
 
 ROOT = Path(__file__).resolve().parent
 STATIC = ROOT / "static"
@@ -95,17 +98,34 @@ def _current_external_integrity() -> dict[str, Any]:
         dsl = json.load(response)
     with urlopen(base + "/api/events", timeout=3) as response:
         events = json.load(response)
-    document = next((item for item in dsl.get("documents", []) if item.get("name") == "project-integrity.dsl"), None)
+    with urlopen(base + "/api/state", timeout=3) as response:
+        state = json.load(response)
+    artifact_scope = state.get("artifactScope", "current")
+    integrity_name = "latest-candidate/project-integrity.dsl" if artifact_scope == "candidate" else "project-integrity.dsl"
+    document = next((item for item in dsl.get("documents", []) if item.get("name") == integrity_name), None)
     if not document or not document.get("content"):
         raise ValueError("external twin has no ProjectIntegrityDSL")
     latest = (events.get("events") or [])[-1] if events.get("events") else {}
     revision = latest.get("streamVersion")
     if not isinstance(revision, int) or revision < 1:
         raise ValueError("external twin has no exact iteration streamVersion")
+    parsed = parse_project_integrity(document["content"])
+    spatial_source = state.get("candidateTwin") if artifact_scope == "candidate" else state.get("twin")
+    spatial = spatial_class_from_twin(spatial_source or state.get("twin") or {}, model_id=parsed.project_id)
+    assumptions = assumptions_from_integrity(parsed)
+    evidence_sets = next((item.get("content", "") for item in dsl.get("documents", []) if item.get("name") == "evidence-sets.dsl"), "")
     return {
-        "schema": "onlydsl.external-project-integrity/v2", "source": base,
+        "schema": "onlydsl.external-project-integrity/v2", "source": base, "artifact_scope": artifact_scope,
         "project_integrity_markdown": document["content"], "twin_revision": revision,
         "iteration_time": latest.get("occurredAt") or latest.get("recordedAt"),
+        "outcomes": {
+            "integrity": parsed.integrity, "evidence": parsed.evidence,
+            "operational_ready": parsed.operational_ready, "autonomy_ready": parsed.autonomy_ready,
+        },
+        "spatial_class_markdown": render_spatial_class(spatial),
+        "assumption_markdown": render_assumptions(assumptions),
+        "evidence_set_markdown": evidence_sets,
+        "geometry_coverage": (state.get("geometryValidation") or {}).get("coverage", {}),
     }
 
 
@@ -114,14 +134,15 @@ def _integrity_repair_plan(body: dict[str, Any]) -> dict[str, Any]:
     if not markdown:
         raise ValueError("project_integrity_markdown is required")
     live = _current_external_integrity()
-    if markdown != live["project_integrity_markdown"]:
+    live_markdown = str(live["project_integrity_markdown"]).strip()
+    if markdown != live_markdown:
         raise ValueError("ProjectIntegrityDSL is stale or differs from the live external Twin")
     requested_revision = int(body.get("twin_revision", live["twin_revision"]))
     if requested_revision != live["twin_revision"]:
         raise ValueError(f"twin_revision must equal live iteration version {live['twin_revision']}")
     contract_path = os.getenv("EVOLUTION_AQL_CONTRACT", str(ROOT / "config/contracts/evolution-agent.contract.aql"))
     cycle = plan_integrity_repairs(
-        markdown, twin_revision=requested_revision,
+        live_markdown, twin_revision=requested_revision,
         contract=AqlContract.from_file(contract_path), registry=load_repair_registry(ROOT),
     )
     payload = cycle.to_dict()
@@ -300,7 +321,7 @@ def _plan_twin() -> dict[str, Any]:
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "IfuriDigitalTwinLab/0.4"
+    server_version = f"IfuriDigitalTwinLab/{_application_version()}"
 
     def log_message(self, fmt: str, *args: Any) -> None:
         if self.path != "/api/health" and os.getenv("QUIET", "0") != "1":
@@ -491,7 +512,7 @@ class Handler(BaseHTTPRequestHandler):
 def main() -> None:
     host = os.getenv("HOST", "127.0.0.1")
     port = int(os.getenv("PORT", "8787"))
-    print(f"IFURI Digital Twin Lab 0.4.0 listening on http://{host}:{port}")
+    print(f"IFURI Digital Twin Lab {_application_version()} listening on http://{host}:{port}")
     ThreadingHTTPServer((host, port), Handler).serve_forever()
 
 

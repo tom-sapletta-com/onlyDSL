@@ -14,7 +14,7 @@ class SpatialClass(str, Enum):
 
 
 PHYSICAL_CLASSES = {SpatialClass.PHYSICAL, SpatialClass.HYBRID}
-KNOWN_REQUIREMENTS = {"position", "size", "orientation", "clearance", "parent-zone", "logical-endpoint", "runtime-status"}
+KNOWN_REQUIREMENTS = {"position", "size", "orientation", "constraints", "clearance", "parent-zone", "logical-endpoint", "runtime-status"}
 
 
 @dataclass(frozen=True, slots=True)
@@ -115,3 +115,35 @@ def render_spatial_class(document: SpatialClassDocument) -> str:
     rows.extend(f"COMPONENT {item.component_id} TYPE {item.subject_type}" for item in document.components.values())
     rows.extend(["END_SPATIAL_MODEL", "```"])
     return "\n".join(rows)
+
+
+def spatial_class_from_twin(twin: dict, *, model_id: str | None = None) -> SpatialClassDocument:
+    """Create a read-only control-plane projection from downstream Twin properties."""
+    types: dict[str, SpatialTypeContract] = {}
+    components: dict[str, SpatialComponent] = {}
+
+    def walk(items: list[dict]) -> None:
+        for item in items:
+            component_id = str(item.get("id", ""))
+            subject_type = str(item.get("type", "unknown"))
+            properties = item.get("properties") if isinstance(item.get("properties"), dict) else {}
+            try:
+                spatial_class = SpatialClass(str(properties.get("spatialClass", "physical")))
+            except ValueError as exc:
+                raise ControlDslError(f"component {component_id!r} has invalid spatialClass") from exc
+            contract_id = f"{subject_type}__{spatial_class.value}"
+            split = lambda name: frozenset(value for value in str(properties.get(name, "")).split("|") if value)
+            contract = SpatialTypeContract(contract_id, spatial_class, split("spatialRequire"), split("spatialOptional"), split("spatialForbid"))
+            if not (contract.require | contract.optional | contract.forbid) <= KNOWN_REQUIREMENTS:
+                raise ControlDslError(f"component {component_id!r} contains an unknown spatial requirement")
+            previous = types.get(contract_id)
+            if previous is not None and previous != contract:
+                raise ControlDslError(f"Twin type contract {contract_id!r} is inconsistent between components")
+            types[contract_id] = contract
+            components[component_id] = SpatialComponent(component_id, contract_id)
+            walk(item.get("children", []) if isinstance(item.get("children"), list) else [])
+
+    walk(twin.get("components", []) if isinstance(twin.get("components"), list) else [])
+    if not components:
+        raise ControlDslError("Twin contains no components for SpatialClassDSL projection")
+    return SpatialClassDocument(model_id or str(twin.get("id", "twin")), types, components)

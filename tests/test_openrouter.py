@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from digital_twin import demo_bootstrap_twin  # noqa: E402
-from llm_client import bootstrap_twin, convert_english, provider_status  # noqa: E402
+from llm_client import bootstrap_twin, convert_english, plan_build, provider_status  # noqa: E402
 
 
 class OpenRouterTests(unittest.TestCase):
@@ -86,6 +86,39 @@ OUTPUT result
         self.assertEqual(result["repair_attempts"], 1)
         self.assertIn("```validationdsl", requests[1])
         self.assertNotIn("Here is the twin you requested.", requests[1])
+
+    def test_build_plan_provider_fence_alias_is_canonicalized_before_validation(self):
+        twin = bootstrap_twin("Build a source-backed governed twin.", "demo")["markdown"]
+        canonical = plan_build(twin, "demo")["markdown"]
+        aliased = canonical.replace("```buildplanddsl", "```buildplandsl", 1)
+
+        def fake_request(url, payload, api_key="", *, extra_headers=None):
+            return {"choices": [{"message": {"content": aliased}}], "usage": {"total_tokens": 1}}
+
+        env = {"OPENROUTER_API_KEY": "test-secret-not-real", "OPENROUTER_MODEL": "~openai/gpt-latest"}
+        with patch.dict(os.environ, env, clear=False), patch("llm_client._request_json", side_effect=fake_request):
+            result = plan_build(twin, "openrouter")
+        self.assertTrue(result["validation"]["valid"])
+        self.assertTrue(result["normalized_output_alias"])
+        self.assertIn("```buildplanddsl", result["markdown"])
+        self.assertNotIn("```buildplandsl\n", result["markdown"])
+
+    def test_build_plan_revision_and_hash_are_bound_by_runtime_not_model(self):
+        twin = bootstrap_twin("Build a source-backed governed twin.", "demo")["markdown"]
+        proposed = plan_build(twin, "demo")["markdown"]
+        proposed = proposed.replace("FROM_REVISION 1", "FROM_REVISION 999")
+        proposed = __import__("re").sub(r"FROM_TWIN_HASH sha256:[0-9a-f]{64}", "FROM_TWIN_HASH sha256:" + "0" * 64, proposed)
+
+        def fake_request(url, payload, api_key="", *, extra_headers=None):
+            return {"choices": [{"message": {"content": proposed}}]}
+
+        env = {"OPENROUTER_API_KEY": "test-secret-not-real", "OPENROUTER_MODEL": "~openai/gpt-latest"}
+        with patch.dict(os.environ, env, clear=False), patch("llm_client._request_json", side_effect=fake_request):
+            result = plan_build(twin, "openrouter")
+        self.assertTrue(result["validation"]["valid"])
+        self.assertTrue(result["system_bound_output"])
+        self.assertIn("FROM_REVISION 1", result["markdown"])
+        self.assertNotIn("sha256:" + "0" * 64, result["markdown"])
 
 
 

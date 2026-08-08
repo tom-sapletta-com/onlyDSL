@@ -88,3 +88,24 @@ def render_assumptions(document: AssumptionDocument) -> str:
         ])
     rows.extend(["END_ASSUMPTION_SET", "```"])
     return "\n".join(rows)
+
+
+def assumptions_from_integrity(integrity: object) -> AssumptionDocument:
+    """Turn typed ungrounded findings into addressable assumptions; never infer facts."""
+    project_id = str(getattr(integrity, "project_id"))
+    result = AssumptionDocument(project_id, {})
+    for finding in getattr(integrity, "findings"):
+        if getattr(finding, "category") != "ungrounded-assumption":
+            continue
+        subjects = tuple(getattr(finding, "subjects"))
+        for index, subject in enumerate(subjects or (project_id,), 1):
+            normalized = "".join(character.lower() if character.isalnum() else "-" for character in str(subject)).strip("-")[:80] or "project"
+            assumption_id = f"{str(getattr(finding, 'code')).lower().replace('_', '-')}-{normalized}-{index}"
+            result.assumptions[assumption_id] = Assumption(
+                assumption_id, str(subject), str(getattr(finding, "layer")), "open",
+                str(getattr(finding, "message")), f"ProjectIntegrity finding {getattr(finding, 'code')}",
+                "onlydsl://runtime/project-integrity", tuple(getattr(finding, "evidence")),
+                f"finding {getattr(finding, 'code')} absent from a newer verified ProjectIntegrityDSL",
+                str(getattr(finding, "repair_uri")),
+            )
+    return result

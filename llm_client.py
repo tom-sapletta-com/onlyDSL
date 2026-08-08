@@ -4,6 +4,7 @@ import copy
 import hashlib
 import json
 import os
+import re
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -143,6 +144,17 @@ def _backend_call(
         markdown = result["choices"][0]["message"]["content"].strip()
     except (KeyError, IndexError, TypeError) as exc:
         raise LlmProviderError(f"Unexpected LLM response: {json.dumps(result)[:1200]}") from exc
+    normalized_output_alias = False
+    if output_lang == "buildplanddsl":
+        try:
+            assert_dsl_only(markdown, {output_lang})
+        except LlmBoundaryError:
+            # A recurring provider spelling drops the second "d" in the fence only.
+            # Accept that one inert alias, then canonicalize before domain validation;
+            # prose, extra blocks and every other language remain fail-closed.
+            assert_dsl_only(markdown, {"buildplandsl"})
+            markdown = re.sub(r"```buildplandsl(?=\s*\n)", "```buildplanddsl", markdown, count=1, flags=re.I)
+            normalized_output_alias = True
     assert_dsl_only(markdown, {output_lang})
     return {
         "backend": backend,
@@ -151,6 +163,7 @@ def _backend_call(
         "constrained": constrained,
         "request_markdown": bundle.markdown,
         "usage": result.get("usage") or {},
+        "normalized_output_alias": normalized_output_alias,
     }
 
 
@@ -181,6 +194,7 @@ def _call_dsl_validated(
     output_lang: str,
     max_tokens: int,
     validator: Callable[[str], list[str]],
+    system_bind: Callable[[str], str] | None = None,
 ) -> dict[str, Any]:
     attempts = max(0, int(os.getenv("LLM_REPAIR_ATTEMPTS", "2")))
     current = bundle
@@ -188,6 +202,10 @@ def _call_dsl_validated(
     for attempt in range(attempts + 1):
         try:
             result = _backend_call(current, backend, output_lang=output_lang, max_tokens=max_tokens)
+            if system_bind is not None:
+                bound = system_bind(result["markdown"])
+                result["system_bound_output"] = bound != result["markdown"]
+                result["markdown"] = bound
             last_errors = validator(result["markdown"])
             if not last_errors:
                 result["repair_attempts"] = attempt
@@ -466,8 +484,21 @@ def plan_build(twin_markdown: str, backend: str | None = None) -> dict[str, Any]
             validation = validate_buildplan_markdown(markdown, doc)
             return list(validation["errors"])
 
+        from onlydsl.dsl.build_plan import semantic_twin_hash
+
+        exact_hash = semantic_twin_hash(render_twin(doc))
+
+        def bind_current_twin(markdown: str) -> str:
+            revisions = re.findall(r"^FROM_REVISION\s+\d+\s*$", markdown, re.M)
+            hashes = re.findall(r"^FROM_TWIN_HASH\s+sha256:[0-9a-fA-F]{64}\s*$", markdown, re.M)
+            if len(revisions) != 1 or len(hashes) != 1:
+                raise LlmBoundaryError("BuildPlanDSL requires exactly one bindable revision and Twin hash header")
+            bound = re.sub(r"^FROM_REVISION\s+\d+\s*$", f"FROM_REVISION {doc.revision}", markdown, count=1, flags=re.M)
+            return re.sub(r"^FROM_TWIN_HASH\s+sha256:[0-9a-fA-F]{64}\s*$", f"FROM_TWIN_HASH {exact_hash}", bound, count=1, flags=re.M)
+
         result = _call_dsl_validated(
-            bundle, backend, output_lang="buildplanddsl", max_tokens=4200, validator=validate_plan
+            bundle, backend, output_lang="buildplanddsl", max_tokens=4200,
+            validator=validate_plan, system_bind=bind_current_twin,
         )
     validation = validate_buildplan_markdown(result["markdown"], doc)
     if not validation["valid"]:

@@ -6,14 +6,14 @@ from pathlib import Path
 
 from aql import AqlContract
 from boundary import authority_dsl, build_autonomous_repair_bundle
-from digital_twin import extract_twindsl, parse_twindsl, validate_buildplan_markdown
+from digital_twin import buildplandsl_schema, extract_twindsl, parse_twindsl, validate_buildplan_markdown
 from llm_client import bootstrap_twin, plan_build
 from onlydsl.dsl.assumption import parse_assumptions, render_assumptions
 from onlydsl.dsl.common import ControlDslError
 from onlydsl.dsl.evidence_set import create_evidence_set, parse_evidence_set, render_evidence_set
 from onlydsl.dsl.parameter_contract import parse_parameter_contracts
 from onlydsl.dsl.repair_plan import parse_repair_plan
-from onlydsl.dsl.spatial_class import SpatialClass, parse_spatial_class, render_spatial_class
+from onlydsl.dsl.spatial_class import SpatialClass, parse_spatial_class, render_spatial_class, spatial_class_from_twin
 from onlydsl.runtime.integrity import parse_project_integrity
 from onlydsl.runtime.repair_controller import execute_repair_cycle, load_repair_registry, plan_integrity_repairs
 
@@ -83,6 +83,11 @@ END_SPATIAL_MODEL
         self.assertEqual(document.classify("bioreactor"), SpatialClass.PHYSICAL)
         self.assertEqual(document.geometry_subjects(), {"bioreactor"})
         self.assertEqual(parse_spatial_class(render_spatial_class(document)).geometry_subjects(), {"bioreactor"})
+        projected = spatial_class_from_twin({"id": "lab", "components": [
+            {"id": "bioreactor", "type": "equipment", "properties": {"spatialClass": "physical", "spatialRequire": "position|size|orientation"}, "children": []},
+            {"id": "planner", "type": "service", "properties": {"spatialClass": "cyber", "spatialRequire": "logical-endpoint|runtime-status", "spatialForbid": "position|size|orientation"}, "children": []},
+        ]})
+        self.assertEqual(projected.geometry_subjects(), {"bioreactor"})
 
     def test_assumption_has_lifecycle_and_exact_replacement_evidence(self):
         markdown = """```assumptiondsl
@@ -154,6 +159,9 @@ END_PARAMETER_CONTRACTS
         self.assertIn("FROM_TWIN_HASH sha256:", result["markdown"])
         self.assertIn("EXPECTED_RESULT", result["markdown"])
         self.assertIn("ROLLBACK", result["markdown"])
+        schema = buildplandsl_schema()
+        self.assertIn('EXAMPLE EVIDENCE ["user_intent"', schema)
+        self.assertIn("EXAMPLE DEPENDS_ON []", schema)
         stale = result["markdown"].replace("FROM_REVISION 1", "FROM_REVISION 2")
         self.assertFalse(validate_buildplan_markdown(stale, twin)["valid"])
 
@@ -170,6 +178,7 @@ END_PARAMETER_CONTRACTS
         authority = cycle.to_dict()["authority_projection_markdown"]
         self.assertIn("OWNERSHIP system", authority)
         self.assertIn("model_cannot_create_or_modify_authority", authority)
+        self.assertIn("ASSUMPTION conceptual-geometry-assumption-biospec-bioreactor-01-1", cycle.to_dict()["assumption_markdown"])
 
     def test_e2e_finding_to_authorized_process_testql_eql_and_closed_iteration(self):
         contract = AqlContract.from_file(ROOT / "config/contracts/evolution-agent.contract.aql")
@@ -186,12 +195,40 @@ END_PARAMETER_CONTRACTS
         self.assertEqual(called, ["cad://openscad/scad/geometry/compile", "process://twin/physical-evidence/complete"])
         self.assertTrue(receipt["receipt_hash"].startswith("sha256:"))
 
+    def test_extent_drift_routes_to_evidence_reconciliation_without_weakening_tolerance(self):
+        markdown = """```projectintegritydsl
+PROJECT_INTEGRITY laboratory
+METHOD deterministic-cross-layer
+COVERAGE LAYERS 8/8 DEPENDENCIES 5/6 PARAMETERS 183/183 ASSUMPTIONS 0/1
+COMPLETENESS INCOMPLETE
+FINDING GEOMETRY_REFERENCE_EXTENT_DRIFT SEVERITY ERROR CATEGORY inconsistency LAYER validation
+  SUBJECTS ["biospec_cad_lid_unf", "lid-build"]
+  EVIDENCE ["urn:source:scad", "urn:reference:step"]
+  REPAIR subactor://process/repair/geometry/reconcile-source-evidence
+  MESSAGE "actual height 14 mm differs from reference 18 mm"
+END_FINDING
+RESULT FAIL
+END_PROJECT_INTEGRITY
+```"""
+        cycle = plan_integrity_repairs(
+            markdown, twin_revision=4,
+            contract=AqlContract.from_file(ROOT / "config/contracts/evolution-agent.contract.aql"),
+            registry=load_repair_registry(ROOT),
+        )
+        task = cycle.plan.tasks[0]
+        self.assertEqual(task.operation, "geometry.reconcile")
+        self.assertEqual(task.uri_process, "process://twin/geometry/reconcile-source-evidence")
+        self.assertIn("without widening tolerance", task.acceptance)
+        self.assertEqual(task.authority_class, "physical-evidence-conflict")
+
     def test_web_control_plane_exposes_live_integrity_to_repair_plan(self):
         html = (ROOT / "static/index.html").read_text(encoding="utf-8")
         self.assertIn("ProjectIntegrityDSL → RepairPlanDSL", html)
         self.assertIn("/api/integrity/current", html)
         self.assertIn("/api/integrity/repair-plan", html)
         self.assertIn("cad|subactor|twin|ifuri", html)
+        server_source = (ROOT / "server.py").read_text(encoding="utf-8")
+        self.assertIn('live_markdown = str(live["project_integrity_markdown"]).strip()', server_source)
 
 
 if __name__ == "__main__":

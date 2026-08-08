@@ -3,6 +3,15 @@
   "owner": "organization:constitutional-authority",
   "model_may_generate_uri": false,
   "findings": {
+    "GEOMETRY_REFERENCE_EXTENT_DRIFT": {
+      "repair_uri": "subactor://process/repair/geometry/reconcile-source-evidence",
+      "oql": "geometry.reconcile",
+      "uri_process": "process://twin/geometry/reconcile-source-evidence",
+      "expected_result": "The SCAD and reference CAD extents are compared with their units and source revisions preserved; an authoritative evidence decision is recorded.",
+      "acceptance": "The exact geometry contract passes without widening tolerance and the GEOMETRY_REFERENCE_EXTENT_DRIFT finding disappears.",
+      "rollback": "Retain the last-known-good scene and both conflicting immutable artifacts.",
+      "authority_class": "physical-evidence-conflict"
+    },
     "CONCEPTUAL_GEOMETRY_ASSUMPTION": {
       "repair_uri": "subactor://process/repair/project-integrity/replace-conceptual-geometry",
       "oql": "geometry.compile",

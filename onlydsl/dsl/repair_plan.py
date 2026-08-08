@@ -42,8 +42,10 @@ def validate_repair_plan(plan: RepairPlan) -> list[str]:
     task_ids = {task.id for task in plan.tasks}
     if len(task_ids) != len(plan.tasks):
         errors.append("TASK ids must be unique")
-    if not plan.tasks:
+    if not plan.tasks and plan.status != "no-action":
         errors.append("at least one TASK is required")
+    if plan.tasks and plan.status == "no-action":
+        errors.append("no-action plan cannot contain TASKs")
     for task in plan.tasks:
         if not task.target or not task.evidence or not task.operation or not task.expected_result or not task.acceptance or not task.rollback or not task.authority_class:
             errors.append(f"TASK {task.id} has an empty required field")

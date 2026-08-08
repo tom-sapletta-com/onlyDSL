@@ -606,16 +606,19 @@ SCHEMA buildplanddsl.v1
 ROOT BUILD_PLAN <twin-id>
 REQUIRE FROM_REVISION <integer>
 REQUIRE FROM_TWIN_HASH sha256:<64hex>
+NOTE FROM_REVISION_and_FROM_TWIN_HASH_are_rebound_by_runtime_to_the_current_Twin
 REPEAT BLOCK PHASE <id>
   REQUIRE PURPOSE <json-string>
   REPEAT BLOCK TASK <id>
     REQUIRE TARGET_URI ifuri://<context>/<entity>/<identity>/<kind>/<operation>
-    REQUIRE EVIDENCE [<source-id-or-evidence-set-uri>, ...]
+    REQUIRE EVIDENCE <json-array-of-quoted-source-id-or-evidence-set-uri-strings>
+    EXAMPLE EVIDENCE ["user_intent", "urn:subactor:evidence-set:sha256:0123456789abcdef"]
     REQUIRE OPERATION <oql-operation-matching-target-operation>
     REQUIRE EXPECTED_RESULT <json-string>
     REQUIRE ACCEPTANCE <json-string>
     REQUIRE ROLLBACK <json-string>
-    REQUIRE DEPENDS_ON [<task-id>, ...]
+    REQUIRE DEPENDS_ON <json-array-of-quoted-task-id-strings-or-empty-array>
+    EXAMPLE DEPENDS_ON []
     REQUIRE AUTHORITY_CLASS <id>
   END_TASK
 END_PHASE

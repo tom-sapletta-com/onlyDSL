@@ -1,4 +1,4 @@
-# IFURI Digital Twin Lab 0.4 — test report
+# onlyDSL 0.0.5 — test report
 
 Date: 2026-08-08
 
@@ -19,7 +19,7 @@ python3 -m unittest discover -s tests -v
 Result:
 
 ```text
-Ran 73 tests
+Ran 76 tests
 OK
 ```
 
@@ -70,7 +70,7 @@ LLM_BACKEND=demo
 Verified sequence:
 
 ```text
-GET  /api/health                 -> 0.4.0
+GET  /api/health                 -> 0.0.5
 POST /api/twin/bootstrap         -> TwinDSL revision 1, VALID
 GET  /api/twin/sources           -> 2 Markdown documents, SourceIndexDSL VALID
 POST /api/twin/update            -> TwinDSL revision 2, VALID, 3 provenance sources

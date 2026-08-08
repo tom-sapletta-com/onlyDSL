@@ -72,6 +72,17 @@ class EvolutionDslTests(unittest.TestCase):
         self.assertIn("NOTE suggestion_is_not_authority", diagnostic["markdown"])
         unknown = diagnose_incident("runtime reports ok=true without an error code", "no-error")
         self.assertEqual(unknown["action"], "manual")
+        backend = diagnose_incident("GEOMETRY_OPENSCAD_BACKEND_REQUIRED", "cad-backend")
+        self.assertEqual(backend["code"], "GEOMETRY_OPENSCAD_BACKEND_REQUIRED")
+        self.assertEqual(backend["action"], "manual", "the model cannot install or alter the runtime backend")
+        mixed = diagnose_incident("OBSERVATION_UNIT_MIXED_FORBIDDEN:environment/current.json", "units")
+        self.assertEqual(mixed["code"], "OBSERVATION_UNIT_MIXED_FORBIDDEN")
+        self.assertIn("bind_exact_unit_per_metric", mixed["markdown"])
+        drift = diagnose_incident("GEOMETRY_REFERENCE_EXTENT_DRIFT: actual=14mm reference=18mm", "cad-drift")
+        self.assertEqual(drift["code"], "GEOMETRY_REFERENCE_EXTENT_DRIFT")
+        self.assertEqual(drift["action"], "manual")
+        self.assertIn("REQUIRED_URI_PROCESS process://twin/geometry/reconcile-source-evidence", drift["markdown"])
+        self.assertIn("FORBID weaken_aql_or_validation", drift["markdown"])
 
     def test_policy_rate_limit_is_deferred_without_calling_llm(self):
         with tempfile.TemporaryDirectory() as td:

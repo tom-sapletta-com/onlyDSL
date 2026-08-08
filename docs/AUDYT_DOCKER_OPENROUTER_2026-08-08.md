@@ -1,7 +1,7 @@
 # Audyt uruchomienia Docker i OpenRouter
 
 Data testu: 2026-08-08 (Europe/Warsaw)  
-Wersja aplikacji: 0.4.0  
+Wersja aplikacji w bieżącym drzewie: 0.0.5  
 Commit bazowy: `45c6031`
 
 ## Podsumowanie
@@ -12,11 +12,11 @@ Ocena ogólna: **dobry, fail-closed POC kontraktów DSL/IFURI, jeszcze nie gotow
 
 ## Aktualizacja po wdrożeniu poprawek
 
-Po pierwotnym audycie uparametryzowano porty i bind do `127.0.0.1`, ograniczono kontekst obrazu, naprawiono `PYTHONPATH` integracji oraz dodano healthchecki. Profil `onlydsl-evolution` jest obecnie uruchomiony w trybie `apply`: `live-app` jest healthy pod `127.0.0.1:18787`, kolejka aktywna jest pusta, a agent ma skonfigurowany OpenRouter (`qwen/qwen3-coder-next`, klucz obecny, bez ujawnienia wartości).
+Po pierwotnym audycie uparametryzowano porty i bind do `127.0.0.1`, ograniczono kontekst obrazu, naprawiono `PYTHONPATH` integracji oraz dodano healthchecki. Profil `onlydsl-evolution` jest obecnie uruchomiony w trybie `observe`: `live-app` jest healthy pod `127.0.0.1:18787`, kolejka aktywna jest pusta, a agent ma skonfigurowany OpenRouter (`qwen/qwen3-coder-next`, klucz obecny, bez ujawnienia wartości).
 
 Pętla napraw została przebudowana według warstw operacyjnych Subactor. AQL jest jedynym źródłem uprawnień, OQL nie zawiera transportu, URI pochodzą wyłącznie z systemowego process pack, EQL/DOQL są read-only, a wynik wiąże Process Envelope v2 i receipt SODL. Wszystkie cztery pliki process pack przechodzą oryginalne JSON Schema z projektu Subactor. Model nie może generować wykonywanych poleceń, wybierać URI/vault ani modyfikować kontraktu, process pack, dziennika audytowego i kernela governance.
 
-Aktualny zestaw lokalny: **64/64 testów PASS**. Dodatkowy odbiór TestQL przechodzi dla onlyDSL oraz Digital Twin pod portem 7444. Dashboard twin udostępnia append-only event log i dokumenty DSL przez `/api/events` oraz `/api/dsl`; pełny `TestQLDSL` jest wejściem następnej iteracji jako tekst. Widok dashboardu jest także osadzony read-only w głównym UI na porcie 18787. Status pokazuje wersję wydania, wersję schematu i rewizję TwinDSL oraz czas i numer ostatniej iteracji naprawczej. Deterministyczny katalog diagnostyczny rozróżnia bezpieczne patche od `defer` i `manual`, dzięki czemu odmowa AQL, limit autonomii lub timeout nie uruchamiają nieuzasadnionej zmiany kodu przez LLM. Historyczne wyniki poniżej pozostają zapisane jako stan zastany z chwili pierwszego audytu; w szczególności pełny smoke TwinDSL przez `~openai/gpt-latest` nadal dokumentuje realny, poprawnie odrzucony wynik dostawcy.
+Aktualny zestaw lokalny: **76/76 testów onlyDSL PASS** oraz **79/79 testów twin-dsl PASS**. Natywna paczka TestQL ma `66 PASS, 1 SKIP`; odbiór startup onlyDSL przechodzi `18/18`, a Digital Twin `20/21`. Jedyny czerwony warunek jest oczekiwany: TestQL potwierdza `iteration.validation.ok=false`, ponieważ kandydat ma rzeczywisty `GEOMETRY_REFERENCE_EXTENT_DRIFT` (14 mm ze SCAD wobec 18 mm z referencyjnego STEP/GLB). Dashboard twin udostępnia append-only event log i dokumenty DSL przez `/api/events` oraz `/api/dsl`; pełny `TestQLDSL` jest wejściem następnej iteracji jako tekst. Widok dashboardu jest także osadzony read-only w głównym UI na porcie 18787. Status pokazuje wersję wydania, wersję schematu i rewizję TwinDSL oraz czas i numer ostatniej iteracji naprawczej. Deterministyczny katalog diagnostyczny rozróżnia bezpieczne patche od `defer` i `manual`, dzięki czemu odmowa AQL, limit autonomii, konflikt dowodów lub timeout nie uruchamiają nieuzasadnionej zmiany przez LLM. Historyczne wyniki poniżej pozostają zapisane jako stan zastany z chwili pierwszego audytu.
 
 ## Zakres i wyniki testów
 

@@ -8,6 +8,7 @@ from typing import Callable
 from aql import AqlContract
 from governance import canonical_hash
 from onlydsl.dsl.repair_plan import RepairPlan, RepairTask, render_repair_plan
+from onlydsl.dsl.assumption import AssumptionDocument, assumptions_from_integrity, render_assumptions
 from onlydsl.governance.authority_projection import AuthorityProjection, project_authority, render_authority_projection
 from onlydsl.runtime.integrity import ProjectIntegrity, parse_project_integrity
 
@@ -15,6 +16,7 @@ from onlydsl.runtime.integrity import ProjectIntegrity, parse_project_integrity
 @dataclass(frozen=True, slots=True)
 class RepairCycle:
     integrity: ProjectIntegrity
+    assumptions: AssumptionDocument
     plan: RepairPlan
     authority: AuthorityProjection
 
@@ -23,6 +25,7 @@ class RepairCycle:
             "schema": "onlydsl.project-integrity-repair-cycle/v2",
             "status": "authorized",
             "integrity": asdict(self.integrity),
+            "assumption_markdown": render_assumptions(self.assumptions),
             "repair_plan_markdown": render_repair_plan(self.plan),
             "authority_projection_markdown": render_authority_projection(self.authority),
         }
@@ -59,7 +62,7 @@ def plan_integrity_repairs(
     plan_id = "closure-" + integrity.source_hash.split(":")[-1][:16]
     plan = RepairPlan(plan_id, integrity.project_id, twin_revision, integrity.source_hash, "authorized" if tasks else "no-action", tuple(tasks))
     authority = project_authority(contract, twin_id=integrity.project_id, from_revision=twin_revision, operations=operations, principal=principal)
-    return RepairCycle(integrity, plan, authority)
+    return RepairCycle(integrity, assumptions_from_integrity(integrity), plan, authority)
 
 
 def execute_repair_cycle(
