@@ -30,10 +30,15 @@ class DiagnosticRule:
 # suggest an already registered OQL/URI pair, but never grant authority.
 RULES = (
     DiagnosticRule(
-        "DEVELOPMENT_EVIDENCE_NOT_ACCEPTED", (r"DEVELOPMENT_EVIDENCE_NOT_ACCEPTED", r"Development evidence acceptance is rejected", r"PLANNED_NOT_IMPLEMENTED"),
+        "DEVELOPMENT_EVIDENCE_NOT_ACCEPTED", (
+            r"DEVELOPMENT_EVIDENCE_NOT_ACCEPTED", r"Development evidence acceptance is rejected",
+            r"PLANNED_NOT_IMPLEMENTED", r"TODO2CODE_RESULT_CONTRACT_INVALID",
+            r"DSL_INVALID:.*development-evidence\.dsl", r"development evidence semantic identity",
+            r"development evidence cannot grant authority",
+        ),
         "development_evidence", "manual", "high",
-        "A blocking development diagnostic has no accepted Git, AST, ticket-to-symbol or equivalent implementation evidence.",
-        "Repair or correctly link the claimed implementation and rerun the evidence linker; never weaken acceptance or mark planned work complete without proof.",
+        "Development evidence is incomplete, malformed, tampered with, or has no accepted Git, AST, ticket-to-symbol or equivalent implementation evidence.",
+        "Repair or correctly link and rematerialize the evidence bundle, then rerun the evidence linker; never weaken acceptance or mark planned work complete without proof.",
         "development-evidence.repair", "process://twin/development-evidence/repair",
         ("blocking_diagnostics_zero", "implementation_evidence_linked", "development_acceptance_accepted"),
         ("inspect_blocking_development_diagnostics", "link_ticket_symbol_or_ast_evidence", "rerun_todo2code_and_integrity"),

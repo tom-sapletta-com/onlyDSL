@@ -70,6 +70,16 @@ class EvolutionDslTests(unittest.TestCase):
         self.assertIn("CANDIDATE_PATH \"testql/adapters/testtoon_adapter.py\"", diagnostic["markdown"])
         self.assertIn("SOLUTION_STEP 1 inspect_import_chain", diagnostic["markdown"])
         self.assertIn("NOTE suggestion_is_not_authority", diagnostic["markdown"])
+
+    def test_tampered_development_bundle_routes_to_evidence_repair_not_execution(self):
+        diagnostic = diagnose_incident(
+            "DSL_INVALID:development/todo2code/firmware/development-evidence.dsl:"
+            "ControlDslError:development evidence cannot grant authority",
+            "bundle-one",
+        )
+        self.assertEqual(diagnostic["code"], "DEVELOPMENT_EVIDENCE_NOT_ACCEPTED")
+        self.assertIn("REQUIRED_OQL development-evidence.repair", diagnostic["markdown"])
+        self.assertIn("FORBID execute_model_supplied_commands", diagnostic["markdown"])
         unknown = diagnose_incident("runtime reports ok=true without an error code", "no-error")
         self.assertEqual(unknown["action"], "manual")
         backend = diagnose_incident("GEOMETRY_OPENSCAD_BACKEND_REQUIRED", "cad-backend")
