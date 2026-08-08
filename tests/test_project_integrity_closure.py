@@ -180,6 +180,16 @@ END_PARAMETER_CONTRACTS
         self.assertIn("model_cannot_create_or_modify_authority", authority)
         self.assertIn("ASSUMPTION conceptual-geometry-assumption-biospec-bioreactor-01-1", cycle.to_dict()["assumption_markdown"])
 
+    def test_repair_plan_identity_is_append_only_across_twin_revisions(self):
+        contract = AqlContract.from_file(ROOT / "config/contracts/evolution-agent.contract.aql")
+        registry = load_repair_registry(ROOT)
+        revision_three = plan_integrity_repairs(integrity(), twin_revision=3, contract=contract, registry=registry)
+        revision_four = plan_integrity_repairs(integrity(), twin_revision=4, contract=contract, registry=registry)
+        self.assertNotEqual(revision_three.plan.id, revision_four.plan.id)
+        self.assertTrue(revision_three.plan.id.startswith("closure-r3-"))
+        self.assertTrue(revision_four.plan.id.startswith("closure-r4-"))
+        self.assertEqual(revision_three.plan.from_integrity_hash, revision_four.plan.from_integrity_hash)
+
     def test_e2e_finding_to_authorized_process_testql_eql_and_closed_iteration(self):
         contract = AqlContract.from_file(ROOT / "config/contracts/evolution-agent.contract.aql")
         cycle = plan_integrity_repairs(integrity(), twin_revision=3, contract=contract, registry=load_repair_registry(ROOT))
@@ -220,6 +230,33 @@ END_PROJECT_INTEGRITY
         self.assertEqual(task.uri_process, "process://twin/geometry/reconcile-source-evidence")
         self.assertIn("without widening tolerance", task.acceptance)
         self.assertEqual(task.authority_class, "physical-evidence-conflict")
+
+    def test_rejected_development_evidence_routes_to_system_owned_repair(self):
+        markdown = """```projectintegritydsl
+PROJECT_INTEGRITY laboratory
+METHOD deterministic-cross-layer
+COVERAGE LAYERS 8/8 DEPENDENCIES 4/6 PARAMETERS 183/183 ASSUMPTIONS 0/1
+COMPLETENESS INCOMPLETE
+FINDING DEVELOPMENT_EVIDENCE_NOT_ACCEPTED SEVERITY ERROR CATEGORY inconsistency LAYER development
+  SUBJECTS ["development-evidence"]
+  EVIDENCE ["urn:todo2code:diagnostic:PLANNED_NOT_IMPLEMENTED"]
+  REPAIR subactor://process/repair/project-integrity/repair-development-evidence
+  MESSAGE "a completed claim has no Git or AST implementation proof"
+END_FINDING
+RESULT FAIL
+END_PROJECT_INTEGRITY
+```"""
+        cycle = plan_integrity_repairs(
+            markdown, twin_revision=51,
+            contract=AqlContract.from_file(ROOT / "config/contracts/evolution-agent.contract.aql"),
+            registry=load_repair_registry(ROOT),
+        )
+        task = cycle.plan.tasks[0]
+        self.assertEqual(task.operation, "development-evidence.repair")
+        self.assertEqual(task.uri_process, "process://twin/development-evidence/repair")
+        self.assertIn("rules pass unchanged", task.acceptance)
+        self.assertEqual(task.authority_class, "development-evidence")
+        self.assertIn("OWNERSHIP system", cycle.to_dict()["authority_projection_markdown"])
 
     def test_web_control_plane_exposes_live_integrity_to_repair_plan(self):
         html = (ROOT / "static/index.html").read_text(encoding="utf-8")

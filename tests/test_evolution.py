@@ -83,6 +83,27 @@ class EvolutionDslTests(unittest.TestCase):
         self.assertEqual(drift["action"], "manual")
         self.assertIn("REQUIRED_URI_PROCESS process://twin/geometry/reconcile-source-evidence", drift["markdown"])
         self.assertIn("FORBID weaken_aql_or_validation", drift["markdown"])
+        metadata = diagnose_incident(
+            "DEVELOPMENT_EXECUTION_METADATA_DRIFT: developmentFingerprint changed while resource diff unchanged",
+            "metadata-drift",
+        )
+        self.assertEqual(metadata["code"], "DEVELOPMENT_EXECUTION_METADATA_DRIFT")
+        self.assertIn("replay_two_unchanged_iterations", metadata["markdown"])
+        duplicate = diagnose_incident(
+            "DUPLICATE_TWIN_ITERATION_WRITER: two watchers write one .living-runtime",
+            "duplicate-writer",
+        )
+        self.assertEqual(duplicate["code"], "DUPLICATE_TWIN_ITERATION_WRITER")
+        self.assertEqual(duplicate["action"], "manual")
+        self.assertIn("VERIFY one_writer_per_runtime", duplicate["markdown"])
+        development = diagnose_incident(
+            "DEVELOPMENT_EVIDENCE_NOT_ACCEPTED: PLANNED_NOT_IMPLEMENTED has no Git/AST proof",
+            "development-evidence",
+        )
+        self.assertEqual(development["code"], "DEVELOPMENT_EVIDENCE_NOT_ACCEPTED")
+        self.assertEqual(development["action"], "manual")
+        self.assertIn("REQUIRED_OQL development-evidence.repair", development["markdown"])
+        self.assertIn("VERIFY development_acceptance_accepted", development["markdown"])
 
     def test_policy_rate_limit_is_deferred_without_calling_llm(self):
         with tempfile.TemporaryDirectory() as td:

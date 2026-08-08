@@ -30,6 +30,33 @@ class DiagnosticRule:
 # suggest an already registered OQL/URI pair, but never grant authority.
 RULES = (
     DiagnosticRule(
+        "DEVELOPMENT_EVIDENCE_NOT_ACCEPTED", (r"DEVELOPMENT_EVIDENCE_NOT_ACCEPTED", r"Development evidence acceptance is rejected", r"PLANNED_NOT_IMPLEMENTED"),
+        "development_evidence", "manual", "high",
+        "A blocking development diagnostic has no accepted Git, AST, ticket-to-symbol or equivalent implementation evidence.",
+        "Repair or correctly link the claimed implementation and rerun the evidence linker; never weaken acceptance or mark planned work complete without proof.",
+        "development-evidence.repair", "process://twin/development-evidence/repair",
+        ("blocking_diagnostics_zero", "implementation_evidence_linked", "development_acceptance_accepted"),
+        ("inspect_blocking_development_diagnostics", "link_ticket_symbol_or_ast_evidence", "rerun_todo2code_and_integrity"),
+    ),
+    DiagnosticRule(
+        "DEVELOPMENT_EXECUTION_METADATA_DRIFT", (r"DEVELOPMENT_EXECUTION_METADATA_DRIFT", r"developmentFingerprint.*(?:changed|drift).*diff.*unchanged", r"todo2code.*fingerprint.*generatedAt"),
+        "determinism", "patch", "high",
+        "Execution-only todo2code metadata changed the declared graph fingerprint while semantic records and source resources remained unchanged.",
+        "Recompute the development fingerprint from semantic records, relations, diagnostics and stable configuration; exclude timestamps, run IDs and execution hashes.",
+        "code.change", "repo://workspace/source/command/patch",
+        ("identical_semantics_same_fingerprint", "changed_record_changes_fingerprint", "second_iteration_no_change"),
+        ("compare_consecutive_receipt_fingerprints", "remove_execution_metadata_from_semantic_hash", "replay_two_unchanged_iterations"),
+    ),
+    DiagnosticRule(
+        "DUPLICATE_TWIN_ITERATION_WRITER", (r"DUPLICATE_TWIN_ITERATION_WRITER", r"multiple.*dashboard.*same.*runtime", r"two.*(?:writers|watchers).*living-runtime"),
+        "concurrency", "manual", "high",
+        "More than one iteration controller writes to the same living-runtime directory; divergent todo2code/provider profiles can alternate facts even when source files are unchanged.",
+        "Elect one writer with a stable capability fingerprint and keep additional dashboards read-only; do not let the model resolve process leadership.",
+        "none", "none",
+        ("one_writer_per_runtime", "elected_writer_profile_stable", "secondary_dashboard_read_only", "event_stream_monotonic"),
+        ("identify_runtime_writers", "compare_writer_capability_fingerprints", "stop_or_demote_duplicate_writer", "verify_stable_event_stream"),
+    ),
+    DiagnosticRule(
         "GEOMETRY_REFERENCE_EXTENT_DRIFT", (r"GEOMETRY_REFERENCE_EXTENT_DRIFT", r"geometry-reference-extent-drift"),
         "physical_evidence_conflict", "manual", "high",
         "The compiled source geometry and its registered reference asset disagree beyond the exact extent tolerance.",

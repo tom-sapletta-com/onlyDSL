@@ -1,7 +1,7 @@
 # Audyt uruchomienia Docker i OpenRouter
 
-Data testu: 2026-08-08 (Europe/Warsaw)  
-Wersja aplikacji w bieżącym drzewie: 0.0.5  
+Data testu: 2026-08-08 (Europe/Warsaw)
+Wersja aplikacji w bieżącym drzewie: 0.0.6
 Commit bazowy: `45c6031`
 
 ## Podsumowanie
@@ -16,7 +16,7 @@ Po pierwotnym audycie uparametryzowano porty i bind do `127.0.0.1`, ograniczono 
 
 Pętla napraw została przebudowana według warstw operacyjnych Subactor. AQL jest jedynym źródłem uprawnień, OQL nie zawiera transportu, URI pochodzą wyłącznie z systemowego process pack, EQL/DOQL są read-only, a wynik wiąże Process Envelope v2 i receipt SODL. Wszystkie cztery pliki process pack przechodzą oryginalne JSON Schema z projektu Subactor. Model nie może generować wykonywanych poleceń, wybierać URI/vault ani modyfikować kontraktu, process pack, dziennika audytowego i kernela governance.
 
-Aktualny zestaw lokalny: **76/76 testów onlyDSL PASS** oraz **79/79 testów twin-dsl PASS**. Natywna paczka TestQL ma `66 PASS, 1 SKIP`; odbiór startup onlyDSL przechodzi `18/18`, a Digital Twin `20/21`. Jedyny czerwony warunek jest oczekiwany: TestQL potwierdza `iteration.validation.ok=false`, ponieważ kandydat ma rzeczywisty `GEOMETRY_REFERENCE_EXTENT_DRIFT` (14 mm ze SCAD wobec 18 mm z referencyjnego STEP/GLB). Dashboard twin udostępnia append-only event log i dokumenty DSL przez `/api/events` oraz `/api/dsl`; pełny `TestQLDSL` jest wejściem następnej iteracji jako tekst. Widok dashboardu jest także osadzony read-only w głównym UI na porcie 18787. Status pokazuje wersję wydania, wersję schematu i rewizję TwinDSL oraz czas i numer ostatniej iteracji naprawczej. Deterministyczny katalog diagnostyczny rozróżnia bezpieczne patche od `defer` i `manual`, dzięki czemu odmowa AQL, limit autonomii, konflikt dowodów lub timeout nie uruchamiają nieuzasadnionej zmiany przez LLM. Historyczne wyniki poniżej pozostają zapisane jako stan zastany z chwili pierwszego audytu.
+Aktualny zestaw lokalny: **78/78 testów onlyDSL PASS** oraz **81/81 testów twin-dsl PASS**. Natywna paczka TestQL ma `66 PASS, 1 SKIP`; odbiór startup onlyDSL przechodzi `18/18`, a Digital Twin `20/21`. Jedyny czerwony warunek jest oczekiwany: TestQL potwierdza `iteration.validation.ok=false`, ponieważ kandydat ma rzeczywisty `GEOMETRY_REFERENCE_EXTENT_DRIFT` (14 mm ze SCAD wobec 18 mm z referencyjnego STEP/GLB). Dashboard twin udostępnia append-only event log i dokumenty DSL przez `/api/events` oraz `/api/dsl`; pełny `TestQLDSL` jest wejściem następnej iteracji jako tekst. Widok dashboardu jest także osadzony read-only w głównym UI na porcie 18787. Port 7444 technicznie blokuje mutacje, a jedyny writer 7445 korzysta z todo2code, dzięki czemu replika inspekcyjna nie przełącza dowodu deweloperskiego na fixture. Status pokazuje wersję wydania, wersję schematu i rewizję TwinDSL oraz czas i numer ostatniej iteracji naprawczej. Deterministyczny katalog diagnostyczny rozróżnia bezpieczne patche od `defer` i `manual`, dzięki czemu odmowa AQL, limit autonomii, konflikt dowodów, odrzucony dowód deweloperski lub timeout nie uruchamiają nieuzasadnionej zmiany przez LLM. Historyczne wyniki poniżej pozostają zapisane jako stan zastany z chwili pierwszego audytu.
 
 ## Zakres i wyniki testów
 
@@ -185,9 +185,15 @@ Surowy tekst użytkownika i zawartość Markdown nadal trafiają do modelu, tylk
 
 Należy dodać poziomy zaufania źródeł, reguły pierwszeństwa, jawne oznaczenie danych jako nieinstrukcyjnych, testy prompt injection i walidację semantyczną zmian względem polityki domenowej.
 
-### 4. BuildPlanDSL ma zbyt płytką walidację
+### 4. BuildPlanDSL — stan pierwotny naprawiony, executor nadal do domknięcia
 
-Walidator sprawdza głównie envelope, obecność dowolnego `FROM_REVISION`, przynajmniej jednej fazy i składnię znalezionych URI. Nie parsuje pełnej struktury bloków, nie wymaga pól taska, nie porównuje `FROM_REVISION` z aktualnym twin i nie sprawdza evidence względem źródeł twin. Niepoprawny albo pusty plan może przejść kontrolę.
+Pierwotny walidator sprawdzał głównie envelope i dowolne `FROM_REVISION`. Closure
+v2 wymaga już dokładnych `FROM_REVISION`, `FROM_TWIN_HASH`, `TARGET`, `EVIDENCE`,
+`OPERATION`, `EXPECTED_RESULT`, `ACCEPTANCE`, `ROLLBACK`, `DEPENDS_ON` i
+`AUTHORITY_CLASS`, a plan jest porównywany z bieżącym Twin. Pozostała praca
+produkcyjna polega na związaniu każdego rzeczywistego executora z tym samym
+hashem, AQL preflight oraz append-only TestQL/EQL receipt — nie na dalszym
+rozluźnianiu parsera.
 
 ### 5. SourceIndexDSL nie jest w pełni deterministyczny
 

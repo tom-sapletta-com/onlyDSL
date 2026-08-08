@@ -59,7 +59,10 @@ def plan_integrity_repairs(
             mapping["expected_result"], mapping["acceptance"], mapping["rollback"], (), mapping["authority_class"],
         ))
         operations.append((mapping["oql"], mapping["uri_process"]))
-    plan_id = "closure-" + integrity.source_hash.split(":")[-1][:16]
+    # The same unresolved finding can legitimately survive several Twin revisions.
+    # Revision is therefore part of identity; otherwise a later plan overwrites the
+    # earlier receipt even though its authority projection was bound to another Twin.
+    plan_id = f"closure-r{twin_revision}-" + integrity.source_hash.split(":")[-1][:16]
     plan = RepairPlan(plan_id, integrity.project_id, twin_revision, integrity.source_hash, "authorized" if tasks else "no-action", tuple(tasks))
     authority = project_authority(contract, twin_id=integrity.project_id, from_revision=twin_revision, operations=operations, principal=principal)
     return RepairCycle(integrity, assumptions_from_integrity(integrity), plan, authority)

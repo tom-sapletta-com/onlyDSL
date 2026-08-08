@@ -3,6 +3,15 @@
   "owner": "organization:constitutional-authority",
   "model_may_generate_uri": false,
   "findings": {
+    "DEVELOPMENT_EVIDENCE_NOT_ACCEPTED": {
+      "repair_uri": "subactor://process/repair/project-integrity/repair-development-evidence",
+      "oql": "development-evidence.repair",
+      "uri_process": "process://twin/development-evidence/repair",
+      "expected_result": "Every completed development claim is linked to accepted Git, AST, ticket-to-symbol or equivalent implementation evidence and blocking diagnostics are resolved.",
+      "acceptance": "The original evidence acceptance rules pass unchanged, blocking diagnostics equal zero and DEVELOPMENT_EVIDENCE_NOT_ACCEPTED disappears.",
+      "rollback": "Preserve the rejected evidence receipt and restore the previous accepted development graph.",
+      "authority_class": "development-evidence"
+    },
     "GEOMETRY_REFERENCE_EXTENT_DRIFT": {
       "repair_uri": "subactor://process/repair/geometry/reconcile-source-evidence",
       "oql": "geometry.reconcile",

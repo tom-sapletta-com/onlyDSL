@@ -67,6 +67,9 @@ ProjectIntegrityDSL from live 7444
 `POST /api/integrity/repair-plan` re-reads the live report before planning. A supplied stale
 document or revision is rejected. Plans are stored below
 `runtime/evolution/repair-plans/`. The model cannot supply or replace the selected process URI.
+Plan identity includes both the exact Twin revision and the integrity hash. The
+same unresolved physical contradiction therefore creates an append-only plan per
+revision instead of overwriting an earlier authority projection.
 
 `GET /api/integrity/current` also projects the live downstream Twin into SpatialClassDSL,
 converts every `ungrounded-assumption` finding into an addressable AssumptionDSL record, exposes
@@ -105,6 +108,9 @@ The system-owned catalog recognizes the closure boundary directly:
 - `GEOMETRY_VALIDATION_INCOMPLETE` requests grounded evidence and forbids synthesizing a passing pose;
 - `CONCEPTUAL_GEOMETRY_ASSUMPTION` selects the registered CAD compile process;
 - `GEOMETRY_REFERENCE_EXTENT_DRIFT` selects system reconciliation, remains `manual`, and explicitly forbids widening tolerance to manufacture a pass;
+- `DEVELOPMENT_EVIDENCE_NOT_ACCEPTED` requires accepted Git/AST/ticket-to-symbol implementation evidence and never permits weakening the acceptance rules;
+- `DEVELOPMENT_EXECUTION_METADATA_DRIFT` detects a changed todo2code execution hash when semantic records and the resource diff are unchanged;
+- `DUPLICATE_TWIN_ITERATION_WRITER` requires one elected writer per `.living-runtime` and keeps secondary dashboards read-only;
 - `OBSERVATION_UNIT_MIXED_FORBIDDEN` requires exact per-metric units;
 - `SPATIAL_CLASS_INVALID` repairs the ontology contract while preserving identity;
 - `SEMANTIC_MATH_AUTHORITY_FIELD_FORBIDDEN` keeps the audited deterministic fallback.
@@ -132,14 +138,68 @@ The evaluator distinguishes:
 - a valid parameter value from a complete domain contract;
 - a current published artifact from an unpublishable candidate.
 
+### 3D conformance is an evidence proof
+
+Text does not become trustworthy 3D merely because a renderer can draw it. The
+pipeline uses distinct contracts:
+
+```text
+TwinDSL component + SpatialClassDSL type requirements
+  -> ParameterContractDSL units and ranges
+  -> hierarchy/assembly relations (PART_OF, MOUNTED_ON, CONNECTED_TO)
+  -> grounded CAD/IFC/measurement evidence in one coordinate frame
+  -> SceneDSL binding with stable component and scene identity
+  -> GeometryValidationDSL pose, extent, orientation and constraint checks
+  -> renderer/OpenUSD artifact
+  -> TestQL comparison against the exact validation receipt
+```
+
+Position and extent are valid only when their unit and coordinate system match.
+Orientation is a normalized quaternion with an explicit tolerance, not a label
+such as "front". Constraints such as containment, clearance, mounting and
+collision are evaluated only when the component type requires them. Cyber and
+logical components are forbidden from manufacturing physical completeness just
+because the dashboard draws an overlay for them.
+
+This proves that the displayed artifact conforms to supplied evidence and rules;
+it cannot prove that an unmeasured laboratory object is physically correct. That
+last step requires a released CAD/IFC revision, survey or measurement. The 14 mm
+versus 18 mm lid conflict is intentionally blocked for exactly this reason.
+
 This makes hidden assumptions addressable. An error cannot disappear merely
 because another layer has a green result: its replacement condition must be met,
 evidence hashes must change consistently, dependent tasks must be accepted and a
 new TestQL/EQL receipt must be appended.
 
+Iteration identity is semantic. todo2code timestamps, run IDs, durations and its
+declared graph hash are excluded because some provider versions derive that hash
+from execution metadata. The control plane recalculates a stable hash from
+records, relations, diagnostics, stable configuration and acceptance. A changed
+record still creates a new revision; repeating the same analysis does not.
+
+The same rule applies to process topology: several read-only dashboards are
+allowed, but only one controller may write a given `.living-runtime`. A duplicate
+writer is a concurrency diagnostic, not permission for an LLM-generated process
+command.
+
+The embedded dashboard on port 7444 now enforces this rule: its state declares
+`control.mode=read-only`, while mutation endpoints return
+`403 DASHBOARD_READ_ONLY` with `DUPLICATE_TWIN_ITERATION_WRITER`. The elected
+controller on 7445 carries the todo2code configuration. This prevents an
+inspection replica without `T2C_BIN` from alternating the development layer
+between real evidence and a fixture.
+
+Development acceptance is evaluated in the same way. Iteration 51 exposed a
+`PLANNED_NOT_IMPLEMENTED` diagnostic for a claim marked complete without Git or
+AST proof, producing `DEVELOPMENT_EVIDENCE_NOT_ACCEPTED`. A subsequent input
+revision supplied accepted evidence and the finding disappeared. The diagnostic
+is nevertheless retained in the system catalog and process registry so a repeat
+routes to `process://twin/development-evidence/repair`; it cannot be "repaired"
+by changing an acceptance threshold or by relabeling planned work as complete.
+
 ## Live verification on 2026-08-08
 
-The running nanobionic laboratory candidate currently reports:
+At stream revision 56 the running nanobionic laboratory candidate reports:
 
 ```text
 Integrity          FAIL
@@ -171,3 +231,8 @@ and scene remain current. The system-owned repair URI is
 whether 14 mm or 18 mm is physically authoritative. A released CAD revision or a
 measurement must make that decision, after which the normal compile, TestQL, EQL
 and ProjectIntegrity cycle can publish a new iteration.
+
+An unchanged replay after revision 56 produced `BLOCKED / NO CHANGE` and did not
+append event 57. This proves that a stable todo2code graph plus generated feedback
+does not self-excite the loop; the existing physical blocker remains visible
+without manufacturing another revision.

@@ -1,4 +1,4 @@
-# onlyDSL 0.0.5 — test report
+# onlyDSL 0.0.6 — test report
 
 Date: 2026-08-08
 
@@ -19,7 +19,7 @@ python3 -m unittest discover -s tests -v
 Result:
 
 ```text
-Ran 76 tests
+Ran 78 tests
 OK
 ```
 
@@ -58,6 +58,8 @@ Coverage includes:
 - SpatialClassDSL, AssumptionDSL, ParameterContractDSL and EvidenceSetDSL contracts,
 - system-owned AuthorityProjectionDSL and RepairPlanDSL,
 - ProjectIntegrity finding → AQL/OQL exact URI → TestQL/EQL → closure receipt E2E.
+- rejected development evidence → system-owned repair URI without weakening acceptance.
+- append-only RepairPlanDSL identity across equal findings on different Twin revisions.
 
 ## HTTP end-to-end test
 
@@ -70,7 +72,7 @@ LLM_BACKEND=demo
 Verified sequence:
 
 ```text
-GET  /api/health                 -> 0.0.5
+GET  /api/health                 -> 0.0.6
 POST /api/twin/bootstrap         -> TwinDSL revision 1, VALID
 GET  /api/twin/sources           -> 2 Markdown documents, SourceIndexDSL VALID
 POST /api/twin/update            -> TwinDSL revision 2, VALID, 3 provenance sources
@@ -117,7 +119,7 @@ The OpenRouter network path itself is covered by tests using a mocked HTTP respo
 
 ## Docker execution status
 
-Docker execution was verified on 2026-08-08. The regular stack and the guarded live-evolution profile built successfully. The evolution profile is currently healthy on `127.0.0.1:18787` with `EVOLUTION_MODE=apply` and an empty active incident queue.
+Docker execution was verified on 2026-08-08. The regular stack and the guarded live-evolution profile built successfully. The evolution profile is currently healthy on `127.0.0.1:18787` with `EVOLUTION_MODE=observe` and an empty active incident queue.
 
 The Compose file was parsed by the architecture test suite and includes:
 
