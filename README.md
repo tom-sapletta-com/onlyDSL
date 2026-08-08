@@ -21,19 +21,25 @@ The first reusable package boundary is now explicit:
 
 ```text
 packages/onlydsl-contracts  pure DSL, IFURI, SSOT models and schemas
+packages/onlydsl-core       capability routing, wire envelope, CQRS and ports
 onlyDSL                     governance, runtime, adapters and service composition
 ```
 
 `onlydsl-contracts` is independently buildable and has no runtime, transport,
 LLM or authority dependencies. Existing `onlydsl.dsl.*`, `ifuri_core.uri` and
 `onlydsl.ssot.model` imports remain compatibility facades, while new code may
-depend directly on `onlydsl_contracts`. A uv workspace keeps both distributions
-on the same version during this extraction phase.
+depend directly on `onlydsl_contracts`. A uv workspace keeps all extracted
+distributions on the same version during this extraction phase.
+
+`onlydsl-core` depends only on contracts and Protobuf. NATS, PostgreSQL, SQLite,
+filesystem artifacts, YAML file loading and the LLM gateway remain adapters in
+the runtime distribution.
 
 ```bash
 uv sync
 uv run pytest -q
 uv build --package onlydsl-contracts
+uv build --package onlydsl-core
 ```
 
 ## Project Integrity Closure v2

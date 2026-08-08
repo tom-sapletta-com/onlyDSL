@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "onlydsl-core"
+version = "0.0.8"
+description = "Transport-neutral IFURI routing and wire runtime for onlyDSL"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+dependencies = [
+  "onlydsl-contracts==0.0.8",
+  "protobuf>=6.30,<7",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

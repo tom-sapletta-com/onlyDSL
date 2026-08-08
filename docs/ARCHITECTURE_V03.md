@@ -43,6 +43,24 @@ PostgresEventStore
    projections / consumers
 ```
 
+## Python package boundaries
+
+```text
+onlydsl-contracts
+        ↓
+onlydsl-core
+        ↓ ports
+runtime adapters: in-process, NATS, PostgreSQL, SQLite, files, LLM
+        ↓
+onlyDSL service / evolution composition
+```
+
+`onlydsl-core` owns capability resolution, Protobuf envelopes and DSL
+documents, CQRS primitives, transport protocols and deterministic dispatch. It
+does not import the concrete adapter modules under `ifuri_core`. YAML/JSON file
+loading remains in the compatibility manifest adapter; the core registry starts
+from an already parsed mapping.
+
 ## Protobuf Envelope
 
 `packages/onlydsl-contracts/src/onlydsl_contracts/schemas/ifuri/v1/envelope.proto`

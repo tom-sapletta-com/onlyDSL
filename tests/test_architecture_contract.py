@@ -37,7 +37,8 @@ class ArchitectureContractTests(unittest.TestCase):
 
     def test_docker_image_installs_onlydsl_cli_entrypoint(self):
         dockerfile = (ROOT / "Dockerfile").read_text(encoding="utf-8")
-        self.assertIn("pip install --no-cache-dir --no-deps ./packages/onlydsl-contracts .", dockerfile)
+        self.assertIn("./packages/onlydsl-contracts", dockerfile)
+        self.assertIn("./packages/onlydsl-core", dockerfile)
         metadata = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
         self.assertEqual(metadata["project"]["scripts"]["onlydsl"], "onlydsl.cli:main")
 

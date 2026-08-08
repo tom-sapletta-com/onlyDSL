@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import Any, Iterable
 
-from .envelope import EnvelopeCodec, MessageKind
 from .event_store import ConcurrencyError, EventStoreError, OutboxItem
 from onlydsl_contracts.ifuri import IfUri
+from onlydsl_core.envelope import EnvelopeCodec, MessageKind
 
 
 SCHEMA_SQL = """

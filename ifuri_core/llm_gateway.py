@@ -9,9 +9,9 @@ from digital_twin import validate_buildplan_markdown, validate_twin_markdown
 from llm_client import analyze_context, bootstrap_twin, plan_build, propose_code_patch, provider_status, update_twin
 from source_ingest import validate_sourceindex_markdown
 
-from .dsl_document import make_dsl_document, validate_dsl_document
-from .dsl_pb2 import DslDocument
-from .envelope import EnvelopeCodec, MessageKind
+from onlydsl_core.dsl_document import make_dsl_document, validate_dsl_document
+from onlydsl_core.dsl_pb2 import DslDocument
+from onlydsl_core.envelope import EnvelopeCodec, MessageKind
 
 
 class LlmGatewayError(ValueError):

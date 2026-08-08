@@ -5,8 +5,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
-from .envelope import EnvelopeCodec, MessageKind
 from onlydsl_contracts.ifuri import IfUri
+from onlydsl_core.envelope import EnvelopeCodec, MessageKind
 
 
 class EventStoreError(RuntimeError):

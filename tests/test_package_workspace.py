@@ -8,6 +8,7 @@ import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACTS = ROOT / "packages/onlydsl-contracts"
+CORE = ROOT / "packages/onlydsl-core"
 FORBIDDEN_INTERNAL = {
     "aql", "boundary", "contextdsl", "diagnostics", "digital_twin",
     "evolution", "governance", "ifuri_core", "intentdsl", "llm_client",
@@ -51,9 +52,34 @@ def test_contract_package_is_dependency_free_and_versioned_with_runtime():
     expected = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
     assert root["tool"]["uv"]["workspace"]["members"] == ["packages/*"]
     assert root["tool"]["uv"]["sources"]["onlydsl-contracts"] == {"workspace": True}
+    assert root["tool"]["uv"]["sources"]["onlydsl-core"] == {"workspace": True}
     assert package["project"]["name"] == "onlydsl-contracts"
     assert package["project"]["dependencies"] == []
     assert package["project"]["version"] == expected
+
+
+def test_core_package_depends_only_on_contracts_and_protobuf():
+    package = tomllib.loads((CORE / "pyproject.toml").read_text(encoding="utf-8"))
+    expected = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+    assert package["project"]["name"] == "onlydsl-core"
+    assert package["project"]["version"] == expected
+    assert package["project"]["dependencies"] == [
+        "onlydsl-contracts==0.0.8", "protobuf>=6.30,<7",
+    ]
+
+
+def test_core_has_no_adapter_or_application_imports():
+    forbidden = FORBIDDEN_INTERNAL | {
+        "asyncio", "pathlib", "psycopg", "socket", "sqlite3", "subprocess", "yaml",
+    }
+    failures: list[str] = []
+    for path in sorted((CORE / "src/onlydsl_core").rglob("*.py")):
+        imported = imports(path)
+        roots = {name.split(".", 1)[0] for name in imported}
+        invalid = roots & forbidden
+        if invalid:
+            failures.append(f"{path.relative_to(ROOT)} imports {sorted(invalid)}")
+    assert not failures, "\n".join(failures)
 
 
 def test_canonical_schemas_are_distributed_as_package_data():
@@ -76,3 +102,22 @@ def test_legacy_imports_resolve_to_the_same_contract_types():
     assert LegacyIfUri is IfUri
     assert LegacyAssumption is AssumptionDocument
     assert LegacySsotManifest is SsotManifest
+
+
+def test_legacy_ifuri_core_imports_resolve_to_extracted_core():
+    from ifuri_core.cqrs import AggregateRoot as LegacyAggregateRoot
+    from ifuri_core.dsl_document import make_dsl_document as legacy_make_dsl_document
+    from ifuri_core.envelope import EnvelopeCodec as LegacyEnvelopeCodec
+    from ifuri_core.manifest import CapabilityRegistry as FileCapabilityRegistry
+    from ifuri_core.runtime import IfuriRuntime as LegacyIfuriRuntime
+    from onlydsl_core.capabilities import CapabilityRegistry
+    from onlydsl_core.cqrs import AggregateRoot
+    from onlydsl_core.dsl_document import make_dsl_document
+    from onlydsl_core.envelope import EnvelopeCodec
+    from onlydsl_core.runtime import IfuriRuntime
+
+    assert LegacyAggregateRoot is AggregateRoot
+    assert legacy_make_dsl_document is make_dsl_document
+    assert LegacyEnvelopeCodec is EnvelopeCodec
+    assert LegacyIfuriRuntime is IfuriRuntime
+    assert issubclass(FileCapabilityRegistry, CapabilityRegistry)

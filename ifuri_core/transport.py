@@ -5,15 +5,12 @@ import base64
 import json
 import secrets
 from dataclasses import dataclass
-from typing import Any, Awaitable, Callable, Protocol
+from typing import Any, Awaitable, Callable
 
-from .envelope import EnvelopeCodec, MessageKind
-from .manifest import Capability, CapabilityRegistry, ResolvedCapability
 from onlydsl_contracts.ifuri import IfUri
-
-
-class TransportError(RuntimeError):
-    pass
+from onlydsl_core.capabilities import Capability, CapabilityRegistry, ResolvedCapability
+from onlydsl_core.envelope import EnvelopeCodec, MessageKind
+from onlydsl_core.ports import IfTransport, TransportError
 
 
 @dataclass(slots=True)
@@ -22,16 +19,6 @@ class NatsMessage:
     sid: int
     reply: str
     data: bytes
-
-
-class IfTransport(Protocol):
-    name: str
-
-    async def call(self, resolved: ResolvedCapability, envelope: Any, timeout: float = 2.0) -> Any:
-        ...
-
-    async def publish(self, resolved: ResolvedCapability, envelope: Any) -> dict[str, Any]:
-        ...
 
 
 Handler = Callable[[ResolvedCapability, Any], Any | Awaitable[Any]]
