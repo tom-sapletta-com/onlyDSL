@@ -1,4 +1,4 @@
-# onlyDSL 0.0.6 — test report
+# onlyDSL 0.0.7 — test report
 
 Date: 2026-08-08
 
@@ -13,14 +13,13 @@ The delivered source tree passes all tests that can be executed in the current r
 Command:
 
 ```bash
-python3 -m unittest discover -s tests -v
+.venv/bin/python -m pytest tests/ -q
 ```
 
 Result:
 
 ```text
-Ran 78 tests
-OK
+97 passed in 1.07s
 ```
 
 Coverage includes:
@@ -60,6 +59,11 @@ Coverage includes:
 - ProjectIntegrity finding → AQL/OQL exact URI → TestQL/EQL → closure receipt E2E.
 - rejected development evidence → system-owned repair URI without weakening acceptance.
 - append-only RepairPlanDSL identity across equal findings on different Twin revisions.
+- deterministic SourceIndexDSL with execution time outside its semantic hash.
+- ClaimDSL and TrustDSL accepted-evidence contracts.
+- SSOT Merkle manifest, candidate validation, semantic diff, single-writer promotion,
+  exact add/remove operations, immutable evidence URIs, stale-base rejection,
+  authority isolation, append-only receipts and federated registry.
 
 ## HTTP end-to-end test
 
@@ -72,7 +76,7 @@ LLM_BACKEND=demo
 Verified sequence:
 
 ```text
-GET  /api/health                 -> 0.0.6
+GET  /api/health                 -> 0.0.7
 POST /api/twin/bootstrap         -> TwinDSL revision 1, VALID
 GET  /api/twin/sources           -> 2 Markdown documents, SourceIndexDSL VALID
 POST /api/twin/update            -> TwinDSL revision 2, VALID, 3 provenance sources
@@ -120,6 +124,13 @@ The OpenRouter network path itself is covered by tests using a mocked HTTP respo
 ## Docker execution status
 
 Docker execution was verified on 2026-08-08. The regular stack and the guarded live-evolution profile built successfully. The evolution profile is currently healthy on `127.0.0.1:18787` with `EVOLUTION_MODE=observe` and an empty active incident queue.
+
+The rebuilt `0.0.7` image also passed the installed-package SSOT smoke outside
+the source working directory. `onlydsl ssot init`, `status` and the candidate
+`--remove` contract were available; the initialized manifest verified to a
+stable revision. The TestQL startup container continues to return success for
+onlyDSL and the expected failure for the deliberately blocked Digital Twin
+geometry candidate.
 
 The Compose file was parsed by the architecture test suite and includes:
 

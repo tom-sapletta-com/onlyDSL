@@ -4,4 +4,4 @@ Domain engines (Digital Twin, CAD, SCAD) remain external.  This package owns typ
 contracts, authority projection, repair planning and verification receipts.
 """
 
-__version__ = "0.0.7"
+__version__ = "0.0.8"

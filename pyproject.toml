@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-onlydsl = "server:main"
+onlydsl = "onlydsl.cli:main"
 
 [tool.setuptools]
 py-modules = [

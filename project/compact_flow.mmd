@@ -14,39 +14,49 @@ flowchart TD
     ifuri_core__llm_gateway["ifuri_core.llm_gateway<br/>10 funcs"]
     intentdsl["intentdsl<br/>17 funcs"]
     llm_client["llm_client<br/>13 funcs"]
-    onlydsl__dsl["onlydsl.dsl<br/>20 funcs"]
-    server["server<br/>14 funcs"]
+    onlydsl__dsl["onlydsl.dsl<br/>28 funcs"]
+    onlydsl__governance["onlydsl.governance<br/>2 funcs"]
+    onlydsl__runtime["onlydsl.runtime<br/>6 funcs"]
+    server["server<br/>16 funcs"]
     server__Handler["server.Handler<br/>5 funcs"]
     source_ingest["source_ingest<br/>7 funcs"]
     source_ingest__SourceIndex["source_ingest.SourceIndex<br/>2 funcs"]
     twin_store__TwinStore["twin_store.TwinStore<br/>6 funcs"]
-    llm_client ==>|29| digital_twin
+    llm_client ==>|30| digital_twin
     evolution__EvolutionStore ==>|23| evolution
     contextdsl__ContextCompiler ==>|18| contextdsl
-    server__Handler ==>|12| server
-    server ==>|9| digital_twin
-    llm_client ==>|8| boundary
-    server__Handler ==>|7| intentdsl
+    server__Handler ==>|14| server
+    server ==>|11| digital_twin
+    llm_client ==>|10| boundary
     source_ingest__SourceIndex ==>|7| evolution
+    server__Handler ==>|7| intentdsl
     ifuri_core__llm_gateway ==>|7| ifuri_core__dsl_document
     ifuri_core__llm_gateway ==>|7| llm_client
     ifuri_core__llm_gateway ==>|6| boundary
+    onlydsl__runtime ==>|6| onlydsl__dsl
+    twin_store__TwinStore ==>|5| digital_twin
     server ==>|5| ifuri_core__dsl_document
     server ==>|5| intentdsl
     server ==>|5| boundary
-    twin_store__TwinStore ==>|5| digital_twin
+    server ==>|4| onlydsl__dsl
     server ==>|4| contextdsl
     llm_client ==>|4| source_ingest
-    server -->|3| ifuri_core__llm_gateway
     governance -->|3| aql
+    server -->|3| onlydsl__runtime
+    server -->|3| ifuri_core__llm_gateway
     ifuri_core__llm_gateway -->|3| digital_twin
     server -->|2| source_ingest
     server__Handler -->|2| ifuri_core__llm_gateway
     server__Handler -->|2| contextdsl
     llm_client -->|2| contextdsl
+    digital_twin -->|2| onlydsl__dsl
+    onlydsl__runtime -->|2| onlydsl__governance
+    onlydsl__runtime -->|2| governance
     evolution__EvolutionStore -->|1| diagnostics
     llm_client -->|1| intentdsl
+    llm_client -->|1| onlydsl__dsl
     boundary__DslBundle -->|1| boundary
     ifuri_core__llm_gateway -->|1| contextdsl
     ifuri_core__llm_gateway -->|1| source_ingest
+    onlydsl__governance -->|1| governance
     onlydsl__dsl -->|1| governance

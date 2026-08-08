@@ -2,10 +2,13 @@
 # TYPE: api
 # VERSION: 1.0
 
-API[7]{method, endpoint, status, assert_key, assert_value}:
-  GET, /api/state, 200, twin.schema, subactor.twin/v1
-  GET, /api/state, 200, twin.kind, conceptual
-  GET, /api/state, 200, scene.schema, subactor.scene/v1
+API[10]{method, endpoint, status, assert_key, assert_value}:
+  GET, /api/state, 200, renderedScope, current
+  GET, /api/state, 200, active.scope, current
+  GET, /api/state, 200, active.status, accepted
+  GET, /api/state, 200, active.twin.schema, subactor.twin/v1
+  GET, /api/state, 200, active.twin.kind, conceptual
+  GET, /api/state, 200, active.scene.schema, subactor.scene/v1
   GET, /api/state, 200, iteration.schema, subactor.living-iteration/v2
   GET, /api/state, 200, iteration.validation.ok, true
   GET, /api/events, 200, schema, subactor.event-log-view/v1

@@ -1,46 +1,46 @@
-# code2llm/evolution | 312 func | 33f | 2026-08-08
+# code2llm/evolution | 330 func | 38f | 2026-08-08
 # generated in 0.00s
 
 NEXT[10] (ranked by impact):
   [1] !! SPLIT           digital_twin.py
-      WHY: 661L, 9 classes, max CC=67
-      EFFORT: ~4h  IMPACT: 44287
+      WHY: 678L, 9 classes, max CC=68
+      EFFORT: ~4h  IMPACT: 46104
 
   [2] !! SPLIT           intentdsl.py
       WHY: 540L, 4 classes, max CC=37
       EFFORT: ~4h  IMPACT: 19980
 
-  [3] !! SPLIT-FUNC      parse_twindsl  CC=67  fan=34
-      WHY: CC=67 exceeds 15
-      EFFORT: ~1h  IMPACT: 2278
+  [3] !! SPLIT-FUNC      parse_twindsl  CC=68  fan=34
+      WHY: CC=68 exceeds 15
+      EFFORT: ~1h  IMPACT: 2312
 
-  [4] !! SPLIT-FUNC      parse_context_dsl  CC=33  fan=22
+  [4] !! SPLIT-FUNC      parse_bound_build_plan  CC=32  fan=26
+      WHY: CC=32 exceeds 15
+      EFFORT: ~1h  IMPACT: 832
+
+  [5] !! SPLIT-FUNC      parse_context_dsl  CC=33  fan=22
       WHY: CC=33 exceeds 15
       EFFORT: ~1h  IMPACT: 726
 
-  [5] !! SPLIT-FUNC      codegen  CC=37  fan=18
+  [6] !! SPLIT-FUNC      codegen  CC=37  fan=18
       WHY: CC=37 exceeds 15
       EFFORT: ~1h  IMPACT: 666
 
-  [6] !! SPLIT-FUNC      parse_dsl  CC=29  fan=21
+  [7] !! SPLIT-FUNC      parse_dsl  CC=29  fan=21
       WHY: CC=29 exceeds 15
       EFFORT: ~1h  IMPACT: 609
 
-  [7] !  SPLIT-FUNC      parse_markdown  CC=16  fan=34
+  [8] !  SPLIT-FUNC      parse_markdown  CC=16  fan=34
       WHY: CC=16 exceeds 15
       EFFORT: ~1h  IMPACT: 544
 
-  [8] !  SPLIT-FUNC      parse_patchdsl  CC=24  fan=22
+  [9] !  SPLIT-FUNC      parse_patchdsl  CC=24  fan=22
       WHY: CC=24 exceeds 15
       EFFORT: ~1h  IMPACT: 528
 
-  [9] !  SPLIT-FUNC      parse_spatial_class  CC=24  fan=21
-      WHY: CC=24 exceeds 15
-      EFFORT: ~1h  IMPACT: 504
-
-  [10] !  SPLIT-FUNC      Handler.do_POST  CC=17  fan=24
-      WHY: CC=17 exceeds 15
-      EFFORT: ~1h  IMPACT: 408
+  [10] !! SPLIT-FUNC      parse_project_integrity  CC=25  fan=21
+      WHY: CC=25 exceeds 15
+      EFFORT: ~1h  IMPACT: 525
 
 
 RISKS[3]:
@@ -49,10 +49,10 @@ RISKS[3]:
   ⚠ Splitting goal.yaml may break 0 import paths
 
 METRICS-TARGET:
-  CC̄:          4.6 → ≤3.2
-  max-CC:      67 → ≤20
-  god-modules: 3 → 0
-  high-CC(≥15): 21 → ≤10
+  CC̄:          4.8 → ≤3.4
+  max-CC:      68 → ≤20
+  god-modules: 5 → 0
+  high-CC(≥15): 27 → ≤13
   hub-types:   0 → ≤0
 
 PATTERNS (language parser shared logic):
@@ -80,4 +80,4 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  prev CC̄=4.4 → now CC̄=4.6
+  prev CC̄=4.6 → now CC̄=4.8

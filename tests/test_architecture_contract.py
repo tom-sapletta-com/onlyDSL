@@ -27,13 +27,19 @@ class ArchitectureContractTests(unittest.TestCase):
         self.assertEqual(metadata["project"]["name"], "onlyDSL")
         self.assertIn("version", metadata["project"]["dynamic"])
         self.assertIn("server", metadata["tool"]["setuptools"]["py-modules"])
-        self.assertEqual(metadata["project"]["scripts"]["onlydsl"], "server:main")
+        self.assertEqual(metadata["project"]["scripts"]["onlydsl"], "onlydsl.cli:main")
 
     def test_no_grpc_foundation_dependency(self):
         requirements = (ROOT / "requirements.txt").read_text(encoding="utf-8").lower()
         self.assertNotIn("grpc", requirements)
         compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8").lower()
         self.assertNotIn("grpc", compose)
+
+    def test_docker_image_installs_onlydsl_cli_entrypoint(self):
+        dockerfile = (ROOT / "Dockerfile").read_text(encoding="utf-8")
+        self.assertIn("pip install --no-cache-dir --no-deps .", dockerfile)
+        metadata = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+        self.assertEqual(metadata["project"]["scripts"]["onlydsl"], "onlydsl.cli:main")
 
     def test_compose_contains_real_fabric_and_authoritative_store(self):
         raw = yaml.safe_load((ROOT / "docker-compose.yml").read_text(encoding="utf-8"))

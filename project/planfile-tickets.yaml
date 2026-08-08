@@ -1,5 +1,5 @@
 source: code2llm
-# generated in 0.06s
+# generated in 0.05s
 schema: code2llm.planfile_tickets.v1
 project_root: /home/tom/github/tom-sapletta-com/onlyDSL
 tickets:
@@ -21,9 +21,9 @@ tickets:
   - contextdsl.py
   dedupe_key: code2llm:cc:contextdsl.py:contextdsl.parse_context_dsl
 - signal: code2llm_cc
-  title: 'Reduce cyclomatic complexity: digital_twin.parse_twindsl (CC=67)'
-  description: 'code2llm reports `digital_twin.parse_twindsl` at `digital_twin.py:128`
-    with cyclomatic complexity 67 (limit 15).
+  title: 'Reduce cyclomatic complexity: digital_twin.parse_twindsl (CC=68)'
+  description: 'code2llm reports `digital_twin.parse_twindsl` at `digital_twin.py:129`
+    with cyclomatic complexity 68 (limit 15).
 
 
     Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
@@ -38,9 +38,9 @@ tickets:
   - digital_twin.py
   dedupe_key: code2llm:cc:digital_twin.py:digital_twin.parse_twindsl
 - signal: code2llm_cc
-  title: 'Reduce cyclomatic complexity: digital_twin.validate_twin (CC=30)'
-  description: 'code2llm reports `digital_twin.validate_twin` at `digital_twin.py:308`
-    with cyclomatic complexity 30 (limit 15).
+  title: 'Reduce cyclomatic complexity: digital_twin.validate_twin (CC=31)'
+  description: 'code2llm reports `digital_twin.validate_twin` at `digital_twin.py:311`
+    with cyclomatic complexity 31 (limit 15).
 
 
     Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
@@ -105,9 +105,45 @@ tickets:
   files:
   - intentdsl.py
   dedupe_key: code2llm:cc:intentdsl.py:intentdsl.validate_program
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: onlydsl.dsl.build_plan.parse_bound_build_plan
+    (CC=32)'
+  description: 'code2llm reports `onlydsl.dsl.build_plan.parse_bound_build_plan` at
+    `onlydsl/dsl/build_plan.py:37` with cyclomatic complexity 32 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - onlydsl/dsl/build_plan.py
+  dedupe_key: code2llm:cc:onlydsl/dsl/build_plan.py:onlydsl.dsl.build_plan.parse_bound_build_plan
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: onlydsl.runtime.integrity.parse_project_integrity
+    (CC=25)'
+  description: 'code2llm reports `onlydsl.runtime.integrity.parse_project_integrity`
+    at `onlydsl/runtime/integrity.py:32` with cyclomatic complexity 25 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: high
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - onlydsl/runtime/integrity.py
+  dedupe_key: code2llm:cc:onlydsl/runtime/integrity.py:onlydsl.runtime.integrity.parse_project_integrity
 - signal: code2llm_god
   title: 'Split god module: digital_twin.py'
-  description: 'code2llm reports `digital_twin.py` as a large module (661 lines, 9
+  description: 'code2llm reports `digital_twin.py` as a large module (678 lines, 9
     classes).
 
 
@@ -158,7 +194,7 @@ tickets:
   dedupe_key: 'code2llm:smell:god_function:source_ingest.py:143:God Function: build_source_index'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: update_twin'
-  description: 'code2llm reports `God Function: update_twin` in `llm_client.py:380`.
+  description: 'code2llm reports `God Function: update_twin` in `llm_client.py:398`.
 
 
     Function ''update_twin'' is oversized: CC=14, fan-out=20, mutations=17.
@@ -173,10 +209,10 @@ tickets:
   - god-function
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:god_function:llm_client.py:380:God Function: update_twin'
+  dedupe_key: 'code2llm:smell:god_function:llm_client.py:398:God Function: update_twin'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: backend'
-  description: 'code2llm reports `Shotgun Surgery: backend` in `llm_client.py:206`.
+  description: 'code2llm reports `Shotgun Surgery: backend` in `llm_client.py:102`.
 
 
     Mutation of variable ''backend'' spans 9 functions in /home/tom/github/tom-sapletta-com/onlyDSL/llm_client.py.
@@ -192,10 +228,10 @@ tickets:
   - shotgun-surgery
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:llm_client.py:206:Shotgun Surgery: backend'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:llm_client.py:102:Shotgun Surgery: backend'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: bundle'
-  description: 'code2llm reports `Shotgun Surgery: bundle` in `llm_client.py:206`.
+  description: 'code2llm reports `Shotgun Surgery: bundle` in `llm_client.py:469`.
 
 
     Mutation of variable ''bundle'' spans 6 functions in /home/tom/github/tom-sapletta-com/onlyDSL/llm_client.py.
@@ -211,10 +247,10 @@ tickets:
   - shotgun-surgery
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:llm_client.py:206:Shotgun Surgery: bundle'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:llm_client.py:469:Shotgun Surgery: bundle'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: md'
-  description: 'code2llm reports `Shotgun Surgery: md` in `boundary.py:118`.
+  description: 'code2llm reports `Shotgun Surgery: md` in `boundary.py:101`.
 
 
     Mutation of variable ''md'' spans 6 functions in /home/tom/github/tom-sapletta-com/onlyDSL/boundary.py.
@@ -230,10 +266,10 @@ tickets:
   - shotgun-surgery
   files:
   - boundary.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:boundary.py:118:Shotgun Surgery: md'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:boundary.py:101:Shotgun Surgery: md'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: output'
-  description: 'code2llm reports `Shotgun Surgery: output` in `server.py:111`.
+  description: 'code2llm reports `Shotgun Surgery: output` in `server.py:302`.
 
 
     Mutation of variable ''output'' spans 6 functions in /home/tom/github/tom-sapletta-com/onlyDSL/server.py.
@@ -249,10 +285,10 @@ tickets:
   - shotgun-surgery
   files:
   - server.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:server.py:111:Shotgun Surgery: output'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:server.py:302:Shotgun Surgery: output'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: reply'
-  description: 'code2llm reports `Shotgun Surgery: reply` in `server.py:111`.
+  description: 'code2llm reports `Shotgun Surgery: reply` in `server.py:302`.
 
 
     Mutation of variable ''reply'' spans 5 functions in /home/tom/github/tom-sapletta-com/onlyDSL/server.py.
@@ -268,10 +304,10 @@ tickets:
   - shotgun-surgery
   files:
   - server.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:server.py:111:Shotgun Surgery: reply'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:server.py:302:Shotgun Surgery: reply'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: result'
-  description: 'code2llm reports `Shotgun Surgery: result` in `llm_client.py:380`.
+  description: 'code2llm reports `Shotgun Surgery: result` in `llm_client.py:102`.
 
 
     Mutation of variable ''result'' spans 5 functions in /home/tom/github/tom-sapletta-com/onlyDSL/llm_client.py.
@@ -287,10 +323,10 @@ tickets:
   - shotgun-surgery
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:llm_client.py:380:Shotgun Surgery: result'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:llm_client.py:102:Shotgun Surgery: result'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: route'
-  description: 'code2llm reports `Shotgun Surgery: route` in `server.py:111`.
+  description: 'code2llm reports `Shotgun Surgery: route` in `server.py:302`.
 
 
     Mutation of variable ''route'' spans 5 functions in /home/tom/github/tom-sapletta-com/onlyDSL/server.py.
@@ -306,7 +342,7 @@ tickets:
   - shotgun-surgery
   files:
   - server.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:server.py:111:Shotgun Surgery: route'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:server.py:302:Shotgun Surgery: route'
 - signal: code2llm_cc
   title: 'Reduce cyclomatic complexity: aql.AqlContract.parse (CC=15)'
   description: 'code2llm reports `aql.AqlContract.parse` at `aql.py:35` with cyclomatic
@@ -343,7 +379,7 @@ tickets:
   dedupe_key: code2llm:cc:contextdsl.py:contextdsl.compiler_from_payload
 - signal: code2llm_cc
   title: 'Reduce cyclomatic complexity: digital_twin.render_twin (CC=22)'
-  description: 'code2llm reports `digital_twin.render_twin` at `digital_twin.py:500`
+  description: 'code2llm reports `digital_twin.render_twin` at `digital_twin.py:510`
     with cyclomatic complexity 22 (limit 15).
 
 
@@ -483,6 +519,42 @@ tickets:
   - onlydsl/dsl/parameter_contract.py
   dedupe_key: code2llm:cc:onlydsl/dsl/parameter_contract.py:onlydsl.dsl.parameter_contract.parse_parameter_contracts
 - signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: onlydsl.dsl.repair_plan.parse_repair_plan
+    (CC=15)'
+  description: 'code2llm reports `onlydsl.dsl.repair_plan.parse_repair_plan` at `onlydsl/dsl/repair_plan.py:82`
+    with cyclomatic complexity 15 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - onlydsl/dsl/repair_plan.py
+  dedupe_key: code2llm:cc:onlydsl/dsl/repair_plan.py:onlydsl.dsl.repair_plan.parse_repair_plan
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: onlydsl.dsl.repair_plan.validate_repair_plan
+    (CC=19)'
+  description: 'code2llm reports `onlydsl.dsl.repair_plan.validate_repair_plan` at
+    `onlydsl/dsl/repair_plan.py:36` with cyclomatic complexity 19 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - onlydsl/dsl/repair_plan.py
+  dedupe_key: code2llm:cc:onlydsl/dsl/repair_plan.py:onlydsl.dsl.repair_plan.validate_repair_plan
+- signal: code2llm_cc
   title: 'Reduce cyclomatic complexity: onlydsl.dsl.spatial_class.parse_spatial_class
     (CC=24)'
   description: 'code2llm reports `onlydsl.dsl.spatial_class.parse_spatial_class` at
@@ -535,9 +607,26 @@ tickets:
   - patchdsl.py
   dedupe_key: code2llm:cc:patchdsl.py:patchdsl.validate_patch_policy
 - signal: code2llm_cc
-  title: 'Reduce cyclomatic complexity: server.Handler.do_POST (CC=17)'
-  description: 'code2llm reports `server.Handler.do_POST` at `server.py:340` with
-    cyclomatic complexity 17 (limit 15).
+  title: 'Reduce cyclomatic complexity: server.Handler.do_GET (CC=15)'
+  description: 'code2llm reports `server.Handler.do_GET` at `server.py:356` with cyclomatic
+    complexity 15 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - server.py
+  dedupe_key: code2llm:cc:server.py:server.Handler.do_GET
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: server.Handler.do_POST (CC=18)'
+  description: 'code2llm reports `server.Handler.do_POST` at `server.py:425` with
+    cyclomatic complexity 18 (limit 15).
 
 
     Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
@@ -551,6 +640,23 @@ tickets:
   files:
   - server.py
   dedupe_key: code2llm:cc:server.py:server.Handler.do_POST
+- signal: code2llm_cc
+  title: 'Reduce cyclomatic complexity: server._current_external_integrity (CC=17)'
+  description: 'code2llm reports `server._current_external_integrity` at `server.py:95`
+    with cyclomatic complexity 17 (limit 15).
+
+
+    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
+    code2llm after the change and keep tests green.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - complexity
+  - refactor
+  files:
+  - server.py
+  dedupe_key: code2llm:cc:server.py:server._current_external_integrity
 - signal: code2llm_cc
   title: 'Reduce cyclomatic complexity: source_ingest.parse_markdown (CC=16)'
   description: 'code2llm reports `source_ingest.parse_markdown` at `source_ingest.py:80`
@@ -569,11 +675,11 @@ tickets:
   - source_ingest.py
   dedupe_key: code2llm:cc:source_ingest.py:source_ingest.parse_markdown
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: envelope, resolved, self'
-  description: 'code2llm reports `Data Clump: envelope, resolved, self` in `ifuri_core/transport.py:33`.
+  title: 'Address code smell: Data Clump: self, envelope, resolved'
+  description: 'code2llm reports `Data Clump: self, envelope, resolved` in `ifuri_core/transport.py:33`.
 
 
-    Arguments (envelope, resolved, self) are used together in multiple functions:
+    Arguments (self, envelope, resolved) are used together in multiple functions:
     ifuri_core.transport.IfTransport.publish, ifuri_core.transport.InProcessTransport.publish,
     ifuri_core.transport.NatsTransport.publish.
 
@@ -587,14 +693,14 @@ tickets:
   - data-clump
   files:
   - ifuri_core/transport.py
-  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:33:Data Clump: envelope,
-    resolved, self'
+  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:33:Data Clump: self,
+    envelope, resolved'
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: envelope, resolved, self'
-  description: 'code2llm reports `Data Clump: envelope, resolved, self` in `ifuri_core/transport.py:64`.
+  title: 'Address code smell: Data Clump: self, envelope, resolved'
+  description: 'code2llm reports `Data Clump: self, envelope, resolved` in `ifuri_core/transport.py:64`.
 
 
-    Arguments (envelope, resolved, self) are used together in multiple functions:
+    Arguments (self, envelope, resolved) are used together in multiple functions:
     ifuri_core.transport.IfTransport.publish, ifuri_core.transport.InProcessTransport.publish,
     ifuri_core.transport.NatsTransport.publish.
 
@@ -608,14 +714,14 @@ tickets:
   - data-clump
   files:
   - ifuri_core/transport.py
-  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:64:Data Clump: envelope,
-    resolved, self'
+  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:64:Data Clump: self,
+    envelope, resolved'
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: envelope, resolved, self'
-  description: 'code2llm reports `Data Clump: envelope, resolved, self` in `ifuri_core/transport.py:333`.
+  title: 'Address code smell: Data Clump: self, envelope, resolved'
+  description: 'code2llm reports `Data Clump: self, envelope, resolved` in `ifuri_core/transport.py:333`.
 
 
-    Arguments (envelope, resolved, self) are used together in multiple functions:
+    Arguments (self, envelope, resolved) are used together in multiple functions:
     ifuri_core.transport.IfTransport.publish, ifuri_core.transport.InProcessTransport.publish,
     ifuri_core.transport.NatsTransport.publish.
 
@@ -629,15 +735,15 @@ tickets:
   - data-clump
   files:
   - ifuri_core/transport.py
-  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:333:Data Clump: envelope,
-    resolved, self'
+  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:333:Data Clump: self,
+    envelope, resolved'
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: envelope, resolved, self, timeout'
-  description: 'code2llm reports `Data Clump: envelope, resolved, self, timeout` in
+  title: 'Address code smell: Data Clump: self, envelope, resolved, timeout'
+  description: 'code2llm reports `Data Clump: self, envelope, resolved, timeout` in
     `ifuri_core/transport.py:30`.
 
 
-    Arguments (envelope, resolved, self, timeout) are used together in multiple functions:
+    Arguments (self, envelope, resolved, timeout) are used together in multiple functions:
     ifuri_core.transport.IfTransport.call, ifuri_core.transport.InProcessTransport.call,
     ifuri_core.transport.NatsTransport.call.
 
@@ -651,15 +757,15 @@ tickets:
   - data-clump
   files:
   - ifuri_core/transport.py
-  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:30:Data Clump: envelope,
-    resolved, self, timeout'
+  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:30:Data Clump: self,
+    envelope, resolved, timeout'
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: envelope, resolved, self, timeout'
-  description: 'code2llm reports `Data Clump: envelope, resolved, self, timeout` in
+  title: 'Address code smell: Data Clump: self, envelope, resolved, timeout'
+  description: 'code2llm reports `Data Clump: self, envelope, resolved, timeout` in
     `ifuri_core/transport.py:55`.
 
 
-    Arguments (envelope, resolved, self, timeout) are used together in multiple functions:
+    Arguments (self, envelope, resolved, timeout) are used together in multiple functions:
     ifuri_core.transport.IfTransport.call, ifuri_core.transport.InProcessTransport.call,
     ifuri_core.transport.NatsTransport.call.
 
@@ -673,15 +779,15 @@ tickets:
   - data-clump
   files:
   - ifuri_core/transport.py
-  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:55:Data Clump: envelope,
-    resolved, self, timeout'
+  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:55:Data Clump: self,
+    envelope, resolved, timeout'
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: envelope, resolved, self, timeout'
-  description: 'code2llm reports `Data Clump: envelope, resolved, self, timeout` in
+  title: 'Address code smell: Data Clump: self, envelope, resolved, timeout'
+  description: 'code2llm reports `Data Clump: self, envelope, resolved, timeout` in
     `ifuri_core/transport.py:328`.
 
 
-    Arguments (envelope, resolved, self, timeout) are used together in multiple functions:
+    Arguments (self, envelope, resolved, timeout) are used together in multiple functions:
     ifuri_core.transport.IfTransport.call, ifuri_core.transport.InProcessTransport.call,
     ifuri_core.transport.NatsTransport.call.
 
@@ -695,14 +801,14 @@ tickets:
   - data-clump
   files:
   - ifuri_core/transport.py
-  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:328:Data Clump: envelope,
-    resolved, self, timeout'
+  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:328:Data Clump: self,
+    envelope, resolved, timeout'
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: payload, target_uri, self'
-  description: 'code2llm reports `Data Clump: payload, target_uri, self` in `ifuri_core/runtime.py:53`.
+  title: 'Address code smell: Data Clump: self, target_uri, payload'
+  description: 'code2llm reports `Data Clump: self, target_uri, payload` in `ifuri_core/runtime.py:53`.
 
 
-    Arguments (payload, target_uri, self) are used together in multiple functions:
+    Arguments (self, target_uri, payload) are used together in multiple functions:
     ifuri_core.runtime.IfuriRuntime.call, ifuri_core.runtime.IfuriRuntime.emit.
 
 
@@ -715,14 +821,14 @@ tickets:
   - data-clump
   files:
   - ifuri_core/runtime.py
-  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/runtime.py:53:Data Clump: payload,
-    target_uri, self'
+  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/runtime.py:53:Data Clump: self,
+    target_uri, payload'
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: payload, target_uri, self'
-  description: 'code2llm reports `Data Clump: payload, target_uri, self` in `ifuri_core/runtime.py:111`.
+  title: 'Address code smell: Data Clump: self, target_uri, payload'
+  description: 'code2llm reports `Data Clump: self, target_uri, payload` in `ifuri_core/runtime.py:111`.
 
 
-    Arguments (payload, target_uri, self) are used together in multiple functions:
+    Arguments (self, target_uri, payload) are used together in multiple functions:
     ifuri_core.runtime.IfuriRuntime.call, ifuri_core.runtime.IfuriRuntime.emit.
 
 
@@ -735,15 +841,15 @@ tickets:
   - data-clump
   files:
   - ifuri_core/runtime.py
-  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/runtime.py:111:Data Clump: payload,
-    target_uri, self'
+  dedupe_key: 'code2llm:smell:data_clump:ifuri_core/runtime.py:111:Data Clump: self,
+    target_uri, payload'
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: principal, self, uri_process, oql'
-  description: 'code2llm reports `Data Clump: principal, self, uri_process, oql` in
+  title: 'Address code smell: Data Clump: uri_process, self, oql, principal'
+  description: 'code2llm reports `Data Clump: uri_process, self, oql, principal` in
     `aql.py:83`.
 
 
-    Arguments (principal, self, uri_process, oql) are used together in multiple functions:
+    Arguments (uri_process, self, oql, principal) are used together in multiple functions:
     aql.AqlContract.decide, aql.AqlContract.require.
 
 
@@ -756,15 +862,15 @@ tickets:
   - data-clump
   files:
   - aql.py
-  dedupe_key: 'code2llm:smell:data_clump:aql.py:83:Data Clump: principal, self, uri_process,
-    oql'
+  dedupe_key: 'code2llm:smell:data_clump:aql.py:83:Data Clump: uri_process, self,
+    oql, principal'
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: principal, self, uri_process, oql'
-  description: 'code2llm reports `Data Clump: principal, self, uri_process, oql` in
+  title: 'Address code smell: Data Clump: uri_process, self, oql, principal'
+  description: 'code2llm reports `Data Clump: uri_process, self, oql, principal` in
     `aql.py:108`.
 
 
-    Arguments (principal, self, uri_process, oql) are used together in multiple functions:
+    Arguments (uri_process, self, oql, principal) are used together in multiple functions:
     aql.AqlContract.decide, aql.AqlContract.require.
 
 
@@ -777,15 +883,15 @@ tickets:
   - data-clump
   files:
   - aql.py
-  dedupe_key: 'code2llm:smell:data_clump:aql.py:108:Data Clump: principal, self, uri_process,
-    oql'
+  dedupe_key: 'code2llm:smell:data_clump:aql.py:108:Data Clump: uri_process, self,
+    oql, principal'
 - signal: code2llm_smell_feature_envy
   title: 'Address code smell: Feature Envy: _demo_update_twin'
-  description: 'code2llm reports `Feature Envy: _demo_update_twin` in `llm_client.py:352`.
+  description: 'code2llm reports `Feature Envy: _demo_update_twin` in `llm_client.py:370`.
 
 
-    Function ''_demo_update_twin'' mutates multiple variables in other modules: updated.open_questions,
-    updated.nodes[''source_ingest''].evidence, updated.revision, updated.invariants[''evidence_before_evolution''].evidence.
+    Function ''_demo_update_twin'' mutates multiple variables in other modules: updated.invariants[''evidence_before_evolution''].evidence,
+    updated.revision, updated.nodes[''source_ingest''].evidence, updated.open_questions.
 
 
     Make the smallest refactor that removes the smell and run local tests.'
@@ -797,14 +903,14 @@ tickets:
   - feature-envy
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:feature_envy:llm_client.py:352:Feature Envy: _demo_update_twin'
+  dedupe_key: 'code2llm:smell:feature_envy:llm_client.py:370:Feature Envy: _demo_update_twin'
 - signal: code2llm_smell_feature_envy
   title: 'Address code smell: Feature Envy: parse_context_dsl'
   description: 'code2llm reports `Feature Envy: parse_context_dsl` in `contextdsl.py:290`.
 
 
     Function ''parse_context_dsl'' mutates multiple variables in other modules: doc.action_capabilities,
-    doc.event_capabilities, doc.records.
+    doc.records, doc.event_capabilities.
 
 
     Make the smallest refactor that removes the smell and run local tests.'
@@ -822,8 +928,8 @@ tickets:
   description: 'code2llm reports `Feature Envy: parse_dsl` in `intentdsl.py:99`.
 
 
-    Function ''parse_dsl'' mutates multiple variables in other modules: program.forbids,
-    program.rules, program.outputs, current_rule.operations.
+    Function ''parse_dsl'' mutates multiple variables in other modules: program.outputs,
+    program.rules, program.forbids, current_rule.operations.
 
 
     Make the smallest refactor that removes the smell and run local tests.'
@@ -841,8 +947,8 @@ tickets:
   description: 'code2llm reports `Feature Envy: parse_markdown` in `source_ingest.py:80`.
 
 
-    Function ''parse_markdown'' mutates multiple variables in other modules: doc.paragraphs,
-    doc.headings, doc.code_blocks, doc.bullets.
+    Function ''parse_markdown'' mutates multiple variables in other modules: doc.bullets,
+    doc.headings, doc.code_blocks, doc.paragraphs.
 
 
     Make the smallest refactor that removes the smell and run local tests.'
@@ -857,11 +963,11 @@ tickets:
   dedupe_key: 'code2llm:smell:feature_envy:source_ingest.py:80:Feature Envy: parse_markdown'
 - signal: code2llm_smell_feature_envy
   title: 'Address code smell: Feature Envy: parse_twindsl'
-  description: 'code2llm reports `Feature Envy: parse_twindsl` in `digital_twin.py:128`.
+  description: 'code2llm reports `Feature Envy: parse_twindsl` in `digital_twin.py:129`.
 
 
-    Function ''parse_twindsl'' mutates multiple variables in other modules: inv.assertions,
-    inv.evidence, node.evidence, cap.evidence.
+    Function ''parse_twindsl'' mutates multiple variables in other modules: inv.evidence,
+    inv.assertions, cap.evidence, node.evidence.
 
 
     Make the smallest refactor that removes the smell and run local tests.'
@@ -873,13 +979,13 @@ tickets:
   - feature-envy
   files:
   - digital_twin.py
-  dedupe_key: 'code2llm:smell:feature_envy:digital_twin.py:128:Feature Envy: parse_twindsl'
+  dedupe_key: 'code2llm:smell:feature_envy:digital_twin.py:129:Feature Envy: parse_twindsl'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: _backend_call'
-  description: 'code2llm reports `God Function: _backend_call` in `llm_client.py:101`.
+  description: 'code2llm reports `God Function: _backend_call` in `llm_client.py:102`.
 
 
-    Function ''_backend_call'' is oversized: CC=8, fan-out=13, mutations=16.
+    Function ''_backend_call'' is oversized: CC=10, fan-out=14, mutations=19.
 
 
     Make the smallest refactor that removes the smell and run local tests.'
@@ -891,10 +997,10 @@ tickets:
   - god-function
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:god_function:llm_client.py:101:God Function: _backend_call'
+  dedupe_key: 'code2llm:smell:god_function:llm_client.py:102:God Function: _backend_call'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: _bootstrap_twin'
-  description: 'code2llm reports `God Function: _bootstrap_twin` in `server.py:159`.
+  description: 'code2llm reports `God Function: _bootstrap_twin` in `server.py:236`.
 
 
     Function ''_bootstrap_twin'' is oversized: CC=5, fan-out=20, mutations=12.
@@ -909,13 +1015,13 @@ tickets:
   - god-function
   files:
   - server.py
-  dedupe_key: 'code2llm:smell:god_function:server.py:159:God Function: _bootstrap_twin'
+  dedupe_key: 'code2llm:smell:god_function:server.py:236:God Function: _bootstrap_twin'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: _call_dsl_validated'
-  description: 'code2llm reports `God Function: _call_dsl_validated` in `llm_client.py:177`.
+  description: 'code2llm reports `God Function: _call_dsl_validated` in `llm_client.py:190`.
 
 
-    Function ''_call_dsl_validated'' is oversized: CC=5, fan-out=10, mutations=7.
+    Function ''_call_dsl_validated'' is oversized: CC=6, fan-out=11, mutations=10.
 
 
     Make the smallest refactor that removes the smell and run local tests.'
@@ -927,10 +1033,10 @@ tickets:
   - god-function
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:god_function:llm_client.py:177:God Function: _call_dsl_validated'
+  dedupe_key: 'code2llm:smell:god_function:llm_client.py:190:God Function: _call_dsl_validated'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: _demo_update_twin'
-  description: 'code2llm reports `God Function: _demo_update_twin` in `llm_client.py:352`.
+  description: 'code2llm reports `God Function: _demo_update_twin` in `llm_client.py:370`.
 
 
     Function ''_demo_update_twin'' is oversized: CC=11, fan-out=10, mutations=11.
@@ -945,10 +1051,10 @@ tickets:
   - god-function
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:god_function:llm_client.py:352:God Function: _demo_update_twin'
+  dedupe_key: 'code2llm:smell:god_function:llm_client.py:370:God Function: _demo_update_twin'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: _ifuri_analyze_context'
-  description: 'code2llm reports `God Function: _ifuri_analyze_context` in `server.py:111`.
+  description: 'code2llm reports `God Function: _ifuri_analyze_context` in `server.py:187`.
 
 
     Function ''_ifuri_analyze_context'' is oversized: CC=6, fan-out=18, mutations=19.
@@ -963,7 +1069,25 @@ tickets:
   - god-function
   files:
   - server.py
-  dedupe_key: 'code2llm:smell:god_function:server.py:111:God Function: _ifuri_analyze_context'
+  dedupe_key: 'code2llm:smell:god_function:server.py:187:God Function: _ifuri_analyze_context'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: _integrity_repair_plan'
+  description: 'code2llm reports `God Function: _integrity_repair_plan` in `server.py:132`.
+
+
+    Function ''_integrity_repair_plan'' is oversized: CC=5, fan-out=15, mutations=10.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - server.py
+  dedupe_key: 'code2llm:smell:god_function:server.py:132:God Function: _integrity_repair_plan'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: _parse_call'
   description: 'code2llm reports `God Function: _parse_call` in `intentdsl.py:73`.
@@ -1002,10 +1126,10 @@ tickets:
   dedupe_key: 'code2llm:smell:god_function:evolution.py:31:God Function: _parse_event'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: _plan_twin'
-  description: 'code2llm reports `God Function: _plan_twin` in `server.py:225`.
+  description: 'code2llm reports `God Function: _plan_twin` in `server.py:302`.
 
 
-    Function ''_plan_twin'' is oversized: CC=1, fan-out=9, mutations=7.
+    Function ''_plan_twin'' is oversized: CC=1, fan-out=11, mutations=8.
 
 
     Make the smallest refactor that removes the smell and run local tests.'
@@ -1017,10 +1141,10 @@ tickets:
   - god-function
   files:
   - server.py
-  dedupe_key: 'code2llm:smell:god_function:server.py:225:God Function: _plan_twin'
+  dedupe_key: 'code2llm:smell:god_function:server.py:302:God Function: _plan_twin'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: _provider_config'
-  description: 'code2llm reports `God Function: _provider_config` in `llm_client.py:73`.
+  description: 'code2llm reports `God Function: _provider_config` in `llm_client.py:74`.
 
 
     Function ''_provider_config'' is oversized: CC=9, fan-out=5, mutations=11.
@@ -1035,10 +1159,10 @@ tickets:
   - god-function
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:god_function:llm_client.py:73:God Function: _provider_config'
+  dedupe_key: 'code2llm:smell:god_function:llm_client.py:74:God Function: _provider_config'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: _request_json'
-  description: 'code2llm reports `God Function: _request_json` in `llm_client.py:50`.
+  description: 'code2llm reports `God Function: _request_json` in `llm_client.py:51`.
 
 
     Function ''_request_json'' is oversized: CC=5, fan-out=12, mutations=6.
@@ -1053,10 +1177,10 @@ tickets:
   - god-function
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:god_function:llm_client.py:50:God Function: _request_json'
+  dedupe_key: 'code2llm:smell:god_function:llm_client.py:51:God Function: _request_json'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: _update_twin'
-  description: 'code2llm reports `God Function: _update_twin` in `server.py:199`.
+  description: 'code2llm reports `God Function: _update_twin` in `server.py:276`.
 
 
     Function ''_update_twin'' is oversized: CC=3, fan-out=16, mutations=11.
@@ -1071,7 +1195,7 @@ tickets:
   - god-function
   files:
   - server.py
-  dedupe_key: 'code2llm:smell:god_function:server.py:199:God Function: _update_twin'
+  dedupe_key: 'code2llm:smell:god_function:server.py:276:God Function: _update_twin'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: add_event'
   description: 'code2llm reports `God Function: add_event` in `evolution.py:164`.
@@ -1147,8 +1271,27 @@ tickets:
   dedupe_key: 'code2llm:smell:god_function:ifuri_core/event_store.py:76:God Function:
     append'
 - signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: assumptions_from_integrity'
+  description: 'code2llm reports `God Function: assumptions_from_integrity` in `onlydsl/dsl/assumption.py:93`.
+
+
+    Function ''assumptions_from_integrity'' is oversized: CC=8, fan-out=12, mutations=7.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - onlydsl/dsl/assumption.py
+  dedupe_key: 'code2llm:smell:god_function:onlydsl/dsl/assumption.py:93:God Function:
+    assumptions_from_integrity'
+- signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: bootstrap_twin'
-  description: 'code2llm reports `God Function: bootstrap_twin` in `llm_client.py:307`.
+  description: 'code2llm reports `God Function: bootstrap_twin` in `llm_client.py:325`.
 
 
     Function ''bootstrap_twin'' is oversized: CC=7, fan-out=18, mutations=10.
@@ -1163,7 +1306,7 @@ tickets:
   - god-function
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:god_function:llm_client.py:307:God Function: bootstrap_twin'
+  dedupe_key: 'code2llm:smell:god_function:llm_client.py:325:God Function: bootstrap_twin'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: build_autonomous_repair_bundle'
   description: 'code2llm reports `God Function: build_autonomous_repair_bundle` in
@@ -1184,8 +1327,27 @@ tickets:
   - boundary.py
   dedupe_key: 'code2llm:smell:god_function:boundary.py:205:God Function: build_autonomous_repair_bundle'
 - signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: build_llm_build_plan_handler'
+  description: 'code2llm reports `God Function: build_llm_build_plan_handler` in `ifuri_core/llm_gateway.py:139`.
+
+
+    Function ''build_llm_build_plan_handler'' is oversized: CC=1, fan-out=11, mutations=0.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - ifuri_core/llm_gateway.py
+  dedupe_key: 'code2llm:smell:god_function:ifuri_core/llm_gateway.py:139:God Function:
+    build_llm_build_plan_handler'
+- signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: build_llm_patch_handler'
-  description: 'code2llm reports `God Function: build_llm_patch_handler` in `ifuri_core/llm_gateway.py:156`.
+  description: 'code2llm reports `God Function: build_llm_patch_handler` in `ifuri_core/llm_gateway.py:157`.
 
 
     Function ''build_llm_patch_handler'' is oversized: CC=1, fan-out=18, mutations=0.
@@ -1200,7 +1362,7 @@ tickets:
   - god-function
   files:
   - ifuri_core/llm_gateway.py
-  dedupe_key: 'code2llm:smell:god_function:ifuri_core/llm_gateway.py:156:God Function:
+  dedupe_key: 'code2llm:smell:god_function:ifuri_core/llm_gateway.py:157:God Function:
     build_llm_patch_handler'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: call_envelope'
@@ -1299,7 +1461,7 @@ tickets:
   dedupe_key: 'code2llm:smell:god_function:intentdsl.py:388:God Function: demo_english_to_dsl'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: diagnose_incident'
-  description: 'code2llm reports `God Function: diagnose_incident` in `diagnostics.py:165`.
+  description: 'code2llm reports `God Function: diagnose_incident` in `diagnostics.py:255`.
 
 
     Function ''diagnose_incident'' is oversized: CC=7, fan-out=12, mutations=9.
@@ -1314,25 +1476,7 @@ tickets:
   - god-function
   files:
   - diagnostics.py
-  dedupe_key: 'code2llm:smell:god_function:diagnostics.py:165:God Function: diagnose_incident'
-- signal: code2llm_smell_god_function
-  title: 'Address code smell: God Function: do_GET'
-  description: 'code2llm reports `God Function: do_GET` in `server.py:278`.
-
-
-    Function ''do_GET'' is oversized: CC=14, fan-out=21, mutations=0.
-
-
-    Make the smallest refactor that removes the smell and run local tests.'
-  priority: normal
-  labels:
-  - llm-ready
-  - code2llm
-  - code-smell
-  - god-function
-  files:
-  - server.py
-  dedupe_key: 'code2llm:smell:god_function:server.py:278:God Function: do_GET'
+  dedupe_key: 'code2llm:smell:god_function:diagnostics.py:255:God Function: diagnose_incident'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: emit'
   description: 'code2llm reports `God Function: emit` in `ifuri_core/runtime.py:111`.
@@ -1352,6 +1496,25 @@ tickets:
   - ifuri_core/runtime.py
   dedupe_key: 'code2llm:smell:god_function:ifuri_core/runtime.py:111:God Function:
     emit'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: execute_repair_cycle'
+  description: 'code2llm reports `God Function: execute_repair_cycle` in `onlydsl/runtime/repair_controller.py:71`.
+
+
+    Function ''execute_repair_cycle'' is oversized: CC=8, fan-out=10, mutations=12.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - onlydsl/runtime/repair_controller.py
+  dedupe_key: 'code2llm:smell:god_function:onlydsl/runtime/repair_controller.py:71:God
+    Function: execute_repair_cycle'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: extract_source_refs'
   description: 'code2llm reports `God Function: extract_source_refs` in `source_ingest.py:204`.
@@ -1504,10 +1667,10 @@ tickets:
     parse_ifuri'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: plan_build'
-  description: 'code2llm reports `God Function: plan_build` in `llm_client.py:451`.
+  description: 'code2llm reports `God Function: plan_build` in `llm_client.py:469`.
 
 
-    Function ''plan_build'' is oversized: CC=4, fan-out=12, mutations=7.
+    Function ''plan_build'' is oversized: CC=4, fan-out=18, mutations=8.
 
 
     Make the smallest refactor that removes the smell and run local tests.'
@@ -1519,10 +1682,29 @@ tickets:
   - god-function
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:god_function:llm_client.py:451:God Function: plan_build'
+  dedupe_key: 'code2llm:smell:god_function:llm_client.py:469:God Function: plan_build'
+- signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: plan_integrity_repairs'
+  description: 'code2llm reports `God Function: plan_integrity_repairs` in `onlydsl/runtime/repair_controller.py:39`.
+
+
+    Function ''plan_integrity_repairs'' is oversized: CC=8, fan-out=17, mutations=12.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - onlydsl/runtime/repair_controller.py
+  dedupe_key: 'code2llm:smell:god_function:onlydsl/runtime/repair_controller.py:39:God
+    Function: plan_integrity_repairs'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: provider_status'
-  description: 'code2llm reports `God Function: provider_status` in `llm_client.py:157`.
+  description: 'code2llm reports `God Function: provider_status` in `llm_client.py:170`.
 
 
     Function ''provider_status'' is oversized: CC=5, fan-out=6, mutations=9.
@@ -1537,7 +1719,7 @@ tickets:
   - god-function
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:god_function:llm_client.py:157:God Function: provider_status'
+  dedupe_key: 'code2llm:smell:god_function:llm_client.py:170:God Function: provider_status'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: render_context_dsl'
   description: 'code2llm reports `God Function: render_context_dsl` in `contextdsl.py:252`.
@@ -1613,6 +1795,25 @@ tickets:
   dedupe_key: 'code2llm:smell:god_function:ifuri_core/transport.py:351:God Function:
     serve_capability'
 - signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: spatial_class_from_twin'
+  description: 'code2llm reports `God Function: spatial_class_from_twin` in `onlydsl/dsl/spatial_class.py:120`.
+
+
+    Function ''spatial_class_from_twin'' is oversized: CC=4, fan-out=15, mutations=0.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - onlydsl/dsl/spatial_class.py
+  dedupe_key: 'code2llm:smell:god_function:onlydsl/dsl/spatial_class.py:120:God Function:
+    spatial_class_from_twin'
+- signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: status'
   description: 'code2llm reports `God Function: status` in `evolution.py:226`.
 
@@ -1632,7 +1833,7 @@ tickets:
   dedupe_key: 'code2llm:smell:god_function:evolution.py:226:God Function: status'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: twin_to_mermaid'
-  description: 'code2llm reports `God Function: twin_to_mermaid` in `digital_twin.py:398`.
+  description: 'code2llm reports `God Function: twin_to_mermaid` in `digital_twin.py:403`.
 
 
     Function ''twin_to_mermaid'' is oversized: CC=5, fan-out=6, mutations=7.
@@ -1647,25 +1848,7 @@ tickets:
   - god-function
   files:
   - digital_twin.py
-  dedupe_key: 'code2llm:smell:god_function:digital_twin.py:398:God Function: twin_to_mermaid'
-- signal: code2llm_smell_god_function
-  title: 'Address code smell: God Function: validate_buildplan_markdown'
-  description: 'code2llm reports `God Function: validate_buildplan_markdown` in `digital_twin.py:619`.
-
-
-    Function ''validate_buildplan_markdown'' is oversized: CC=13, fan-out=11, mutations=2.
-
-
-    Make the smallest refactor that removes the smell and run local tests.'
-  priority: normal
-  labels:
-  - llm-ready
-  - code2llm
-  - code-smell
-  - god-function
-  files:
-  - digital_twin.py
-  dedupe_key: 'code2llm:smell:god_function:digital_twin.py:619:God Function: validate_buildplan_markdown'
+  dedupe_key: 'code2llm:smell:god_function:digital_twin.py:403:God Function: twin_to_mermaid'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: validate_sourceindex_markdown'
   description: 'code2llm reports `God Function: validate_sourceindex_markdown` in

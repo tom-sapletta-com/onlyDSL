@@ -1,17 +1,19 @@
 # code2llm call graph | /home/tom/github/tom-sapletta-com/onlyDSL
 # generated in 0.08s
-# nodes: 157 | edges: 209 | modules: 23
-# CC̄=4.6
+# nodes: 175 | edges: 234 | modules: 29
+# CC̄=4.8
 
 HUBS[20]:
   digital_twin.parse_twindsl
-    CC=67  in:11  out:147  total:158
+    CC=68  in:12  out:149  total:161
   server.Handler.do_POST
-    CC=17  in:0  out:81  total:81
+    CC=18  in:0  out:83  total:83
   contextdsl.parse_context_dsl
     CC=33  in:3  out:73  total:76
   intentdsl.parse_dsl
     CC=29  in:4  out:71  total:75
+  onlydsl.dsl.build_plan.parse_bound_build_plan
+    CC=32  in:1  out:60  total:61
   source_ingest.parse_markdown
     CC=16  in:1  out:59  total:60
   contextdsl.compiler_from_payload
@@ -19,31 +21,29 @@ HUBS[20]:
   patchdsl.parse_patchdsl
     CC=24  in:1  out:49  total:50
   digital_twin.render_twin
-    CC=22  in:1  out:41  total:42
+    CC=22  in:4  out:42  total:46
+  digital_twin._quoted
+    CC=1  in:39  out:2  total:41
   llm_client.update_twin
     CC=14  in:1  out:39  total:40
-  digital_twin._quoted
-    CC=1  in:35  out:2  total:37
-  source_ingest.build_source_index
+  boundary.assert_dsl_only
+    CC=8  in:22  out:16  total:38
+  onlydsl.runtime.integrity.parse_project_integrity
+    CC=25  in:3  out:34  total:37
+  server.Handler.do_GET
+    CC=15  in:0  out:37  total:37
+  server._current_external_integrity
+    CC=17  in:2  out:35  total:37
+  onlydsl.dsl.repair_plan.parse_repair_plan
+    CC=15  in:0  out:36  total:36
+  onlydsl.dsl.spatial_class.spatial_class_from_twin
+    CC=4  in:1  out:35  total:36
+  contextdsl.render_context_dsl
     CC=9  in:1  out:35  total:36
   intentdsl.validate_program
     CC=27  in:2  out:34  total:36
-  boundary.assert_dsl_only
-    CC=8  in:20  out:16  total:36
-  contextdsl.render_context_dsl
-    CC=9  in:1  out:35  total:36
-  evolution.EvolutionStore.status
-    CC=14  in:0  out:35  total:35
-  server.Handler.do_GET
-    CC=14  in:0  out:35  total:35
   digital_twin.validate_twin
-    CC=30  in:2  out:33  total:35
-  contextdsl._ident
-    CC=3  in:28  out:5  total:33
-  intentdsl.run_program
-    CC=20  in:2  out:29  total:31
-  llm_client.bootstrap_twin
-    CC=7  in:1  out:28  total:29
+    CC=31  in:2  out:34  total:36
 
 MODULES:
   aql  [1 funcs]
@@ -73,17 +73,17 @@ MODULES:
   diagnostics  [2 funcs]
     _candidate_paths  CC=4  out:5
     diagnose_incident  CC=7  out:18
-  digital_twin  [16 funcs]
+  digital_twin  [15 funcs]
     _quoted  CC=1  out:2
     buildplandsl_schema  CC=1  out:0
     demo_bootstrap_twin  CC=2  out:25
-    demo_build_plan  CC=1  out:9
-    extract_buildplanddsl  CC=5  out:11
+    demo_build_plan  CC=1  out:15
     extract_twindsl  CC=5  out:11
     intent_fingerprint  CC=1  out:4
     normalize_intent  CC=1  out:4
-    parse_twindsl  CC=67  out:147
-    render_twin  CC=22  out:41
+    parse_twindsl  CC=68  out:149
+    render_twin  CC=22  out:42
+    twin_to_mermaid  CC=5  out:11
   evolution  [10 funcs]
     _write  CC=1  out:6
     add_diagnostic  CC=1  out:4
@@ -108,8 +108,8 @@ MODULES:
     _extract_bundle_blocks  CC=3  out:7
     _extract_source_payload  CC=5  out:11
     _reply  CC=2  out:14
-    build_llm_build_plan_handler  CC=1  out:10
-    build_llm_patch_handler  CC=1  out:29
+    build_llm_build_plan_handler  CC=1  out:14
+    build_llm_patch_handler  CC=1  out:28
     build_llm_reasoner_handler  CC=1  out:11
     build_llm_semantic_handler  CC=1  out:8
     build_llm_twin_bootstrap_handler  CC=1  out:9
@@ -142,8 +142,8 @@ MODULES:
     parse_dsl  CC=29  out:71
     run_program  CC=20  out:29
   llm_client  [13 funcs]
-    _backend_call  CC=8  out:15
-    _call_dsl_validated  CC=5  out:10
+    _backend_call  CC=10  out:18
+    _call_dsl_validated  CC=6  out:11
     _demo_context_analysis  CC=11  out:10
     _demo_update_twin  CC=11  out:11
     _provider_config  CC=9  out:17
@@ -151,7 +151,7 @@ MODULES:
     analyze_context  CC=3  out:5
     bootstrap_twin  CC=7  out:28
     convert_english  CC=3  out:5
-    plan_build  CC=4  out:13
+    plan_build  CC=4  out:22
   multiruntime.javascript.ifuri  [4 funcs]
     canonical  CC=1  out:1
     parseIfUri  CC=13  out:6
@@ -164,29 +164,51 @@ MODULES:
   multiruntime.typescript.ifuri  [2 funcs]
     parseIfUri  CC=13  out:5
     toNatsSubject  CC=1  out:1
-  onlydsl.dsl.assumption  [1 funcs]
+  onlydsl.dsl.assumption  [2 funcs]
+    assumptions_from_integrity  CC=8  out:29
     render_assumptions  CC=2  out:8
-  onlydsl.dsl.common  [2 funcs]
+  onlydsl.dsl.build_plan  [3 funcs]
+    parse_bound_build_plan  CC=32  out:60
+    semantic_twin_hash  CC=1  out:3
+    validate_bound_build_plan  CC=10  out:10
+  onlydsl.dsl.common  [3 funcs]
+    extract_one  CC=5  out:11
     list_value  CC=2  out:2
     quoted  CC=1  out:2
   onlydsl.dsl.evidence_set  [1 funcs]
     create_evidence_set  CC=2  out:7
+  onlydsl.dsl.repair_plan  [3 funcs]
+    parse_repair_plan  CC=15  out:36
+    render_repair_plan  CC=3  out:11
+    validate_repair_plan  CC=19  out:15
+  onlydsl.dsl.spatial_class  [1 funcs]
+    spatial_class_from_twin  CC=4  out:35
+  onlydsl.governance.authority_projection  [2 funcs]
+    project_authority  CC=2  out:5
+    render_authority_projection  CC=3  out:4
+  onlydsl.runtime.integrity  [1 funcs]
+    parse_project_integrity  CC=25  out:34
+  onlydsl.runtime.repair_controller  [4 funcs]
+    to_dict  CC=1  out:4
+    _receipt  CC=1  out:1
+    execute_repair_cycle  CC=8  out:11
+    plan_integrity_repairs  CC=8  out:18
   patchdsl  [4 funcs]
     _json_string  CC=3  out:4
     parse_patchdsl  CC=24  out:49
     validate_patch_markdown  CC=3  out:3
     validate_patch_policy  CC=22  out:26
-  server  [16 funcs]
+  server  [19 funcs]
     _send  CC=4  out:12
-    do_GET  CC=14  out:35
-    do_POST  CC=17  out:81
+    do_GET  CC=15  out:37
+    do_POST  CC=18  out:83
     _application_version  CC=3  out:2
     _bootstrap_twin  CC=5  out:28
     _context_registries  CC=2  out:3
+    _current_external_integrity  CC=17  out:35
     _ifuri_analyze_context  CC=6  out:19
     _ifuri_compile_source  CC=1  out:7
-    _json_bytes  CC=1  out:2
-    _plan_twin  CC=1  out:9
+    _integrity_repair_plan  CC=5  out:22
   source_ingest  [6 funcs]
     to_markdown  CC=7  out:15
     _sid  CC=3  out:7
@@ -223,29 +245,29 @@ EDGES:
   evolution.EvolutionStore.add_event → evolution._now
   evolution.EvolutionStore.diagnostic_for_incident → evolution._qid
   evolution.EvolutionStore.status → evolution._parse_event
-  diagnostics.diagnose_incident → diagnostics._candidate_paths
-  server._context_registries → contextdsl.parse_context_dsl
-  server._context_registries → contextdsl.extract_contextdsl
-  server._ifuri_analyze_context → contextdsl.validate_context_markdown
-  server._ifuri_analyze_context → ifuri_core.dsl_document.make_dsl_document
-  server._ifuri_analyze_context → server._unpack_dsl
-  server._ifuri_analyze_context → server._context_registries
-  server._ifuri_analyze_context → intentdsl.validate_markdown
-  server._ifuri_analyze_context → intentdsl.parse_dsl
-  server._ifuri_compile_source → ifuri_core.dsl_document.make_dsl_document
-  server._ifuri_compile_source → server._unpack_dsl
-  server._ifuri_compile_source → boundary.source_text_dsl
-  server._ifuri_compile_source → intentdsl.validate_markdown
-  server._twin_payload → digital_twin.parse_twindsl
-  server._twin_payload → digital_twin.extract_twindsl
-  server._twin_payload → digital_twin.validate_twin_markdown
-  server._twin_payload → digital_twin.twin_to_mermaid
-  server._bootstrap_twin → digital_twin.intent_fingerprint
-  server._bootstrap_twin → boundary.source_text_dsl
-  server._bootstrap_twin → ifuri_core.dsl_document.make_dsl_document
-  server._bootstrap_twin → server._unpack_dsl
-  server._bootstrap_twin → server._twin_payload
-  server._scan_sources → source_ingest.build_source_index
-  server._scan_sources → source_ingest.validate_sourceindex_markdown
-  server._update_twin → server._scan_sources
-  server._update_twin → ifuri_core.dsl_document.make_dsl_document
+  intentdsl._expr_tree → intentdsl._normalize_expr
+  intentdsl.expr_names → intentdsl._expr_tree
+  intentdsl.eval_expr → intentdsl._expr_tree
+  intentdsl.validate_markdown → intentdsl.extract_intentdsl
+  intentdsl.validate_markdown → intentdsl.parse_dsl
+  intentdsl.validate_markdown → intentdsl.validate_program
+  intentdsl.run_program → intentdsl.validate_program
+  intentdsl.run_program → intentdsl.eval_expr
+  intentdsl.run_program → intentdsl._type_ok
+  intentdsl.demo_english_to_dsl → intentdsl._slug_words
+  patchdsl.parse_patchdsl → patchdsl._json_string
+  patchdsl.validate_patch_markdown → patchdsl.parse_patchdsl
+  patchdsl.validate_patch_markdown → patchdsl.validate_patch_policy
+  governance.authorize_patch → aql.operation_for_path
+  governance.build_process_envelope → governance.canonical_hash
+  governance.build_process_envelope → aql.operation_for_path
+  governance.complete_envelope → governance.canonical_hash
+  governance.reject_envelope → governance.canonical_hash
+  twin_store.TwinStore.load → digital_twin.parse_twindsl
+  twin_store.TwinStore.load → digital_twin.extract_twindsl
+  twin_store.TwinStore.save → digital_twin.validate_twin_markdown
+  twin_store.TwinStore.save → digital_twin.parse_twindsl
+  twin_store.TwinStore.save → digital_twin.extract_twindsl
+  source_ingest.SourceIndex.to_markdown → evolution._q
+  source_ingest.build_source_index → source_ingest._sid
+  source_ingest.build_source_index → source_ingest.parse_markdown

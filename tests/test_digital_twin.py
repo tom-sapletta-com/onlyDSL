@@ -103,6 +103,19 @@ class DigitalTwinTests(unittest.TestCase):
             second_b = next(d for d in second.documents if d.path.endswith("b.md"))
             self.assertEqual(first_id, second_b.source_id)
 
+    def test_source_index_semantic_document_excludes_execution_timestamp(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "a.md").write_text("# Stable\n\nSame content.\n", encoding="utf-8")
+            first = build_source_index(root)
+            second = build_source_index(root)
+            first.generated_at = "2026-01-01T00:00:00Z"
+            second.generated_at = "2027-01-01T00:00:00Z"
+            self.assertEqual(first.to_markdown(), second.to_markdown())
+            self.assertNotIn("GENERATED_AT", first.to_markdown())
+            self.assertEqual(first.envelope()["contentHash"], second.envelope()["contentHash"])
+            self.assertNotEqual(first.envelope()["generatedAt"], second.envelope()["generatedAt"])
+
     def test_existing_source_document_may_advance_to_new_digest(self):
         first = bootstrap_twin(self.intent(), "demo")
         with tempfile.TemporaryDirectory() as td:

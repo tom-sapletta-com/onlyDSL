@@ -3,11 +3,11 @@
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.0.7-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$1.12-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-4.5h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.0.8-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$1.13-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-5.2h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $1.1171 (7 commits)
-- 👤 **Human dev:** ~$453 (4.5h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $1.1295 (8 commits)
+- 👤 **Human dev:** ~$522 (5.2h @ $100/h, 30min dedup)
 
 Generated on 2026-08-08 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
@@ -25,6 +25,29 @@ TestQL/EQL closure evidence. It does not implement CAD or execute model-supplied
 The six new contracts are `SpatialClassDSL`, `AssumptionDSL`, `ParameterContractDSL`,
 `EvidenceSetDSL`, `AuthorityProjectionDSL` and `RepairPlanDSL`. See
 [Project Integrity Closure v2](docs/PROJECT_INTEGRITY_CLOSURE_V2.md).
+
+## SSOT — accepted project state
+
+Projects may now materialize the existing DSL contracts as a transactional
+`SSOT/` projection. In this context SSOT means **Single Source of Accepted
+Truth**: primary code, Git, docs, CAD and telemetry remain evidence sources,
+while `SSOT/current` records the interpretation accepted by ProjectIntegrity,
+AQL, TestQL and EQL.
+
+```bash
+onlydsl ssot init . --project-id my-project
+onlydsl ssot status .
+onlydsl ssot reconcile . --section development/todo2code.dsl=/tmp/todo2code.dsl
+onlydsl ssot candidate validate <candidate-id> .
+onlydsl ssot promote <candidate-id> . \
+  --authority-hash sha256:... \
+  --testql urn:subactor:testql:sha256:... \
+  --eql urn:subactor:eql:sha256:...
+```
+
+Authority, grants, locks and process packs stay under `.onlydsl/`, outside the
+accepted truth tree and outside the LLM write boundary. See
+[SSOT — Single Source of Accepted Truth](docs/SSOT_ACCEPTED_TRUTH.md).
 
 ## Core architecture
 
@@ -154,6 +177,9 @@ END_SOURCE_INDEX
 ```
 
 This means the LLM receives a typed source document with provenance rather than raw Markdown formatting.
+`GENERATED_AT` is intentionally excluded from the semantic SourceIndexDSL. The
+scan timestamp lives in a separate envelope, so equivalent inputs produce the
+same DSL bytes and `contentHash`.
 
 Limits can be configured:
 

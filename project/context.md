@@ -5,12 +5,12 @@
 
 - **Project**: /home/tom/github/tom-sapletta-com/onlyDSL
 - **Primary Language**: python
-- **Languages**: python: 36, shell: 4, yaml: 4, json: 4, txt: 2
+- **Languages**: python: 43, json: 5, shell: 4, yaml: 4, txt: 2
 - **Analysis Mode**: static
-- **Total Functions**: 313
-- **Total Classes**: 82
-- **Modules**: 59
-- **Entry Points**: 188
+- **Total Functions**: 331
+- **Total Classes**: 90
+- **Modules**: 67
+- **Entry Points**: 190
 
 ## Architecture by Module
 
@@ -25,7 +25,7 @@
 - **File**: `contextdsl.py`
 
 ### server
-- **Functions**: 19
+- **Functions**: 21
 - **Classes**: 1
 - **File**: `server.py`
 
@@ -59,15 +59,15 @@
 - **Classes**: 5
 - **File**: `manifest.py`
 
-### ifuri_core.llm_gateway
-- **Functions**: 10
-- **Classes**: 1
-- **File**: `llm_gateway.py`
-
 ### ifuri_core.event_store
 - **Functions**: 10
 - **Classes**: 4
 - **File**: `event_store.py`
+
+### ifuri_core.llm_gateway
+- **Functions**: 10
+- **Classes**: 1
+- **File**: `llm_gateway.py`
 
 ### aql
 - **Functions**: 9
@@ -125,23 +125,26 @@ Main execution flows into the system:
 ### onlydsl.dsl.spatial_class.parse_spatial_class
 - **Calls**: sorted, SpatialClassDocument, line.strip, ControlDslError, None.split, line.startswith, ControlDslError, None.splitlines
 
-### evolution.EvolutionStore.status
-- **Calls**: sorted, next, sum, self.events.glob, evolution._parse_event, str, str, None.lower
-
 ### server.Handler.do_GET
 - **Calls**: urlparse, self._send, self._send, self._send, EVOLUTION.status, server._application_version, server._twin_status, server.evolution_authority_status
 
+### onlydsl.dsl.repair_plan.parse_repair_plan
+- **Calls**: RepairPlan, onlydsl.dsl.repair_plan.validate_repair_plan, line.strip, ControlDslError, None.startswith, set, ControlDslError, int
+
+### evolution.EvolutionStore.status
+- **Calls**: sorted, next, sum, self.events.glob, evolution._parse_event, str, str, None.lower
+
 ### onlydsl.dsl.parameter_contract.parse_parameter_contracts
 - **Calls**: ParameterContractDocument, line.strip, ControlDslError, ParameterContract, None.splitlines, line.strip, None.startswith, None.split
-
-### ifuri_core.llm_gateway.build_llm_patch_handler
-- **Calls**: DslDocument, EnvelopeCodec.unpack, ifuri_core.dsl_document.validate_dsl_document, boundary.assert_dsl_only, _FENCE.finditer, llm_client.propose_code_patch, ifuri_core.llm_gateway._reply, LlmGatewayError
 
 ### onlydsl.dsl.assumption.parse_assumptions
 - **Calls**: AssumptionDocument, line.strip, ControlDslError, Assumption, None.splitlines, line.strip, None.startswith, None.split
 
 ### evolution.EvolutionStore.add_incident
 - **Calls**: sorted, rows.extend, None.join, self._write, self.add_event, self.add_diagnostic, Path, uuid.uuid4
+
+### ifuri_core.llm_gateway.build_llm_patch_handler
+- **Calls**: DslDocument, EnvelopeCodec.unpack, ifuri_core.dsl_document.validate_dsl_document, boundary.assert_dsl_only, _FENCE.finditer, llm_client.propose_code_patch, ifuri_core.llm_gateway._reply, LlmGatewayError
 
 ### ifuri_core.transport.NatsWireClient._reader_loop
 - **Calls**: line.rstrip, line.startswith, line.startswith, line.startswith, TransportError, self._subs.values, self.reader.readline, line.startswith
@@ -192,20 +195,17 @@ Main execution flows into the system:
 ### ifuri_core.transport.NatsWireClient.connect
 - **Calls**: asyncio.create_task, asyncio.open_connection, asyncio.wait_for, info_line.startswith, TransportError, json.loads, self._write, self._reader_loop
 
+### ifuri_core.llm_gateway.build_llm_build_plan_handler
+- **Calls**: DslDocument, EnvelopeCodec.unpack, ifuri_core.dsl_document.validate_dsl_document, llm_client.plan_build, None.parse_twindsl, ifuri_core.llm_gateway._reply, LlmGatewayError, LlmGatewayError
+
 ### evolution.EvolutionStore.add_event
 - **Calls**: sorted, rows.extend, self._write, uuid.uuid4, None.items, rows.append, None.join, evolution._q
 
-### onlydsl.dsl.spatial_class.render_spatial_class
-- **Calls**: document.types.values, rows.extend, rows.extend, None.join, rows.extend, rows.extend, rows.extend, rows.extend
+### ifuri_core.transport.NatsJetStream.get_message
+- **Calls**: json.loads, msg.get, self.client.request, raw.decode, TransportError, body.get, base64.b64decode, None.encode
 
 ### server.Handler._send
 - **Calls**: self.send_response, self.send_header, self.send_header, self.end_headers, self.wfile.write, isinstance, server._json_bytes, str
-
-### ifuri_core.llm_gateway.build_llm_twin_update_handler
-- **Calls**: DslDocument, EnvelopeCodec.unpack, ifuri_core.dsl_document.validate_dsl_document, ifuri_core.llm_gateway._extract_bundle_blocks, blocks.get, blocks.get, llm_client.update_twin, ifuri_core.llm_gateway._reply
-
-### ifuri_core.transport.NatsJetStream.get_message
-- **Calls**: json.loads, msg.get, self.client.request, raw.decode, TransportError, body.get, base64.b64decode, None.encode
 
 ## Process Flows
 
@@ -227,27 +227,26 @@ from_mapping [ifuri_core.manifest.CapabilityRegistry]
 parse_spatial_class [onlydsl.dsl.spatial_class]
 ```
 
-### Flow 4: status
+### Flow 4: do_GET
+```
+do_GET [server.Handler]
+```
+
+### Flow 5: parse_repair_plan
+```
+parse_repair_plan [onlydsl.dsl.repair_plan]
+  └─> validate_repair_plan
+```
+
+### Flow 6: status
 ```
 status [evolution.EvolutionStore]
   └─ →> _parse_event
 ```
 
-### Flow 5: do_GET
-```
-do_GET [server.Handler]
-```
-
-### Flow 6: parse_parameter_contracts
+### Flow 7: parse_parameter_contracts
 ```
 parse_parameter_contracts [onlydsl.dsl.parameter_contract]
-```
-
-### Flow 7: build_llm_patch_handler
-```
-build_llm_patch_handler [ifuri_core.llm_gateway]
-  └─ →> validate_dsl_document
-  └─ →> assert_dsl_only
 ```
 
 ### Flow 8: parse_assumptions
@@ -260,9 +259,11 @@ parse_assumptions [onlydsl.dsl.assumption]
 add_incident [evolution.EvolutionStore]
 ```
 
-### Flow 10: _reader_loop
+### Flow 10: build_llm_patch_handler
 ```
-_reader_loop [ifuri_core.transport.NatsWireClient]
+build_llm_patch_handler [ifuri_core.llm_gateway]
+  └─ →> validate_dsl_document
+  └─ →> assert_dsl_only
 ```
 
 ## Key Classes
@@ -330,11 +331,6 @@ Domain code sees only logical URI + protobuf pay
 - **Methods**: 6
 - **Key Methods**: ifuri_core.transport.NatsTransport.__init__, ifuri_core.transport.NatsTransport.call, ifuri_core.transport.NatsTransport.publish, ifuri_core.transport.NatsTransport.ensure_event_stream, ifuri_core.transport.NatsTransport.serve_capability, ifuri_core.transport.NatsTransport.stop_services
 
-### server.Handler
-- **Methods**: 5
-- **Key Methods**: server.Handler.log_message, server.Handler._send, server.Handler._body, server.Handler.do_GET, server.Handler.do_POST
-- **Inherits**: BaseHTTPRequestHandler
-
 ### ifuri_core.artifacts.LocalFileArtifactStore
 > Maps logical IFURI artifact identity to a safe local file placement.
 
@@ -359,6 +355,11 @@ Canonical shape:
 ### ifuri_core.transport.InProcessTransport
 - **Methods**: 5
 - **Key Methods**: ifuri_core.transport.InProcessTransport.__init__, ifuri_core.transport.InProcessTransport.register, ifuri_core.transport.InProcessTransport.has_handler, ifuri_core.transport.InProcessTransport.call, ifuri_core.transport.InProcessTransport.publish
+
+### server.Handler
+- **Methods**: 5
+- **Key Methods**: server.Handler.log_message, server.Handler._send, server.Handler._body, server.Handler.do_GET, server.Handler.do_POST
+- **Inherits**: BaseHTTPRequestHandler
 
 ### ifuri_core.outbox.OutboxStore
 - **Methods**: 3
@@ -393,13 +394,6 @@ Key functions that process and transform data:
 ### evolution._parse_event
 - **Output to**: path.read_text, re.search, re.search, re.search, re.findall
 
-### llm_client._call_dsl_validated
-- **Output to**: max, range, LlmProviderError, int, os.getenv
-
-### llm_client.convert_english
-> User text reaches the LLM only inside runtime-generated SourceDSL.
-- **Output to**: None.lower, boundary.build_source_compile_bundle, llm_client._backend_call, intentdsl.demo_english_to_dsl, os.getenv
-
 ### aql.AqlContract.parse
 - **Output to**: enumerate, sorted, cls, text.splitlines, raw.strip
 
@@ -433,71 +427,77 @@ Key functions that process and transform data:
 ### governance.build_process_envelope
 - **Output to**: governance.canonical_hash, governance.canonical_hash, sorted, sorted, asdict
 
-### digital_twin.parse_twindsl
-- **Output to**: None.strip, TwinDocument, digital_twin.validate_twin, TwinDslError, None.startswith
-
-### digital_twin.validate_twin
-- **Output to**: doc.capabilities.values, doc.invariants.values, doc.sources.values, set, doc.nodes.values
-
-### digital_twin.validate_twin_markdown
-- **Output to**: digital_twin.parse_twindsl, digital_twin.extract_twindsl, len, len, len
-
-### digital_twin.validate_twin_update
-- **Output to**: errors.append, errors.append, errors.append, errors.append, digital_twin.validate_twin
-
-### digital_twin.validate_buildplan_markdown
-- **Output to**: digital_twin.extract_buildplanddsl, x.strip, TwinDslError, any, TwinDslError
-
-### boundary.DslBundle.validate_for_llm
-- **Output to**: boundary.assert_dsl_only
-
 ### source_ingest.parse_markdown
 - **Output to**: path.read_text, None.as_posix, MarkdownDocument, re.compile, code_re.finditer
+
+### source_ingest.validate_sourceindex_markdown
+- **Output to**: SourceIngestError, None.rsplit, x.strip, SourceIngestError, len
+
+### ifuri_core.runtime.IfuriRuntime._validate_payload_contract
+- **Output to**: resolved.capability.input_type.strip, expected.startswith, RuntimeErrorIfuri, envelope.payload.type_url.rsplit
+
+### ifuri_core.manifest._parse_pattern
+- **Output to**: urlsplit, set, enumerate, tuple, ManifestError
+
+### ifuri_core.manifest._validate_capability
+- **Output to**: ifuri_core.manifest._parse_pattern, None.get, capability.transport.ordered, re.fullmatch, ManifestError
+
+### ifuri_core.uri.IfUri.parse
+- **Output to**: urlsplit, cls, IfUriError, IfUriError, IfUriError
+
+### ifuri_core.envelope.EnvelopeCodec.validate
+- **Output to**: IfUri.parse, IfUri.parse, EnvelopeCodec._validate_kind_uri, EnvelopeError, EnvelopeError
+
+### ifuri_core.envelope.EnvelopeCodec._validate_kind_uri
+- **Output to**: None.get, EnvelopeError
+
+### ifuri_core.envelope.EnvelopeCodec.serialize
+- **Output to**: EnvelopeCodec.validate, env.SerializeToString
 
 ## Public API Surface
 
 Functions exposed as public API (no underscore prefix):
 
-- `digital_twin.parse_twindsl` - 147 calls
+- `digital_twin.parse_twindsl` - 149 calls
 - `intentdsl.codegen` - 88 calls
-- `server.Handler.do_POST` - 81 calls
+- `server.Handler.do_POST` - 83 calls
 - `contextdsl.parse_context_dsl` - 73 calls
 - `intentdsl.parse_dsl` - 71 calls
+- `onlydsl.dsl.build_plan.parse_bound_build_plan` - 60 calls
 - `source_ingest.parse_markdown` - 59 calls
 - `contextdsl.compiler_from_payload` - 52 calls
 - `patchdsl.parse_patchdsl` - 49 calls
-- `digital_twin.render_twin` - 41 calls
-- `llm_client.update_twin` - 39 calls
+- `digital_twin.render_twin` - 42 calls
 - `ifuri_core.manifest.CapabilityRegistry.from_mapping` - 39 calls
+- `llm_client.update_twin` - 39 calls
 - `onlydsl.dsl.spatial_class.parse_spatial_class` - 39 calls
+- `server.Handler.do_GET` - 37 calls
+- `onlydsl.dsl.repair_plan.parse_repair_plan` - 36 calls
 - `contextdsl.render_context_dsl` - 35 calls
 - `evolution.EvolutionStore.status` - 35 calls
-- `server.Handler.do_GET` - 35 calls
 - `source_ingest.build_source_index` - 35 calls
+- `onlydsl.dsl.spatial_class.spatial_class_from_twin` - 35 calls
 - `intentdsl.validate_program` - 34 calls
 - `onlydsl.dsl.parameter_contract.parse_parameter_contracts` - 34 calls
-- `digital_twin.validate_twin` - 33 calls
+- `digital_twin.validate_twin` - 34 calls
+- `onlydsl.runtime.integrity.parse_project_integrity` - 34 calls
 - `intentdsl.run_program` - 29 calls
-- `ifuri_core.llm_gateway.build_llm_patch_handler` - 29 calls
 - `onlydsl.dsl.assumption.parse_assumptions` - 29 calls
+- `onlydsl.dsl.assumption.assumptions_from_integrity` - 29 calls
 - `evolution.EvolutionStore.add_incident` - 28 calls
 - `llm_client.bootstrap_twin` - 28 calls
+- `ifuri_core.llm_gateway.build_llm_patch_handler` - 28 calls
 - `patchdsl.validate_patch_policy` - 26 calls
 - `digital_twin.demo_bootstrap_twin` - 25 calls
 - `aql.AqlContract.parse` - 24 calls
 - `ifuri_core.envelope.EnvelopeCodec.create` - 23 calls
 - `ifuri_core.event_store.SqliteEventStore.append` - 23 calls
+- `llm_client.plan_build` - 22 calls
 - `ifuri_core.postgres_store.PostgresEventStore.append` - 21 calls
 - `contextdsl.ContextCompiler.legacy_log` - 20 calls
 - `onlydsl.dsl.parameter_contract.ParameterContractDocument.validate` - 20 calls
 - `ifuri_core.transport.NatsTransport.serve_capability` - 19 calls
 - `onlydsl.dsl.evidence_set.parse_evidence_set` - 19 calls
-- `diagnostics.diagnose_incident` - 18 calls
-- `source_ingest.validate_sourceindex_markdown` - 18 calls
-- `ifuri_core.runtime.IfuriRuntime.emit` - 18 calls
-- `digital_twin.validate_buildplan_markdown` - 16 calls
-- `boundary.assert_dsl_only` - 16 calls
-- `source_ingest.extract_source_refs` - 16 calls
 
 ## System Interactions
 
@@ -520,21 +520,21 @@ graph TD
     parse_spatial_class --> strip
     parse_spatial_class --> ControlDslError
     parse_spatial_class --> split
+    do_GET --> urlparse
+    do_GET --> _send
+    do_GET --> status
+    parse_repair_plan --> RepairPlan
+    parse_repair_plan --> validate_repair_plan
+    parse_repair_plan --> strip
+    parse_repair_plan --> ControlDslError
+    parse_repair_plan --> startswith
     status --> sorted
     status --> next
     status --> sum
     status --> glob
     status --> _parse_event
-    do_GET --> urlparse
-    do_GET --> _send
-    do_GET --> status
     parse_parameter_cont --> ParameterContractDoc
     parse_parameter_cont --> strip
-    parse_parameter_cont --> ControlDslError
-    parse_parameter_cont --> ParameterContract
-    parse_parameter_cont --> splitlines
-    build_llm_patch_hand --> DslDocument
-    build_llm_patch_hand --> unpack
 ```
 
 ## Reverse Engineering Guidelines

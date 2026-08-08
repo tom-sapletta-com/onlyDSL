@@ -48,7 +48,6 @@ class SourceIndex:
     def to_markdown(self) -> str:
         lines = [
             "SOURCE_INDEX markdown_sources",
-            f"GENERATED_AT {_q(self.generated_at)}",
             f"ROOT {_q(self.root)}",
         ]
         for doc in self.documents:
@@ -68,6 +67,16 @@ class SourceIndex:
             lines.append("END")
         lines.append("END_SOURCE_INDEX")
         return "```sourceindexdsl\n" + "\n".join(lines) + "\n```"
+
+    def envelope(self) -> dict[str, str]:
+        """Keep execution time outside the deterministic semantic document."""
+        markdown = self.to_markdown()
+        return {
+            "schema": "onlydsl.source-index-envelope/v1",
+            "generatedAt": self.generated_at,
+            "contentHash": "sha256:" + hashlib.sha256(markdown.encode("utf-8")).hexdigest(),
+            "sourceIndexDSL": markdown,
+        }
 
     def source_refs(self) -> list[dict[str, str]]:
         return [{"id": d.source_id, "path": d.path, "digest": d.digest} for d in self.documents]

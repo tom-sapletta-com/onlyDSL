@@ -1,7 +1,7 @@
 # Audyt uruchomienia Docker i OpenRouter
 
 Data testu: 2026-08-08 (Europe/Warsaw)
-Wersja aplikacji w bieżącym drzewie: 0.0.6
+Wersja aplikacji w bieżącym drzewie: 0.0.7
 Commit bazowy: `45c6031`
 
 ## Podsumowanie
@@ -16,7 +16,7 @@ Po pierwotnym audycie uparametryzowano porty i bind do `127.0.0.1`, ograniczono 
 
 Pętla napraw została przebudowana według warstw operacyjnych Subactor. AQL jest jedynym źródłem uprawnień, OQL nie zawiera transportu, URI pochodzą wyłącznie z systemowego process pack, EQL/DOQL są read-only, a wynik wiąże Process Envelope v2 i receipt SODL. Wszystkie cztery pliki process pack przechodzą oryginalne JSON Schema z projektu Subactor. Model nie może generować wykonywanych poleceń, wybierać URI/vault ani modyfikować kontraktu, process pack, dziennika audytowego i kernela governance.
 
-Aktualny zestaw lokalny: **78/78 testów onlyDSL PASS** oraz **81/81 testów twin-dsl PASS**. Natywna paczka TestQL ma `66 PASS, 1 SKIP`; odbiór startup onlyDSL przechodzi `18/18`, a Digital Twin `20/21`. Jedyny czerwony warunek jest oczekiwany: TestQL potwierdza `iteration.validation.ok=false`, ponieważ kandydat ma rzeczywisty `GEOMETRY_REFERENCE_EXTENT_DRIFT` (14 mm ze SCAD wobec 18 mm z referencyjnego STEP/GLB). Dashboard twin udostępnia append-only event log i dokumenty DSL przez `/api/events` oraz `/api/dsl`; pełny `TestQLDSL` jest wejściem następnej iteracji jako tekst. Widok dashboardu jest także osadzony read-only w głównym UI na porcie 18787. Port 7444 technicznie blokuje mutacje, a jedyny writer 7445 korzysta z todo2code, dzięki czemu replika inspekcyjna nie przełącza dowodu deweloperskiego na fixture. Status pokazuje wersję wydania, wersję schematu i rewizję TwinDSL oraz czas i numer ostatniej iteracji naprawczej. Deterministyczny katalog diagnostyczny rozróżnia bezpieczne patche od `defer` i `manual`, dzięki czemu odmowa AQL, limit autonomii, konflikt dowodów, odrzucony dowód deweloperski lub timeout nie uruchamiają nieuzasadnionej zmiany przez LLM. Historyczne wyniki poniżej pozostają zapisane jako stan zastany z chwili pierwszego audytu.
+Aktualny zestaw lokalny: **97/97 testów onlyDSL PASS** oraz **81/81 testów twin-dsl PASS**. Natywna paczka TestQL ma `66 PASS, 1 SKIP`; odbiór startup onlyDSL przechodzi `18/18`, a Digital Twin `20/21`. Jedyny czerwony warunek jest oczekiwany: TestQL potwierdza `iteration.validation.ok=false`, ponieważ kandydat ma rzeczywisty `GEOMETRY_REFERENCE_EXTENT_DRIFT` (14 mm ze SCAD wobec 18 mm z referencyjnego STEP/GLB). Dashboard twin udostępnia append-only event log i dokumenty DSL przez `/api/events` oraz `/api/dsl`; pełny `TestQLDSL` jest wejściem następnej iteracji jako tekst. Widok dashboardu jest także osadzony read-only w głównym UI na porcie 18787. Port 7444 technicznie blokuje mutacje, a jedyny writer 7445 korzysta z todo2code, dzięki czemu replika inspekcyjna nie przełącza dowodu deweloperskiego na fixture. Status pokazuje wersję wydania, wersję schematu i rewizję TwinDSL oraz czas i numer ostatniej iteracji naprawczej. Deterministyczny katalog diagnostyczny rozróżnia bezpieczne patche od `defer` i `manual`, dzięki czemu odmowa AQL, limit autonomii, konflikt dowodów, odrzucony dowód deweloperski lub timeout nie uruchamiają nieuzasadnionej zmiany przez LLM. Warstwa SSOT/SSAT dodaje Merkle manifest, staging kandydatów, semantyczny diff, wymagane AQL/TestQL/EQL, pojedynczego writera i append-only promotion receipts. Historyczne wyniki poniżej pozostają zapisane jako stan zastany z chwili pierwszego audytu.
 
 ## Zakres i wyniki testów
 
@@ -195,9 +195,12 @@ produkcyjna polega na związaniu każdego rzeczywistego executora z tym samym
 hashem, AQL preflight oraz append-only TestQL/EQL receipt — nie na dalszym
 rozluźnianiu parsera.
 
-### 5. SourceIndexDSL nie jest w pełni deterministyczny
+### 5. SourceIndexDSL — naprawiona deterministyczność
 
-Dokument zawiera bieżące `GENERATED_AT`, więc dwa skany identycznych plików dają różne bajty i różny prompt. Deterministyczne są kolejność, identyfikatory i hashe źródeł, ale nie cały indeks. Jeśli wymagana jest reprodukowalność, timestamp powinien być metadanym poza dokumentem haszowanym/promptem albo powinien pochodzić z wejścia.
+`GENERATED_AT` został usunięty z semantycznego SourceIndexDSL. Czas wykonania jest
+teraz polem `generatedAt` w osobnym `onlydsl.source-index-envelope/v1`, obok
+`contentHash`. Dwa skany identycznych źródeł dają ten sam dokument i hash, nawet
+jeżeli zostały wykonane w innym czasie.
 
 ### 6. Plikowy TwinStore nie jest bezpieczny przy współbieżności
 
