@@ -3,17 +3,15 @@
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.0.3-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$0.31-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-2.0h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.0.4-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$0.45-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-2.4h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $0.3115 (2 commits)
-- 👤 **Human dev:** ~$200 (2.0h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $0.4483 (3 commits)
+- 👤 **Human dev:** ~$243 (2.4h @ $100/h, 30min dedup)
 
 Generated on 2026-08-08 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
 ---
-
-
 
 A reference implementation for building software from user intent and external Markdown sources while keeping the LLM behind a strict DSL-only boundary.
 
@@ -96,7 +94,7 @@ Workflow in the UI:
 
 1. Enter a few sentences describing the application you want.
 2. Click **Bootstrap twin**.
-3. Inspect generated TwinDSL and its Mermaid graph source.
+3. Inspect generated TwinDSL and the rendered Mermaid SVG; the highlighted Mermaid source remains available in a collapsible detail view.
 4. Put Markdown files under `sources/`.
 5. Click **Scan sources/**.
 6. Click **Update twin**.
@@ -331,6 +329,19 @@ docker compose build
 docker compose run --rm integration
 ```
 
+## Guarded autonomous evolution
+
+The optional `evolution` profile records runtime guidance/incidents as DSL and uses the Subactor operational layering model: the LLM proposes only `PatchDSL`; a system-owned `aql:contract/v1` authorizes OQL plus exact URI Process routes; DOQL/EQL remain read-only; a hash-bound Process Envelope and independent receipt precede success. A one-shot TestQL service verifies onlyDSL and the live Digital Twin after startup, persists TestQLDSL, and routes failures into the appropriate next evolution cycle. Dependencies, Docker, runtime and the evolution implementation are governable through explicit AQL grants. Secret values never reach the model, and model-supplied commands are never executed.
+
+Start in recording-only mode:
+
+```bash
+LOCAL_UID="$(id -u)" LOCAL_GID="$(id -g)" EVOLUTION_MODE=observe \
+docker compose --profile evolution up -d --build live-app evolution-agent
+```
+
+After reviewing the policy, enable guarded application with `EVOLUTION_MODE=apply`. See [docs/AUTONOMOUS_EVOLUTION.md](docs/AUTONOMOUS_EVOLUTION.md) for the operating procedure, APIs, state layout and rollback rules.
+
 ## Tests
 
 Local suite:
@@ -339,7 +350,9 @@ Local suite:
 python3 -m unittest discover -s tests -v
 ```
 
-Version 0.4 currently contains 44 tests covering architecture invariants, IFURI, Protobuf, Event Sourcing/outbox, NATS wire protocol, multi-runtime URI parity, ContextDSL, IntentDSL, DigitalTwinDSL, source ingestion, OpenRouter configuration and the fail-closed repair loop.
+Version 0.4 currently contains 62 tests covering packaging and architecture invariants, IFURI, Protobuf, Event Sourcing/outbox, NATS wire protocol, multi-runtime URI parity, ContextDSL, IntentDSL, DigitalTwinDSL, source ingestion, OpenRouter configuration, TestQL startup feedback, the embedded DSL dashboard, deterministic error-code diagnostics, the fail-closed response repair loop, AQL/URI authorization, process envelopes and guarded autonomous patch/defer/rollback behavior.
+
+The browser detects and highlights JSON, JSONL, Mermaid and the project DSL family. Runtime values are HTML-escaped before token markup is added. Mermaid is rendered with its strict security profile; if the CDN renderer is unavailable, the highlighted source and an explicit error remain visible.
 
 See `TEST_REPORT.md` for the exact execution status of the delivered package.
 

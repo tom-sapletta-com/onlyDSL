@@ -1,8 +1,12 @@
 __pycache__/
 *.pyc
+.venv/
+.pytest_cache/
+.idea/
 .git/
 .env
 *.zip
 .nats-data/
 state/*
 !state/.gitkeep
+runtime/

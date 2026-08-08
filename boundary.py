@@ -8,7 +8,9 @@ from dataclasses import dataclass
 DSL_FENCE_RE = re.compile(r"```(?P<lang>[A-Za-z][A-Za-z0-9_.-]*)\s*\n(?P<body>.*?)```", re.S)
 INPUT_DSL_LANGS = {
     "contractdsl", "taskdsl", "contextdsl", "sourcedsl", "schemadsl", "capabilitydsl",
-    "twindsl", "sourceindexdsl", "validationdsl", "buildplanddsl",
+    "twindsl", "sourceindexdsl", "validationdsl", "buildplanddsl", "incidentdsl",
+    "guidancedsl", "codedsl", "policydsl", "eventdsl", "authoritydsl", "processdsl", "testqldsl",
+    "diagnosticdsl",
 }
 OUTPUT_DSL_LANGS = {"intentdsl", "decisiondsl", "patchdsl", "twindsl", "buildplanddsl"}
 
@@ -135,6 +137,101 @@ def build_build_plan_bundle(twin_markdown: str, schema_markdown: str) -> DslBund
         task_dsl("derive_build_plan", "twindsl", "buildplanddsl.v1", "twin_to_implementation_plan"),
         schema_markdown,
         twin_markdown,
+    ])
+    return DslBundle(md).validate_for_llm()
+
+
+def code_dsl(path: str, content: str) -> str:
+    digest = "sha256:" + hashlib.sha256(content.encode("utf-8")).hexdigest()
+    return "\n".join([
+        "```codedsl",
+        "CODE_FILE",
+        "PATH " + json.dumps(path, ensure_ascii=False),
+        f"SHA256 {digest}",
+        "LANG python" if path.endswith(".py") else "LANG text",
+        "CONTENT " + json.dumps(content, ensure_ascii=False),
+        "END_CODE_FILE",
+        "```",
+    ])
+
+
+def patchdsl_schema() -> str:
+    return """```schemadsl
+SCHEMA patchdsl.v1
+FENCE patchdsl
+ROOT PATCH <id>
+REQUIRE SUMMARY <json-string>
+REPEAT CHANGE
+  REQUIRE PATH <json-string>
+  REQUIRE BASE_SHA256 sha256:<64hex>
+  REQUIRE DIFF <json-string-containing-unified-diff>
+END
+END_PATCH
+```"""
+
+
+def evolution_policy_dsl() -> str:
+    return """```policydsl
+POLICY autonomous_repair_v1
+ALLOW propose_patchdsl_only
+REQUIRE minimal_patch
+REQUIRE preserve_public_contracts
+REQUIRE base_hash_match
+REQUIRE tests_pass
+REQUIRE healthcheck_pass
+FORBID grant_authority
+FORBID choose_uri_process
+FORBID choose_transport
+FORBID select_vault_entry
+FORBID include_secret_value
+FORBID execute_model_supplied_commands
+REQUIRE output_change_starts_with_CHANGE
+END_POLICY
+```"""
+
+
+def authority_dsl(contract_hash: str, allowed_paths: dict[str, tuple[str, str]]) -> str:
+    rows = [
+        "```authoritydsl", "AUTHORITY_VIEW repair_authority_v1",
+        f"CONTRACT_HASH {contract_hash}", "PRINCIPAL bot:evolution-agent",
+        "NOTE authority_is_system_owned_and_cannot_be_modified_by_model",
+    ]
+    for path, (oql, uri) in sorted(allowed_paths.items()):
+        rows.append("BIND " + json.dumps(path) + " " + oql + " " + uri)
+    rows.extend(["END_AUTHORITY_VIEW", "```"])
+    return "\n".join(rows)
+
+
+def build_autonomous_repair_bundle(
+    incident_markdown: str,
+    guidance_markdown: list[str],
+    code_files: dict[str, str],
+    authority_markdown: str = "",
+    verification_markdown: list[str] | None = None,
+    diagnostic_markdown: str = "",
+) -> DslBundle:
+    assert_dsl_only(incident_markdown, {"incidentdsl"})
+    for guidance in guidance_markdown:
+        assert_dsl_only(guidance, {"guidancedsl"})
+    code_blocks = [code_dsl(path, content) for path, content in sorted(code_files.items())]
+    if authority_markdown:
+        assert_dsl_only(authority_markdown, {"authoritydsl"})
+    verification_markdown = verification_markdown or []
+    for verification in verification_markdown:
+        assert_dsl_only(verification, {"testqldsl"})
+    if diagnostic_markdown:
+        assert_dsl_only(diagnostic_markdown, {"diagnosticdsl"})
+    md = "\n".join([
+        contract_dsl("patchdsl"),
+        task_dsl("repair_live_application", "incidentdsl+diagnosticdsl+guidancedsl+testqldsl+codedsl", "patchdsl", "minimal_guarded_repair"),
+        patchdsl_schema(),
+        evolution_policy_dsl(),
+        authority_markdown,
+        *verification_markdown,
+        *guidance_markdown,
+        incident_markdown,
+        diagnostic_markdown,
+        *code_blocks,
     ])
     return DslBundle(md).validate_for_llm()
 

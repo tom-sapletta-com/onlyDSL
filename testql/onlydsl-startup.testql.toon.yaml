@@ -1,0 +1,11 @@
+# SCENARIO: onlyDSL startup contract
+# TYPE: api
+# VERSION: 1.0
+
+API[6]{method, endpoint, status, assert_key, assert_value}:
+  GET, /api/health, 200, ok, true
+  GET, /api/health, 200, boundary, dsl-only
+  GET, /api/health, 200, addressing, ifuri
+  GET, /api/evolution/status, 200, enabled, true
+  GET, /api/evolution/status, 200, authority.profile, aql:contract/v1
+  GET, /api/evolution/status, 200, execution_boundary.model_commands, forbidden

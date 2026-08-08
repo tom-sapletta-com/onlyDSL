@@ -1,6 +1,7 @@
 import unittest
 from pathlib import Path
 import sys
+import tomllib
 
 import yaml
 
@@ -11,6 +12,14 @@ from ifuri_core.manifest import CapabilityRegistry  # noqa: E402
 
 
 class ArchitectureContractTests(unittest.TestCase):
+    def test_python_project_has_installable_package_metadata(self):
+        metadata = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+        self.assertEqual(metadata["build-system"]["build-backend"], "setuptools.build_meta")
+        self.assertEqual(metadata["project"]["name"], "onlyDSL")
+        self.assertIn("version", metadata["project"]["dynamic"])
+        self.assertIn("server", metadata["tool"]["setuptools"]["py-modules"])
+        self.assertEqual(metadata["project"]["scripts"]["onlydsl"], "server:main")
+
     def test_no_grpc_foundation_dependency(self):
         requirements = (ROOT / "requirements.txt").read_text(encoding="utf-8").lower()
         self.assertNotIn("grpc", requirements)

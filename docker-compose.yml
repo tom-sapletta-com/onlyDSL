@@ -3,8 +3,8 @@ services:
     image: nats:2.14-alpine
     command: ["-c", "/etc/nats/nats.conf"]
     ports:
-      - "4222:4222"
-      - "8222:8222"
+      - "${NATS_BIND_ADDRESS:-127.0.0.1}:${NATS_CLIENT_PORT:-4222}:4222"
+      - "${NATS_BIND_ADDRESS:-127.0.0.1}:${NATS_MONITOR_PORT:-8222}:8222"
     volumes:
       - ./nats/nats.conf:/etc/nats/nats.conf:ro
       - nats-data:/data
@@ -16,7 +16,7 @@ services:
       POSTGRES_PASSWORD: ifuri
       POSTGRES_DB: ifuri
     ports:
-      - "5432:5432"
+      - "${POSTGRES_BIND_ADDRESS:-127.0.0.1}:${POSTGRES_PORT:-5432}:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ifuri -d ifuri"]
       interval: 2s
@@ -28,7 +28,7 @@ services:
   app:
     build: .
     ports:
-      - "8787:8787"
+      - "${APP_BIND_ADDRESS:-127.0.0.1}:${APP_PORT:-8787}:8787"
     env_file:
       - path: .env
         required: false
@@ -51,12 +51,21 @@ services:
       NATS_HOST: nats
       NATS_PORT: 4222
       POSTGRES_DSN: postgresql://ifuri:ifuri@postgres:5432/ifuri
+      EVOLUTION_STATE_DIR: /app/runtime/evolution
     volumes:
       - ./sources:/app/sources:ro
       - ./state:/app/state
+      - ./runtime/evolution:/app/runtime/evolution
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8787/api/health', timeout=2)"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
     depends_on:
-      - nats
-      - postgres
+      nats:
+        condition: service_started
+      postgres:
+        condition: service_healthy
 
   integration:
     build: .
@@ -67,6 +76,7 @@ services:
       NATS_HOST: nats
       NATS_PORT: 4222
       POSTGRES_DSN: postgresql://ifuri:ifuri@postgres:5432/ifuri
+      PYTHONPATH: /app
     volumes:
       - ./sources:/app/sources:ro
     depends_on:
@@ -94,6 +104,97 @@ services:
     volumes:
       - ./sources:/app/sources:ro
     command: ["python3", "scripts/openrouter_smoke.py"]
+
+  live-app:
+    build: .
+    profiles: ["evolution"]
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    ports:
+      - "${EVOLUTION_BIND_ADDRESS:-127.0.0.1}:${EVOLUTION_APP_PORT:-18787}:8787"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8787
+      LLM_BACKEND: ${LLM_BACKEND:-demo}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_BASE_URL: ${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
+      OPENROUTER_MODEL: ${OPENROUTER_MODEL:-~openai/gpt-latest}
+      OPENROUTER_HTTP_REFERER: ${OPENROUTER_HTTP_REFERER:-http://localhost:18787}
+      OPENROUTER_APP_TITLE: ${OPENROUTER_APP_TITLE:-IFURI Digital Twin Lab}
+      SOURCES_DIR: /app/sources
+      TWIN_STATE_DIR: /app/state
+      EVOLUTION_STATE_DIR: /app/runtime/evolution
+      EVOLUTION_ENABLED: ${EVOLUTION_ENABLED:-1}
+      EVOLUTION_MODE: ${EVOLUTION_MODE:-observe}
+      EVOLUTION_LLM_BACKEND: ${EVOLUTION_LLM_BACKEND:-openrouter}
+    volumes:
+      - ./:/app
+    command: ["python3", "scripts/live_supervisor.py"]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8787/api/health', timeout=2)"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  evolution-agent:
+    build: .
+    profiles: ["evolution"]
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      EVOLUTION_ENABLED: ${EVOLUTION_ENABLED:-1}
+      EVOLUTION_MODE: ${EVOLUTION_MODE:-observe}
+      EVOLUTION_LLM_BACKEND: ${EVOLUTION_LLM_BACKEND:-openrouter}
+      EVOLUTION_WORKSPACE: /workspace
+      EVOLUTION_STATE_DIR: /workspace/runtime/evolution
+      EVOLUTION_HEALTH_URL: http://live-app:8787/api/health
+      EVOLUTION_POLL_SECONDS: ${EVOLUTION_POLL_SECONDS:-2}
+      EVOLUTION_TEST_TIMEOUT_SECONDS: ${EVOLUTION_TEST_TIMEOUT_SECONDS:-180}
+      EVOLUTION_AQL_CONTRACT: /authority/evolution-agent.contract.aql
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_BASE_URL: ${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
+      OPENROUTER_MODEL: ${EVOLUTION_OPENROUTER_MODEL:-qwen/qwen3-coder-next}
+      OPENROUTER_HTTP_REFERER: ${OPENROUTER_HTTP_REFERER:-http://localhost:18787}
+      OPENROUTER_APP_TITLE: ${OPENROUTER_APP_TITLE:-IFURI Digital Twin Repair Agent}
+      LLM_REPAIR_ATTEMPTS: ${LLM_REPAIR_ATTEMPTS:-2}
+    volumes:
+      - ./:/workspace
+      - ./config/contracts/evolution-agent.contract.aql:/authority/evolution-agent.contract.aql:ro
+    working_dir: /workspace
+    command: ["python3", "scripts/autonomous_repair.py"]
+    depends_on:
+      live-app:
+        condition: service_healthy
+      testql-startup:
+        condition: service_started
+
+  testql-startup:
+    build:
+      context: .
+      dockerfile: Dockerfile.testql
+    profiles: ["evolution"]
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    environment:
+      EVOLUTION_STATE_DIR: /workspace/runtime/evolution
+      TESTQL_ONLYDSL_URL: http://127.0.0.1:${EVOLUTION_APP_PORT:-18787}
+      TESTQL_TWIN_URL: ${TESTQL_TWIN_URL:-http://127.0.0.1:7444}
+      TESTQL_TWIN_OBSERVATION_LOG: /twin-project/logs/testql-verification.jsonl
+      TESTQL_TWIN_DSL_LOG: /twin-project/logs/testql-latest.testqldsl
+      TESTQL_STARTUP_WAIT_SECONDS: ${TESTQL_STARTUP_WAIT_SECONDS:-45}
+    volumes:
+      - ./:/workspace
+      - ${TESTQL_TWIN_PROJECT_DIR:-../../bioxfoundry/projects/nanobionic-laboratory-md}:/twin-project
+    working_dir: /workspace
+    command: ["python3", "scripts/startup_testql.py"]
+    network_mode: host
+    depends_on:
+      live-app:
+        condition: service_healthy
+    restart: "no"
 
 volumes:
   nats-data:

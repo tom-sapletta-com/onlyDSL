@@ -1,0 +1,9 @@
+FROM python:3.13-slim
+
+WORKDIR /workspace
+
+COPY requirements-testql.txt /tmp/requirements-testql.txt
+RUN pip install --no-cache-dir --no-deps testql==1.2.66 \
+    && pip install --no-cache-dir -r /tmp/requirements-testql.txt
+
+CMD ["python3", "scripts/startup_testql.py"]

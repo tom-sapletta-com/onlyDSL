@@ -13,6 +13,7 @@ from boundary import (
     DslBundle,
     LlmBoundaryError,
     assert_dsl_only,
+    build_autonomous_repair_bundle,
     build_repair_bundle,
     build_build_plan_bundle,
     build_context_analysis_bundle,
@@ -35,6 +36,7 @@ from digital_twin import (
     validate_twin_update,
 )
 from intentdsl import demo_english_to_dsl
+from patchdsl import validate_patch_markdown
 from source_ingest import extract_source_refs, validate_sourceindex_markdown
 
 ROOT = Path(__file__).resolve().parent
@@ -215,6 +217,33 @@ def convert_english(text: str, backend: str | None = None) -> dict[str, Any]:
             "usage": {},
         }
     return _backend_call(bundle, backend, output_lang="intentdsl", max_tokens=1800)
+
+
+def propose_code_patch(
+    incident_markdown: str,
+    guidance_markdown: list[str],
+    code_files: dict[str, str],
+    backend: str | None = None,
+    *,
+    authority_markdown: str = "",
+    verification_markdown: list[str] | None = None,
+) -> dict[str, Any]:
+    """Produce PatchDSL only; policy validation and application stay outside the LLM client."""
+    backend = (backend or os.getenv("EVOLUTION_LLM_BACKEND") or os.getenv("LLM_BACKEND", "demo")).lower()
+    if backend == "demo":
+        raise LlmProviderError("autonomous repair requires a configured network LLM backend")
+    bundle = build_autonomous_repair_bundle(
+        incident_markdown, guidance_markdown, code_files,
+        authority_markdown=authority_markdown,
+        verification_markdown=verification_markdown,
+    )
+    return _call_dsl_validated(
+        bundle,
+        backend,
+        output_lang="patchdsl",
+        max_tokens=5200,
+        validator=validate_patch_markdown,
+    )
 
 
 def _demo_context_analysis(context_markdown: str) -> str:

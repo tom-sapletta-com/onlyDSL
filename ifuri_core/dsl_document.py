@@ -11,7 +11,7 @@ class DslDocumentError(ValueError):
 
 _SUPPORTED = {
     "contextdsl", "intentdsl", "sourcedsl", "contractdsl", "taskdsl",
-    "twindsl", "sourceindexdsl", "buildplanddsl", "dslbundle", "validationdsl",
+    "twindsl", "sourceindexdsl", "buildplanddsl", "patchdsl", "testqldsl", "dslbundle", "validationdsl",
 }
 
 

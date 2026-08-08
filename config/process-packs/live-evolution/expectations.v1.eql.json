@@ -1,0 +1,14 @@
+{
+  "$schema": "https://subactor.com/schemas/process-pack-expectations.v1.json",
+  "profile": "eql:expectation/v1",
+  "id": "live-evolution-expectations",
+  "version": 1,
+  "expectations": [
+    {"id": "base-hash-current", "expected": "base_hashes_match_doql", "verified_by_control": ["patch-base-hash-check"]},
+    {"id": "tests-pass", "expected": "fixed_test_process_exits_zero", "verified_by": ["run-tests"]},
+    {"id": "health-green", "expected": "live_health_is_green", "verified_by": ["read-health"]},
+    {"id": "authority-unchanged", "expected": "authority_hash_matches_envelope", "verified_by_control": ["read-only-aql-mount"]},
+    {"id": "no-model-command", "expected": "routes_are_system_owned", "verified_by_control": ["uri-process-registry"]},
+    {"id": "testql-green", "expected": "startup_testql_is_green", "verified_by": ["run-testql"]}
+  ]
+}

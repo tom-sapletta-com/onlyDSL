@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "onlyDSL"
+dynamic = ["version"]
+description = "DSL-governed IFURI digital twin and autonomous repair runtime"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+dependencies = [
+  "protobuf>=6.30,<7",
+  "PyYAML>=6,<7",
+  "psycopg[binary]>=3.2,<4",
+]
+
+[project.scripts]
+onlydsl = "server:main"
+
+[tool.setuptools]
+py-modules = [
+  "aql",
+  "boundary",
+  "contextdsl",
+  "diagnostics",
+  "digital_twin",
+  "evolution",
+  "governance",
+  "intentdsl",
+  "llm_client",
+  "patchdsl",
+  "server",
+  "source_ingest",
+  "twin_store",
+]
+
+[tool.setuptools.dynamic]
+version = {file = ["VERSION"]}
+
+[tool.setuptools.packages.find]
+include = ["ifuri_core*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.costs]
+# AI Cost tracking configuration
+badge = true
+update_readme = true
+readme_path = "README.md"
+default_model = "openrouter/qwen/qwen3-coder-next"
+analysis_mode = "byok"
+full_history = true
+max_commits = 500
+
+# Cost thresholds for badge colors (USD)
+badge_color_thresholds = { low = 1.0, medium = 5.0, high = 10.0, critical = 50.0 }
+
+[tool.pfix]
+# Self-healing Python configuration
+model = "openrouter/qwen/qwen3-coder-next"
+auto_apply = true
+auto_install_deps = true
+auto_restart = false
+max_retries = 3
+create_backups = false
+git_auto_commit = false
+
+[tool.pfix.runtime_todo]
+enabled = true
+todo_file = "TODO.md"
+min_severity = "low"
+deduplicate = true

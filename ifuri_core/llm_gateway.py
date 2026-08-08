@@ -6,7 +6,7 @@ import re
 from boundary import assert_dsl_only
 from contextdsl import validate_context_markdown
 from digital_twin import validate_buildplan_markdown, validate_twin_markdown
-from llm_client import analyze_context, bootstrap_twin, plan_build, provider_status, update_twin
+from llm_client import analyze_context, bootstrap_twin, plan_build, propose_code_patch, provider_status, update_twin
 from source_ingest import validate_sourceindex_markdown
 
 from .dsl_document import make_dsl_document, validate_dsl_document
@@ -34,6 +34,8 @@ def _reply(envelope, dsl_type: str, markdown: str, result: dict, backend: str):
             "backend": str(result.get("backend", backend)),
             "model": str(result.get("model", "")),
             "constrained": str(bool(result.get("constrained", False))).lower(),
+            "repair_attempts": str(result.get("repair_attempts", 0)),
+            "usage": json.dumps(result.get("usage", {}), separators=(",", ":")),
         },
     )
 
@@ -147,6 +149,55 @@ def build_llm_build_plan_handler(backend: str = "demo"):
         if not validate_buildplan_markdown(result["markdown"])["valid"]:
             raise LlmGatewayError("invalid BuildPlanDSL")
         return _reply(envelope, "buildplanddsl", result["markdown"], result, backend)
+
+    return handler
+
+
+def build_llm_patch_handler(backend: str = "openrouter"):
+    def handler(resolved, envelope):
+        incoming = DslDocument()
+        EnvelopeCodec.unpack(envelope, incoming)
+        validate_dsl_document(incoming)
+        if incoming.dsl_type != "dslbundle":
+            raise LlmGatewayError("repair proposal requires dslbundle input")
+        assert_dsl_only(incoming.markdown, {"authoritydsl", "incidentdsl", "guidancedsl", "testqldsl", "codedsl"})
+        incident = ""
+        authority = ""
+        guidance: list[str] = []
+        verification: list[str] = []
+        code_files: dict[str, str] = {}
+        for match in _FENCE.finditer(incoming.markdown):
+            lang = match.group("lang").lower()
+            markdown = f"```{lang}\n{match.group('body').strip()}\n```"
+            if lang == "incidentdsl":
+                if incident:
+                    raise LlmGatewayError("repair bundle contains duplicate incidentdsl")
+                incident = markdown
+            elif lang == "authoritydsl":
+                if authority:
+                    raise LlmGatewayError("repair bundle contains duplicate authoritydsl")
+                authority = markdown
+            elif lang == "guidancedsl":
+                guidance.append(markdown)
+            elif lang == "testqldsl":
+                verification.append(markdown)
+            elif lang == "codedsl":
+                path_match = re.search(r"^PATH\s+(.+)$", match.group("body"), re.M)
+                content_match = re.search(r"^CONTENT\s+(.+)$", match.group("body"), re.M)
+                if not path_match or not content_match:
+                    raise LlmGatewayError("codedsl requires PATH and CONTENT")
+                path = json.loads(path_match.group(1))
+                content = json.loads(content_match.group(1))
+                if not isinstance(path, str) or not isinstance(content, str):
+                    raise LlmGatewayError("codedsl PATH and CONTENT must be strings")
+                code_files[path] = content
+        if not incident or not code_files:
+            raise LlmGatewayError("repair bundle requires incidentdsl and codedsl")
+        result = propose_code_patch(
+            incident, guidance, code_files, backend,
+            authority_markdown=authority, verification_markdown=verification,
+        )
+        return _reply(envelope, "patchdsl", result["markdown"], result, backend)
 
     return handler
 

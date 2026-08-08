@@ -1,0 +1,17 @@
+{
+  "$schema": "https://subactor.com/schemas/process-pack-recipe.v1.json",
+  "profile": "uri-process/v1",
+  "id": "live-evolution-recipe",
+  "version": 1,
+  "uri_processes": [
+    {"id": "patch-source", "uri": "repo://workspace/source/command/patch", "actor": "bot:evolution-agent"},
+    {"id": "patch-dependency", "uri": "repo://workspace/dependency/command/patch", "actor": "bot:evolution-agent"},
+    {"id": "patch-docker", "uri": "repo://workspace/docker/command/patch", "actor": "bot:evolution-agent"},
+    {"id": "patch-runtime", "uri": "repo://workspace/runtime/command/patch", "actor": "bot:evolution-agent"},
+    {"id": "patch-evolution", "uri": "repo://workspace/evolution/command/patch", "actor": "bot:evolution-agent"},
+    {"id": "rotate-secret", "uri": "vault://workspace/secret/command/rotate", "actor": "system:secret-adapter", "payload": {"secret_ref": "{accepted_secret_ref}"}},
+    {"id": "run-tests", "uri": "process://workspace/tests/command/run", "actor": "system:test-runner"},
+    {"id": "read-health", "uri": "http://live-app:8787/api/health", "actor": "system:health-reader", "depends_on": ["run-tests"]},
+    {"id": "run-testql", "uri": "process://workspace/testql/command/verify", "actor": "system:testql-runner", "depends_on": ["read-health"]}
+  ]
+}

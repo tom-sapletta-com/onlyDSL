@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>IFURI Digital Twin Lab 0.4</title>
 <style>
-:root{font-family:Inter,ui-sans-serif,system-ui,sans-serif;background:#0a0d12;color:#e9edf5}*{box-sizing:border-box}body{margin:0}main{max-width:1580px;margin:auto;padding:22px}h1{margin:0 0 6px;font-size:28px}h2{font-size:17px;margin:0 0 8px}p{color:#98a5b9;margin:0 0 14px}.pipeline{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 18px}.pipeline span{padding:6px 9px;border:1px solid #2b3852;border-radius:7px;background:#101620;font:12px ui-monospace}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{background:#111722;border:1px solid #263149;border-radius:12px;padding:14px}.wide{grid-column:1/-1}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}label{display:block;font-size:12px;color:#8f9cb0;margin:8px 0 5px}textarea,pre,input{width:100%;background:#080c12;color:#e9edf5;border:1px solid #2b3852;border-radius:8px;padding:10px;font:12.5px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}textarea{min-height:190px;resize:vertical}pre{min-height:120px;white-space:pre-wrap;overflow:auto;max-height:520px}button{background:#2f6fec;color:white;border:0;border-radius:8px;padding:9px 13px;font-weight:700;cursor:pointer}button.secondary{background:#263044}.badge{font:12px ui-monospace;background:#1d2533;padding:5px 8px;border-radius:999px}.ok{color:#6ee7a8}.bad{color:#ff8a8a}.notice{border-left:3px solid #2f6fec;padding:9px 11px;background:#0e1420;color:#aab6c8;font-size:13px;margin-bottom:14px}.muted{color:#8896aa;font-size:12px}.section{margin-top:20px;padding-top:18px;border-top:1px solid #263149}@media(max-width:950px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}}
+:root{font-family:Inter,ui-sans-serif,system-ui,sans-serif;background:#0a0d12;color:#e9edf5}*{box-sizing:border-box}body{margin:0}main{max-width:1580px;margin:auto;padding:22px}h1{margin:0 0 6px;font-size:28px}h2{font-size:17px;margin:0 0 8px}p{color:#98a5b9;margin:0 0 14px}.pipeline{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 18px}.pipeline span{padding:6px 9px;border:1px solid #2b3852;border-radius:7px;background:#101620;font:12px ui-monospace}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{background:#111722;border:1px solid #263149;border-radius:12px;padding:14px}.wide{grid-column:1/-1}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}label{display:block;font-size:12px;color:#8f9cb0;margin:8px 0 5px}textarea,pre,input{width:100%;background:#080c12;color:#e9edf5;border:1px solid #2b3852;border-radius:8px;padding:10px;font:12.5px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}textarea{min-height:190px;resize:vertical}pre{min-height:120px;white-space:pre-wrap;overflow:auto;max-height:520px}.code-view{tab-size:2}.tok-key{color:#7dd3fc}.tok-string{color:#a7f3d0}.tok-number{color:#fbbf24}.tok-bool{color:#c4b5fd;font-weight:700}.tok-null{color:#fb7185}.tok-comment{color:#64748b;font-style:italic}.tok-keyword{color:#93c5fd;font-weight:700}.tok-uri{color:#f0abfc}.tok-fence{color:#fbbf24;font-weight:700}.format-label{color:#64748b;font:11px ui-monospace;text-transform:uppercase}.diagram{min-height:260px;overflow:auto;border:1px solid #2b3852;border-radius:8px;background:#f8fafc;padding:12px;display:grid;place-items:center}.diagram svg{max-width:100%;height:auto}.diagram-error{color:#991b1b;white-space:pre-wrap;font:12px/1.45 ui-monospace}details{margin-top:10px}summary{cursor:pointer;color:#93c5fd;font-size:12px}button{background:#2f6fec;color:white;border:0;border-radius:8px;padding:9px 13px;font-weight:700;cursor:pointer}button.secondary{background:#263044}.badge{font:12px ui-monospace;background:#1d2533;padding:5px 8px;border-radius:999px}.ok{color:#6ee7a8}.bad{color:#ff8a8a}.notice{border-left:3px solid #2f6fec;padding:9px 11px;background:#0e1420;color:#aab6c8;font-size:13px;margin-bottom:14px}.muted{color:#8896aa;font-size:12px}.section{margin-top:20px;padding-top:18px;border-top:1px solid #263149}.dashboard-frame{width:100%;min-height:820px;border:1px solid #2b3852;border-radius:8px;background:#080c12}a{color:#7aa7ff}@media(max-width:950px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.dashboard-frame{min-height:680px}}
 </style>
 </head>
 <body><main>
@@ -30,7 +30,7 @@
 
 <section class="card">
   <div class="row"><h2>2. DigitalTwinDSL</h2><span id="twinStatus" class="badge">not loaded</span></div>
-  <textarea id="twin"></textarea>
+  <pre id="twin" class="code-view" data-format="dsl"></pre>
 </section>
 
 <section class="card">
@@ -43,9 +43,13 @@
   <pre id="planOut"></pre>
 </section>
 
-<section class="card">
-  <h2>Digital twin graph (Mermaid source)</h2>
-  <pre id="mermaid"></pre>
+<section class="card wide">
+  <div class="row"><h2>Digital twin graph</h2><span id="mermaidStatus" class="badge">not loaded</span></div>
+  <div id="mermaidDiagram" class="diagram" aria-live="polite"></div>
+  <details>
+    <summary>Mermaid source</summary>
+    <pre id="mermaidSource" class="code-view" data-format="mermaid"></pre>
+  </details>
 </section>
 
 <section class="card">
@@ -56,6 +60,39 @@
 <section class="card wide">
   <h2>Exact DSL sent to LLM</h2>
   <pre id="llmRequest"></pre>
+</section>
+
+<section class="card wide">
+  <div class="row"><h2>Autonomous evolution loop</h2><span id="evolutionMode" class="badge">loading</span><button id="refreshEvolution" class="secondary">Refresh</button><button id="refreshDiagnostics" class="secondary">Diagnostics</button></div>
+  <p>Guidance and incidents are persisted as DSL. In <code>apply</code> mode the model proposes only PatchDSL; AQL authorizes OQL plus a system-owned URI route. The agent runs fixed tests, reloads the process and rolls back on failed health. Model-supplied commands are never executed.</p>
+  <div class="grid">
+    <div>
+      <label>Guidance directive</label>
+      <textarea id="guidance" style="min-height:100px">Preserve the public API and prefer the smallest source change that fixes the observed failure.</textarea>
+      <button id="saveGuidance">Save GuidanceDSL</button>
+    </div>
+    <div>
+      <label>Report a live bug</label>
+      <textarea id="bugReport" style="min-height:100px">Describe the symptom, affected endpoint and steps that reproduce the bug.</textarea>
+      <button id="reportBug">Queue IncidentDSL</button>
+    </div>
+  </div>
+  <pre id="evolutionStatus"></pre>
+  <label>Detected error codes and governed solutions</label>
+  <pre id="diagnosticsStatus" class="code-view" data-format="dsl">No diagnostics recorded.</pre>
+</section>
+
+<section class="card wide">
+  <div class="row">
+    <h2>Live DSL application</h2>
+    <span id="dslDashboardStatus" class="badge">loading 7444</span>
+    <button id="reloadDslDashboard" class="secondary">Reload view</button>
+    <a href="http://127.0.0.1:7444/" target="_blank" rel="noopener">open dashboard</a>
+    <a href="http://127.0.0.1:7444/api/events" target="_blank" rel="noopener">EventDSL JSON</a>
+    <a href="http://127.0.0.1:7444/api/dsl" target="_blank" rel="noopener">DSL documents JSON</a>
+  </div>
+  <p>Generated Digital Twin view, append-only iteration events and current DSL artifacts. This read-only view comes from the separately running dashboard on port 7444.</p>
+  <iframe id="dslDashboard" class="dashboard-frame" title="Digital Twin DSL dashboard and logs" src="http://127.0.0.1:7444/" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
 </section>
 </div>
 
@@ -68,15 +105,49 @@
 </div>
 <script>
 const $=x=>document.getElementById(x);
+const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+window.uiEscapeHtml=escapeHtml;
+function tokenized(text,pattern,classify){let out='',last=0;for(const match of String(text).matchAll(pattern)){out+=escapeHtml(text.slice(last,match.index));const cls=classify(match[0],match.index+match[0].length,text);out+=cls?`<span class="${cls}">${escapeHtml(match[0])}</span>`:escapeHtml(match[0]);last=match.index+match[0].length}return out+escapeHtml(text.slice(last))}
+function highlightJson(value){const text=typeof value==='string'?value:JSON.stringify(value,null,2);const pattern=/"(?:\\.|[^"\\])*"|-?\b\d+(?:\.\d+)?(?:e[+-]?\d+)?\b|\b(?:true|false)\b|\bnull\b/gi;return tokenized(text,pattern,(token,end,source)=>{if(token[0]==='"')return /^\s*:/.test(source.slice(end))?'tok-key':'tok-string';if(/^(true|false)$/i.test(token))return 'tok-bool';if(/^null$/i.test(token))return 'tok-null';return 'tok-number'})}
+function highlightDsl(text){const pattern=/```[a-zA-Z0-9_-]*|```|#[^\n]*|"(?:\\.|[^"\\])*"|\b(?:https?|repo|process|vault|urn):\/\/[^\s"']+|\b(?:true|false)\b|\bnull\b|-?\b\d+(?:\.\d+)?\b|\b[A-Z][A-Z0-9_:-]*\b/g;return tokenized(text,pattern,token=>{if(token.startsWith('```'))return 'tok-fence';if(token.startsWith('#'))return 'tok-comment';if(token[0]==='"')return 'tok-string';if(/^(https?|repo|process|vault|urn):\/\//.test(token))return 'tok-uri';if(/^(true|false)$/.test(token))return 'tok-bool';if(token==='null')return 'tok-null';if(/^-?\d/.test(token))return 'tok-number';return 'tok-keyword'})}
+function highlightMermaid(text){const pattern=/%%[^\n]*|"(?:\\.|[^"\\])*"|\b(?:flowchart|graph|subgraph|end|classDef|class|style|click|linkStyle|direction|LR|RL|TB|BT|TD)\b|-->|---|-.->|==>|\|[^|]+\||\b\d+(?:\.\d+)?\b/g;return tokenized(text,pattern,token=>{if(token.startsWith('%%'))return 'tok-comment';if(token[0]==='"'||token.startsWith('|'))return 'tok-string';if(/^\d/.test(token))return 'tok-number';return 'tok-keyword'})}
+function detectFormat(value,hint='auto'){if(hint!=='auto')return hint;if(value!==null&&typeof value==='object')return 'json';const text=String(value??'').trim();if(/^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram|erDiagram|journey|gantt|pie)\b/.test(text))return 'mermaid';if(text.startsWith('{')||text.startsWith('[')){try{JSON.parse(text);return 'json'}catch(e){}}const rows=text.split('\n').filter(Boolean);if(rows.length>1&&rows.every(row=>{try{JSON.parse(row);return true}catch(e){return false}}))return 'jsonl';if(text.includes('```')||/^\s*[A-Z][A-Z0-9_:-]+(?:\s|$)/m.test(text))return 'dsl';return 'text'}
+function highlighted(value,format){if(format==='json')return highlightJson(value);if(format==='jsonl')return String(value).split('\n').map(line=>line.trim()?highlightJson(line):'').join('\n');if(format==='dsl')return highlightDsl(String(value??''));if(format==='mermaid')return highlightMermaid(String(value??''));return escapeHtml(value)}
+function setCode(id,value,hint='auto'){const node=$(id);const format=detectFormat(value,hint);node.dataset.format=format;node.innerHTML=highlighted(value,format);node.title=`Detected format: ${format}`}
+function setMixedCode(id,dsl,json){const node=$(id);node.dataset.format='dsl + json';node.innerHTML=highlightDsl(dsl)+"\n\n"+highlightJson(json);node.title='Detected format: DSL + JSON'}
+window.pendingMermaid='';
+function renderMermaid(source){window.pendingMermaid=source||'';setCode('mermaidSource',window.pendingMermaid,'mermaid');$('mermaidStatus').textContent=window.pendingMermaid?'loading renderer':'no graph';$('mermaidStatus').className='badge';if(window.renderMermaidGraph)window.renderMermaidGraph(window.pendingMermaid)}
 async function get(path){const r=await fetch(path);const j=await r.json();if(!r.ok||j.error)throw new Error(j.message||j.error);return j}
 async function api(path,body={}){const r=await fetch(path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});const j=await r.json();if(!r.ok||j.error)throw new Error(j.message||j.error);return j}
-function showTwin(j){$('twin').value=j.markdown||'';$('mermaid').textContent=j.mermaid||'';$('meta').textContent=JSON.stringify({validation:j.validation,revision:j.revision,intent_fingerprint:j.intent_fingerprint,sources:j.sources,open_questions:j.open_questions,route:j.route},null,2);$('llmRequest').textContent=j.llm_request_markdown||'';$('twinStatus').textContent=j.validation?.valid?'VALID r'+j.revision:'INVALID';$('twinStatus').className='badge '+(j.validation?.valid?'ok':'bad')}
-async function provider(){const j=await get('/api/llm/status');$('providerJson').textContent=JSON.stringify(j,null,2);$('provider').textContent=j.configured?'CONFIGURED':'NOT CONFIGURED';$('provider').className='badge '+(j.configured?'ok':'bad')}
+function showTwin(j){setCode('twin',j.markdown||'','dsl');renderMermaid(j.mermaid||'');setCode('meta',{validation:j.validation,revision:j.revision,intent_fingerprint:j.intent_fingerprint,sources:j.sources,open_questions:j.open_questions,route:j.route},'json');setCode('llmRequest',j.llm_request_markdown||'','dsl');$('twinStatus').textContent=j.validation?.valid?'VALID r'+j.revision:'INVALID';$('twinStatus').className='badge '+(j.validation?.valid?'ok':'bad')}
+async function provider(){const j=await get('/api/llm/status');setCode('providerJson',j,'json');$('provider').textContent=j.configured?'CONFIGURED':'NOT CONFIGURED';$('provider').className='badge '+(j.configured?'ok':'bad')}
+async function evolution(){const j=await get('/api/evolution/status');setCode('evolutionStatus',j,'json');$('evolutionMode').textContent=(j.enabled?'ENABLED ':'DISABLED ')+j.mode.toUpperCase();$('evolutionMode').className='badge '+(j.enabled?'ok':'bad')}
+async function diagnostics(){const j=await get('/api/evolution/diagnostics?limit=12');const markdown=(j.diagnostics||[]).map(item=>item.markdown).join('\n\n');setCode('diagnosticsStatus',markdown||'No diagnostics recorded.',markdown?'dsl':'text')}
+$('dslDashboard').addEventListener('load',()=>{$('dslDashboardStatus').textContent='LOADED 7444';$('dslDashboardStatus').className='badge ok'})
+$('dslDashboard').addEventListener('error',()=>{$('dslDashboardStatus').textContent='UNAVAILABLE 7444';$('dslDashboardStatus').className='badge bad'})
+$('reloadDslDashboard').onclick=()=>{const frame=$('dslDashboard');$('dslDashboardStatus').textContent='loading 7444';$('dslDashboardStatus').className='badge';frame.src='http://127.0.0.1:7444/?reload='+Date.now()}
 $('bootstrap').onclick=async()=>{try{showTwin(await api('/api/twin/bootstrap',{intent:$('intent').value,reset:$('reset').checked}))}catch(e){$('meta').textContent=e.stack}}
-$('scan').onclick=async()=>{try{const j=await get('/api/twin/sources');$('sources').textContent=j.markdown+'\n\n'+JSON.stringify(j.documents,null,2)}catch(e){$('sources').textContent=e.stack}}
-$('update').onclick=async()=>{try{const j=await api('/api/twin/update',{});showTwin(j);$('sources').textContent=j.source_index.markdown+'\n\n'+JSON.stringify(j.source_index.documents,null,2)}catch(e){$('meta').textContent=e.stack}}
-$('plan').onclick=async()=>{try{const j=await api('/api/twin/plan',{});$('planOut').textContent=j.markdown+'\n\n'+JSON.stringify(j.validation,null,2)}catch(e){$('planOut').textContent=e.stack}}
-$('analyze').onclick=async()=>{try{const j=await api('/api/ifuri/analyze-context',{context:JSON.parse($('raw').value)});$('runtime').textContent=j.context_markdown+'\n\n'+j.intent_markdown+'\n\n'+JSON.stringify(j.runtime,null,2)}catch(e){$('runtime').textContent=e.stack}}
-(async()=>{await provider();try{const j=await get('/api/twin');if(j.exists)showTwin(j)}catch(e){};await $('scan').onclick();})();
+$('scan').onclick=async()=>{try{const j=await get('/api/twin/sources');setMixedCode('sources',j.markdown,j.documents)}catch(e){setCode('sources',e.stack,'text')}}
+$('update').onclick=async()=>{try{const j=await api('/api/twin/update',{});showTwin(j);setMixedCode('sources',j.source_index.markdown,j.source_index.documents)}catch(e){setCode('meta',e.stack,'text')}}
+$('plan').onclick=async()=>{try{const j=await api('/api/twin/plan',{});setMixedCode('planOut',j.markdown,j.validation)}catch(e){setCode('planOut',e.stack,'text')}}
+$('analyze').onclick=async()=>{try{const j=await api('/api/ifuri/analyze-context',{context:JSON.parse($('raw').value)});setMixedCode('runtime',j.context_markdown+'\n\n'+j.intent_markdown,j.runtime)}catch(e){setCode('runtime',e.stack,'text')}}
+$('refreshEvolution').onclick=async()=>{try{await evolution()}catch(e){$('evolutionStatus').textContent=e.stack}}
+$('refreshDiagnostics').onclick=async()=>{try{await diagnostics()}catch(e){setCode('diagnosticsStatus',e.stack,'text')}}
+$('saveGuidance').onclick=async()=>{try{const j=await api('/api/evolution/guidance',{directive:$('guidance').value,source:'web_ui'});setCode('evolutionStatus',j.markdown,'dsl');await evolution()}catch(e){setCode('evolutionStatus',e.stack,'text')}}
+$('reportBug').onclick=async()=>{try{const j=await api('/api/evolution/report',{kind:'reported_bug',message:$('bugReport').value,source:'web_ui',route:location.pathname});setCode('evolutionStatus',j.markdown,'dsl');await evolution()}catch(e){setCode('evolutionStatus',e.stack,'text')}}
+(async()=>{await provider();await evolution();await diagnostics();try{const j=await get('/api/twin');if(j.exists)showTwin(j)}catch(e){};await $('scan').onclick();})();
+</script>
+<script type="module">
+try {
+  const {default:mermaid}=await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+  mermaid.initialize({startOnLoad:false,securityLevel:'strict',theme:'dark',flowchart:{htmlLabels:false,useMaxWidth:true}});
+  let graphSequence=0;
+  window.renderMermaidGraph=async source=>{const target=document.getElementById('mermaidDiagram');const status=document.getElementById('mermaidStatus');if(!source){target.textContent='No Mermaid graph available.';return}try{const result=await mermaid.render(`digital-twin-graph-${++graphSequence}`,source);target.innerHTML=result.svg;if(result.bindFunctions)result.bindFunctions(target);status.textContent='RENDERED';status.className='badge ok'}catch(error){target.innerHTML=`<div class="diagram-error">${window.uiEscapeHtml(error?.message||error)}</div>`;status.textContent='INVALID MERMAID';status.className='badge bad'}};
+  if(window.pendingMermaid)window.renderMermaidGraph(window.pendingMermaid);
+} catch (error) {
+  document.getElementById('mermaidDiagram').innerHTML=`<div class="diagram-error">Mermaid renderer unavailable. The highlighted source remains below.\n${window.uiEscapeHtml(error?.message||error)}</div>`;
+  document.getElementById('mermaidStatus').textContent='RENDERER UNAVAILABLE';
+  document.getElementById('mermaidStatus').className='badge bad';
+}
 </script>
 </main></body></html>

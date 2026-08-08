@@ -1,0 +1,17 @@
+{
+  "$schema": "https://subactor.com/schemas/process-pack-operations.v1.json",
+  "profile": "oql:subactor-workflow/v1",
+  "id": "live-evolution-operations",
+  "version": 1,
+  "operations": [
+    {"id": "change-code", "op": "code.change", "target": "workspace-source"},
+    {"id": "change-dependency", "op": "dependency.change", "target": "workspace-dependencies"},
+    {"id": "change-docker", "op": "docker.change", "target": "workspace-docker"},
+    {"id": "change-runtime", "op": "runtime.change", "target": "workspace-runtime"},
+    {"id": "change-evolution", "op": "evolution.change", "target": "workspace-evolution"},
+    {"id": "rotate-secret", "op": "secret.rotate", "target": "bound-secret-reference"},
+    {"id": "run-tests", "op": "test.run", "target": "workspace", "depends_on": ["change-code"]},
+    {"id": "verify-health", "op": "health.verify", "target": "live-application", "depends_on": ["run-tests"]},
+    {"id": "verify-testql", "op": "testql.verify", "target": "live-system-and-digital-twin", "depends_on": ["verify-health"]}
+  ]
+}

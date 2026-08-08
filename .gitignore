@@ -6,6 +6,8 @@ build/
 dist/
 *.egg-info/
 .env
+runtime/evolution/*
+!runtime/evolution/.gitkeep
 work/
 reports/
 .agent-state/
@@ -272,3 +274,5 @@ scripts/
 .planfile/.koru/
 .koru/
 .planfile/sprints/*.bak-*
+# Temporary live-instance handoff generated during local operation.
+/START.md

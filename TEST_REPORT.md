@@ -19,7 +19,7 @@ python3 -m unittest discover -s tests -v
 Result:
 
 ```text
-Ran 44 tests
+Ran 62 tests
 OK
 ```
 
@@ -47,6 +47,14 @@ Coverage includes:
 - source provenance in TwinDSL,
 - BuildPlanDSL generation,
 - persistent twin revision history.
+- GuidanceDSL/IncidentDSL/EventDSL persistence,
+- strict PatchDSL parsing, base-hash and path policy checks,
+- verified autonomous patch application,
+- automatic byte-for-byte rollback after a failed test.
+- canonical Subactor `aql:contract/v1` authorization of OQL plus exact URI Process,
+- schema-compatible process envelopes, EQL outcomes and SODL receipts,
+- immutable governance kernel and opaque, preaccepted secret references.
+- native TestQL startup scenarios, TestQLDSL persistence and failure-to-observation routing.
 
 ## HTTP end-to-end test
 
@@ -92,7 +100,11 @@ It requires:
 OPENROUTER_API_KEY
 ```
 
-The current execution environment did **not** contain an OpenRouter key, therefore no paid/external model request was made. Running the smoke script without a key correctly returns:
+The real provider was reached with a configured key. Authentication and response delivery worked, but the end-to-end twin smoke remained fail-closed because the selected model emitted non-canonical IFURI (`command` instead of `commands`) after all repair attempts. No invalid TwinDSL was accepted.
+
+The autonomous repair capability was also exercised against OpenRouter while diagnosing a supervisor false alarm. Provider output was rejected before application because it did not conform to PatchDSL (`patchdsl.v1` fence, followed by a non-canonical block form). The contract and parser were subsequently made explicit and the safe `BLOCK` alias received regression coverage. No provider-generated patch was applied during this diagnostic.
+
+Running the smoke script without a key still returns:
 
 ```text
 OPENROUTER_SMOKE_SKIPPED: OPENROUTER_API_KEY is not set
@@ -102,7 +114,7 @@ The OpenRouter network path itself is covered by tests using a mocked HTTP respo
 
 ## Docker execution status
 
-`docker`, `podman`, and `/var/run/docker.sock` are unavailable in the current execution environment. Therefore an actual `docker compose build/run` cannot be truthfully marked as executed here.
+Docker execution was verified on 2026-08-08. The regular stack and the guarded live-evolution profile built successfully. The evolution profile is currently healthy on `127.0.0.1:18787` with `EVOLUTION_MODE=apply` and an empty active incident queue.
 
 The Compose file was parsed by the architecture test suite and includes:
 
@@ -111,6 +123,9 @@ The Compose file was parsed by the architecture test suite and includes:
 - `app`,
 - `integration`,
 - `openrouter-smoke` under profile `llm`.
+- `live-app` and `evolution-agent` under profile `evolution`.
+
+The live supervisor detected a source change, recorded `application_reload_requested` as EventDSL, restarted the child server and returned to healthy state. A controlled container restart no longer produces a new process-exit incident. Historical failed incidents from diagnosing that race remain in the ignored runtime audit directory.
 
 The Docker integration script now covers:
 

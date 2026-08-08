@@ -1,0 +1,37 @@
+{
+  "$schema": "https://subactor.com/schemas/process-pack.v3.json",
+  "profile": "process-pack/v1",
+  "id": "live-evolution",
+  "version": 1,
+  "state": "active",
+  "owner": "organization:constitutional-authority",
+  "reason_template": "Repair incident {incident_id} under proposal {proposal_hash}",
+  "nl": {
+    "phrases": ["repair the reported live application incident"],
+    "slots": {"incident_id": {"type": "string"}, "proposal_hash": {"type": "string"}},
+    "llm_policy": {
+      "may_select": true,
+      "may_fill_slots": true,
+      "may_generate_uri": false,
+      "may_select_transport": false,
+      "may_select_vault_entry": false
+    }
+  },
+  "aql": {
+    "model": "evolution-agent.pl.aql",
+    "actor": "bot:evolution-agent",
+    "allow": ["code.change", "dependency.change", "docker.change", "runtime.change", "evolution.change", "secret.rotate"],
+    "deny": ["authority.self_grant", "uri.generate", "transport.select", "secret.reveal", "model_command.execute"]
+  },
+  "eql_ref": "expectations.v1.eql.json",
+  "oql_ref": "operations.v1.oql.json",
+  "uri_ref": "recipe.v1.urirun.json",
+  "sodl_events": ["subactor.evolution.proposed/v1", "subactor.evolution.verified/v1"],
+  "runtime_bindings": {
+    "incident_id": {"type": "string", "required": true, "max_length": 128},
+    "proposal_hash": {"type": "string", "required": true, "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "required_capabilities": ["workspace.patch", "test.run", "health.read", "audit.append"],
+  "approval_policy": "prior AQL policy grant bound to the canonical proposal hash",
+  "idempotency": {"scope": "workspace", "key_template": "{incident_id}:{proposal_hash}"}
+}

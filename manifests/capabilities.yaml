@@ -134,6 +134,21 @@ capabilities:
       preferred: inproc
       fallback: [nats]
 
+  - id: llm.repair.propose
+    uri_pattern: ifuri://llm/repair/{repair_id}/commands/propose
+    contract:
+      input: ifuri.v1.DslDocument
+      output: ifuri.v1.DslDocument
+    semantics:
+      kind: command
+      idempotent: true
+      durable: false
+    placement:
+      runtime: llm-gateway
+    transport:
+      preferred: inproc
+      fallback: [nats]
+
   - id: twin.state.save
     uri_pattern: ifuri://twin/state/{twin_id}/commands/save
     contract:

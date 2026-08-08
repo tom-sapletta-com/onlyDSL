@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import traceback
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
@@ -26,6 +27,8 @@ from digital_twin import (
     validate_twin_markdown,
 )
 from intentdsl import codegen, extract_intentdsl, parse_dsl, run_program, validate_markdown
+from evolution import EvolutionStore
+from aql import AqlContract
 from source_ingest import build_source_index, validate_sourceindex_markdown
 from twin_store import TwinStore
 from ifuri_core.dsl_document import make_dsl_document
@@ -47,6 +50,15 @@ ROOT = Path(__file__).resolve().parent
 STATIC = ROOT / "static"
 SOURCES = Path(os.getenv("SOURCES_DIR", str(ROOT / "sources")))
 STORE = TwinStore(os.getenv("TWIN_STATE_DIR", str(ROOT / "state")))
+EVOLUTION = EvolutionStore(os.getenv("EVOLUTION_STATE_DIR", str(ROOT / "runtime" / "evolution")))
+
+
+def evolution_authority_status():
+    path = os.getenv("EVOLUTION_AQL_CONTRACT", str(ROOT / "config/contracts/evolution-agent.contract.aql"))
+    try:
+        return AqlContract.from_file(path).public_status()
+    except Exception as exc:
+        return {"configured": False, "error": str(exc)}
 
 REGISTRY = CapabilityRegistry.from_file(ROOT / "manifests" / "capabilities.yaml")
 INPROC = InProcessTransport()
@@ -213,7 +225,7 @@ class Handler(BaseHTTPRequestHandler):
     server_version = "IfuriDigitalTwinLab/0.4"
 
     def log_message(self, fmt: str, *args: Any) -> None:
-        if os.getenv("QUIET", "0") != "1":
+        if self.path != "/api/health" and os.getenv("QUIET", "0") != "1":
             super().log_message(fmt, *args)
 
     def _send(self, status: int, payload: Any, content_type: str = "application/json; charset=utf-8") -> None:
@@ -223,6 +235,16 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(data)))
         self.end_headers()
         self.wfile.write(data)
+        if self.path != "/api/health":
+            try:
+                EVOLUTION.add_event("http_response", {
+                    "method": self.command,
+                    "path": urlparse(self.path).path,
+                    "status": status,
+                    "bytes": len(data),
+                })
+            except Exception:
+                pass
 
     def _body(self) -> dict[str, Any]:
         length = int(self.headers.get("Content-Length", "0"))
@@ -249,6 +271,27 @@ class Handler(BaseHTTPRequestHandler):
             return
         if path == "/api/llm/status":
             self._send(200, gateway_provider_status())
+            return
+        if path == "/api/evolution/status":
+            status = EVOLUTION.status()
+            status["authority"] = evolution_authority_status()
+            status["execution_boundary"] = {
+                "model_commands": "forbidden",
+                "uri_owner": "system_process_pack",
+                "secret_values_visible_to_model": False,
+            }
+            self._send(200, status)
+            return
+        if path == "/api/evolution/diagnostics":
+            limit_raw = (parse_qs(parsed.query).get("limit") or ["20"])[0]
+            try:
+                limit = min(100, max(1, int(limit_raw)))
+            except ValueError:
+                raise ValueError("diagnostics limit must be an integer")
+            self._send(200, {
+                "schema": "subactor.diagnostic-log-view/v1",
+                "diagnostics": EVOLUTION.latest_diagnostics(limit),
+            })
             return
         if path == "/api/ifuri/route":
             uri = (parse_qs(parsed.query).get("uri") or [""])[0]
@@ -295,6 +338,26 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/api/twin/plan":
                 self._send(200, _plan_twin())
                 return
+            if path == "/api/evolution/guidance":
+                result = EVOLUTION.add_guidance(
+                    str(body.get("directive", "")),
+                    source=str(body.get("source", "api")),
+                    priority=str(body.get("priority", "normal")),
+                )
+                self._send(201, result)
+                return
+            if path == "/api/evolution/report":
+                result = EVOLUTION.add_incident(
+                    str(body.get("kind", "reported_bug")),
+                    str(body.get("message", "")),
+                    source=str(body.get("source", "api")),
+                    severity=str(body.get("severity", "error")),
+                    route=str(body.get("route", "")),
+                    trace=str(body.get("trace", "")),
+                    fields=dict(body.get("fields", {}) or {}),
+                )
+                self._send(202, result)
+                return
             if path == "/api/validate":
                 self._send(200, validate_markdown(str(body.get("markdown", ""))))
                 return
@@ -309,8 +372,30 @@ class Handler(BaseHTTPRequestHandler):
                 self._send(200, {"code": codegen(program, str(body.get("target", "python")))})
                 return
             self._send(404, {"error": "not_found"})
-        except Exception as exc:
+        except (ValueError, json.JSONDecodeError) as exc:
             self._send(400, {"error": type(exc).__name__, "message": str(exc)})
+        except RuntimeError as exc:
+            EVOLUTION.add_event("llm_provider_failure", {
+                "path": urlparse(self.path).path,
+                "error_type": type(exc).__name__,
+                "message": str(exc)[:4000],
+            })
+            self._send(502, {"error": type(exc).__name__, "message": str(exc)})
+        except Exception as exc:
+            incident = EVOLUTION.add_incident(
+                "unhandled_exception",
+                str(exc),
+                source="http_server",
+                severity="error",
+                route=urlparse(self.path).path,
+                trace=traceback.format_exc(),
+                fields={"method": self.command, "error_type": type(exc).__name__},
+            )
+            self._send(500, {
+                "error": type(exc).__name__,
+                "message": str(exc),
+                "incident_id": incident["id"],
+            })
 
 
 def main() -> None:

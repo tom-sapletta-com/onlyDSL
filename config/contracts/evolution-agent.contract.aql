@@ -1,0 +1,21 @@
+PROFILE aql:contract/v1
+VERSION 1
+CONTRACT evolution-agent-development-default
+DELEGATED_BY organization:constitutional-authority
+PRINCIPAL bot:evolution-agent
+
+ALLOW MODEL openrouter
+ALLOW OQL *
+
+ALLOW URI_PROCESS repo://workspace/*
+ALLOW URI_PROCESS process://workspace/*
+ALLOW URI_PROCESS http://live-app:8787/*
+ALLOW URI_PROCESS vault://workspace/secret/*
+
+ALLOW ACCESS ROTATE secret:*
+ALLOW VARIABLE WRITE secret-ref:*
+LIMIT STEPS 20
+LIMIT EXECUTIONS 1000
+REQUIRE EVIDENCE_BUNDLE true
+REQUIRE HUMAN_APPROVAL authority-change
+EXPIRES 2030-01-01T00:00:00Z
