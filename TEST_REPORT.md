@@ -19,7 +19,7 @@ python3 -m unittest discover -s tests -v
 Result:
 
 ```text
-Ran 62 tests
+Ran 73 tests
 OK
 ```
 
@@ -45,7 +45,7 @@ Coverage includes:
 - stable source IDs when files are added,
 - source-document digest evolution across twin revisions,
 - source provenance in TwinDSL,
-- BuildPlanDSL generation,
+- exact-revision and exact-Twin-hash BuildPlanDSL generation,
 - persistent twin revision history.
 - GuidanceDSL/IncidentDSL/EventDSL persistence,
 - strict PatchDSL parsing, base-hash and path policy checks,
@@ -55,6 +55,9 @@ Coverage includes:
 - schema-compatible process envelopes, EQL outcomes and SODL receipts,
 - immutable governance kernel and opaque, preaccepted secret references.
 - native TestQL startup scenarios, TestQLDSL persistence and failure-to-observation routing.
+- SpatialClassDSL, AssumptionDSL, ParameterContractDSL and EvidenceSetDSL contracts,
+- system-owned AuthorityProjectionDSL and RepairPlanDSL,
+- ProjectIntegrity finding → AQL/OQL exact URI → TestQL/EQL → closure receipt E2E.
 
 ## HTTP end-to-end test
 

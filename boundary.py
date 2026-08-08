@@ -226,7 +226,7 @@ def build_autonomous_repair_bundle(
         task_dsl("repair_live_application", "incidentdsl+diagnosticdsl+guidancedsl+testqldsl+codedsl", "patchdsl", "minimal_guarded_repair"),
         patchdsl_schema(),
         evolution_policy_dsl(),
-        authority_markdown,
+        # AuthorityProjectionDSL is system-owned and is deliberately not sent to the model.
         *verification_markdown,
         *guidance_markdown,
         incident_markdown,

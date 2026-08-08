@@ -12,6 +12,8 @@
     {"id": "rotate-secret", "op": "secret.rotate", "target": "bound-secret-reference"},
     {"id": "run-tests", "op": "test.run", "target": "workspace", "depends_on": ["change-code"]},
     {"id": "verify-health", "op": "health.verify", "target": "live-application", "depends_on": ["run-tests"]},
-    {"id": "verify-testql", "op": "testql.verify", "target": "live-system-and-digital-twin", "depends_on": ["verify-health"]}
+    {"id": "verify-testql", "op": "testql.verify", "target": "live-system-and-digital-twin", "depends_on": ["verify-health"]},
+    {"id": "compile-geometry", "op": "geometry.compile", "target": "cad://openscad/scad/geometry/compile"},
+    {"id": "complete-physical-evidence", "op": "physical-evidence.complete", "target": "process://twin/physical-evidence/complete"}
   ]
 }

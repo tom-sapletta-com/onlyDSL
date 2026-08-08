@@ -6,23 +6,28 @@ INTENT_FINGERPRINT sha256:d8c547f880d17d20243c52b0f2511342a70c6b2354ee4426d38d5c
 INTENT_SUMMARY "Build a web application that takes user intent, maintains a source-backed digital twin of the application, and evolves the implementation only when new Markdown documentation supports the change. Use IFURI capabilities, Protobuf contracts, CQRS/Event Sourcing and a DSL-only LLM boundary. The user intent must remain the invariant that constrains future evolution."
 GOAL "Build a correct application whose evolution remains bounded by the user intent and source-backed evidence."
 NODE user KIND actor
+  SPATIAL_CLASS logical
   RESPONSIBILITY "Provides intent, desired outcome, constraints and acceptance direction."
   EVIDENCE user_intent
 END
 NODE intent_compiler KIND service
+  SPATIAL_CLASS cyber
   RESPONSIBILITY "Compiles user natural-language intent into validated DSL before downstream reasoning."
   EVIDENCE user_intent
 END
 NODE source_ingest KIND service
+  SPATIAL_CLASS cyber
   RESPONSIBILITY "Transforms Markdown documents from sources/ into deterministic SourceIndexDSL before LLM analysis."
   EVIDENCE source_doc-01-product-intent_d67b5f2d79
   EVIDENCE source_doc-02-architecture_158e273228
 END
 NODE digital_twin KIND model
+  SPATIAL_CLASS cyber
   RESPONSIBILITY "Maintains the current source-backed application model, capabilities, invariants and evolution limits."
   EVIDENCE user_intent
 END
 NODE builder_agent KIND service
+  SPATIAL_CLASS cyber
   RESPONSIBILITY "Derives implementation plans and code changes from the validated digital twin, never from raw context."
   EVIDENCE user_intent
 END

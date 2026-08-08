@@ -1,0 +1,246 @@
+# code2llm | 59f 7603L | python:36,shell:4,yaml:4,json:4,txt:2,proto:2,yml:1,toml:1,conf:1,typescript:1,javascript:1,php:1 | 2026-08-08
+# generated in 0.01s
+# CC̅=4.6 | critical:21/313 | dups:0 | cycles:0
+
+HEALTH[20]:
+  🔴 GOD   intentdsl.py = 540L, 4 classes, 18m, max CC=37
+  🔴 GOD   digital_twin.py = 661L, 9 classes, 17m, max CC=67
+  🟡 CC    parse_context_dsl CC=33 (limit:15)
+  🟡 CC    compiler_from_payload CC=22 (limit:15)
+  🟡 CC    do_POST CC=17 (limit:15)
+  🟡 CC    parse CC=15 (limit:15)
+  🟡 CC    parse_dsl CC=29 (limit:15)
+  🟡 CC    validate_program CC=27 (limit:15)
+  🟡 CC    run_program CC=20 (limit:15)
+  🟡 CC    codegen CC=37 (limit:15)
+  🟡 CC    parse_patchdsl CC=24 (limit:15)
+  🟡 CC    validate_patch_policy CC=22 (limit:15)
+  🟡 CC    parse_twindsl CC=67 (limit:15)
+  🟡 CC    validate_twin CC=30 (limit:15)
+  🟡 CC    render_twin CC=22 (limit:15)
+  🟡 CC    parse_markdown CC=16 (limit:15)
+  🟡 CC    _parse_pattern CC=18 (limit:15)
+  🟡 CC    parse CC=16 (limit:15)
+  🟡 CC    _reader_loop CC=19 (limit:15)
+  🟡 CC    validate CC=17 (limit:15)
+
+REFACTOR[3]:
+  1. split intentdsl.py  (god module)
+  2. split digital_twin.py  (god module)
+  3. split 18 high-CC methods  (CC>15)
+
+PIPELINES[166]:
+  [1] Src [to_dict]: to_dict
+      PURITY: 100% pure
+  [2] Src [__init__]: __init__ → _ident
+      PURITY: 100% pure
+  [3] Src [policy]: policy → _ident
+      PURITY: 100% pure
+  [4] Src [capability]: capability → _ident
+      PURITY: 100% pure
+  [5] Src [state]: state → _infer_type
+      PURITY: 100% pure
+  [6] Src [metric]: metric → _ident
+      PURITY: 100% pure
+  [7] Src [record]: record → _ident
+      PURITY: 100% pure
+  [8] Src [event]: event
+      PURITY: 100% pure
+  [9] Src [exception]: exception
+      PURITY: 100% pure
+  [10] Src [tool_result]: tool_result → _ident
+      PURITY: 100% pure
+  [11] Src [retrieval]: retrieval
+      PURITY: 100% pure
+  [12] Src [memory]: memory
+      PURITY: 100% pure
+  [13] Src [code_fact]: code_fact
+      PURITY: 100% pure
+  [14] Src [database_fact]: database_fact
+      PURITY: 100% pure
+  [15] Src [legacy_log]: legacy_log → _event_code_from_text → _ident
+      PURITY: 100% pure
+  [16] Src [to_markdown]: to_markdown → render_context_markdown → render_context_dsl → _ident
+      PURITY: 100% pure
+  [17] Src [__init__]: __init__
+      PURITY: 100% pure
+  [18] Src [_write]: _write → _qid
+      PURITY: 100% pure
+  [19] Src [add_guidance]: add_guidance → _q
+      PURITY: 100% pure
+  [20] Src [add_incident]: add_incident → _q
+      PURITY: 100% pure
+  [21] Src [add_diagnostic]: add_diagnostic → diagnose_incident → _candidate_paths
+      PURITY: 100% pure
+  [22] Src [add_event]: add_event → _q
+      PURITY: 100% pure
+  [23] Src [add_json_record]: add_json_record
+      PURITY: 100% pure
+  [24] Src [latest_guidance]: latest_guidance
+      PURITY: 100% pure
+  [25] Src [claim_incident]: claim_incident
+      PURITY: 100% pure
+  [26] Src [finish_incident]: finish_incident
+      PURITY: 100% pure
+  [27] Src [defer_incident]: defer_incident
+      PURITY: 100% pure
+  [28] Src [diagnostic_for_incident]: diagnostic_for_incident → _qid
+      PURITY: 100% pure
+  [29] Src [latest_diagnostics]: latest_diagnostics
+      PURITY: 100% pure
+  [30] Src [status]: status → _parse_event
+      PURITY: 100% pure
+  [31] Src [log_message]: log_message
+      PURITY: 100% pure
+  [32] Src [_send]: _send → _json_bytes
+      PURITY: 100% pure
+  [33] Src [_body]: _body
+      PURITY: 100% pure
+  [34] Src [do_GET]: do_GET → _application_version
+      PURITY: 100% pure
+  [35] Src [do_POST]: do_POST → compiler_from_payload
+      PURITY: 100% pure
+  [36] Src [main]: main
+      PURITY: 100% pure
+  [37] Src [__init__]: __init__
+      PURITY: 100% pure
+  [38] Src [parse]: parse
+      PURITY: 100% pure
+  [39] Src [from_file]: from_file
+      PURITY: 100% pure
+  [40] Src [_matches]: _matches
+      PURITY: 100% pure
+  [41] Src [decide]: decide
+      PURITY: 100% pure
+  [42] Src [require]: require
+      PURITY: 100% pure
+  [43] Src [require_secret_rotation]: require_secret_rotation
+      PURITY: 100% pure
+  [44] Src [public_status]: public_status
+      PURITY: 100% pure
+  [45] Src [to_dict]: to_dict
+      PURITY: 100% pure
+  [46] Src [validate_patch_markdown]: validate_patch_markdown → parse_patchdsl → _json_string
+      PURITY: 100% pure
+  [47] Src [load_process_pack]: load_process_pack
+      PURITY: 100% pure
+  [48] Src [authorize_patch]: authorize_patch → operation_for_path
+      PURITY: 100% pure
+  [49] Src [build_process_envelope]: build_process_envelope → canonical_hash
+      PURITY: 100% pure
+  [50] Src [complete_envelope]: complete_envelope → canonical_hash
+      PURITY: 100% pure
+
+LAYERS:
+  onlydsl/                        CC̄=6.8    ←in:0  →out:0
+  │ !! parameter_contract         129L  3C    3m  CC=24     ←0
+  │ !! spatial_class              117L  4C    5m  CC=24     ←0
+  │ !! assumption                  90L  2C    3m  CC=16     ←0
+  │ common                      56L  1C    6m  CC=5      ←4
+  │ evidence_set                46L  1C    3m  CC=12     ←0
+  │ __init__                     7L  0C    0m  CC=0.0    ←0
+  │ __init__                     1L  0C    0m  CC=0.0    ←0
+  │
+  ./                              CC̄=5.6    ←in:0  →out:0
+  │ !! digital_twin               661L  9C   17m  CC=67     ←4
+  │ !! intentdsl                  540L  4C   18m  CC=37     ←2
+  │ !! goal.yaml                  525L  0C    0m  CC=0.0    ←0
+  │ llm_client                 476L  1C   13m  CC=14     ←1
+  │ !! server                     432L  1C   19m  CC=17     ←0
+  │ !! contextdsl                 420L  5C   28m  CC=33     ←3
+  │ evolution                  286L  1C   18m  CC=14     ←1
+  │ boundary                   249L  2C   16m  CC=8      ←3
+  │ !! source_ingest              222L  3C    9m  CC=16     ←3
+  │ diagnostics                201L  1C    3m  CC=7      ←1
+  │ docker-compose.yml         201L  0C    0m  CC=0.0    ←0
+  │ !! aql                        151L  3C    9m  CC=15     ←1
+  │ !! patchdsl                   146L  3C    4m  CC=24     ←0
+  │ governance                  95L  0C    6m  CC=5      ←1
+  │ project.sh                  79L  0C    0m  CC=0.0    ←0
+  │ pyproject.toml              74L  0C    0m  CC=0.0    ←0
+  │ twin_store                  55L  2C    6m  CC=4      ←0
+  │ Dockerfile                  12L  0C    0m  CC=0.0    ←0
+  │ run.sh                      10L  0C    0m  CC=0.0    ←0
+  │ requirements-testql.txt      6L  0C    0m  CC=0.0    ←0
+  │ docker-test.sh               5L  0C    0m  CC=0.0    ←0
+  │ run-tests.sh                 4L  0C    0m  CC=0.0    ←0
+  │ requirements.txt             3L  0C    0m  CC=0.0    ←0
+  │
+  multiruntime/                   CC̄=3.1    ←in:0  →out:0
+  │ ifuri.mjs                   31L  0C    8m  CC=13     ←0
+  │ ifuri.php                   28L  0C    3m  CC=10     ←0
+  │ ifuri.ts                    18L  1C    5m  CC=13     ←0
+  │
+  ifuri_core/                     CC̄=2.8    ←in:10  →out:18  !! split
+  │ !! transport                  442L  7C   32m  CC=19     ←0
+  │ !! manifest                   245L  5C   11m  CC=18     ←0
+  │ llm_gateway                206L  1C   10m  CC=5      ←1
+  │ runtime                    173L  3C    7m  CC=6      ←0
+  │ event_store                168L  4C   10m  CC=7      ←0
+  │ postgres_store             154L  1C    9m  CC=6      ←0
+  │ envelope                   151L  4C    7m  CC=7      ←0
+  │ !! uri                         99L  2C    4m  CC=16     ←0
+  │ cqrs                        55L  2C    8m  CC=2      ←0
+  │ artifacts                   50L  2C    5m  CC=4      ←0
+  │ dsl_document                38L  1C    2m  CC=5      ←2
+  │ outbox                      37L  3C    5m  CC=3      ←0
+  │ __init__                    18L  0C    0m  CC=0.0    ←0
+  │ envelope_pb2                11L  0C    0m  CC=0.0    ←0
+  │ dsl_pb2                      9L  0C    0m  CC=0.0    ←0
+  │
+  examples/                       CC̄=1.0    ←in:0  →out:0
+  │ dsl_native_logging          34L  0C    1m  CC=1      ←0
+  │
+  nats/                           CC̄=0.0    ←in:0  →out:0
+  │ nats.conf                    8L  0C    0m  CC=0.0    ←0
+  │
+  config/                         CC̄=0.0    ←in:0  →out:0
+  │ process.v1.json             37L  0C    0m  CC=0.0    ←0
+  │ operations.v1.oql.json      17L  0C    0m  CC=0.0    ←0
+  │ recipe.v1.urirun.json       17L  0C    0m  CC=0.0    ←0
+  │ expectations.v1.eql.json    14L  0C    0m  CC=0.0    ←0
+  │
+  manifests/                      CC̄=0.0    ←in:0  →out:0
+  │ capabilities.yaml          180L  0C    0m  CC=0.0    ←0
+  │
+  contracts/                      CC̄=0.0    ←in:0  →out:0
+  │ envelope.proto              32L  0C    0m  CC=0.0    ←0
+  │ dsl.proto                    9L  0C    0m  CC=0.0    ←0
+  │
+  testql/                         CC̄=0.0    ←in:0  →out:0
+  │ digital-twin-startup.testql.toon.yaml    12L  0C    0m  CC=0.0    ←0
+  │ onlydsl-startup.testql.toon.yaml    11L  0C    0m  CC=0.0    ←0
+  │
+
+COUPLING:
+                    llm_client   digital_twin         server     ifuri_core       boundary  source_ingest      intentdsl     contextdsl      evolution     twin_store     governance            aql    diagnostics    onlydsl.dsl
+     llm_client             ──             29                            ←7              8              4              1              2                                                                                            hub
+   digital_twin            ←29             ──             ←9             ←3                                                                                        ←5                                                              hub
+         server                             9             ──             10              5              2             12              6                                                                                            !! fan-out
+     ifuri_core              7              3            ←10             ──              6              1                             1                                                                                            hub
+       boundary             ←8                            ←5             ←6             ──                                                                                                                                         hub
+  source_ingest             ←4                            ←2             ←1                            ──                                            7                                                                             hub
+      intentdsl             ←1                           ←12                                                          ──                                                                                                           hub
+     contextdsl             ←2                            ←6             ←1                                                          ──                                                                                            hub
+      evolution                                                                                        ←7                                           ──                                                           1                 hub
+     twin_store                             5                                                                                                                      ──                                                            
+     governance                                                                                                                                                                   ──              3                            ←1
+            aql                                                                                                                                                                   ←3             ──                              
+    diagnostics                                                                                                                                     ←1                                                          ──               
+    onlydsl.dsl                                                                                                                                                                    1                                           ──
+  CYCLES: none
+  HUB: ifuri_core/ (fan-in=10)
+  HUB: contextdsl/ (fan-in=9)
+  HUB: digital_twin/ (fan-in=46)
+  HUB: evolution/ (fan-in=7)
+  HUB: boundary/ (fan-in=19)
+  HUB: intentdsl/ (fan-in=13)
+  HUB: source_ingest/ (fan-in=7)
+  HUB: llm_client/ (fan-in=7)
+  SMELL: ifuri_core/ fan-out=18 → split needed
+  SMELL: server/ fan-out=44 → split needed
+  SMELL: llm_client/ fan-out=44 → split needed
+
+EXTERNAL:
+  validation: run `vallm batch .` → validation.toon
+  duplication: run `redup scan .` → duplication.toon

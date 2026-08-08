@@ -1,0 +1,52 @@
+# onlyDSL | 313 func | 34f | 7603L | python | 2026-08-08
+# generated in 0.00s
+
+HEALTH:
+  CC̄=4.6  critical=35 (limit:10)  dup=1  cycles=0
+
+ALERTS[20]:
+  !!! cc_exceeded      parse_twindsl = 67 (limit:15)
+  !!! cc_exceeded      codegen = 37 (limit:15)
+  !!! high_fan_out     parse_twindsl = 34 (limit:10)
+  !!! high_fan_out     parse_markdown = 34 (limit:10)
+  !!! cc_exceeded      parse_context_dsl = 33 (limit:15)
+  !!! cc_exceeded      validate_twin = 30 (limit:15)
+  !!! cc_exceeded      parse_dsl = 29 (limit:15)
+  !!! cc_exceeded      validate_program = 27 (limit:15)
+  !!! high_fan_out     Handler.do_POST = 24 (limit:10)
+  !!! high_fan_out     parse_context_dsl = 22 (limit:10)
+
+MODULES[59] (top by size):
+  M[digital_twin.py] 661L C:9 F:17 CC↑67 D:4 (python)
+  M[intentdsl.py] 540L C:4 F:18 CC↑37 D:2 (python)
+  M[goal.yaml] 525L C:0 F:0 CC↑0 D:0 (yaml)
+  M[llm_client.py] 476L C:1 F:13 CC↑14 D:1 (python)
+  M[ifuri_core/transport.py] 442L C:7 F:32 CC↑19 D:0 (python)
+  M[server.py] 432L C:1 F:19 CC↑17 D:0 (python)
+  M[contextdsl.py] 420L C:5 F:28 CC↑33 D:3 (python)
+  M[evolution.py] 286L C:1 F:18 CC↑14 D:1 (python)
+  M[boundary.py] 249L C:2 F:16 CC↑8 D:3 (python)
+  M[ifuri_core/manifest.py] 245L C:5 F:11 CC↑18 D:0 (python)
+  M[source_ingest.py] 222L C:3 F:9 CC↑16 D:3 (python)
+  M[ifuri_core/llm_gateway.py] 206L C:1 F:10 CC↑5 D:1 (python)
+  M[diagnostics.py] 201L C:1 F:3 CC↑7 D:1 (python)
+  M[docker-compose.yml] 201L C:0 F:0 CC↑0 D:0 (yml)
+  M[manifests/capabilities.yaml] 180L C:0 F:0 CC↑0 D:0 (yaml)
+  LANGS: python:36/json:4/shell:4/yaml:4/proto:2/txt:2/javascript:1/typescript:1/php:1/other:1/yml:1/conf:1/toml:1
+
+HOTSPOTS[10]:
+  ★ parse_twindsl fan=34  // Orchestrates 34 calls
+  ★ parse_markdown fan=34  // Orchestrates 34 calls
+  ★ Handler.do_POST fan=24  // Orchestrates 24 calls
+  ★ parse_context_dsl fan=22  // Orchestrates 22 calls
+  ★ parse_patchdsl fan=22  // Orchestrates 22 calls
+
+REFACTOR[15]:
+  [1] H/L Split parse_context_dsl (CC=33)
+  [2] H/L Split parse_dsl (CC=29)
+  [3] H/L Split validate_program (CC=27)
+  [4] H/L Split codegen (CC=37)
+  [5] H/L Split parse_twindsl (CC=67)
+
+EVOLUTION:
+  2026-08-08 CC̄=4.6 crit=35 7603L // Automated analysis

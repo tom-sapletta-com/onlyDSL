@@ -28,6 +28,30 @@ def _q(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
 
 
+def _parse_event(path: Path) -> dict[str, Any]:
+    markdown = path.read_text(encoding="utf-8")
+    event_id = re.search(r"^EVENT\s+(\S+)", markdown, re.M)
+    occurred_at = re.search(r"^OCCURRED_AT\s+(.*)$", markdown, re.M)
+    kind = re.search(r"^KIND\s+(\S+)", markdown, re.M)
+    fields: dict[str, Any] = {}
+    for key, raw in re.findall(r"^FIELD\s+(\S+)\s+(.*)$", markdown, re.M):
+        try:
+            fields[key] = json.loads(raw)
+        except json.JSONDecodeError:
+            fields[key] = raw
+    try:
+        timestamp = json.loads(occurred_at.group(1)) if occurred_at else None
+    except json.JSONDecodeError:
+        timestamp = occurred_at.group(1) if occurred_at else None
+    return {
+        "id": event_id.group(1) if event_id else path.stem,
+        "occurred_at": timestamp,
+        "kind": kind.group(1) if kind else "unknown",
+        "fields": fields,
+        "file": path.name,
+    }
+
+
 class EvolutionStore:
     """Filesystem queue whose persisted records are complete, typed DSL documents."""
 
@@ -203,8 +227,34 @@ class EvolutionStore:
         def count(directory: Path, pattern: str) -> int:
             return sum(1 for _ in directory.glob(pattern))
 
-        latest_events = sorted(self.events.glob("*.eventdsl"), reverse=True)[:10]
+        event_paths = sorted(self.events.glob("*.eventdsl"))
+        event_records = [_parse_event(path) for path in event_paths]
+        latest_events = event_records[-10:][::-1]
+        repair_kinds = {
+            "repair_started", "repair_deferred", "repair_verified", "repair_failed", "patch_rolled_back",
+        }
+        iteration_versions: dict[str, int] = {}
+        for event in event_records:
+            incident_id = str(event["fields"].get("incident_id", ""))
+            if event["kind"] == "repair_started" and incident_id and incident_id not in iteration_versions:
+                iteration_versions[incident_id] = len(iteration_versions) + 1
+        last_iteration = next((event for event in reversed(event_records) if event["kind"] in repair_kinds), None)
+        if last_iteration is not None:
+            incident_id = str(last_iteration["fields"].get("incident_id", ""))
+            last_iteration = {
+                **last_iteration,
+                "version": iteration_versions.get(incident_id),
+                "incident_id": incident_id or None,
+                "status": {
+                    "repair_started": "running",
+                    "repair_deferred": "deferred",
+                    "repair_verified": "verified",
+                    "repair_failed": "failed",
+                    "patch_rolled_back": "rolled_back",
+                }[last_iteration["kind"]],
+            }
         return {
+            "schema": "onlydsl.evolution-status/v2",
             "mode": os.getenv("EVOLUTION_MODE", "observe").lower(),
             "enabled": os.getenv("EVOLUTION_ENABLED", "0") == "1",
             "llm_backend": os.getenv("EVOLUTION_LLM_BACKEND", "openrouter"),
@@ -228,6 +278,9 @@ class EvolutionStore:
                 "dsl": count(self.testql, "*.testqldsl"),
                 "latest": [path.name for path in sorted(self.testql.glob("*.testqldsl"), reverse=True)[:4]],
             },
-            "latest_events": [path.name for path in latest_events],
+            "iteration_count": len(iteration_versions),
+            "last_iteration": last_iteration,
+            "latest_activity": latest_events[0] if latest_events else None,
+            "latest_events": [event["file"] for event in latest_events],
             "state_dir": str(self.root),
         }

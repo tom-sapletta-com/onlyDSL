@@ -1,0 +1,25 @@
+{
+  "schema": "onlydsl.repair-process-registry/v2",
+  "owner": "organization:constitutional-authority",
+  "model_may_generate_uri": false,
+  "findings": {
+    "CONCEPTUAL_GEOMETRY_ASSUMPTION": {
+      "repair_uri": "subactor://process/repair/project-integrity/replace-conceptual-geometry",
+      "oql": "geometry.compile",
+      "uri_process": "cad://openscad/scad/geometry/compile",
+      "expected_result": "A physical or hybrid component receives grounded CAD evidence and the assumption is superseded.",
+      "acceptance": "TestQL and EQL pass; the exact finding disappears from the next ProjectIntegrityDSL.",
+      "rollback": "Restore the last-known-good scene and physical-evidence revision.",
+      "authority_class": "reversible-geometry"
+    },
+    "GEOMETRY_VALIDATION_INCOMPLETE": {
+      "repair_uri": "subactor://process/repair/project-integrity/complete-geometry-evidence",
+      "oql": "physical-evidence.complete",
+      "uri_process": "process://twin/physical-evidence/complete",
+      "expected_result": "Required pose and constraint evidence is collected according to SpatialClassDSL.",
+      "acceptance": "Required geometry checks pass and evidence completeness advances.",
+      "rollback": "Discard candidate evidence and retain the previous verified evidence set.",
+      "authority_class": "evidence-only"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+flowchart TD
+%% generated in 0.01s
+
+    %% Entry points (blue)
+    classDef entry fill:#4dabf7,stroke:#1971c2,color:#fff
+
+    subgraph CLI
+        llm_client___request_json["_request_json"]
+        llm_client___provider_config["_provider_config"]
+        llm_client___backend_call["_backend_call"]
+        llm_client__provider_status["provider_status"]
+        llm_client___call_dsl_validated["_call_dsl_validated"]
+        llm_client__convert_english["convert_english"]
+        llm_client__propose_code_patch["propose_code_patch"]
+        llm_client___demo_context_analysis["_demo_context_analysis"]
+        llm_client__analyze_context["analyze_context"]
+        llm_client__bootstrap_twin["bootstrap_twin"]
+        llm_client___demo_update_twin["_demo_update_twin"]
+        llm_client__update_twin["update_twin"]
+        llm_client__plan_build["plan_build"]
+    end
+
+    subgraph Core
+        contextdsl__ContextDocument__to_dict["to_dict"]
+        contextdsl__ContextCompiler__policy["policy"]
+        contextdsl__ContextCompiler__capability["capability"]
+        contextdsl__ContextCompiler__state["state"]
+        contextdsl__ContextCompiler__metric["metric"]
+        contextdsl__ContextCompiler__record["record"]
+        contextdsl__ContextCompiler__event["event"]
+        contextdsl__ContextCompiler__exception["exception"]
+        contextdsl__ContextCompiler__tool_result["tool_result"]
+        contextdsl__ContextCompiler__retrieval["retrieval"]
+        contextdsl__ContextCompiler__memory["memory"]
+        contextdsl__ContextCompiler__code_fact["code_fact"]
+        contextdsl__ContextCompiler__database_fact["database_fact"]
+        contextdsl__ContextCompiler__legacy_log["legacy_log"]
+        contextdsl__ContextCompiler__to_markdown["to_markdown"]
+        ...["+174 more"]
+    end
+
+    class contextdsl__ContextDocument__to_dict,contextdsl__ContextCompiler__policy,contextdsl__ContextCompiler__capability,contextdsl__ContextCompiler__state,contextdsl__ContextCompiler__metric,contextdsl__ContextCompiler__record,contextdsl__ContextCompiler__event,contextdsl__ContextCompiler__exception,contextdsl__ContextCompiler__tool_result,contextdsl__ContextCompiler__retrieval entry

@@ -4,10 +4,12 @@ import asyncio
 import json
 import os
 import traceback
+from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, urlparse
+from urllib.request import urlopen
 
 from boundary import (
     build_context_analysis_bundle,
@@ -45,12 +47,38 @@ from ifuri_core.llm_gateway import (
 from ifuri_core.manifest import CapabilityRegistry
 from ifuri_core.runtime import IfuriRuntime
 from ifuri_core.transport import InProcessTransport
+from onlydsl.runtime.repair_controller import load_repair_registry, plan_integrity_repairs
 
 ROOT = Path(__file__).resolve().parent
 STATIC = ROOT / "static"
 SOURCES = Path(os.getenv("SOURCES_DIR", str(ROOT / "sources")))
 STORE = TwinStore(os.getenv("TWIN_STATE_DIR", str(ROOT / "state")))
 EVOLUTION = EvolutionStore(os.getenv("EVOLUTION_STATE_DIR", str(ROOT / "runtime" / "evolution")))
+RUNTIME_PROFILE = os.getenv("ONLYDSL_PROFILE", "demo").strip().lower()
+if RUNTIME_PROFILE not in {"demo", "production"}:
+    raise RuntimeError("ONLYDSL_PROFILE must be demo or production")
+if RUNTIME_PROFILE == "production":
+    raise RuntimeError("production HTTP request path is not wired yet; use scripts/docker_integration.py for the NATS/PostgreSQL contract test")
+
+
+def _application_version(root: Path = ROOT) -> str:
+    try:
+        return (root / "VERSION").read_text(encoding="utf-8").strip() or "unknown"
+    except OSError:
+        return "unknown"
+
+
+def _twin_status() -> dict[str, Any]:
+    if not STORE.exists():
+        return {"exists": False, "schema_version": None, "revision": None, "updated_at": None}
+    doc = STORE.load()
+    updated_at = datetime.fromtimestamp(STORE.current_path.stat().st_mtime, timezone.utc)
+    return {
+        "exists": True,
+        "schema_version": doc.version,
+        "revision": doc.revision,
+        "updated_at": updated_at.isoformat(timespec="milliseconds").replace("+00:00", "Z"),
+    }
 
 
 def evolution_authority_status():
@@ -59,6 +87,54 @@ def evolution_authority_status():
         return AqlContract.from_file(path).public_status()
     except Exception as exc:
         return {"configured": False, "error": str(exc)}
+
+
+def _current_external_integrity() -> dict[str, Any]:
+    base = os.getenv("TWIN_DASHBOARD_URL", "http://127.0.0.1:7444").rstrip("/")
+    with urlopen(base + "/api/dsl", timeout=3) as response:
+        dsl = json.load(response)
+    with urlopen(base + "/api/events", timeout=3) as response:
+        events = json.load(response)
+    document = next((item for item in dsl.get("documents", []) if item.get("name") == "project-integrity.dsl"), None)
+    if not document or not document.get("content"):
+        raise ValueError("external twin has no ProjectIntegrityDSL")
+    latest = (events.get("events") or [])[-1] if events.get("events") else {}
+    revision = latest.get("streamVersion")
+    if not isinstance(revision, int) or revision < 1:
+        raise ValueError("external twin has no exact iteration streamVersion")
+    return {
+        "schema": "onlydsl.external-project-integrity/v2", "source": base,
+        "project_integrity_markdown": document["content"], "twin_revision": revision,
+        "iteration_time": latest.get("occurredAt") or latest.get("recordedAt"),
+    }
+
+
+def _integrity_repair_plan(body: dict[str, Any]) -> dict[str, Any]:
+    markdown = str(body.get("project_integrity_markdown", "")).strip()
+    if not markdown:
+        raise ValueError("project_integrity_markdown is required")
+    live = _current_external_integrity()
+    if markdown != live["project_integrity_markdown"]:
+        raise ValueError("ProjectIntegrityDSL is stale or differs from the live external Twin")
+    requested_revision = int(body.get("twin_revision", live["twin_revision"]))
+    if requested_revision != live["twin_revision"]:
+        raise ValueError(f"twin_revision must equal live iteration version {live['twin_revision']}")
+    contract_path = os.getenv("EVOLUTION_AQL_CONTRACT", str(ROOT / "config/contracts/evolution-agent.contract.aql"))
+    cycle = plan_integrity_repairs(
+        markdown, twin_revision=requested_revision,
+        contract=AqlContract.from_file(contract_path), registry=load_repair_registry(ROOT),
+    )
+    payload = cycle.to_dict()
+    plan_dir = EVOLUTION.root / "repair-plans"
+    plan_dir.mkdir(parents=True, exist_ok=True)
+    plan_path = plan_dir / f"{cycle.plan.id}.repairplanddsl"
+    plan_path.write_text(payload["repair_plan_markdown"] + "\n", encoding="utf-8")
+    EVOLUTION.add_event("integrity_repair_authorized", {
+        "plan_id": cycle.plan.id, "from_revision": requested_revision,
+        "finding_codes": [task.finding_code for task in cycle.plan.tasks],
+        "plan_path": str(plan_path.relative_to(EVOLUTION.root)),
+    })
+    return payload
 
 REGISTRY = CapabilityRegistry.from_file(ROOT / "manifests" / "capabilities.yaml")
 INPROC = InProcessTransport()
@@ -132,6 +208,7 @@ def _twin_payload(markdown: str) -> dict[str, Any]:
         "intent_fingerprint": doc.intent_fingerprint,
         "sources": [{"id": x.id, "path": x.path, "digest": x.digest} for x in doc.sources.values()],
         "open_questions": list(doc.open_questions),
+        "spatial_classes": {value: sum(1 for node in doc.nodes.values() if node.spatial_class == value) for value in ("physical", "hybrid", "cyber", "logical")},
     }
 
 
@@ -212,9 +289,10 @@ def _plan_twin() -> dict[str, Any]:
         )
     )
     output = _unpack_dsl(reply)
+    twin = parse_twindsl(extract_twindsl(current))
     return {
         "markdown": output.markdown,
-        "validation": validate_buildplan_markdown(output.markdown),
+        "validation": validate_buildplan_markdown(output.markdown, twin),
         "route": route.to_dict(),
         "provider": gateway_provider_status(),
         "schema": buildplandsl_schema(),
@@ -260,11 +338,15 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/health":
             self._send(200, {
                 "ok": True,
-                "version": "0.4.0",
+                "version": _application_version(),
                 "boundary": "dsl-only",
                 "addressing": "ifuri",
                 "wire_contract": "protobuf",
-                "cqrs_es": True,
+                "runtime_profile": RUNTIME_PROFILE,
+                "request_transport": "inproc",
+                "event_store": "file",
+                "cqrs_es": False,
+                "production_contract_test": "scripts/docker_integration.py",
                 "digital_twin": True,
                 "provider": gateway_provider_status(),
             })
@@ -274,6 +356,8 @@ class Handler(BaseHTTPRequestHandler):
             return
         if path == "/api/evolution/status":
             status = EVOLUTION.status()
+            status["application_version"] = _application_version()
+            status["digital_twin"] = _twin_status()
             status["authority"] = evolution_authority_status()
             status["execution_boundary"] = {
                 "model_commands": "forbidden",
@@ -292,6 +376,9 @@ class Handler(BaseHTTPRequestHandler):
                 "schema": "subactor.diagnostic-log-view/v1",
                 "diagnostics": EVOLUTION.latest_diagnostics(limit),
             })
+            return
+        if path == "/api/integrity/current":
+            self._send(200, _current_external_integrity())
             return
         if path == "/api/ifuri/route":
             uri = (parse_qs(parsed.query).get("uri") or [""])[0]
@@ -337,6 +424,9 @@ class Handler(BaseHTTPRequestHandler):
                 return
             if path == "/api/twin/plan":
                 self._send(200, _plan_twin())
+                return
+            if path == "/api/integrity/repair-plan":
+                self._send(200, _integrity_repair_plan(body))
                 return
             if path == "/api/evolution/guidance":
                 result = EVOLUTION.add_guidance(

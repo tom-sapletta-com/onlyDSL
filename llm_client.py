@@ -463,13 +463,13 @@ def plan_build(twin_markdown: str, backend: str | None = None) -> dict[str, Any]
         }
     else:
         def validate_plan(markdown: str) -> list[str]:
-            validation = validate_buildplan_markdown(markdown)
+            validation = validate_buildplan_markdown(markdown, doc)
             return list(validation["errors"])
 
         result = _call_dsl_validated(
             bundle, backend, output_lang="buildplanddsl", max_tokens=4200, validator=validate_plan
         )
-    validation = validate_buildplan_markdown(result["markdown"])
+    validation = validate_buildplan_markdown(result["markdown"], doc)
     if not validation["valid"]:
         raise LlmProviderError("LLM returned invalid BuildPlanDSL: " + "; ".join(validation["errors"]))
     result["validation"] = validation

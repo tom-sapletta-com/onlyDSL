@@ -27,6 +27,8 @@ services:
 
   app:
     build: .
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "${APP_BIND_ADDRESS:-127.0.0.1}:${APP_PORT:-8787}:8787"
     env_file:
@@ -36,6 +38,7 @@ services:
       HOST: 0.0.0.0
       PORT: 8787
       LLM_BACKEND: ${LLM_BACKEND:-demo}
+      ONLYDSL_PROFILE: demo
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
       OPENROUTER_BASE_URL: ${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
       OPENROUTER_MODEL: ${OPENROUTER_MODEL:-~openai/gpt-latest}
@@ -52,6 +55,7 @@ services:
       NATS_PORT: 4222
       POSTGRES_DSN: postgresql://ifuri:ifuri@postgres:5432/ifuri
       EVOLUTION_STATE_DIR: /app/runtime/evolution
+      TWIN_DASHBOARD_URL: ${TWIN_DASHBOARD_URL:-http://host.docker.internal:7444}
     volumes:
       - ./sources:/app/sources:ro
       - ./state:/app/state
@@ -107,6 +111,8 @@ services:
 
   live-app:
     build: .
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     profiles: ["evolution"]
     user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
     ports:
@@ -118,6 +124,7 @@ services:
       HOST: 0.0.0.0
       PORT: 8787
       LLM_BACKEND: ${LLM_BACKEND:-demo}
+      ONLYDSL_PROFILE: demo
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
       OPENROUTER_BASE_URL: ${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
       OPENROUTER_MODEL: ${OPENROUTER_MODEL:-~openai/gpt-latest}
@@ -126,6 +133,7 @@ services:
       SOURCES_DIR: /app/sources
       TWIN_STATE_DIR: /app/state
       EVOLUTION_STATE_DIR: /app/runtime/evolution
+      TWIN_DASHBOARD_URL: ${TWIN_DASHBOARD_URL:-http://host.docker.internal:7444}
       EVOLUTION_ENABLED: ${EVOLUTION_ENABLED:-1}
       EVOLUTION_MODE: ${EVOLUTION_MODE:-observe}
       EVOLUTION_LLM_BACKEND: ${EVOLUTION_LLM_BACKEND:-openrouter}

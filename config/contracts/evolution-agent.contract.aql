@@ -9,6 +9,8 @@ ALLOW OQL *
 
 ALLOW URI_PROCESS repo://workspace/*
 ALLOW URI_PROCESS process://workspace/*
+ALLOW URI_PROCESS process://twin/*
+ALLOW URI_PROCESS cad://openscad/*
 ALLOW URI_PROCESS http://live-app:8787/*
 ALLOW URI_PROCESS vault://workspace/secret/*
 

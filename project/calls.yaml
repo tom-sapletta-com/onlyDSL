@@ -1,0 +1,2104 @@
+project: /home/tom/github/tom-sapletta-com/onlyDSL
+generated_from: code2llm call graph analysis
+stats:
+  total_nodes: 157
+  total_edges: 209
+  modules_count: 23
+nodes:
+  evolution.EvolutionStore.add_event:
+    name: add_event
+    module: evolution
+    line: 164
+    cyclomatic_complexity: 3
+    calls_out: 13
+    calls_in: 0
+  llm_client.convert_english:
+    name: convert_english
+    module: llm_client
+    line: 206
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 1
+  governance.authorize_patch:
+    name: authorize_patch
+    module: governance
+    line: 26
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 0
+  multiruntime.php.ifuri.canonical_ifuri:
+    name: canonical_ifuri
+    module: multiruntime.php.ifuri
+    line: 16
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  llm_client._demo_update_twin:
+    name: _demo_update_twin
+    module: llm_client
+    line: 352
+    cyclomatic_complexity: 11
+    calls_out: 11
+    calls_in: 1
+  contextdsl._parse_legacy_scalar:
+    name: _parse_legacy_scalar
+    module: contextdsl
+    line: 126
+    cyclomatic_complexity: 4
+    calls_out: 8
+    calls_in: 1
+  evolution.EvolutionStore.status:
+    name: status
+    module: evolution
+    line: 226
+    cyclomatic_complexity: 14
+    calls_out: 35
+    calls_in: 0
+  governance.canonical_hash:
+    name: canonical_hash
+    module: governance
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 5
+  ifuri_core.llm_gateway.build_llm_reasoner_handler:
+    name: build_llm_reasoner_handler
+    module: ifuri_core.llm_gateway
+    line: 43
+    cyclomatic_complexity: 1
+    calls_out: 11
+    calls_in: 0
+  onlydsl.dsl.common.list_value:
+    name: list_value
+    module: onlydsl.dsl.common
+    line: 45
+    cyclomatic_complexity: 2
+    calls_out: 2
+    calls_in: 1
+  contextdsl._infer_type:
+    name: _infer_type
+    module: contextdsl
+    line: 116
+    cyclomatic_complexity: 4
+    calls_out: 3
+    calls_in: 1
+  server._update_twin:
+    name: _update_twin
+    module: server
+    line: 199
+    cyclomatic_complexity: 3
+    calls_out: 16
+    calls_in: 1
+  server._plan_twin:
+    name: _plan_twin
+    module: server
+    line: 225
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 1
+  llm_client._call_dsl_validated:
+    name: _call_dsl_validated
+    module: llm_client
+    line: 177
+    cyclomatic_complexity: 5
+    calls_out: 10
+    calls_in: 4
+  intentdsl.run_program:
+    name: run_program
+    module: intentdsl
+    line: 303
+    cyclomatic_complexity: 20
+    calls_out: 29
+    calls_in: 2
+  patchdsl._json_string:
+    name: _json_string
+    module: patchdsl
+    line: 33
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 3
+  boundary.task_dsl:
+    name: task_dsl
+    module: boundary
+    line: 69
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 6
+  server._application_version:
+    name: _application_version
+    module: server
+    line: 57
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 2
+  contextdsl.ContextCompiler.capability:
+    name: capability
+    module: contextdsl
+    line: 153
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  server._twin_status:
+    name: _twin_status
+    module: server
+    line: 64
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 1
+  boundary.build_context_analysis_bundle:
+    name: build_context_analysis_bundle
+    module: boundary
+    line: 101
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 2
+  contextdsl.ContextCompiler.to_markdown:
+    name: to_markdown
+    module: contextdsl
+    line: 248
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  ifuri_core.transport.NatsJetStream.stream_info:
+    name: stream_info
+    module: ifuri_core.transport
+    line: 281
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 0
+  server.Handler.do_POST:
+    name: do_POST
+    module: server
+    line: 340
+    cyclomatic_complexity: 17
+    calls_out: 81
+    calls_in: 0
+  aql.operation_for_path:
+    name: operation_for_path
+    module: aql
+    line: 147
+    cyclomatic_complexity: 6
+    calls_out: 3
+    calls_in: 3
+  diagnostics._candidate_paths:
+    name: _candidate_paths
+    module: diagnostics
+    line: 153
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 1
+  multiruntime.php.ifuri.parse_ifuri:
+    name: parse_ifuri
+    module: multiruntime.php.ifuri
+    line: 2
+    cyclomatic_complexity: 10
+    calls_out: 11
+    calls_in: 2
+  contextdsl.ContextCompiler.policy:
+    name: policy
+    module: contextdsl
+    line: 149
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 0
+  evolution.EvolutionStore.add_diagnostic:
+    name: add_diagnostic
+    module: evolution
+    line: 151
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 0
+  digital_twin.normalize_intent:
+    name: normalize_intent
+    module: digital_twin
+    line: 20
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 2
+  multiruntime.typescript.ifuri.parseIfUri:
+    name: parseIfUri
+    module: multiruntime.typescript.ifuri
+    line: 5
+    cyclomatic_complexity: 13
+    calls_out: 5
+    calls_in: 1
+  server._scan_sources:
+    name: _scan_sources
+    module: server
+    line: 189
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 2
+  contextdsl.ContextCompiler.tool_result:
+    name: tool_result
+    module: contextdsl
+    line: 198
+    cyclomatic_complexity: 6
+    calls_out: 9
+    calls_in: 0
+  evolution._q:
+    name: _q
+    module: evolution
+    line: 27
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 16
+  llm_client.bootstrap_twin:
+    name: bootstrap_twin
+    module: llm_client
+    line: 307
+    cyclomatic_complexity: 7
+    calls_out: 28
+    calls_in: 1
+  onlydsl.dsl.evidence_set.create_evidence_set:
+    name: create_evidence_set
+    module: onlydsl.dsl.evidence_set
+    line: 17
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 0
+  source_ingest._sid:
+    name: _sid
+    module: source_ingest
+    line: 21
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 1
+  contextdsl.ContextCompiler.metric:
+    name: metric
+    module: contextdsl
+    line: 170
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  llm_client._backend_call:
+    name: _backend_call
+    module: llm_client
+    line: 101
+    cyclomatic_complexity: 8
+    calls_out: 15
+    calls_in: 3
+  digital_twin.validate_twin_update:
+    name: validate_twin_update
+    module: digital_twin
+    line: 382
+    cyclomatic_complexity: 7
+    calls_out: 6
+    calls_in: 2
+  source_ingest.build_source_index:
+    name: build_source_index
+    module: source_ingest
+    line: 143
+    cyclomatic_complexity: 9
+    calls_out: 35
+    calls_in: 1
+  llm_client.propose_code_patch:
+    name: propose_code_patch
+    module: llm_client
+    line: 222
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 1
+  llm_client.provider_status:
+    name: provider_status
+    module: llm_client
+    line: 157
+    cyclomatic_complexity: 5
+    calls_out: 7
+    calls_in: 1
+  llm_client.analyze_context:
+    name: analyze_context
+    module: llm_client
+    line: 292
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 1
+  ifuri_core.transport.NatsJetStream.publish:
+    name: publish
+    module: ifuri_core.transport
+    line: 285
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 0
+  llm_client._demo_context_analysis:
+    name: _demo_context_analysis
+    module: llm_client
+    line: 249
+    cyclomatic_complexity: 11
+    calls_out: 10
+    calls_in: 1
+  intentdsl.eval_expr:
+    name: eval_expr
+    module: intentdsl
+    line: 208
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 4
+  ifuri_core.llm_gateway.build_llm_twin_update_handler:
+    name: build_llm_twin_update_handler
+    module: ifuri_core.llm_gateway
+    line: 119
+    cyclomatic_complexity: 1
+    calls_out: 12
+    calls_in: 0
+  boundary.code_dsl:
+    name: code_dsl
+    module: boundary
+    line: 144
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 1
+  ifuri_core.transport.NatsJetStream.create_stream:
+    name: create_stream
+    module: ifuri_core.transport
+    line: 260
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 0
+  multiruntime.javascript.ifuri.raw:
+    name: raw
+    module: multiruntime.javascript.ifuri
+    line: 29
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 0
+  intentdsl.parse_dsl:
+    name: parse_dsl
+    module: intentdsl
+    line: 99
+    cyclomatic_complexity: 29
+    calls_out: 71
+    calls_in: 4
+  intentdsl.extract_intentdsl:
+    name: extract_intentdsl
+    module: intentdsl
+    line: 45
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 4
+  contextdsl._event_code_from_text:
+    name: _event_code_from_text
+    module: contextdsl
+    line: 78
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 2
+  evolution._now:
+    name: _now
+    module: evolution
+    line: 18
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 3
+  evolution.EvolutionStore.add_guidance:
+    name: add_guidance
+    module: evolution
+    line: 90
+    cyclomatic_complexity: 2
+    calls_out: 15
+    calls_in: 0
+  digital_twin.validate_buildplan_markdown:
+    name: validate_buildplan_markdown
+    module: digital_twin
+    line: 619
+    cyclomatic_complexity: 13
+    calls_out: 16
+    calls_in: 4
+  llm_client.plan_build:
+    name: plan_build
+    module: llm_client
+    line: 451
+    cyclomatic_complexity: 4
+    calls_out: 13
+    calls_in: 1
+  multiruntime.php.ifuri.nats_subject:
+    name: nats_subject
+    module: multiruntime.php.ifuri
+    line: 20
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  boundary.DslBundle.validate_for_llm:
+    name: validate_for_llm
+    module: boundary
+    line: 26
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  server.Handler.do_GET:
+    name: do_GET
+    module: server
+    line: 278
+    cyclomatic_complexity: 14
+    calls_out: 35
+    calls_in: 0
+  intentdsl.expr_names:
+    name: expr_names
+    module: intentdsl
+    line: 203
+    cyclomatic_complexity: 4
+    calls_out: 3
+    calls_in: 2
+  digital_twin.validate_twin:
+    name: validate_twin
+    module: digital_twin
+    line: 308
+    cyclomatic_complexity: 30
+    calls_out: 33
+    calls_in: 2
+  twin_store.TwinStore.save:
+    name: save
+    module: twin_store
+    line: 39
+    cyclomatic_complexity: 4
+    calls_out: 15
+    calls_in: 0
+  boundary.build_repair_bundle:
+    name: build_repair_bundle
+    module: boundary
+    line: 239
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 1
+  multiruntime.typescript.ifuri.toNatsSubject:
+    name: toNatsSubject
+    module: multiruntime.typescript.ifuri
+    line: 15
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  evolution._parse_event:
+    name: _parse_event
+    module: evolution
+    line: 31
+    cyclomatic_complexity: 8
+    calls_out: 11
+    calls_in: 1
+  contextdsl.render_context_markdown:
+    name: render_context_markdown
+    module: contextdsl
+    line: 279
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  digital_twin.twin_to_mermaid:
+    name: twin_to_mermaid
+    module: digital_twin
+    line: 398
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 1
+  ifuri_core.transport._js_response:
+    name: _js_response
+    module: ifuri_core.transport
+    line: 435
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 3
+  intentdsl._normalize_expr:
+    name: _normalize_expr
+    module: intentdsl
+    line: 188
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 4
+  intentdsl.validate_program:
+    name: validate_program
+    module: intentdsl
+    line: 226
+    cyclomatic_complexity: 27
+    calls_out: 34
+    calls_in: 2
+  server._bootstrap_twin:
+    name: _bootstrap_twin
+    module: server
+    line: 159
+    cyclomatic_complexity: 5
+    calls_out: 28
+    calls_in: 1
+  digital_twin.extract_twindsl:
+    name: extract_twindsl
+    module: digital_twin
+    line: 43
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 11
+  contextdsl.compiler_from_payload:
+    name: compiler_from_payload
+    module: contextdsl
+    line: 387
+    cyclomatic_complexity: 22
+    calls_out: 52
+    calls_in: 2
+  digital_twin.intent_fingerprint:
+    name: intent_fingerprint
+    module: digital_twin
+    line: 24
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 3
+  ifuri_core.transport.capability_pattern_to_subject:
+    name: capability_pattern_to_subject
+    module: ifuri_core.transport
+    line: 412
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 1
+  boundary.contract_dsl:
+    name: contract_dsl
+    module: boundary
+    line: 52
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 6
+  ifuri_core.manifest._validate_capability:
+    name: _validate_capability
+    module: ifuri_core.manifest
+    line: 222
+    cyclomatic_complexity: 7
+    calls_out: 13
+    calls_in: 1
+  server.Handler._send:
+    name: _send
+    module: server
+    line: 252
+    cyclomatic_complexity: 4
+    calls_out: 12
+    calls_in: 0
+  boundary.build_build_plan_bundle:
+    name: build_build_plan_bundle
+    module: boundary
+    line: 132
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  contextdsl.ContextCompiler.record:
+    name: record
+    module: contextdsl
+    line: 176
+    cyclomatic_complexity: 4
+    calls_out: 9
+    calls_in: 0
+  digital_twin._quoted:
+    name: _quoted
+    module: digital_twin
+    line: 29
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 35
+  ifuri_core.transport.NatsWireClient.subscribe:
+    name: subscribe
+    module: ifuri_core.transport
+    line: 138
+    cyclomatic_complexity: 3
+    calls_out: 8
+    calls_in: 0
+  contextdsl.ContextCompiler.__init__:
+    name: __init__
+    module: contextdsl
+    line: 141
+    cyclomatic_complexity: 2
+    calls_out: 9
+    calls_in: 0
+  patchdsl.validate_patch_policy:
+    name: validate_patch_policy
+    module: patchdsl
+    line: 90
+    cyclomatic_complexity: 22
+    calls_out: 26
+    calls_in: 1
+  digital_twin.render_twin:
+    name: render_twin
+    module: digital_twin
+    line: 500
+    cyclomatic_complexity: 22
+    calls_out: 41
+    calls_in: 1
+  digital_twin.extract_buildplanddsl:
+    name: extract_buildplanddsl
+    module: digital_twin
+    line: 609
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 1
+  ifuri_core.transport._validate_nats_subject:
+    name: _validate_nats_subject
+    module: ifuri_core.transport
+    line: 428
+    cyclomatic_complexity: 7
+    calls_out: 4
+    calls_in: 3
+  contextdsl._ident:
+    name: _ident
+    module: contextdsl
+    line: 69
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 28
+  multiruntime.javascript.ifuri.parseIfUri:
+    name: parseIfUri
+    module: multiruntime.javascript.ifuri
+    line: 6
+    cyclomatic_complexity: 13
+    calls_out: 6
+    calls_in: 2
+  digital_twin.validate_twin_markdown:
+    name: validate_twin_markdown
+    module: digital_twin
+    line: 365
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 8
+  server.evolution_authority_status:
+    name: evolution_authority_status
+    module: server
+    line: 77
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 1
+  ifuri_core.manifest.Capability.match:
+    name: match
+    module: ifuri_core.manifest
+    line: 45
+    cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 0
+  digital_twin.parse_twindsl:
+    name: parse_twindsl
+    module: digital_twin
+    line: 128
+    cyclomatic_complexity: 67
+    calls_out: 147
+    calls_in: 11
+  digital_twin.demo_bootstrap_twin:
+    name: demo_bootstrap_twin
+    module: digital_twin
+    line: 419
+    cyclomatic_complexity: 2
+    calls_out: 25
+    calls_in: 1
+  patchdsl.parse_patchdsl:
+    name: parse_patchdsl
+    module: patchdsl
+    line: 43
+    cyclomatic_complexity: 24
+    calls_out: 49
+    calls_in: 1
+  digital_twin.demo_build_plan:
+    name: demo_build_plan
+    module: digital_twin
+    line: 637
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 1
+  contextdsl.validate_context_markdown:
+    name: validate_context_markdown
+    module: contextdsl
+    line: 372
+    cyclomatic_complexity: 5
+    calls_out: 9
+    calls_in: 3
+  contextdsl.parse_context_dsl:
+    name: parse_context_dsl
+    module: contextdsl
+    line: 290
+    cyclomatic_complexity: 33
+    calls_out: 73
+    calls_in: 3
+  evolution.EvolutionStore._write:
+    name: _write
+    module: evolution
+    line: 81
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 0
+  ifuri_core.dsl_document.make_dsl_document:
+    name: make_dsl_document
+    module: ifuri_core.dsl_document
+    line: 18
+    cyclomatic_complexity: 2
+    calls_out: 9
+    calls_in: 6
+  ifuri_core.transport.NatsWireClient.publish:
+    name: publish
+    module: ifuri_core.transport
+    line: 160
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 0
+  ifuri_core.llm_gateway.build_llm_semantic_handler:
+    name: build_llm_semantic_handler
+    module: ifuri_core.llm_gateway
+    line: 75
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 0
+  evolution._qid:
+    name: _qid
+    module: evolution
+    line: 22
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 10
+  server._json_bytes:
+    name: _json_bytes
+    module: server
+    line: 95
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  server._ifuri_compile_source:
+    name: _ifuri_compile_source
+    module: server
+    line: 139
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  diagnostics.diagnose_incident:
+    name: diagnose_incident
+    module: diagnostics
+    line: 165
+    cyclomatic_complexity: 7
+    calls_out: 18
+    calls_in: 1
+  source_ingest.parse_markdown:
+    name: parse_markdown
+    module: source_ingest
+    line: 80
+    cyclomatic_complexity: 16
+    calls_out: 59
+    calls_in: 1
+  boundary.build_twin_update_bundle:
+    name: build_twin_update_bundle
+    module: boundary
+    line: 118
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 2
+  boundary.source_text_dsl:
+    name: source_text_dsl
+    module: boundary
+    line: 79
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 4
+  onlydsl.dsl.common.quoted:
+    name: quoted
+    module: onlydsl.dsl.common
+    line: 36
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 3
+  ifuri_core.llm_gateway._extract_source_payload:
+    name: _extract_source_payload
+    module: ifuri_core.llm_gateway
+    line: 61
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 2
+  ifuri_core.dsl_document.validate_dsl_document:
+    name: validate_dsl_document
+    module: ifuri_core.dsl_document
+    line: 31
+    cyclomatic_complexity: 5
+    calls_out: 6
+    calls_in: 6
+  boundary.build_autonomous_repair_bundle:
+    name: build_autonomous_repair_bundle
+    module: boundary
+    line: 205
+    cyclomatic_complexity: 7
+    calls_out: 15
+    calls_in: 1
+  llm_client._request_json:
+    name: _request_json
+    module: llm_client
+    line: 50
+    cyclomatic_complexity: 5
+    calls_out: 14
+    calls_in: 1
+  intentdsl._type_ok:
+    name: _type_ok
+    module: intentdsl
+    line: 214
+    cyclomatic_complexity: 7
+    calls_out: 6
+    calls_in: 3
+  llm_client._provider_config:
+    name: _provider_config
+    module: llm_client
+    line: 73
+    cyclomatic_complexity: 9
+    calls_out: 17
+    calls_in: 2
+  patchdsl.validate_patch_markdown:
+    name: validate_patch_markdown
+    module: patchdsl
+    line: 141
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 0
+  ifuri_core.manifest.CapabilityRegistry.register:
+    name: register
+    module: ifuri_core.manifest
+    line: 81
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  governance.build_process_envelope:
+    name: build_process_envelope
+    module: governance
+    line: 36
+    cyclomatic_complexity: 5
+    calls_out: 7
+    calls_in: 0
+  contextdsl.ContextCompiler.legacy_log:
+    name: legacy_log
+    module: contextdsl
+    line: 222
+    cyclomatic_complexity: 7
+    calls_out: 20
+    calls_in: 0
+  onlydsl.dsl.assumption.render_assumptions:
+    name: render_assumptions
+    module: onlydsl.dsl.assumption
+    line: 79
+    cyclomatic_complexity: 2
+    calls_out: 8
+    calls_in: 0
+  server._ifuri_analyze_context:
+    name: _ifuri_analyze_context
+    module: server
+    line: 111
+    cyclomatic_complexity: 6
+    calls_out: 19
+    calls_in: 1
+  source_ingest.validate_sourceindex_markdown:
+    name: validate_sourceindex_markdown
+    module: source_ingest
+    line: 188
+    cyclomatic_complexity: 12
+    calls_out: 18
+    calls_in: 4
+  source_ingest.SourceIndex.to_markdown:
+    name: to_markdown
+    module: source_ingest
+    line: 48
+    cyclomatic_complexity: 7
+    calls_out: 15
+    calls_in: 0
+  boundary.build_twin_bootstrap_bundle:
+    name: build_twin_bootstrap_bundle
+    module: boundary
+    line: 107
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 2
+  governance.reject_envelope:
+    name: reject_envelope
+    module: governance
+    line: 83
+    cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 0
+  digital_twin.twindsl_schema:
+    name: twindsl_schema
+    module: digital_twin
+    line: 551
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 4
+  ifuri_core.llm_gateway.build_llm_build_plan_handler:
+    name: build_llm_build_plan_handler
+    module: ifuri_core.llm_gateway
+    line: 139
+    cyclomatic_complexity: 1
+    calls_out: 10
+    calls_in: 0
+  ifuri_core.llm_gateway._extract_bundle_blocks:
+    name: _extract_bundle_blocks
+    module: ifuri_core.llm_gateway
+    line: 108
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 1
+  multiruntime.javascript.ifuri.canonical:
+    name: canonical
+    module: multiruntime.javascript.ifuri
+    line: 18
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  intentdsl._expr_tree:
+    name: _expr_tree
+    module: intentdsl
+    line: 192
+    cyclomatic_complexity: 4
+    calls_out: 7
+    calls_in: 2
+  server._twin_payload:
+    name: _twin_payload
+    module: server
+    line: 146
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 3
+  contextdsl.extract_contextdsl:
+    name: extract_contextdsl
+    module: contextdsl
+    line: 283
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 3
+  boundary.assert_dsl_only:
+    name: assert_dsl_only
+    module: boundary
+    line: 31
+    cyclomatic_complexity: 8
+    calls_out: 16
+    calls_in: 20
+  llm_client.update_twin:
+    name: update_twin
+    module: llm_client
+    line: 380
+    cyclomatic_complexity: 14
+    calls_out: 39
+    calls_in: 1
+  twin_store.TwinStore.load:
+    name: load
+    module: twin_store
+    line: 36
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 0
+  ifuri_core.manifest._parse_pattern:
+    name: _parse_pattern
+    module: ifuri_core.manifest
+    line: 195
+    cyclomatic_complexity: 18
+    calls_out: 19
+    calls_in: 2
+  ifuri_core.llm_gateway.build_llm_twin_bootstrap_handler:
+    name: build_llm_twin_bootstrap_handler
+    module: ifuri_core.llm_gateway
+    line: 92
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 0
+  contextdsl.ContextCompiler.state:
+    name: state
+    module: contextdsl
+    line: 163
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 0
+  intentdsl.demo_english_to_dsl:
+    name: demo_english_to_dsl
+    module: intentdsl
+    line: 388
+    cyclomatic_complexity: 8
+    calls_out: 6
+    calls_in: 1
+  digital_twin.buildplandsl_schema:
+    name: buildplandsl_schema
+    module: digital_twin
+    line: 591
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 2
+  intentdsl._slug_words:
+    name: _slug_words
+    module: intentdsl
+    line: 383
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 1
+  server._context_registries:
+    name: _context_registries
+    module: server
+    line: 99
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 1
+  governance.complete_envelope:
+    name: complete_envelope
+    module: governance
+    line: 68
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  ifuri_core.transport.NatsTransport.serve_capability:
+    name: serve_capability
+    module: ifuri_core.transport
+    line: 351
+    cyclomatic_complexity: 1
+    calls_out: 19
+    calls_in: 0
+  server._unpack_dsl:
+    name: _unpack_dsl
+    module: server
+    line: 105
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 5
+  boundary.build_source_compile_bundle:
+    name: build_source_compile_bundle
+    module: boundary
+    line: 96
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 1
+  ifuri_core.llm_gateway.gateway_provider_status:
+    name: gateway_provider_status
+    module: ifuri_core.llm_gateway
+    line: 205
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 5
+  ifuri_core.llm_gateway._reply:
+    name: _reply
+    module: ifuri_core.llm_gateway
+    line: 24
+    cyclomatic_complexity: 2
+    calls_out: 14
+    calls_in: 6
+  multiruntime.javascript.ifuri.toNatsSubject:
+    name: toNatsSubject
+    module: multiruntime.javascript.ifuri
+    line: 23
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  contextdsl.render_context_dsl:
+    name: render_context_dsl
+    module: contextdsl
+    line: 252
+    cyclomatic_complexity: 9
+    calls_out: 35
+    calls_in: 1
+  evolution.EvolutionStore.diagnostic_for_incident:
+    name: diagnostic_for_incident
+    module: evolution
+    line: 208
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 0
+  intentdsl.validate_markdown:
+    name: validate_markdown
+    module: intentdsl
+    line: 288
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 3
+  ifuri_core.llm_gateway.build_llm_patch_handler:
+    name: build_llm_patch_handler
+    module: ifuri_core.llm_gateway
+    line: 156
+    cyclomatic_complexity: 1
+    calls_out: 29
+    calls_in: 0
+  source_ingest.extract_source_refs:
+    name: extract_source_refs
+    module: source_ingest
+    line: 204
+    cyclomatic_complexity: 9
+    calls_out: 16
+    calls_in: 3
+edges:
+- caller: contextdsl._event_code_from_text
+  callee: contextdsl._ident
+  call_type: resolved
+- caller: contextdsl.ContextCompiler.__init__
+  callee: contextdsl._ident
+  call_type: resolved
+- caller: contextdsl.ContextCompiler.policy
+  callee: contextdsl._ident
+  call_type: resolved
+- caller: contextdsl.ContextCompiler.capability
+  callee: contextdsl._ident
+  call_type: resolved
+- caller: contextdsl.ContextCompiler.state
+  callee: contextdsl._infer_type
+  call_type: resolved
+- caller: contextdsl.ContextCompiler.state
+  callee: contextdsl._ident
+  call_type: resolved
+- caller: contextdsl.ContextCompiler.metric
+  callee: contextdsl._ident
+  call_type: resolved
+- caller: contextdsl.ContextCompiler.record
+  callee: contextdsl._ident
+  call_type: resolved
+- caller: contextdsl.ContextCompiler.tool_result
+  callee: contextdsl._ident
+  call_type: resolved
+- caller: contextdsl.ContextCompiler.legacy_log
+  callee: contextdsl._event_code_from_text
+  call_type: resolved
+- caller: contextdsl.ContextCompiler.legacy_log
+  callee: contextdsl._parse_legacy_scalar
+  call_type: resolved
+- caller: contextdsl.ContextCompiler.to_markdown
+  callee: contextdsl.render_context_markdown
+  call_type: resolved
+- caller: contextdsl.render_context_markdown
+  callee: contextdsl.render_context_dsl
+  call_type: resolved
+- caller: contextdsl.validate_context_markdown
+  callee: contextdsl.parse_context_dsl
+  call_type: resolved
+- caller: contextdsl.validate_context_markdown
+  callee: contextdsl.extract_contextdsl
+  call_type: resolved
+- caller: evolution.EvolutionStore._write
+  callee: evolution._qid
+  call_type: resolved
+- caller: evolution.EvolutionStore.add_guidance
+  callee: evolution._q
+  call_type: resolved
+- caller: evolution.EvolutionStore.add_guidance
+  callee: evolution._qid
+  call_type: resolved
+- caller: evolution.EvolutionStore.add_diagnostic
+  callee: diagnostics.diagnose_incident
+  call_type: resolved
+- caller: evolution.EvolutionStore.add_event
+  callee: evolution._q
+  call_type: resolved
+- caller: evolution.EvolutionStore.add_event
+  callee: evolution._qid
+  call_type: resolved
+- caller: evolution.EvolutionStore.add_event
+  callee: evolution._now
+  call_type: resolved
+- caller: evolution.EvolutionStore.diagnostic_for_incident
+  callee: evolution._qid
+  call_type: resolved
+- caller: evolution.EvolutionStore.status
+  callee: evolution._parse_event
+  call_type: resolved
+- caller: diagnostics.diagnose_incident
+  callee: diagnostics._candidate_paths
+  call_type: resolved
+- caller: server._context_registries
+  callee: contextdsl.parse_context_dsl
+  call_type: resolved
+- caller: server._context_registries
+  callee: contextdsl.extract_contextdsl
+  call_type: resolved
+- caller: server._ifuri_analyze_context
+  callee: contextdsl.validate_context_markdown
+  call_type: resolved
+- caller: server._ifuri_analyze_context
+  callee: ifuri_core.dsl_document.make_dsl_document
+  call_type: resolved
+- caller: server._ifuri_analyze_context
+  callee: server._unpack_dsl
+  call_type: resolved
+- caller: server._ifuri_analyze_context
+  callee: server._context_registries
+  call_type: resolved
+- caller: server._ifuri_analyze_context
+  callee: intentdsl.validate_markdown
+  call_type: resolved
+- caller: server._ifuri_analyze_context
+  callee: intentdsl.parse_dsl
+  call_type: resolved
+- caller: server._ifuri_compile_source
+  callee: ifuri_core.dsl_document.make_dsl_document
+  call_type: resolved
+- caller: server._ifuri_compile_source
+  callee: server._unpack_dsl
+  call_type: resolved
+- caller: server._ifuri_compile_source
+  callee: boundary.source_text_dsl
+  call_type: resolved
+- caller: server._ifuri_compile_source
+  callee: intentdsl.validate_markdown
+  call_type: resolved
+- caller: server._twin_payload
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: server._twin_payload
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: server._twin_payload
+  callee: digital_twin.validate_twin_markdown
+  call_type: resolved
+- caller: server._twin_payload
+  callee: digital_twin.twin_to_mermaid
+  call_type: resolved
+- caller: server._bootstrap_twin
+  callee: digital_twin.intent_fingerprint
+  call_type: resolved
+- caller: server._bootstrap_twin
+  callee: boundary.source_text_dsl
+  call_type: resolved
+- caller: server._bootstrap_twin
+  callee: ifuri_core.dsl_document.make_dsl_document
+  call_type: resolved
+- caller: server._bootstrap_twin
+  callee: server._unpack_dsl
+  call_type: resolved
+- caller: server._bootstrap_twin
+  callee: server._twin_payload
+  call_type: resolved
+- caller: server._scan_sources
+  callee: source_ingest.build_source_index
+  call_type: resolved
+- caller: server._scan_sources
+  callee: source_ingest.validate_sourceindex_markdown
+  call_type: resolved
+- caller: server._update_twin
+  callee: server._scan_sources
+  call_type: resolved
+- caller: server._update_twin
+  callee: ifuri_core.dsl_document.make_dsl_document
+  call_type: resolved
+- caller: server._update_twin
+  callee: server._unpack_dsl
+  call_type: resolved
+- caller: server._update_twin
+  callee: server._twin_payload
+  call_type: resolved
+- caller: server._plan_twin
+  callee: ifuri_core.dsl_document.make_dsl_document
+  call_type: resolved
+- caller: server._plan_twin
+  callee: server._unpack_dsl
+  call_type: resolved
+- caller: server._plan_twin
+  callee: digital_twin.validate_buildplan_markdown
+  call_type: resolved
+- caller: server._plan_twin
+  callee: ifuri_core.llm_gateway.gateway_provider_status
+  call_type: resolved
+- caller: server._plan_twin
+  callee: digital_twin.buildplandsl_schema
+  call_type: resolved
+- caller: server.Handler._send
+  callee: server._json_bytes
+  call_type: resolved
+- caller: server.Handler.do_GET
+  callee: server._application_version
+  call_type: resolved
+- caller: server.Handler.do_GET
+  callee: server._twin_status
+  call_type: resolved
+- caller: server.Handler.do_GET
+  callee: server.evolution_authority_status
+  call_type: resolved
+- caller: server.Handler.do_POST
+  callee: contextdsl.compiler_from_payload
+  call_type: resolved
+- caller: llm_client._backend_call
+  callee: llm_client._provider_config
+  call_type: resolved
+- caller: llm_client._backend_call
+  callee: llm_client._request_json
+  call_type: resolved
+- caller: llm_client._backend_call
+  callee: boundary.assert_dsl_only
+  call_type: resolved
+- caller: llm_client.provider_status
+  callee: llm_client._provider_config
+  call_type: resolved
+- caller: llm_client._call_dsl_validated
+  callee: llm_client._backend_call
+  call_type: resolved
+- caller: llm_client._call_dsl_validated
+  callee: boundary.build_repair_bundle
+  call_type: resolved
+- caller: llm_client.convert_english
+  callee: boundary.build_source_compile_bundle
+  call_type: resolved
+- caller: llm_client.convert_english
+  callee: llm_client._backend_call
+  call_type: resolved
+- caller: llm_client.convert_english
+  callee: intentdsl.demo_english_to_dsl
+  call_type: resolved
+- caller: llm_client.propose_code_patch
+  callee: boundary.build_autonomous_repair_bundle
+  call_type: resolved
+- caller: llm_client.propose_code_patch
+  callee: llm_client._call_dsl_validated
+  call_type: resolved
+- caller: llm_client._demo_context_analysis
+  callee: contextdsl.parse_context_dsl
+  call_type: resolved
+- caller: llm_client._demo_context_analysis
+  callee: contextdsl.extract_contextdsl
+  call_type: resolved
+- caller: llm_client.analyze_context
+  callee: boundary.build_context_analysis_bundle
+  call_type: resolved
+- caller: llm_client.analyze_context
+  callee: llm_client._backend_call
+  call_type: resolved
+- caller: llm_client.analyze_context
+  callee: llm_client._demo_context_analysis
+  call_type: resolved
+- caller: llm_client.bootstrap_twin
+  callee: digital_twin.intent_fingerprint
+  call_type: resolved
+- caller: llm_client.bootstrap_twin
+  callee: boundary.build_twin_bootstrap_bundle
+  call_type: resolved
+- caller: llm_client.bootstrap_twin
+  callee: digital_twin.validate_twin_markdown
+  call_type: resolved
+- caller: llm_client.bootstrap_twin
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: llm_client.bootstrap_twin
+  callee: digital_twin.twindsl_schema
+  call_type: resolved
+- caller: llm_client.bootstrap_twin
+  callee: llm_client._call_dsl_validated
+  call_type: resolved
+- caller: llm_client.bootstrap_twin
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: llm_client._demo_update_twin
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: llm_client._demo_update_twin
+  callee: source_ingest.extract_source_refs
+  call_type: resolved
+- caller: llm_client._demo_update_twin
+  callee: digital_twin.render_twin
+  call_type: resolved
+- caller: llm_client._demo_update_twin
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: llm_client.update_twin
+  callee: source_ingest.validate_sourceindex_markdown
+  call_type: resolved
+- caller: llm_client.update_twin
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: llm_client.update_twin
+  callee: boundary.build_twin_update_bundle
+  call_type: resolved
+- caller: llm_client.update_twin
+  callee: digital_twin.validate_twin_update
+  call_type: resolved
+- caller: llm_client.update_twin
+  callee: digital_twin.validate_twin_markdown
+  call_type: resolved
+- caller: llm_client.plan_build
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: llm_client.plan_build
+  callee: boundary.build_build_plan_bundle
+  call_type: resolved
+- caller: llm_client.plan_build
+  callee: digital_twin.validate_buildplan_markdown
+  call_type: resolved
+- caller: llm_client.plan_build
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: llm_client.plan_build
+  callee: digital_twin.buildplandsl_schema
+  call_type: resolved
+- caller: llm_client.plan_build
+  callee: llm_client._call_dsl_validated
+  call_type: resolved
+- caller: llm_client.plan_build
+  callee: digital_twin.demo_build_plan
+  call_type: resolved
+- caller: intentdsl._expr_tree
+  callee: intentdsl._normalize_expr
+  call_type: resolved
+- caller: intentdsl.expr_names
+  callee: intentdsl._expr_tree
+  call_type: resolved
+- caller: intentdsl.eval_expr
+  callee: intentdsl._expr_tree
+  call_type: resolved
+- caller: intentdsl.validate_markdown
+  callee: intentdsl.extract_intentdsl
+  call_type: resolved
+- caller: intentdsl.validate_markdown
+  callee: intentdsl.parse_dsl
+  call_type: resolved
+- caller: intentdsl.validate_markdown
+  callee: intentdsl.validate_program
+  call_type: resolved
+- caller: intentdsl.run_program
+  callee: intentdsl.validate_program
+  call_type: resolved
+- caller: intentdsl.run_program
+  callee: intentdsl.eval_expr
+  call_type: resolved
+- caller: intentdsl.run_program
+  callee: intentdsl._type_ok
+  call_type: resolved
+- caller: intentdsl.demo_english_to_dsl
+  callee: intentdsl._slug_words
+  call_type: resolved
+- caller: patchdsl.parse_patchdsl
+  callee: patchdsl._json_string
+  call_type: resolved
+- caller: patchdsl.validate_patch_markdown
+  callee: patchdsl.parse_patchdsl
+  call_type: resolved
+- caller: patchdsl.validate_patch_markdown
+  callee: patchdsl.validate_patch_policy
+  call_type: resolved
+- caller: governance.authorize_patch
+  callee: aql.operation_for_path
+  call_type: resolved
+- caller: governance.build_process_envelope
+  callee: governance.canonical_hash
+  call_type: resolved
+- caller: governance.build_process_envelope
+  callee: aql.operation_for_path
+  call_type: resolved
+- caller: governance.complete_envelope
+  callee: governance.canonical_hash
+  call_type: resolved
+- caller: governance.reject_envelope
+  callee: governance.canonical_hash
+  call_type: resolved
+- caller: digital_twin.intent_fingerprint
+  callee: digital_twin.normalize_intent
+  call_type: resolved
+- caller: digital_twin.parse_twindsl
+  callee: digital_twin.validate_twin
+  call_type: resolved
+- caller: digital_twin.validate_twin_markdown
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: digital_twin.validate_twin_markdown
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: digital_twin.validate_twin_update
+  callee: digital_twin.validate_twin
+  call_type: resolved
+- caller: digital_twin.demo_bootstrap_twin
+  callee: digital_twin.normalize_intent
+  call_type: resolved
+- caller: digital_twin.demo_bootstrap_twin
+  callee: digital_twin.intent_fingerprint
+  call_type: resolved
+- caller: digital_twin.demo_bootstrap_twin
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin.validate_buildplan_markdown
+  callee: digital_twin.extract_buildplanddsl
+  call_type: resolved
+- caller: digital_twin.demo_build_plan
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: boundary.DslBundle.validate_for_llm
+  callee: boundary.assert_dsl_only
+  call_type: resolved
+- caller: boundary.build_source_compile_bundle
+  callee: boundary.contract_dsl
+  call_type: resolved
+- caller: boundary.build_source_compile_bundle
+  callee: boundary.task_dsl
+  call_type: resolved
+- caller: boundary.build_source_compile_bundle
+  callee: boundary.source_text_dsl
+  call_type: resolved
+- caller: boundary.build_context_analysis_bundle
+  callee: boundary.assert_dsl_only
+  call_type: resolved
+- caller: boundary.build_context_analysis_bundle
+  callee: boundary.contract_dsl
+  call_type: resolved
+- caller: boundary.build_context_analysis_bundle
+  callee: boundary.task_dsl
+  call_type: resolved
+- caller: boundary.build_twin_bootstrap_bundle
+  callee: boundary.assert_dsl_only
+  call_type: resolved
+- caller: boundary.build_twin_bootstrap_bundle
+  callee: boundary.contract_dsl
+  call_type: resolved
+- caller: boundary.build_twin_bootstrap_bundle
+  callee: boundary.task_dsl
+  call_type: resolved
+- caller: boundary.build_twin_bootstrap_bundle
+  callee: boundary.source_text_dsl
+  call_type: resolved
+- caller: boundary.build_twin_update_bundle
+  callee: boundary.assert_dsl_only
+  call_type: resolved
+- caller: boundary.build_twin_update_bundle
+  callee: boundary.contract_dsl
+  call_type: resolved
+- caller: boundary.build_twin_update_bundle
+  callee: boundary.task_dsl
+  call_type: resolved
+- caller: boundary.build_build_plan_bundle
+  callee: boundary.assert_dsl_only
+  call_type: resolved
+- caller: boundary.build_build_plan_bundle
+  callee: boundary.contract_dsl
+  call_type: resolved
+- caller: boundary.build_build_plan_bundle
+  callee: boundary.task_dsl
+  call_type: resolved
+- caller: boundary.build_autonomous_repair_bundle
+  callee: boundary.assert_dsl_only
+  call_type: resolved
+- caller: boundary.build_autonomous_repair_bundle
+  callee: boundary.code_dsl
+  call_type: resolved
+- caller: boundary.build_autonomous_repair_bundle
+  callee: boundary.contract_dsl
+  call_type: resolved
+- caller: twin_store.TwinStore.load
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: twin_store.TwinStore.load
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: twin_store.TwinStore.save
+  callee: digital_twin.validate_twin_markdown
+  call_type: resolved
+- caller: twin_store.TwinStore.save
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: twin_store.TwinStore.save
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: source_ingest.SourceIndex.to_markdown
+  callee: evolution._q
+  call_type: resolved
+- caller: source_ingest.build_source_index
+  callee: source_ingest._sid
+  call_type: resolved
+- caller: source_ingest.build_source_index
+  callee: source_ingest.parse_markdown
+  call_type: resolved
+- caller: source_ingest.extract_source_refs
+  callee: source_ingest.validate_sourceindex_markdown
+  call_type: resolved
+- caller: ifuri_core.llm_gateway._reply
+  callee: ifuri_core.dsl_document.make_dsl_document
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_reasoner_handler
+  callee: ifuri_core.dsl_document.validate_dsl_document
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_reasoner_handler
+  callee: boundary.assert_dsl_only
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_reasoner_handler
+  callee: contextdsl.validate_context_markdown
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_reasoner_handler
+  callee: llm_client.analyze_context
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_reasoner_handler
+  callee: ifuri_core.llm_gateway._reply
+  call_type: resolved
+- caller: ifuri_core.llm_gateway._extract_source_payload
+  callee: boundary.assert_dsl_only
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_semantic_handler
+  callee: ifuri_core.dsl_document.validate_dsl_document
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_semantic_handler
+  callee: ifuri_core.llm_gateway._extract_source_payload
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_semantic_handler
+  callee: llm_client.convert_english
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_semantic_handler
+  callee: boundary.assert_dsl_only
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_semantic_handler
+  callee: ifuri_core.llm_gateway._reply
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_twin_bootstrap_handler
+  callee: ifuri_core.dsl_document.validate_dsl_document
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_twin_bootstrap_handler
+  callee: ifuri_core.llm_gateway._extract_source_payload
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_twin_bootstrap_handler
+  callee: llm_client.bootstrap_twin
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_twin_bootstrap_handler
+  callee: ifuri_core.llm_gateway._reply
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_twin_bootstrap_handler
+  callee: digital_twin.validate_twin_markdown
+  call_type: resolved
+- caller: ifuri_core.llm_gateway._extract_bundle_blocks
+  callee: boundary.assert_dsl_only
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_twin_update_handler
+  callee: ifuri_core.dsl_document.validate_dsl_document
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_twin_update_handler
+  callee: ifuri_core.llm_gateway._extract_bundle_blocks
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_twin_update_handler
+  callee: llm_client.update_twin
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_twin_update_handler
+  callee: ifuri_core.llm_gateway._reply
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_build_plan_handler
+  callee: ifuri_core.dsl_document.validate_dsl_document
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_build_plan_handler
+  callee: llm_client.plan_build
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_build_plan_handler
+  callee: ifuri_core.llm_gateway._reply
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_build_plan_handler
+  callee: digital_twin.validate_twin_markdown
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_build_plan_handler
+  callee: digital_twin.validate_buildplan_markdown
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_patch_handler
+  callee: ifuri_core.dsl_document.validate_dsl_document
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_patch_handler
+  callee: boundary.assert_dsl_only
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_patch_handler
+  callee: llm_client.propose_code_patch
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.build_llm_patch_handler
+  callee: ifuri_core.llm_gateway._reply
+  call_type: resolved
+- caller: ifuri_core.llm_gateway.gateway_provider_status
+  callee: llm_client.provider_status
+  call_type: resolved
+- caller: ifuri_core.manifest.Capability.match
+  callee: ifuri_core.manifest._parse_pattern
+  call_type: resolved
+- caller: ifuri_core.manifest.CapabilityRegistry.register
+  callee: ifuri_core.manifest._validate_capability
+  call_type: resolved
+- caller: ifuri_core.manifest._validate_capability
+  callee: ifuri_core.manifest._parse_pattern
+  call_type: resolved
+- caller: ifuri_core.transport.NatsWireClient.subscribe
+  callee: ifuri_core.transport._validate_nats_subject
+  call_type: resolved
+- caller: ifuri_core.transport.NatsWireClient.publish
+  callee: ifuri_core.transport._validate_nats_subject
+  call_type: resolved
+- caller: ifuri_core.transport.NatsJetStream.create_stream
+  callee: ifuri_core.transport._js_response
+  call_type: resolved
+- caller: ifuri_core.transport.NatsJetStream.stream_info
+  callee: ifuri_core.transport._js_response
+  call_type: resolved
+- caller: ifuri_core.transport.NatsJetStream.publish
+  callee: ifuri_core.transport._js_response
+  call_type: resolved
+- caller: ifuri_core.transport.NatsTransport.serve_capability
+  callee: ifuri_core.transport.capability_pattern_to_subject
+  call_type: resolved
+- caller: multiruntime.typescript.ifuri.toNatsSubject
+  callee: multiruntime.typescript.ifuri.parseIfUri
+  call_type: resolved
+- caller: multiruntime.javascript.ifuri.canonical
+  callee: multiruntime.javascript.ifuri.parseIfUri
+  call_type: resolved
+- caller: multiruntime.javascript.ifuri.toNatsSubject
+  callee: multiruntime.javascript.ifuri.parseIfUri
+  call_type: resolved
+- caller: multiruntime.javascript.ifuri.raw
+  callee: multiruntime.javascript.ifuri.canonical
+  call_type: resolved
+- caller: multiruntime.javascript.ifuri.raw
+  callee: multiruntime.javascript.ifuri.toNatsSubject
+  call_type: resolved
+- caller: multiruntime.php.ifuri.canonical_ifuri
+  callee: multiruntime.php.ifuri.parse_ifuri
+  call_type: resolved
+- caller: multiruntime.php.ifuri.nats_subject
+  callee: multiruntime.php.ifuri.parse_ifuri
+  call_type: resolved
+- caller: onlydsl.dsl.evidence_set.create_evidence_set
+  callee: governance.canonical_hash
+  call_type: resolved
+- caller: onlydsl.dsl.assumption.render_assumptions
+  callee: onlydsl.dsl.common.quoted
+  call_type: resolved
+- caller: onlydsl.dsl.assumption.render_assumptions
+  callee: onlydsl.dsl.common.list_value
+  call_type: resolved
+modules:
+  aql:
+  - aql.operation_for_path
+  boundary:
+  - boundary.DslBundle.validate_for_llm
+  - boundary.assert_dsl_only
+  - boundary.build_autonomous_repair_bundle
+  - boundary.build_build_plan_bundle
+  - boundary.build_context_analysis_bundle
+  - boundary.build_repair_bundle
+  - boundary.build_source_compile_bundle
+  - boundary.build_twin_bootstrap_bundle
+  - boundary.build_twin_update_bundle
+  - boundary.code_dsl
+  - boundary.contract_dsl
+  - boundary.source_text_dsl
+  - boundary.task_dsl
+  contextdsl:
+  - contextdsl.ContextCompiler.__init__
+  - contextdsl.ContextCompiler.capability
+  - contextdsl.ContextCompiler.legacy_log
+  - contextdsl.ContextCompiler.metric
+  - contextdsl.ContextCompiler.policy
+  - contextdsl.ContextCompiler.record
+  - contextdsl.ContextCompiler.state
+  - contextdsl.ContextCompiler.to_markdown
+  - contextdsl.ContextCompiler.tool_result
+  - contextdsl._event_code_from_text
+  - contextdsl._ident
+  - contextdsl._infer_type
+  - contextdsl._parse_legacy_scalar
+  - contextdsl.compiler_from_payload
+  - contextdsl.extract_contextdsl
+  - contextdsl.parse_context_dsl
+  - contextdsl.render_context_dsl
+  - contextdsl.render_context_markdown
+  - contextdsl.validate_context_markdown
+  diagnostics:
+  - diagnostics._candidate_paths
+  - diagnostics.diagnose_incident
+  digital_twin:
+  - digital_twin._quoted
+  - digital_twin.buildplandsl_schema
+  - digital_twin.demo_bootstrap_twin
+  - digital_twin.demo_build_plan
+  - digital_twin.extract_buildplanddsl
+  - digital_twin.extract_twindsl
+  - digital_twin.intent_fingerprint
+  - digital_twin.normalize_intent
+  - digital_twin.parse_twindsl
+  - digital_twin.render_twin
+  - digital_twin.twin_to_mermaid
+  - digital_twin.twindsl_schema
+  - digital_twin.validate_buildplan_markdown
+  - digital_twin.validate_twin
+  - digital_twin.validate_twin_markdown
+  - digital_twin.validate_twin_update
+  evolution:
+  - evolution.EvolutionStore._write
+  - evolution.EvolutionStore.add_diagnostic
+  - evolution.EvolutionStore.add_event
+  - evolution.EvolutionStore.add_guidance
+  - evolution.EvolutionStore.diagnostic_for_incident
+  - evolution.EvolutionStore.status
+  - evolution._now
+  - evolution._parse_event
+  - evolution._q
+  - evolution._qid
+  governance:
+  - governance.authorize_patch
+  - governance.build_process_envelope
+  - governance.canonical_hash
+  - governance.complete_envelope
+  - governance.reject_envelope
+  ifuri_core.dsl_document:
+  - ifuri_core.dsl_document.make_dsl_document
+  - ifuri_core.dsl_document.validate_dsl_document
+  ifuri_core.llm_gateway:
+  - ifuri_core.llm_gateway._extract_bundle_blocks
+  - ifuri_core.llm_gateway._extract_source_payload
+  - ifuri_core.llm_gateway._reply
+  - ifuri_core.llm_gateway.build_llm_build_plan_handler
+  - ifuri_core.llm_gateway.build_llm_patch_handler
+  - ifuri_core.llm_gateway.build_llm_reasoner_handler
+  - ifuri_core.llm_gateway.build_llm_semantic_handler
+  - ifuri_core.llm_gateway.build_llm_twin_bootstrap_handler
+  - ifuri_core.llm_gateway.build_llm_twin_update_handler
+  - ifuri_core.llm_gateway.gateway_provider_status
+  ifuri_core.manifest:
+  - ifuri_core.manifest.Capability.match
+  - ifuri_core.manifest.CapabilityRegistry.register
+  - ifuri_core.manifest._parse_pattern
+  - ifuri_core.manifest._validate_capability
+  ifuri_core.transport:
+  - ifuri_core.transport.NatsJetStream.create_stream
+  - ifuri_core.transport.NatsJetStream.publish
+  - ifuri_core.transport.NatsJetStream.stream_info
+  - ifuri_core.transport.NatsTransport.serve_capability
+  - ifuri_core.transport.NatsWireClient.publish
+  - ifuri_core.transport.NatsWireClient.subscribe
+  - ifuri_core.transport._js_response
+  - ifuri_core.transport._validate_nats_subject
+  - ifuri_core.transport.capability_pattern_to_subject
+  intentdsl:
+  - intentdsl._expr_tree
+  - intentdsl._normalize_expr
+  - intentdsl._slug_words
+  - intentdsl._type_ok
+  - intentdsl.demo_english_to_dsl
+  - intentdsl.eval_expr
+  - intentdsl.expr_names
+  - intentdsl.extract_intentdsl
+  - intentdsl.parse_dsl
+  - intentdsl.run_program
+  - intentdsl.validate_markdown
+  - intentdsl.validate_program
+  llm_client:
+  - llm_client._backend_call
+  - llm_client._call_dsl_validated
+  - llm_client._demo_context_analysis
+  - llm_client._demo_update_twin
+  - llm_client._provider_config
+  - llm_client._request_json
+  - llm_client.analyze_context
+  - llm_client.bootstrap_twin
+  - llm_client.convert_english
+  - llm_client.plan_build
+  - llm_client.propose_code_patch
+  - llm_client.provider_status
+  - llm_client.update_twin
+  multiruntime.javascript.ifuri:
+  - multiruntime.javascript.ifuri.canonical
+  - multiruntime.javascript.ifuri.parseIfUri
+  - multiruntime.javascript.ifuri.raw
+  - multiruntime.javascript.ifuri.toNatsSubject
+  multiruntime.php.ifuri:
+  - multiruntime.php.ifuri.canonical_ifuri
+  - multiruntime.php.ifuri.nats_subject
+  - multiruntime.php.ifuri.parse_ifuri
+  multiruntime.typescript.ifuri:
+  - multiruntime.typescript.ifuri.parseIfUri
+  - multiruntime.typescript.ifuri.toNatsSubject
+  onlydsl.dsl.assumption:
+  - onlydsl.dsl.assumption.render_assumptions
+  onlydsl.dsl.common:
+  - onlydsl.dsl.common.list_value
+  - onlydsl.dsl.common.quoted
+  onlydsl.dsl.evidence_set:
+  - onlydsl.dsl.evidence_set.create_evidence_set
+  patchdsl:
+  - patchdsl._json_string
+  - patchdsl.parse_patchdsl
+  - patchdsl.validate_patch_markdown
+  - patchdsl.validate_patch_policy
+  server:
+  - server.Handler._send
+  - server.Handler.do_GET
+  - server.Handler.do_POST
+  - server._application_version
+  - server._bootstrap_twin
+  - server._context_registries
+  - server._ifuri_analyze_context
+  - server._ifuri_compile_source
+  - server._json_bytes
+  - server._plan_twin
+  - server._scan_sources
+  - server._twin_payload
+  - server._twin_status
+  - server._unpack_dsl
+  - server._update_twin
+  - server.evolution_authority_status
+  source_ingest:
+  - source_ingest.SourceIndex.to_markdown
+  - source_ingest._sid
+  - source_ingest.build_source_index
+  - source_ingest.extract_source_refs
+  - source_ingest.parse_markdown
+  - source_ingest.validate_sourceindex_markdown
+  twin_store:
+  - twin_store.TwinStore.load
+  - twin_store.TwinStore.save
+entry_points:
+- aql.AqlContract.__init__
+- aql.AqlContract._matches
+- aql.AqlContract.decide
+- aql.AqlContract.from_file
+- aql.AqlContract.parse
+- aql.AqlContract.public_status
+- aql.AqlContract.require
+- aql.AqlContract.require_secret_rotation
+- boundary.DslBundle.validate_for_llm
+- boundary.authority_dsl
+- contextdsl.ContextCompiler.__init__
+- contextdsl.ContextCompiler.capability
+- contextdsl.ContextCompiler.code_fact
+- contextdsl.ContextCompiler.database_fact
+- contextdsl.ContextCompiler.event
+- contextdsl.ContextCompiler.exception
+- contextdsl.ContextCompiler.legacy_log
+- contextdsl.ContextCompiler.memory
+- contextdsl.ContextCompiler.metric
+- contextdsl.ContextCompiler.policy
+- contextdsl.ContextCompiler.record
+- contextdsl.ContextCompiler.retrieval
+- contextdsl.ContextCompiler.state
+- contextdsl.ContextCompiler.to_markdown
+- contextdsl.ContextCompiler.tool_result
+- contextdsl.ContextDocument.to_dict
+- evolution.EvolutionStore.__init__
+- evolution.EvolutionStore._write
+- evolution.EvolutionStore.add_diagnostic
+- evolution.EvolutionStore.add_event
+- evolution.EvolutionStore.add_guidance
+- evolution.EvolutionStore.add_incident
+- evolution.EvolutionStore.add_json_record
+- evolution.EvolutionStore.claim_incident
+- evolution.EvolutionStore.defer_incident
+- evolution.EvolutionStore.diagnostic_for_incident
+- evolution.EvolutionStore.finish_incident
+- evolution.EvolutionStore.latest_diagnostics
+- evolution.EvolutionStore.latest_guidance
+- evolution.EvolutionStore.status
+- examples.dsl_native_logging.build_llm_context
+- governance.authorize_patch
+- governance.build_process_envelope
+- governance.complete_envelope
+- governance.load_process_pack
+- governance.reject_envelope
+- ifuri_core.artifacts.LocalFileArtifactStore.__init__
+- ifuri_core.artifacts.LocalFileArtifactStore._path
+- ifuri_core.artifacts.LocalFileArtifactStore.exists
+- ifuri_core.artifacts.LocalFileArtifactStore.get
+- ifuri_core.artifacts.LocalFileArtifactStore.put
+- ifuri_core.cqrs.AggregateRepository.__init__
+- ifuri_core.cqrs.AggregateRepository.load
+- ifuri_core.cqrs.AggregateRepository.save
+- ifuri_core.cqrs.AggregateRoot.__init__
+- ifuri_core.cqrs.AggregateRoot.apply
+- ifuri_core.cqrs.AggregateRoot.load_from_history
+- ifuri_core.cqrs.AggregateRoot.pull_uncommitted
+- ifuri_core.cqrs.AggregateRoot.raise_event
+- ifuri_core.envelope.EnvelopeCodec._validate_kind_uri
+- ifuri_core.envelope.EnvelopeCodec.create
+- ifuri_core.envelope.EnvelopeCodec.parse
+- ifuri_core.envelope.EnvelopeCodec.serialize
+- ifuri_core.envelope.EnvelopeCodec.unpack
+- ifuri_core.envelope.EnvelopeCodec.validate
+- ifuri_core.envelope.EnvelopeCodec.view
+- ifuri_core.event_store.SqliteEventStore.__init__
+- ifuri_core.event_store.SqliteEventStore._init_schema
+- ifuri_core.event_store.SqliteEventStore.append
+- ifuri_core.event_store.SqliteEventStore.close
+- ifuri_core.event_store.SqliteEventStore.current_version
+- ifuri_core.event_store.SqliteEventStore.load_stream
+- ifuri_core.event_store.SqliteEventStore.mark_outbox_failed
+- ifuri_core.event_store.SqliteEventStore.mark_outbox_published
+- ifuri_core.event_store.SqliteEventStore.outbox_stats
+- ifuri_core.event_store.SqliteEventStore.pending_outbox
+- ifuri_core.llm_gateway.build_llm_build_plan_handler
+- ifuri_core.llm_gateway.build_llm_patch_handler
+- ifuri_core.llm_gateway.build_llm_reasoner_handler
+- ifuri_core.llm_gateway.build_llm_semantic_handler
+- ifuri_core.llm_gateway.build_llm_twin_bootstrap_handler
+- ifuri_core.llm_gateway.build_llm_twin_update_handler
+- ifuri_core.manifest.Capability.match
+- ifuri_core.manifest.CapabilityRegistry.__init__
+- ifuri_core.manifest.CapabilityRegistry.dump
+- ifuri_core.manifest.CapabilityRegistry.explain
+- ifuri_core.manifest.CapabilityRegistry.from_file
+- ifuri_core.manifest.CapabilityRegistry.from_mapping
+- ifuri_core.manifest.CapabilityRegistry.register
+- ifuri_core.manifest.CapabilityRegistry.resolve
+- ifuri_core.manifest.TransportPolicy.ordered
+- ifuri_core.outbox.OutboxPublisher.__init__
+- ifuri_core.outbox.OutboxPublisher.publish_once
+- ifuri_core.outbox.OutboxStore.mark_outbox_failed
+- ifuri_core.outbox.OutboxStore.mark_outbox_published
+- ifuri_core.outbox.OutboxStore.pending_outbox
+- ifuri_core.postgres_store.PostgresEventStore.__init__
+- ifuri_core.postgres_store.PostgresEventStore.append
+- ifuri_core.postgres_store.PostgresEventStore.close
+- ifuri_core.postgres_store.PostgresEventStore.current_version
+- ifuri_core.postgres_store.PostgresEventStore.load_stream
+- ifuri_core.postgres_store.PostgresEventStore.mark_outbox_failed
+- ifuri_core.postgres_store.PostgresEventStore.mark_outbox_published
+- ifuri_core.postgres_store.PostgresEventStore.outbox_stats
+- ifuri_core.postgres_store.PostgresEventStore.pending_outbox
+- ifuri_core.runtime.IfuriRuntime.__init__
+- ifuri_core.runtime.IfuriRuntime._validate_payload_contract
+- ifuri_core.runtime.IfuriRuntime.call
+- ifuri_core.runtime.IfuriRuntime.call_envelope
+- ifuri_core.runtime.IfuriRuntime.emit
+- ifuri_core.runtime.IfuriRuntime.inspect_route
+- ifuri_core.runtime.RouteDecision.to_dict
+- ifuri_core.transport.IfTransport.call
+- ifuri_core.transport.IfTransport.publish
+- ifuri_core.transport.InProcessTransport.__init__
+- ifuri_core.transport.InProcessTransport.call
+- ifuri_core.transport.InProcessTransport.has_handler
+- ifuri_core.transport.InProcessTransport.publish
+- ifuri_core.transport.InProcessTransport.register
+- ifuri_core.transport.NatsJetStream.__init__
+- ifuri_core.transport.NatsJetStream.create_stream
+- ifuri_core.transport.NatsJetStream.get_message
+- ifuri_core.transport.NatsJetStream.publish
+- ifuri_core.transport.NatsJetStream.replay
+- ifuri_core.transport.NatsJetStream.stream_info
+- ifuri_core.transport.NatsTransport.__init__
+- ifuri_core.transport.NatsTransport.call
+- ifuri_core.transport.NatsTransport.ensure_event_stream
+- ifuri_core.transport.NatsTransport.publish
+- ifuri_core.transport.NatsTransport.serve_capability
+- ifuri_core.transport.NatsTransport.stop_services
+- ifuri_core.transport.NatsWireClient.__init__
+- ifuri_core.transport.NatsWireClient._reader_loop
+- ifuri_core.transport.NatsWireClient._write
+- ifuri_core.transport.NatsWireClient.close
+- ifuri_core.transport.NatsWireClient.connect
+- ifuri_core.transport.NatsWireClient.flush
+- ifuri_core.transport.NatsWireClient.publish
+- ifuri_core.transport.NatsWireClient.request
+- ifuri_core.transport.NatsWireClient.subscribe
+- ifuri_core.transport.NatsWireClient.unsubscribe
+- ifuri_core.uri.IfUri.__str__
+- ifuri_core.uri.IfUri.parse
+- ifuri_core.uri.IfUri.to_subject
+- ifuri_core.uri.canonicalize
+- intentdsl.Program.to_dict
+- multiruntime.javascript.ifuri.kinds
+- multiruntime.javascript.ifuri.parts
+- multiruntime.javascript.ifuri.raw
+- multiruntime.javascript.ifuri.u
+- multiruntime.javascript.ifuri.x
+- multiruntime.php.ifuri.canonical_ifuri
+- multiruntime.php.ifuri.nats_subject
+- multiruntime.typescript.ifuri.p
+- multiruntime.typescript.ifuri.toNatsSubject
+- multiruntime.typescript.ifuri.u
+- multiruntime.typescript.ifuri.x
+- onlydsl.dsl.assumption.AssumptionDocument.replace_with_evidence
+- onlydsl.dsl.assumption.parse_assumptions
+- onlydsl.dsl.assumption.render_assumptions
+- onlydsl.dsl.common.canonical_hash
+- onlydsl.dsl.evidence_set.create_evidence_set
+- onlydsl.dsl.evidence_set.parse_evidence_set
+- onlydsl.dsl.evidence_set.render_evidence_set
+- onlydsl.dsl.parameter_contract.ParameterContractDocument.validate
+- onlydsl.dsl.parameter_contract.parse_parameter_contracts
+- onlydsl.dsl.parameter_contract.render_parameter_contracts
+- onlydsl.dsl.spatial_class.SpatialClassDocument.classify
+- onlydsl.dsl.spatial_class.SpatialClassDocument.geometry_subjects
+- onlydsl.dsl.spatial_class.SpatialClassDocument.required_checks
+- onlydsl.dsl.spatial_class.parse_spatial_class
+- onlydsl.dsl.spatial_class.render_spatial_class
+- patchdsl.validate_patch_markdown
+- server.Handler._body
+- server.Handler._send
+- server.Handler.do_GET
+- server.Handler.do_POST
+- server.Handler.log_message
+- server.main
+- source_ingest.SourceIndex.source_refs
+- source_ingest.SourceIndex.to_markdown
+- source_ingest._q
+- twin_store.TwinStore.__init__
+- twin_store.TwinStore.exists
+- twin_store.TwinStore.load
+- twin_store.TwinStore.load_markdown
+- twin_store.TwinStore.reset_current
+- twin_store.TwinStore.save

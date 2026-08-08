@@ -146,7 +146,8 @@ def build_llm_build_plan_handler(backend: str = "demo"):
         if not validate_twin_markdown(incoming.markdown)["valid"]:
             raise LlmGatewayError("invalid TwinDSL")
         result = plan_build(incoming.markdown, backend)
-        if not validate_buildplan_markdown(result["markdown"])["valid"]:
+        twin = __import__("digital_twin").parse_twindsl(__import__("digital_twin").extract_twindsl(incoming.markdown))
+        if not validate_buildplan_markdown(result["markdown"], twin)["valid"]:
             raise LlmGatewayError("invalid BuildPlanDSL")
         return _reply(envelope, "buildplanddsl", result["markdown"], result, backend)
 
@@ -160,9 +161,8 @@ def build_llm_patch_handler(backend: str = "openrouter"):
         validate_dsl_document(incoming)
         if incoming.dsl_type != "dslbundle":
             raise LlmGatewayError("repair proposal requires dslbundle input")
-        assert_dsl_only(incoming.markdown, {"authoritydsl", "incidentdsl", "guidancedsl", "testqldsl", "codedsl"})
+        assert_dsl_only(incoming.markdown, {"incidentdsl", "diagnosticdsl", "guidancedsl", "testqldsl", "codedsl"})
         incident = ""
-        authority = ""
         guidance: list[str] = []
         verification: list[str] = []
         code_files: dict[str, str] = {}
@@ -173,10 +173,6 @@ def build_llm_patch_handler(backend: str = "openrouter"):
                 if incident:
                     raise LlmGatewayError("repair bundle contains duplicate incidentdsl")
                 incident = markdown
-            elif lang == "authoritydsl":
-                if authority:
-                    raise LlmGatewayError("repair bundle contains duplicate authoritydsl")
-                authority = markdown
             elif lang == "guidancedsl":
                 guidance.append(markdown)
             elif lang == "testqldsl":
@@ -195,7 +191,7 @@ def build_llm_patch_handler(backend: str = "openrouter"):
             raise LlmGatewayError("repair bundle requires incidentdsl and codedsl")
         result = propose_code_patch(
             incident, guidance, code_files, backend,
-            authority_markdown=authority, verification_markdown=verification,
+            authority_markdown="", verification_markdown=verification,
         )
         return _reply(envelope, "patchdsl", result["markdown"], result, backend)
 

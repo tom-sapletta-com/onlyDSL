@@ -54,6 +54,7 @@ def extract_twindsl(markdown: str) -> str:
 class TwinNode:
     id: str
     kind: str
+    spatial_class: str = ""
     responsibility: str = ""
     evidence: list[str] = field(default_factory=list)
 
@@ -180,6 +181,8 @@ def parse_twindsl(text: str) -> TwinDocument:
                 subline_no, sub = lines[i]
                 if sub.startswith("RESPONSIBILITY "):
                     node.responsibility = _json_string(sub[len("RESPONSIBILITY "):], label="RESPONSIBILITY")
+                elif sub.startswith("SPATIAL_CLASS "):
+                    node.spatial_class = sub.split(None, 1)[1]
                 elif sub.startswith("EVIDENCE "):
                     ev = sub.split(None, 1)[1].strip()
                     if not _ID_RE.fullmatch(ev):
@@ -352,6 +355,8 @@ def validate_twin(doc: TwinDocument) -> list[str]:
             errors.append(f"source {source.id} has invalid hash")
     known_sources = set(doc.sources)
     for node in doc.nodes.values():
+        if node.spatial_class not in {"physical", "cyber", "logical", "hybrid"}:
+            errors.append(f"node {node.id} requires SPATIAL_CLASS physical|cyber|logical|hybrid")
         for ev in node.evidence:
             if ev not in known_sources:
                 errors.append(f"node {node.id} references unknown evidence {ev}")
@@ -429,21 +434,26 @@ def demo_bootstrap_twin(user_text: str) -> str:
         f"INTENT_SUMMARY {_quoted(summary)}",
         f"GOAL {_quoted('Build a correct application whose evolution remains bounded by the user intent and source-backed evidence.')}",
         "NODE user KIND actor",
+        "  SPATIAL_CLASS logical",
         f"  RESPONSIBILITY {_quoted('Provides intent, desired outcome, constraints and acceptance direction.')}",
         "  EVIDENCE user_intent",
         "END",
         "NODE intent_compiler KIND service",
+        "  SPATIAL_CLASS cyber",
         f"  RESPONSIBILITY {_quoted('Compiles user natural-language intent into validated DSL before downstream reasoning.')}",
         "  EVIDENCE user_intent",
         "END",
         "NODE source_ingest KIND service",
+        "  SPATIAL_CLASS cyber",
         f"  RESPONSIBILITY {_quoted('Transforms Markdown documents from sources/ into deterministic SourceIndexDSL before LLM analysis.')}",
         "END",
         "NODE digital_twin KIND model",
+        "  SPATIAL_CLASS cyber",
         f"  RESPONSIBILITY {_quoted('Maintains the current source-backed application model, capabilities, invariants and evolution limits.')}",
         "  EVIDENCE user_intent",
         "END",
         "NODE builder_agent KIND service",
+        "  SPATIAL_CLASS cyber",
         f"  RESPONSIBILITY {_quoted('Derives implementation plans and code changes from the validated digital twin, never from raw context.')}",
         "  EVIDENCE user_intent",
         "END",
@@ -508,6 +518,7 @@ def render_twin(doc: TwinDocument) -> str:
     lines.extend(f"GOAL {_quoted(g)}" for g in doc.goals)
     for node in doc.nodes.values():
         lines.append(f"NODE {node.id} KIND {node.kind}")
+        lines.append(f"  SPATIAL_CLASS {node.spatial_class}")
         if node.responsibility:
             lines.append(f"  RESPONSIBILITY {_quoted(node.responsibility)}")
         lines.extend(f"  EVIDENCE {e}" for e in node.evidence)
@@ -559,6 +570,7 @@ REQUIRE INTENT_FINGERPRINT sha256:<64hex>
 REQUIRE INTENT_SUMMARY <json-string>
 REPEAT GOAL <json-string>
 BLOCK NODE <id> KIND <id>
+  REQUIRE SPATIAL_CLASS physical|cyber|logical|hybrid
   OPTIONAL RESPONSIBILITY <json-string>
   REPEAT EVIDENCE <source-id>
 END
@@ -593,15 +605,20 @@ def buildplandsl_schema() -> str:
 SCHEMA buildplanddsl.v1
 ROOT BUILD_PLAN <twin-id>
 REQUIRE FROM_REVISION <integer>
+REQUIRE FROM_TWIN_HASH sha256:<64hex>
 REPEAT BLOCK PHASE <id>
   REQUIRE PURPOSE <json-string>
   REPEAT BLOCK TASK <id>
     REQUIRE TARGET_URI ifuri://<context>/<entity>/<identity>/<kind>/<operation>
-    REQUIRE ACTION <json-string>
+    REQUIRE EVIDENCE [<source-id-or-evidence-set-uri>, ...]
+    REQUIRE OPERATION <oql-operation-matching-target-operation>
+    REQUIRE EXPECTED_RESULT <json-string>
     REQUIRE ACCEPTANCE <json-string>
-    REPEAT EVIDENCE <source-id>
-  END
-END
+    REQUIRE ROLLBACK <json-string>
+    REQUIRE DEPENDS_ON [<task-id>, ...]
+    REQUIRE AUTHORITY_CLASS <id>
+  END_TASK
+END_PHASE
 END_BUILD_PLAN
 ```"""
 
@@ -616,46 +633,43 @@ def extract_buildplanddsl(markdown: str) -> str:
     return blocks[0]
 
 
-def validate_buildplan_markdown(markdown: str) -> dict[str, Any]:
-    try:
-        text = extract_buildplanddsl(markdown)
-        lines = [x.strip() for x in text.splitlines() if x.strip()]
-        if not lines or not lines[0].startswith("BUILD_PLAN ") or lines[-1] != "END_BUILD_PLAN":
-            raise TwinDslError("invalid BUILD_PLAN envelope")
-        if not any(x.startswith("FROM_REVISION ") for x in lines):
-            raise TwinDslError("FROM_REVISION is required")
-        if not any(x.startswith("PHASE ") for x in lines):
-            raise TwinDslError("at least one PHASE is required")
-        for line in lines:
-            if line.startswith("TARGET_URI "):
-                IfUri.parse(line.split(None, 1)[1])
-        return {"valid": True, "errors": []}
-    except Exception as exc:
-        return {"valid": False, "errors": [str(exc)]}
+def validate_buildplan_markdown(markdown: str, twin: TwinDocument | None = None) -> dict[str, Any]:
+    from onlydsl.dsl.build_plan import validate_bound_build_plan
+    return validate_bound_build_plan(markdown, twin, render_twin(twin) if twin is not None else "")
 
 
 def demo_build_plan(doc: TwinDocument) -> str:
+    from onlydsl.dsl.build_plan import semantic_twin_hash
     evidence = next(iter(doc.sources), "user_intent")
     return "```buildplanddsl\n" + "\n".join([
         f"BUILD_PLAN {doc.name}",
         f"FROM_REVISION {doc.revision}",
+        f"FROM_TWIN_HASH {semantic_twin_hash(render_twin(doc))}",
         "PHASE foundation",
         f"  PURPOSE {_quoted('Stabilize contracts, digital twin state and source-backed invariants before implementation expansion.')}",
         "  TASK persist_twin",
         "    TARGET_URI ifuri://twin/state/default/commands/save",
-        f"    ACTION {_quoted('Persist validated TwinDSL revisions and provenance atomically.')}",
+        f"    EVIDENCE [{_quoted(evidence)}]",
+        "    OPERATION twin.save",
+        f"    EXPECTED_RESULT {_quoted('Validated TwinDSL revision and provenance are persisted atomically.')}",
         f"    ACCEPTANCE {_quoted('Revision can be reloaded byte-for-byte and intent fingerprint remains unchanged.')}",
-        f"    EVIDENCE {evidence}",
-        "  END",
-        "END",
+        f"    ROLLBACK {_quoted('Keep the previous exact Twin revision as current.')}",
+        "    DEPENDS_ON []",
+        "    AUTHORITY_CLASS reversible-state",
+        "  END_TASK",
+        "END_PHASE",
         "PHASE implementation",
         f"  PURPOSE {_quoted('Implement capabilities represented by the twin using IFURI and Protobuf contracts.')}",
         "  TASK implement_capabilities",
         "    TARGET_URI ifuri://builder/code/default/commands/implement",
-        f"    ACTION {_quoted('Generate or modify code only for capabilities and constraints present in the current twin.')}",
+        f"    EVIDENCE [{_quoted(evidence)}]",
+        "    OPERATION code.implement",
+        f"    EXPECTED_RESULT {_quoted('Capabilities represented by the current Twin are implemented without expanding intent.')}",
         f"    ACCEPTANCE {_quoted('Tests pass and no invariant or source-backed constraint is violated.')}",
-        f"    EVIDENCE {evidence}",
-        "  END",
-        "END",
+        f"    ROLLBACK {_quoted('Restore the last verified code artifact and Twin revision.')}",
+        '    DEPENDS_ON ["persist_twin"]',
+        "    AUTHORITY_CLASS reversible-code",
+        "  END_TASK",
+        "END_PHASE",
         "END_BUILD_PLAN",
     ]) + "\n```"

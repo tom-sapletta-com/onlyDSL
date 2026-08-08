@@ -2,6 +2,7 @@ import unittest
 from pathlib import Path
 import sys
 import tomllib
+import tempfile
 
 import yaml
 
@@ -12,6 +13,14 @@ from ifuri_core.manifest import CapabilityRegistry  # noqa: E402
 
 
 class ArchitectureContractTests(unittest.TestCase):
+    def test_runtime_release_version_comes_from_version_file(self):
+        from server import _application_version
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "VERSION").write_text("9.8.7\n", encoding="utf-8")
+            self.assertEqual(_application_version(root), "9.8.7")
+
     def test_python_project_has_installable_package_metadata(self):
         metadata = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
         self.assertEqual(metadata["build-system"]["build-backend"], "setuptools.build_meta")

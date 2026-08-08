@@ -3,17 +3,28 @@
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.0.4-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$0.45-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-2.4h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.0.5-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$0.59-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-2.9h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $0.4483 (3 commits)
-- 👤 **Human dev:** ~$243 (2.4h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $0.5948 (5 commits)
+- 👤 **Human dev:** ~$293 (2.9h @ $100/h, 30min dedup)
 
 Generated on 2026-08-08 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
 ---
 
 A reference implementation for building software from user intent and external Markdown sources while keeping the LLM behind a strict DSL-only boundary.
+
+## Project Integrity Closure v2
+
+onlyDSL now acts as a control plane above the external `twin-dsl` engine. It consumes live
+`ProjectIntegrityDSL`, verifies its exact append-only iteration version, derives a
+`RepairPlanDSL` from a system-owned process registry, projects AQL authority and requires
+TestQL/EQL closure evidence. It does not implement CAD or execute model-supplied commands.
+
+The six new contracts are `SpatialClassDSL`, `AssumptionDSL`, `ParameterContractDSL`,
+`EvidenceSetDSL`, `AuthorityProjectionDSL` and `RepairPlanDSL`. See
+[Project Integrity Closure v2](docs/PROJECT_INTEGRITY_CLOSURE_V2.md).
 
 ## Core architecture
 
@@ -350,7 +361,11 @@ Local suite:
 python3 -m unittest discover -s tests -v
 ```
 
-Version 0.4 currently contains 62 tests covering packaging and architecture invariants, IFURI, Protobuf, Event Sourcing/outbox, NATS wire protocol, multi-runtime URI parity, ContextDSL, IntentDSL, DigitalTwinDSL, source ingestion, OpenRouter configuration, TestQL startup feedback, the embedded DSL dashboard, deterministic error-code diagnostics, the fail-closed response repair loop, AQL/URI authorization, process envelopes and guarded autonomous patch/defer/rollback behavior.
+The local suite currently contains 73 tests covering packaging and architecture invariants,
+IFURI, Protobuf, Event Sourcing/outbox, NATS wire protocol, multi-runtime URI parity,
+ContextDSL, IntentDSL, TwinDSL, source ingestion, OpenRouter, TestQL, the embedded dashboard,
+deterministic diagnostics, AQL/URI authorization, process envelopes, guarded rollback and the
+complete ProjectIntegrity → RepairPlan → TestQL/EQL closure cycle.
 
 The browser detects and highlights JSON, JSONL, Mermaid and the project DSL family. Runtime values are HTML-escaped before token markup is added. Mermaid is rendered with its strict security profile; if the CDN renderer is unavailable, the highlighted source and an explicit error remain visible.
 

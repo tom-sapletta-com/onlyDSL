@@ -45,6 +45,21 @@ def patch_markdown(old: bytes, value: int, patch_id: str = "repair_test") -> str
 
 
 class EvolutionDslTests(unittest.TestCase):
+    def test_status_exposes_last_repair_iteration_time_and_version(self):
+        with tempfile.TemporaryDirectory() as td:
+            store = EvolutionStore(td)
+            store.add_event("repair_started", {"incident_id": "incident-one", "backend": "demo"})
+            store.add_event("repair_verified", {"incident_id": "incident-one"})
+            store.add_event("http_response", {"status": 200})
+            status = store.status()
+            self.assertEqual(status["schema"], "onlydsl.evolution-status/v2")
+            self.assertEqual(status["iteration_count"], 1)
+            self.assertEqual(status["last_iteration"]["version"], 1)
+            self.assertEqual(status["last_iteration"]["status"], "verified")
+            self.assertEqual(status["last_iteration"]["kind"], "repair_verified")
+            self.assertRegex(status["last_iteration"]["occurred_at"], r"Z$")
+            self.assertEqual(status["latest_activity"]["kind"], "http_response")
+
     def test_diagnostic_catalog_extracts_specific_code_and_solution(self):
         diagnostic = diagnose_incident(
             'ImportError: cannot import name "TestToonAdapter" from testql/adapters/testtoon_adapter.py',
@@ -102,6 +117,10 @@ END_INCIDENT
         self.assertIn("function highlightJson", html)
         self.assertIn("function highlightDsl", html)
         self.assertIn("/api/evolution/diagnostics?limit=12", html)
+        self.assertIn('id="applicationVersion"', html)
+        self.assertIn('id="twinVersion"', html)
+        self.assertIn('id="iterationVersion"', html)
+        self.assertIn('id="iterationTime"', html)
 
     def test_testql_failure_is_persistable_dsl_and_twin_observation(self):
         with tempfile.TemporaryDirectory() as td:

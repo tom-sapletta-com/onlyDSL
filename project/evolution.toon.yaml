@@ -1,0 +1,83 @@
+# code2llm/evolution | 312 func | 33f | 2026-08-08
+# generated in 0.00s
+
+NEXT[10] (ranked by impact):
+  [1] !! SPLIT           digital_twin.py
+      WHY: 661L, 9 classes, max CC=67
+      EFFORT: ~4h  IMPACT: 44287
+
+  [2] !! SPLIT           intentdsl.py
+      WHY: 540L, 4 classes, max CC=37
+      EFFORT: ~4h  IMPACT: 19980
+
+  [3] !! SPLIT-FUNC      parse_twindsl  CC=67  fan=34
+      WHY: CC=67 exceeds 15
+      EFFORT: ~1h  IMPACT: 2278
+
+  [4] !! SPLIT-FUNC      parse_context_dsl  CC=33  fan=22
+      WHY: CC=33 exceeds 15
+      EFFORT: ~1h  IMPACT: 726
+
+  [5] !! SPLIT-FUNC      codegen  CC=37  fan=18
+      WHY: CC=37 exceeds 15
+      EFFORT: ~1h  IMPACT: 666
+
+  [6] !! SPLIT-FUNC      parse_dsl  CC=29  fan=21
+      WHY: CC=29 exceeds 15
+      EFFORT: ~1h  IMPACT: 609
+
+  [7] !  SPLIT-FUNC      parse_markdown  CC=16  fan=34
+      WHY: CC=16 exceeds 15
+      EFFORT: ~1h  IMPACT: 544
+
+  [8] !  SPLIT-FUNC      parse_patchdsl  CC=24  fan=22
+      WHY: CC=24 exceeds 15
+      EFFORT: ~1h  IMPACT: 528
+
+  [9] !  SPLIT-FUNC      parse_spatial_class  CC=24  fan=21
+      WHY: CC=24 exceeds 15
+      EFFORT: ~1h  IMPACT: 504
+
+  [10] !  SPLIT-FUNC      Handler.do_POST  CC=17  fan=24
+      WHY: CC=17 exceeds 15
+      EFFORT: ~1h  IMPACT: 408
+
+
+RISKS[3]:
+  ⚠ Splitting digital_twin.py may break 17 import paths
+  ⚠ Splitting intentdsl.py may break 18 import paths
+  ⚠ Splitting goal.yaml may break 0 import paths
+
+METRICS-TARGET:
+  CC̄:          4.6 → ≤3.2
+  max-CC:      67 → ≤20
+  god-modules: 3 → 0
+  high-CC(≥15): 21 → ≤10
+  hub-types:   0 → ≤0
+
+PATTERNS (language parser shared logic):
+  _extract_declarations() in base.py — unified extraction for:
+    - TypeScript: interfaces, types, classes, functions, arrow funcs
+    - PHP: namespaces, traits, classes, functions, includes
+    - Ruby: modules, classes, methods, requires
+    - C++: classes, structs, functions, #includes
+    - C#: classes, interfaces, methods, usings
+    - Java: classes, interfaces, methods, imports
+    - Go: packages, functions, structs
+    - Rust: modules, functions, traits, use statements
+
+  Shared regex patterns per language:
+    - import: language-specific import/require/using patterns
+    - class: class/struct/trait declarations with inheritance
+    - function: function/method signatures with visibility
+    - brace_tracking: for C-family languages ({ })
+    - end_keyword_tracking: for Ruby (module/class/def...end)
+
+  Benefits:
+    - Consistent extraction logic across all languages
+    - Reduced code duplication (~70% reduction in parser LOC)
+    - Easier maintenance: fix once, apply everywhere
+    - Standardized FunctionInfo/ClassInfo models
+
+HISTORY:
+  prev CC̄=4.4 → now CC̄=4.6

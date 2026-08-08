@@ -1,0 +1,416 @@
+# onlyDSL | 59f 7603L | python:36,shell:4,yaml:4,yml:1,txt:2,toml:1,conf:1,json:4,proto:2,typescript:1,javascript:1,php:1 | 2026-08-08
+# generated in 0.01s
+# producer: code2llm | artifact: map.toon.yaml | schema: 1
+# stats: 313 func | 0 cls | 59 mod | CC̄=4.6 | critical:21 | cycles:0
+# alerts[5]: CC parse_twindsl=67; CC codegen=37; fan-out parse_markdown=34; fan-out parse_twindsl=34; CC parse_context_dsl=33
+# hotspots[5]: parse_twindsl fan=34; parse_markdown fan=34; Handler.do_POST fan=24; parse_context_dsl fan=22; parse_patchdsl fan=22
+# evolution: CC̄ 4.4→4.6 (regressed +0.2)
+# Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
+M[59]:
+  Dockerfile,12
+  aql.py,151
+  boundary.py,249
+  config/process-packs/live-evolution/expectations.v1.eql.json,14
+  config/process-packs/live-evolution/operations.v1.oql.json,17
+  config/process-packs/live-evolution/process.v1.json,37
+  config/process-packs/live-evolution/recipe.v1.urirun.json,17
+  contextdsl.py,420
+  contracts/ifuri/v1/dsl.proto,9
+  contracts/ifuri/v1/envelope.proto,32
+  diagnostics.py,201
+  digital_twin.py,661
+  docker-compose.yml,201
+  docker-test.sh,5
+  evolution.py,286
+  examples/dsl_native_logging.py,34
+  goal.yaml,525
+  governance.py,95
+  ifuri_core/__init__.py,18
+  ifuri_core/artifacts.py,50
+  ifuri_core/cqrs.py,55
+  ifuri_core/dsl_document.py,38
+  ifuri_core/dsl_pb2.py,9
+  ifuri_core/envelope.py,151
+  ifuri_core/envelope_pb2.py,11
+  ifuri_core/event_store.py,168
+  ifuri_core/llm_gateway.py,206
+  ifuri_core/manifest.py,245
+  ifuri_core/outbox.py,37
+  ifuri_core/postgres_store.py,154
+  ifuri_core/runtime.py,173
+  ifuri_core/transport.py,442
+  ifuri_core/uri.py,99
+  intentdsl.py,540
+  llm_client.py,476
+  manifests/capabilities.yaml,180
+  multiruntime/javascript/ifuri.mjs,31
+  multiruntime/php/ifuri.php,28
+  multiruntime/typescript/ifuri.ts,18
+  nats/nats.conf,8
+  onlydsl/__init__.py,7
+  onlydsl/dsl/__init__.py,1
+  onlydsl/dsl/assumption.py,90
+  onlydsl/dsl/common.py,56
+  onlydsl/dsl/evidence_set.py,46
+  onlydsl/dsl/parameter_contract.py,129
+  onlydsl/dsl/spatial_class.py,117
+  patchdsl.py,146
+  project.sh,79
+  pyproject.toml,74
+  requirements.txt,3
+  requirements-testql.txt,6
+  run.sh,10
+  run-tests.sh,4
+  server.py,432
+  source_ingest.py,222
+  testql/digital-twin-startup.testql.toon.yaml,12
+  testql/onlydsl-startup.testql.toon.yaml,11
+  twin_store.py,55
+D:
+  digital_twin.py:
+    e: TwinDslError,TwinNode,TwinCapability,TwinInvariant,TwinEdge,TwinSourceRef,TwinDocument,BuildTask,BuildPlan,normalize_intent,intent_fingerprint,_quoted,_json_string,extract_twindsl,parse_twindsl,validate_twin,validate_twin_markdown,validate_twin_update,twin_to_mermaid,demo_bootstrap_twin,render_twin,twindsl_schema,buildplandsl_schema,extract_buildplanddsl,validate_buildplan_markdown,demo_build_plan
+    TwinDslError(ValueError):
+    TwinNode:
+    TwinCapability:
+    TwinInvariant:
+    TwinEdge:
+    TwinSourceRef:
+    TwinDocument:
+    BuildTask:
+    BuildPlan:
+    normalize_intent(text)
+    intent_fingerprint(text)
+    _quoted(value)
+    _json_string(raw)
+    extract_twindsl(markdown)
+    parse_twindsl(text)
+    validate_twin(doc)
+    validate_twin_markdown(markdown)
+    validate_twin_update(previous;updated)
+    twin_to_mermaid(doc)
+    demo_bootstrap_twin(user_text)
+    render_twin(doc)
+    twindsl_schema()
+    buildplandsl_schema()
+    extract_buildplanddsl(markdown)
+    validate_buildplan_markdown(markdown)
+    demo_build_plan(doc)
+  intentdsl.py:
+    e: IntentDslError,Operation,Rule,Program,extract_intentdsl,_parse_literal,_parse_call,parse_dsl,_normalize_expr,_expr_tree,expr_names,eval_expr,_type_ok,validate_program,validate_markdown,run_program,_slug_words,demo_english_to_dsl,_js_literal,codegen,php_array
+    IntentDslError(ValueError):
+    Operation:
+    Rule:
+    Program: to_dict(0)
+    extract_intentdsl(markdown)
+    _parse_literal(raw)
+    _parse_call(raw)
+    parse_dsl(dsl)
+    _normalize_expr(expr)
+    _expr_tree(expr)
+    expr_names(expr)
+    eval_expr(expr;env)
+    _type_ok(type_name;value)
+    validate_program(program;action_registry;event_registry)
+    validate_markdown(markdown;action_registry;event_registry)
+    run_program(program;inputs;action_registry;event_registry)
+    _slug_words(text)
+    demo_english_to_dsl(text)
+    _js_literal(value)
+    codegen(program;target)
+    php_array(values)
+  contextdsl.py:
+    e: ContextDslError,ContextRecord,ContextDocument,DslContextEvent,ContextCompiler,_ident,_event_code_from_text,_literal,_parse_literal,_infer_type,_parse_legacy_scalar,render_context_dsl,render_context_markdown,extract_contextdsl,parse_context_dsl,validate_context_markdown,compiler_from_payload
+    ContextDslError(ValueError):
+    ContextRecord:
+    ContextDocument: to_dict(0)
+    DslContextEvent:  # Preferred application/runtime log event: semantic at the sou...
+    ContextCompiler: __init__(4),policy(2),capability(2),state(3),metric(2),record(4),event(1),exception(3),tool_result(3),retrieval(3),memory(3),code_fact(3),database_fact(3),legacy_log(1),to_markdown(0)  # Deterministic application-side compiler. No LLM is called he...
+    _ident(value;fallback)
+    _event_code_from_text(text)
+    _literal(value)
+    _parse_literal(raw)
+    _infer_type(value)
+    _parse_legacy_scalar(raw)
+    render_context_dsl(doc)
+    render_context_markdown(doc)
+    extract_contextdsl(markdown)
+    parse_context_dsl(dsl)
+    validate_context_markdown(markdown)
+    compiler_from_payload(payload)
+  patchdsl.py:
+    e: PatchDslError,PatchChange,PatchDocument,_json_string,parse_patchdsl,validate_patch_policy,validate_patch_markdown
+    PatchDslError(ValueError):
+    PatchChange:
+    PatchDocument:
+    _json_string(raw;label)
+    parse_patchdsl(markdown)
+    validate_patch_policy(doc;workspace)
+    validate_patch_markdown(markdown;workspace)
+  onlydsl/dsl/parameter_contract.py:
+    e: ParameterContract,ParameterValidation,ParameterContractDocument,parse_parameter_contracts,render_parameter_contracts
+    ParameterContract:
+    ParameterValidation:
+    ParameterContractDocument: validate(0)
+    parse_parameter_contracts(markdown)
+    render_parameter_contracts(document)
+  onlydsl/dsl/spatial_class.py:
+    e: SpatialClass,SpatialTypeContract,SpatialComponent,SpatialClassDocument,parse_spatial_class,render_spatial_class
+    SpatialClass(str,Enum):
+    SpatialTypeContract:
+    SpatialComponent:
+    SpatialClassDocument: classify(1),geometry_subjects(0),required_checks(1)
+    parse_spatial_class(markdown)
+    render_spatial_class(document)
+  ifuri_core/transport.py:
+    e: TransportError,NatsMessage,IfTransport,InProcessTransport,NatsWireClient,NatsJetStream,NatsTransport,capability_pattern_to_subject,_validate_nats_subject,_js_response
+    TransportError(RuntimeError):
+    NatsMessage:
+    IfTransport(Protocol): call(3),publish(2)
+    InProcessTransport: __init__(0),register(2),has_handler(1),call(3),publish(2)
+    NatsWireClient: __init__(3),connect(0),_write(1),flush(1),subscribe(1),unsubscribe(1),publish(3),request(3),close(0),_reader_loop(0)  # Small dependency-free NATS protocol client used by the POC.
+...
+    NatsJetStream: __init__(1),create_stream(2),stream_info(1),publish(2),get_message(2),replay(1)
+    NatsTransport: __init__(1),call(3),publish(2),ensure_event_stream(1),serve_capability(3),stop_services(0)
+    capability_pattern_to_subject(pattern;prefix)
+    _validate_nats_subject(subject)
+    _js_response(raw)
+  ifuri_core/manifest.py:
+    e: ManifestError,TransportPolicy,Capability,ResolvedCapability,CapabilityRegistry,_parse_pattern,_validate_capability
+    ManifestError(ValueError):
+    TransportPolicy: ordered(0)
+    Capability: match(1)
+    ResolvedCapability:
+    CapabilityRegistry: __init__(1),register(1),from_mapping(1),from_file(1),resolve(1),explain(1),dump(0)
+    _parse_pattern(raw)
+    _validate_capability(capability)
+  server.py:
+    e: Handler,_application_version,_twin_status,evolution_authority_status,_json_bytes,_context_registries,_unpack_dsl,_ifuri_analyze_context,_ifuri_compile_source,_twin_payload,_bootstrap_twin,_scan_sources,_update_twin,_plan_twin,main
+    Handler(BaseHTTPRequestHandler): log_message(1),_send(3),_body(0),do_GET(0),do_POST(0)
+    _application_version(root)
+    _twin_status()
+    evolution_authority_status()
+    _json_bytes(value)
+    _context_registries(context_markdown)
+    _unpack_dsl(reply)
+    _ifuri_analyze_context(body)
+    _ifuri_compile_source(text)
+    _twin_payload(markdown)
+    _bootstrap_twin(body)
+    _scan_sources()
+    _update_twin(body)
+    _plan_twin()
+    main()
+  source_ingest.py:
+    e: SourceIngestError,MarkdownDocument,SourceIndex,_q,_sid,_normalize_text,parse_markdown,build_source_index,validate_sourceindex_markdown,extract_source_refs
+    SourceIngestError(ValueError):
+    MarkdownDocument:
+    SourceIndex: to_markdown(0),source_refs(0)
+    _q(value)
+    _sid(path;index)
+    _normalize_text(text)
+    parse_markdown(path;root;source_id)
+    build_source_index(root)
+    validate_sourceindex_markdown(markdown)
+    extract_source_refs(markdown)
+  ifuri_core/uri.py:
+    e: IfUriError,IfUri,canonicalize
+    IfUriError(ValueError):
+    IfUri: parse(1),__str__(0),to_subject(1)  # Location-independent capability URI.
+
+Canonical shape:
+  ifu...
+    canonicalize(raw)
+  onlydsl/dsl/assumption.py:
+    e: Assumption,AssumptionDocument,parse_assumptions,render_assumptions
+    Assumption:
+    AssumptionDocument: replace_with_evidence(2)
+    parse_assumptions(markdown)
+    render_assumptions(document)
+  aql.py:
+    e: AqlError,AqlDecision,AqlContract,operation_for_path
+    AqlError(ValueError):
+    AqlDecision:
+    AqlContract: __init__(3),parse(1),from_file(1),_matches(1),decide(3),require(3),require_secret_rotation(2),public_status(0)  # Small compatible reader for Subactor's canonical aql:contrac...
+    operation_for_path(path)
+  evolution.py:
+    e: EvolutionStore,_now,_qid,_q,_parse_event
+    EvolutionStore: __init__(1),_write(4),add_guidance(1),add_incident(2),add_diagnostic(2),add_event(2),add_json_record(3),latest_guidance(1),claim_incident(0),finish_incident(1),defer_incident(1),diagnostic_for_incident(1),latest_diagnostics(1),status(0)  # Filesystem queue whose persisted records are complete, typed...
+    _now()
+    _qid(value)
+    _q(value)
+    _parse_event(path)
+  llm_client.py:
+    e: LlmProviderError,_request_json,_provider_config,_backend_call,provider_status,_call_dsl_validated,convert_english,propose_code_patch,_demo_context_analysis,analyze_context,bootstrap_twin,_demo_update_twin,update_twin,plan_build
+    LlmProviderError(RuntimeError):
+    _request_json(url;payload;api_key)
+    _provider_config(backend)
+    _backend_call(bundle;backend)
+    provider_status(backend)
+    _call_dsl_validated(bundle;backend)
+    convert_english(text;backend)
+    propose_code_patch(incident_markdown;guidance_markdown;code_files;backend)
+    _demo_context_analysis(context_markdown)
+    analyze_context(context_markdown;backend)
+    bootstrap_twin(user_text;backend)
+    _demo_update_twin(previous_markdown;source_index_markdown)
+    update_twin(previous_markdown;source_index_markdown;backend)
+    plan_build(twin_markdown;backend)
+  multiruntime/typescript/ifuri.ts:
+    e: IfUri,parseIfUri,u,p,toNatsSubject,x
+    IfUri:
+    parseIfUri()
+    u()
+    p()
+    toNatsSubject()
+    x()
+  multiruntime/javascript/ifuri.mjs:
+    e: kinds,parseIfUri,u,parts,canonical,x,toNatsSubject,x,raw
+    kinds()
+    parseIfUri()
+    u()
+    parts()
+    canonical()
+    x()
+    toNatsSubject()
+    x()
+    raw()
+  onlydsl/dsl/evidence_set.py:
+    e: EvidenceSet,create_evidence_set,render_evidence_set,parse_evidence_set
+    EvidenceSet:
+    create_evidence_set(set_id;query_uri;member_uris)
+    render_evidence_set(value)
+    parse_evidence_set(markdown)
+  multiruntime/php/ifuri.php:
+    e: parse_ifuri,canonical_ifuri,nats_subject
+    parse_ifuri()
+    canonical_ifuri()
+    nats_subject()
+  boundary.py:
+    e: LlmBoundaryError,DslBundle,assert_dsl_only,contract_dsl,task_dsl,source_text_dsl,build_source_compile_bundle,build_context_analysis_bundle,build_twin_bootstrap_bundle,build_twin_update_bundle,build_build_plan_bundle,code_dsl,patchdsl_schema,evolution_policy_dsl,authority_dsl,build_autonomous_repair_bundle,build_repair_bundle
+    LlmBoundaryError(ValueError):
+    DslBundle: validate_for_llm(0)
+    assert_dsl_only(markdown;allowed_languages)
+    contract_dsl(target)
+    task_dsl(task;source;target;mode)
+    source_text_dsl(text;language)
+    build_source_compile_bundle(text;language)
+    build_context_analysis_bundle(context_markdown)
+    build_twin_bootstrap_bundle(user_text;fingerprint;schema_markdown;language)
+    build_twin_update_bundle(twin_markdown;source_index_markdown;schema_markdown)
+    build_build_plan_bundle(twin_markdown;schema_markdown)
+    code_dsl(path;content)
+    patchdsl_schema()
+    evolution_policy_dsl()
+    authority_dsl(contract_hash;allowed_paths)
+    build_autonomous_repair_bundle(incident_markdown;guidance_markdown;code_files;authority_markdown;verification_markdown;diagnostic_markdown)
+    build_repair_bundle(original;target;errors)
+  diagnostics.py:
+    e: DiagnosticRule,_q,_candidate_paths,diagnose_incident
+    DiagnosticRule:
+    _q(value)
+    _candidate_paths(text)
+    diagnose_incident(incident_markdown;incident_id)
+  ifuri_core/envelope.py:
+    e: EnvelopeError,MessageKind,EnvelopeView,EnvelopeCodec
+    EnvelopeError(ValueError):
+    MessageKind(IntEnum):
+    EnvelopeView:
+    EnvelopeCodec: create(-1),validate(0),_validate_kind_uri(1),serialize(0),parse(0),unpack(1),view(0)
+  ifuri_core/event_store.py:
+    e: EventStoreError,ConcurrencyError,OutboxItem,SqliteEventStore
+    EventStoreError(RuntimeError):
+    ConcurrencyError(EventStoreError):
+    OutboxItem:
+    SqliteEventStore: __init__(1),_init_schema(0),current_version(1),append(3),load_stream(2),pending_outbox(1),mark_outbox_published(1),mark_outbox_failed(2),outbox_stats(0),close(0)  # Reference authoritative ES adapter for tests/local POC.
+
+Pos...
+  ifuri_core/runtime.py:
+    e: RuntimeErrorIfuri,RouteDecision,IfuriRuntime
+    RuntimeErrorIfuri(RuntimeError):
+    RouteDecision: to_dict(0)
+    IfuriRuntime: __init__(2),inspect_route(1),call(2),call_envelope(2),emit(2),_validate_payload_contract(1)  # Deterministic URI resolver + transport dispatcher.
+
+Domain c...
+  ifuri_core/postgres_store.py:
+    e: PostgresEventStore
+    PostgresEventStore: __init__(1),current_version(1),append(3),load_stream(2),pending_outbox(1),mark_outbox_published(1),mark_outbox_failed(2),outbox_stats(0),close(0)  # PostgreSQL authoritative event store + transactional outbox...
+  governance.py:
+    e: canonical_hash,load_process_pack,authorize_patch,build_process_envelope,complete_envelope,reject_envelope
+    canonical_hash(value)
+    load_process_pack(root)
+    authorize_patch(doc;contract)
+    build_process_envelope()
+    complete_envelope(envelope)
+    reject_envelope(envelope)
+  ifuri_core/llm_gateway.py:
+    e: LlmGatewayError,_reply,build_llm_reasoner_handler,_extract_source_payload,build_llm_semantic_handler,build_llm_twin_bootstrap_handler,_extract_bundle_blocks,build_llm_twin_update_handler,build_llm_build_plan_handler,build_llm_patch_handler,gateway_provider_status
+    LlmGatewayError(ValueError):
+    _reply(envelope;dsl_type;markdown;result;backend)
+    build_llm_reasoner_handler(backend)
+    _extract_source_payload(markdown)
+    build_llm_semantic_handler(backend)
+    build_llm_twin_bootstrap_handler(backend)
+    _extract_bundle_blocks(markdown)
+    build_llm_twin_update_handler(backend)
+    build_llm_build_plan_handler(backend)
+    build_llm_patch_handler(backend)
+    gateway_provider_status(backend)
+  ifuri_core/dsl_document.py:
+    e: DslDocumentError,make_dsl_document,validate_dsl_document
+    DslDocumentError(ValueError):
+    make_dsl_document(dsl_type;markdown;schema_version)
+    validate_dsl_document(doc)
+  onlydsl/dsl/common.py:
+    e: ControlDslError,extract_one,json_string,quoted,canonical_hash,list_value,parse_json_list
+    ControlDslError(ValueError):
+    extract_one(markdown;language)
+    json_string(raw;label)
+    quoted(value)
+    canonical_hash(value)
+    list_value(values)
+    parse_json_list(raw;label)
+  twin_store.py:
+    e: TwinStoreError,TwinStore
+    TwinStoreError(RuntimeError):
+    TwinStore: __init__(1),exists(0),reset_current(0),load_markdown(0),load(0),save(1)
+  ifuri_core/artifacts.py:
+    e: ArtifactError,LocalFileArtifactStore
+    ArtifactError(ValueError):
+    LocalFileArtifactStore: __init__(1),_path(1),put(2),get(1),exists(1)  # Maps logical IFURI artifact identity to a safe local file pl...
+  ifuri_core/outbox.py:
+    e: OutboxStore,PublishReport,OutboxPublisher
+    OutboxStore(Protocol): pending_outbox(1),mark_outbox_published(1),mark_outbox_failed(2)
+    PublishReport:
+    OutboxPublisher: __init__(2),publish_once(1)
+  ifuri_core/cqrs.py:
+    e: AggregateRoot,AggregateRepository
+    AggregateRoot(ABC): __init__(1),apply(1),load_from_history(1),raise_event(1),pull_uncommitted(0)  # Minimal event-sourced aggregate base; domain state changes o...
+    AggregateRepository(<ast.Subscript object at 0x7739c5333b10>): __init__(2),load(1),save(1)
+  examples/dsl_native_logging.py:
+    e: build_llm_context
+    build_llm_context()
+  run.sh:
+  goal.yaml:
+  Dockerfile:
+  docker-compose.yml:
+  requirements-testql.txt:
+  run-tests.sh:
+  docker-test.sh:
+  requirements.txt:
+  pyproject.toml:
+  project.sh:
+  ifuri_core/envelope_pb2.py:
+  ifuri_core/dsl_pb2.py:
+  ifuri_core/__init__.py:
+  nats/nats.conf:
+  config/process-packs/live-evolution/operations.v1.oql.json:
+  config/process-packs/live-evolution/process.v1.json:
+  config/process-packs/live-evolution/recipe.v1.urirun.json:
+  config/process-packs/live-evolution/expectations.v1.eql.json:
+  manifests/capabilities.yaml:
+  contracts/ifuri/v1/dsl.proto:
+  contracts/ifuri/v1/envelope.proto:
+  testql/onlydsl-startup.testql.toon.yaml:
+  testql/digital-twin-startup.testql.toon.yaml:
+  onlydsl/__init__.py:
+  onlydsl/dsl/__init__.py:
