@@ -22,6 +22,7 @@ The first reusable package boundary is now explicit:
 ```text
 packages/onlydsl-contracts  pure DSL, IFURI, SSOT models and schemas
 packages/onlydsl-core       capability routing, wire envelope, CQRS and ports
+packages/onlydsl-ssot       candidate, manifest, validation port and atomic promotion
 onlyDSL                     governance, runtime, adapters and service composition
 ```
 
@@ -35,11 +36,17 @@ distributions on the same version during this extraction phase.
 filesystem artifacts, YAML file loading and the LLM gateway remain adapters in
 the runtime distribution.
 
+`onlydsl-ssot` depends only on contracts. It owns the domain-neutral accepted
+state transaction and accepts a `TreeValidator` supplied by the application.
+Digital Twin, source ingestion and Project Integrity parsers therefore remain
+outside the storage package and cannot leak into reusable SSOT consumers.
+
 ```bash
 uv sync
 uv run pytest -q
 uv build --package onlydsl-contracts
 uv build --package onlydsl-core
+uv build --package onlydsl-ssot
 ```
 
 ## Project Integrity Closure v2

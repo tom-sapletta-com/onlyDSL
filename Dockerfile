@@ -10,6 +10,7 @@ COPY . .
 RUN pip install --no-cache-dir --no-deps \
       ./packages/onlydsl-contracts \
       ./packages/onlydsl-core \
+      ./packages/onlydsl-ssot \
       .
 
 EXPOSE 8787

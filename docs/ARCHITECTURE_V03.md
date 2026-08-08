@@ -47,9 +47,10 @@ PostgresEventStore
 
 ```text
 onlydsl-contracts
-        ↓
-onlydsl-core
-        ↓ ports
+        ├───────────────┐
+        ↓               ↓
+onlydsl-core       onlydsl-ssot
+        ↓ ports         ↓ TreeValidator port
 runtime adapters: in-process, NATS, PostgreSQL, SQLite, files, LLM
         ↓
 onlyDSL service / evolution composition
@@ -60,6 +61,12 @@ documents, CQRS primitives, transport protocols and deterministic dispatch. It
 does not import the concrete adapter modules under `ifuri_core`. YAML/JSON file
 loading remains in the compatibility manifest adapter; the core registry starts
 from an already parsed mapping.
+
+`onlydsl-ssot` owns deterministic manifests, candidate trees, semantic diffs,
+append-only revision receipts and atomic promotion. Its baseline validator only
+checks structural safety. The onlyDSL application injects domain validation for
+TwinDSL, SourceIndexDSL and ProjectIntegrityDSL, so the reusable package never
+imports ingestion, Digital Twin, authority or runtime code.
 
 ## Protobuf Envelope
 
