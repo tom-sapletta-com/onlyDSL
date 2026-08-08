@@ -3,72 +3,80 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>IFURI Runtime Lab — CQRS/ES + DSL-only LLM</title>
+<title>IFURI Digital Twin Lab 0.4</title>
 <style>
-:root{font-family:Inter,ui-sans-serif,system-ui,sans-serif;background:#0a0d12;color:#e9edf5}*{box-sizing:border-box}body{margin:0}main{max-width:1540px;margin:auto;padding:22px}h1{margin:0 0 5px;font-size:28px}p{color:#98a5b9;margin:0 0 14px}.pipeline{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 18px}.pipeline span{padding:6px 9px;border:1px solid #2b3852;border-radius:7px;background:#101620;font:12px ui-monospace}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{background:#111722;border:1px solid #263149;border-radius:12px;padding:14px}.wide{grid-column:1/-1}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}label{display:block;font-size:12px;color:#8f9cb0;margin:8px 0 5px}textarea,pre,select{width:100%;background:#080c12;color:#e9edf5;border:1px solid #2b3852;border-radius:8px;padding:10px;font:12.5px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}textarea{min-height:230px;resize:vertical}pre{min-height:160px;white-space:pre-wrap;overflow:auto;max-height:470px}button{background:#2f6fec;color:white;border:0;border-radius:8px;padding:9px 13px;font-weight:700;cursor:pointer}button.secondary{background:#263044}.badge{font:12px ui-monospace;background:#1d2533;padding:5px 8px;border-radius:999px}.ok{color:#6ee7a8}.bad{color:#ff8a8a}.notice{border-left:3px solid #2f6fec;padding:9px 11px;background:#0e1420;color:#aab6c8;font-size:13px;margin-bottom:14px}@media(max-width:950px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}}
+:root{font-family:Inter,ui-sans-serif,system-ui,sans-serif;background:#0a0d12;color:#e9edf5}*{box-sizing:border-box}body{margin:0}main{max-width:1580px;margin:auto;padding:22px}h1{margin:0 0 6px;font-size:28px}h2{font-size:17px;margin:0 0 8px}p{color:#98a5b9;margin:0 0 14px}.pipeline{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 18px}.pipeline span{padding:6px 9px;border:1px solid #2b3852;border-radius:7px;background:#101620;font:12px ui-monospace}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{background:#111722;border:1px solid #263149;border-radius:12px;padding:14px}.wide{grid-column:1/-1}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}label{display:block;font-size:12px;color:#8f9cb0;margin:8px 0 5px}textarea,pre,input{width:100%;background:#080c12;color:#e9edf5;border:1px solid #2b3852;border-radius:8px;padding:10px;font:12.5px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}textarea{min-height:190px;resize:vertical}pre{min-height:120px;white-space:pre-wrap;overflow:auto;max-height:520px}button{background:#2f6fec;color:white;border:0;border-radius:8px;padding:9px 13px;font-weight:700;cursor:pointer}button.secondary{background:#263044}.badge{font:12px ui-monospace;background:#1d2533;padding:5px 8px;border-radius:999px}.ok{color:#6ee7a8}.bad{color:#ff8a8a}.notice{border-left:3px solid #2f6fec;padding:9px 11px;background:#0e1420;color:#aab6c8;font-size:13px;margin-bottom:14px}.muted{color:#8896aa;font-size:12px}.section{margin-top:20px;padding-top:18px;border-top:1px solid #263149}@media(max-width:950px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}}
 </style>
 </head>
 <body><main>
-<h1>IFURI Runtime Lab 0.3</h1>
-<p>CQRS/ES + Protobuf + logical IFURI addressing. Every application-context → LLM boundary remains DSL-only.</p>
-<div class="notice"><strong>Invariants:</strong> IFURI identifies a capability, never host:port. Protobuf is the wire contract. Runtime context reaches LLM only as validated DSL carried in an IfEnvelope.</div>
-<div class="pipeline"><span>runtime</span><span>→</span><span>ContextDSL</span><span>→</span><span>Protobuf IfEnvelope</span><span>→</span><span>ifuri://llm/reasoner/default/commands/analyze</span><span>→</span><span>Resolver</span><span>→</span><span>LLM Gateway</span><span>→</span><span>IntentDSL</span><span>→</span><span>runtime</span></div>
-<div class="grid">
-<section class="card">
-  <div class="row"><strong>1. Raw application context</strong><button id="analyze">Compile + IFURI analyze</button></div>
-  <label>Application/runtime payload — this never goes directly to LLM</label>
-  <textarea id="raw">{
-  "name": "auth_failure_context",
-  "origin": "api_gateway",
-  "purpose": "failure_analysis",
-  "trace_id": "req_7f21",
-  "state": {"api_status": 401, "refresh_status": 401},
-  "metrics": {"request_latency_ms": 83.4},
-  "capabilities": {
-    "actions": ["refresh_token"],
-    "events": ["auth_error"]
-  },
-  "events": [
-    {"source":"auth_service","code":"request_unauthorized","severity":"error","fields":{"status":401,"attempt":1}},
-    {"source":"auth_service","code":"token_refresh_failed","severity":"error","fields":{"status":401,"attempt":1}}
-  ]
-}</textarea>
-</section>
-<section class="card">
-  <div class="row"><strong>2. Runtime-generated ContextDSL</strong><span id="contextStatus" class="badge">pending</span></div>
-  <label>Only this representation is allowed to cross the context boundary</label><textarea id="contextDsl"></textarea>
-</section>
-<section class="card">
-  <strong>3. Exact LLM request</strong>
-  <label>ContractDSL + TaskDSL + ContextDSL; no prose outside codeblocks</label><pre id="requestDsl"></pre>
-</section>
-<section class="card">
-  <div class="row"><strong>4. LLM IntentDSL response</strong><span id="intentStatus" class="badge">pending</span></div>
-  <label>Response is schema/grammar constrained and capability validated</label><textarea id="intentDsl"></textarea>
-</section>
-<section class="card">
-  <strong>5. Validation</strong><pre id="validation"></pre>
-</section>
-<section class="card">
-  <strong>6. Runtime trace</strong><pre id="runtime"></pre>
-</section>
-<section class="card wide">
-  <strong>IFURI route decision</strong><pre id="route"></pre>
-</section>
-<section class="card wide">
-  <strong>Boundary guarantee</strong>
-  <pre>raw app context ─X─→ LLM
-raw logs        ─X─→ LLM
-exceptions      ─X─→ LLM
-tool results    ─X─→ LLM
+<h1>IFURI Digital Twin Lab 0.4</h1>
+<p>User intent → runtime SourceDSL → LLM → DigitalTwinDSL → runtime SourceIndexDSL from <code>sources/*.md</code> → LLM revision → BuildPlanDSL.</p>
+<div class="notice"><strong>Hard boundary:</strong> raw runtime context and raw Markdown files do not go directly to the model. The application emits DSL first. The twin keeps an immutable intent fingerprint so source-driven evolution cannot silently replace the user's original goal.</div>
+<div class="pipeline"><span>user sentences</span><span>→</span><span>SourceDSL</span><span>→</span><span>IFURI LLM capability</span><span>→</span><span>TwinDSL r1</span><span>→</span><span>sources/*.md</span><span>→</span><span>SourceIndexDSL</span><span>→</span><span>TwinDSL rN</span><span>→</span><span>BuildPlanDSL</span></div>
 
-all of them → ContextCompiler → ```contextdsl``` → BoundaryGate → LLM
-LLM → ```intentdsl``` → parser → semantic validator → capability registry → runtime</pre>
+<div class="grid">
+<section class="card wide">
+  <div class="row"><h2>Provider</h2><span id="provider" class="badge">loading</span></div>
+  <pre id="providerJson"></pre>
+  <div class="muted">For a real request set <code>LLM_BACKEND=openrouter</code> and <code>OPENROUTER_API_KEY</code> in <code>.env</code>, then restart the app.</div>
 </section>
+
+<section class="card">
+  <div class="row"><h2>1. User intent</h2><button id="bootstrap">Bootstrap twin</button></div>
+  <label>A few sentences are enough for the first sketch</label>
+  <textarea id="intent">Build a web application that takes user intent, maintains a source-backed digital twin of the application, and evolves the implementation only when new Markdown documentation supports the change. Use IFURI capabilities, Protobuf contracts, CQRS/Event Sourcing and a DSL-only LLM boundary. The user intent must remain the invariant that constrains future evolution.</textarea>
+  <label><input id="reset" type="checkbox" style="width:auto"> reset existing twin</label>
+</section>
+
+<section class="card">
+  <div class="row"><h2>2. DigitalTwinDSL</h2><span id="twinStatus" class="badge">not loaded</span></div>
+  <textarea id="twin"></textarea>
+</section>
+
+<section class="card">
+  <div class="row"><h2>3. sources/ → SourceIndexDSL</h2><button id="scan" class="secondary">Scan sources/</button><button id="update">Update twin</button></div>
+  <pre id="sources"></pre>
+</section>
+
+<section class="card">
+  <div class="row"><h2>4. Build plan</h2><button id="plan">Generate plan</button></div>
+  <pre id="planOut"></pre>
+</section>
+
+<section class="card">
+  <h2>Digital twin graph (Mermaid source)</h2>
+  <pre id="mermaid"></pre>
+</section>
+
+<section class="card">
+  <h2>Validation / revision / provenance</h2>
+  <pre id="meta"></pre>
+</section>
+
+<section class="card wide">
+  <h2>Exact DSL sent to LLM</h2>
+  <pre id="llmRequest"></pre>
+</section>
+</div>
+
+<div class="section">
+<h2>Runtime-context boundary regression test</h2>
+<div class="grid">
+<section class="card"><button id="analyze">Run ContextDSL test</button><textarea id="raw">{"name":"auth_failure_context","origin":"api_gateway","purpose":"failure_analysis","trace_id":"req_7f21","state":{"api_status":401,"refresh_status":401},"capabilities":{"actions":["refresh_token"],"events":["auth_error"]},"events":[{"source":"auth_service","code":"token_refresh_failed","severity":"error","fields":{"status":401,"attempt":1}}]}</textarea></section>
+<section class="card"><pre id="runtime"></pre></section>
+</div>
 </div>
 <script>
 const $=x=>document.getElementById(x);
-async function api(path,body){const r=await fetch(path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});const j=await r.json();if(!r.ok||j.error)throw new Error(j.message||j.error);return j}
-$('analyze').onclick=async()=>{try{const context=JSON.parse($('raw').value);const j=await api('/api/ifuri/analyze-context',{context});$('contextDsl').value=j.context_markdown;$('requestDsl').textContent=j.llm_request_markdown;$('intentDsl').value=j.intent_markdown;$('validation').textContent=JSON.stringify({context:j.context_validation,intent:j.intent_validation},null,2);$('runtime').textContent=JSON.stringify(j.runtime,null,2);$('route').textContent=JSON.stringify(j.route,null,2);$('contextStatus').textContent=j.context_validation.valid?'VALID':'INVALID';$('contextStatus').className='badge '+(j.context_validation.valid?'ok':'bad');$('intentStatus').textContent=j.intent_validation.valid?'VALID':'INVALID';$('intentStatus').className='badge '+(j.intent_validation.valid?'ok':'bad')}catch(e){$('validation').textContent=e.stack;$('intentStatus').textContent='ERROR';$('intentStatus').className='badge bad'}};
-$('analyze').click();
-</script></main></body></html>
+async function get(path){const r=await fetch(path);const j=await r.json();if(!r.ok||j.error)throw new Error(j.message||j.error);return j}
+async function api(path,body={}){const r=await fetch(path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});const j=await r.json();if(!r.ok||j.error)throw new Error(j.message||j.error);return j}
+function showTwin(j){$('twin').value=j.markdown||'';$('mermaid').textContent=j.mermaid||'';$('meta').textContent=JSON.stringify({validation:j.validation,revision:j.revision,intent_fingerprint:j.intent_fingerprint,sources:j.sources,open_questions:j.open_questions,route:j.route},null,2);$('llmRequest').textContent=j.llm_request_markdown||'';$('twinStatus').textContent=j.validation?.valid?'VALID r'+j.revision:'INVALID';$('twinStatus').className='badge '+(j.validation?.valid?'ok':'bad')}
+async function provider(){const j=await get('/api/llm/status');$('providerJson').textContent=JSON.stringify(j,null,2);$('provider').textContent=j.configured?'CONFIGURED':'NOT CONFIGURED';$('provider').className='badge '+(j.configured?'ok':'bad')}
+$('bootstrap').onclick=async()=>{try{showTwin(await api('/api/twin/bootstrap',{intent:$('intent').value,reset:$('reset').checked}))}catch(e){$('meta').textContent=e.stack}}
+$('scan').onclick=async()=>{try{const j=await get('/api/twin/sources');$('sources').textContent=j.markdown+'\n\n'+JSON.stringify(j.documents,null,2)}catch(e){$('sources').textContent=e.stack}}
+$('update').onclick=async()=>{try{const j=await api('/api/twin/update',{});showTwin(j);$('sources').textContent=j.source_index.markdown+'\n\n'+JSON.stringify(j.source_index.documents,null,2)}catch(e){$('meta').textContent=e.stack}}
+$('plan').onclick=async()=>{try{const j=await api('/api/twin/plan',{});$('planOut').textContent=j.markdown+'\n\n'+JSON.stringify(j.validation,null,2)}catch(e){$('planOut').textContent=e.stack}}
+$('analyze').onclick=async()=>{try{const j=await api('/api/ifuri/analyze-context',{context:JSON.parse($('raw').value)});$('runtime').textContent=j.context_markdown+'\n\n'+j.intent_markdown+'\n\n'+JSON.stringify(j.runtime,null,2)}catch(e){$('runtime').textContent=e.stack}}
+(async()=>{await provider();try{const j=await get('/api/twin');if(j.exists)showTwin(j)}catch(e){};await $('scan').onclick();})();
+</script>
+</main></body></html>

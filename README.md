@@ -1,12 +1,12 @@
-# onlyDSL -> IFURI Runtime Lab 0.3
+# IFURI Digital Twin Lab 0.4
 
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.0.2-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$0.15-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-2.0h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.0.3-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$0.31-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-2.0h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $0.1532 (1 commits)
+- 🤖 **LLM usage:** $0.3115 (2 commits)
 - 👤 **Human dev:** ~$200 (2.0h @ $100/h, 30min dedup)
 
 Generated on 2026-08-08 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
@@ -15,266 +15,333 @@ Generated on 2026-08-08 using [openrouter/qwen/qwen3-coder-next](https://openrou
 
 
 
-POC łączący wcześniejszy **DSL-only LLM boundary** z docelowym kernelem:
+A reference implementation for building software from user intent and external Markdown sources while keeping the LLM behind a strict DSL-only boundary.
 
-- CQRS,
-- Event Sourcing,
-- Protobuf bez gRPC jako fundamentu,
-- location-independent `ifuri://` capability addressing,
-- jawny `CapabilityRegistry` + deterministyczny resolver,
-- `InProcessTransport`,
-- Core NATS request/reply,
-- JetStream durable events/replay,
-- PostgreSQL authoritative event store,
+## Core architecture
+
+```text
+user sentences
+  -> runtime SourceDSL
+  -> IFURI capability
+  -> LLM Gateway
+  -> DigitalTwinDSL revision 1
+
+sources/*.md
+  -> deterministic Markdown compiler
+  -> SourceIndexDSL + SHA-256 provenance
+  -> IFURI capability
+  -> LLM Gateway
+  -> validated DigitalTwinDSL revision N+1
+  -> BuildPlanDSL
+  -> future code-builder capability
+```
+
+The wider runtime retains the previous architecture:
+
+- logical `ifuri://...` capability addresses instead of host:port identities,
+- Protobuf `IfEnvelope` as a transport-neutral wire contract,
+- CQRS + Event Sourcing,
+- PostgreSQL as the authoritative event store,
 - transactional outbox,
-- logiczne artifact URI z lokalnym `file://` placement adapterem,
-- LLM jako normalna capability wywoływana przez `IfEnvelope`.
+- NATS Core for request/reply and JetStream for durable delivery/replay,
+- no gRPC foundation dependency,
+- Python/Node/PHP IFURI parity tests.
 
-## Docelowy przepływ
+## Why `OPENROUTER_API_KEY` exists now
 
-```text
-application/runtime
-      │
-      ├─ command/query payload ───────────────┐
-      │                                       │
-      └─ logs/state/tools → ContextDSL        │
-                             │                │
-                             ▼                ▼
-                      protobuf payload   protobuf payload
-                             │                │
-                             └──────┬─────────┘
-                                    ▼
-                              IFURI Envelope
-                                    │
-                                    ▼
-                         CapabilityRegistry
-                                    │
-                             deterministic
-                               Resolver
-                                    │
-                     ┌──────────────┼──────────────┐
-                     ▼              ▼              ▼
-                   inproc         NATS         future HTTP/MQTT
-                                   │
-                          ┌────────┴─────────┐
-                          ▼                  ▼
-                     request/reply       JetStream
+Version 0.3 had a generic `LLM_API_KEY` but no first-class OpenRouter provider. Version 0.4 adds a dedicated provider configuration and a Docker smoke profile.
 
-write side:
-Command → Aggregate → Domain Event → PostgreSQL ES + Outbox (one transaction)
-                                      │
-                                      ▼ after commit
-                                  JetStream
-                                      │
-                                      ▼
-                                  projections
-```
-
-## IFURI
-
-Canonical form:
-
-```text
-ifuri://<bounded-context>/<entity>/<identity>/<kind>/<operation>
-```
-
-Examples:
-
-```text
-ifuri://scenario/scenario/9f7/commands/execute
-ifuri://scenario/scenario/9f7/queries/status
-ifuri://scenario/scenario/9f7/events/executed
-ifuri://artifact/document/spec42/artifacts/content
-ifuri://llm/reasoner/default/commands/analyze
-```
-
-Transport placement is not encoded in the logical URI. The NATS adapter can map the first example to a subject such as:
-
-```text
-ifuri.cmd.scenario.scenario.9f7.execute
-```
-
-See `docs/IFURI_SPEC.md`.
-
-## Protobuf without gRPC
-
-`contracts/ifuri/v1/envelope.proto` defines the common wire envelope. The POC serializes it directly over NATS; no gRPC package or stub is required.
-
-`contracts/ifuri/v1/dsl.proto` defines `DslDocument`, used by the LLM gateway. Runtime context reaches the model only as `contextdsl`, and the returned reasoning program is `intentdsl`.
-
-## Resolver without hidden magic
-
-Routes live in `manifests/capabilities.yaml`.
-
-Each route declares:
-
-- logical URI pattern,
-- Protobuf input/output contract,
-- command/query/event semantics,
-- idempotency/durability hints,
-- logical runtime placement,
-- preferred and fallback transports.
-
-`CapabilityRegistry.explain(uri)` returns every candidate, specificity, extracted parameters, transport order and final selection. Equal-best ambiguous matches fail closed.
-
-## CQRS + Event Sourcing
-
-`ifuri_core/cqrs.py` provides the minimal aggregate/repository contract.
-
-Stores:
-
-- `SqliteEventStore` — local/unit-test reference adapter,
-- `PostgresEventStore` — authoritative Docker/production-like adapter.
-
-`append()` performs optimistic concurrency checking and writes:
-
-1. event stream row,
-2. serialized Protobuf event,
-3. outbox row,
-4. stream version update,
-
-inside one database transaction.
-
-`OutboxPublisher` publishes only committed rows to JetStream. Delivery is intentionally treated as **at-least-once**; projections should deduplicate by `event_id`.
-
-## NATS / JetStream
-
-The POC contains a small dependency-free Core NATS protocol client in `ifuri_core/transport.py` so the kernel does not depend on a specific NATS language SDK.
-
-Implemented POC surface:
-
-- CONNECT,
-- SUB/UNSUB,
-- PUB,
-- request/reply inbox,
-- wildcard capability subscription,
-- JetStream stream creation,
-- durable publish acknowledgement,
-- stream info,
-- message retrieval,
-- replay.
-
-A production implementation can replace this adapter with the official language client without changing `IfUri`, manifests, envelopes or domain code.
-
-## LLM invariant
-
-Forbidden:
-
-```text
-raw log/state/tool result → LLM
-```
-
-Required:
-
-```text
-raw runtime context
-      ↓
-ContextCompiler
-      ↓
-ContextDSL fenced block
-      ↓
-DslDocument protobuf
-      ↓
-IfEnvelope
-      ↓
-ifuri://llm/reasoner/default/commands/analyze
-      ↓
-LLM Gateway
-      ↓
-IntentDSL fenced block
-```
-
-`server.py` does not import/call `llm_client` directly. The LLM call is isolated in `ifuri_core/llm_gateway.py` and architectural tests enforce this boundary.
-
-## Unit tests
+Create `.env`:
 
 ```bash
-./run-tests.sh
+cp .env.example .env
 ```
 
-Coverage includes:
+Then edit:
 
-- IFURI grammar and forbidden transport location fields,
-- deterministic manifest routing,
-- ambiguity fail-closed,
-- Protobuf round-trip,
-- message-kind/URI semantic validation,
-- inproc/NATS fallback routing,
-- Core NATS wire request/reply against a test broker,
-- CQRS/ES optimistic concurrency,
-- event + outbox atomic commit,
-- post-commit outbox publication,
-- artifact logical/physical URI separation,
-- DSL-only LLM capability,
-- proactive IntentDSL runtime,
-- architecture invariants including absence of a gRPC dependency.
+```dotenv
+LLM_BACKEND=openrouter
+OPENROUTER_API_KEY=sk-or-...
+OPENROUTER_MODEL=~openai/gpt-latest
+OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+OPENROUTER_HTTP_REFERER=http://localhost:8787
+OPENROUTER_APP_TITLE=IFURI Digital Twin Lab
+```
 
-## Docker integration
+Do not commit the real key. `.env` is excluded by `.dockerignore`.
+
+OpenRouter's official quickstart uses `https://openrouter.ai/api/v1/chat/completions`, Bearer authentication, and currently documents `~openai/gpt-latest` as a latest-model alias. `HTTP-Referer` and `X-OpenRouter-Title` are optional attribution headers.
+
+Official references:
+
+- https://openrouter.ai/docs/quickstart
+- https://openrouter.ai/docs/api_reference/authentication
+
+## Quick test without spending API credits
+
+The deterministic `demo` backend exercises the complete architecture without a network LLM:
 
 ```bash
-./docker-test.sh
+python3 -m unittest discover -s tests -v
+python3 server.py
 ```
 
-Equivalent manual flow:
+Open:
+
+```text
+http://localhost:8787
+```
+
+Workflow in the UI:
+
+1. Enter a few sentences describing the application you want.
+2. Click **Bootstrap twin**.
+3. Inspect generated TwinDSL and its Mermaid graph source.
+4. Put Markdown files under `sources/`.
+5. Click **Scan sources/**.
+6. Click **Update twin**.
+7. Verify that the revision increments while `INTENT_FINGERPRINT` stays unchanged.
+8. Click **Generate plan** to produce BuildPlanDSL.
+
+## Real OpenRouter test
+
+With a valid key in `.env`:
+
+```bash
+docker compose up -d nats postgres app
+```
+
+Then use the web UI, or run the isolated real-LLM smoke test:
+
+```bash
+docker compose --profile llm run --rm openrouter-smoke
+```
+
+The smoke test performs three actual LLM stages through the same IFURI gateway used by the application:
+
+```text
+SourceDSL -> ifuri://llm/twin/default/commands/bootstrap -> TwinDSL r1
+TwinDSL + SourceIndexDSL -> ifuri://llm/twin/default/commands/update -> TwinDSL r2
+TwinDSL r2 -> ifuri://llm/builder/default/commands/plan -> BuildPlanDSL
+```
+
+If `OPENROUTER_API_KEY` is missing, the smoke script exits without making a paid request.
+
+## `sources/` design
+
+Markdown is not concatenated directly into a prompt. `source_ingest.py` creates a deterministic representation:
+
+```sourceindexdsl
+SOURCE_INDEX markdown_sources
+DOC source_1_architecture
+  PATH "sources/architecture.md"
+  SHA256 sha256:...
+  HEADING 1 "Architecture"
+  PARAGRAPH "..."
+  BULLET "..."
+  CODE python HASH sha256:... CONTENT "..."
+END
+END_SOURCE_INDEX
+```
+
+This means the LLM receives a typed source document with provenance rather than raw Markdown formatting.
+
+Limits can be configured:
+
+```dotenv
+SOURCE_MAX_FILES=64
+SOURCE_MAX_CHARS=120000
+```
+
+## DigitalTwinDSL
+
+The twin is an application model rather than generated source code. It records:
+
+- immutable user intent fingerprint,
+- current goals,
+- nodes/services/actors/models,
+- logical IFURI capabilities,
+- graph edges,
+- invariants,
+- allowed/required/forbidden evolution,
+- source references and hashes,
+- open questions.
+
+Example shape:
+
+```twindsl
+TWIN application
+VERSION 1
+REVISION 2
+INTENT_FINGERPRINT sha256:...
+INTENT_SUMMARY "..."
+GOAL "..."
+
+NODE digital_twin KIND model
+  RESPONSIBILITY "Maintains the current source-backed application model."
+  EVIDENCE user_intent
+  EVIDENCE source_1_architecture
+END
+
+CAPABILITY update_from_sources
+  URI ifuri://llm/twin/default/commands/update
+  OWNER digital_twin
+  INPUT ifuri.v1.DslDocument
+  OUTPUT ifuri.v1.DslDocument
+  RESPONSIBILITY "Refine the twin without replacing original intent."
+END
+
+INVARIANT preserve_user_intent
+  ASSERT "Every revision keeps the original INTENT_FINGERPRINT."
+  EVIDENCE user_intent
+END
+
+EVOLUTION
+  ALLOW "Refine implementation details supported by sources."
+  REQUIRE "Preserve user intent."
+  FORBID "Invent unsupported product requirements."
+END
+
+SOURCE user_intent HASH sha256:...
+SOURCE source_1_architecture HASH sha256:... PATH "sources/architecture.md"
+END_TWIN
+```
+
+## Intent versus evidence
+
+The design deliberately separates three things:
+
+```text
+user intent       = what the product is supposed to achieve
+source evidence   = facts/constraints that may refine how it should work
+implementation    = code produced from the validated current twin
+```
+
+A source cannot replace the user's original intent. The runtime enforces this by keeping `INTENT_FINGERPRINT` immutable between revisions and by refusing a TwinDSL update that removes existing invariants or invents unknown source identifiers.
+
+Unsupported information should remain an `OPEN_QUESTION` instead of silently becoming a requirement.
+
+## Fail-closed LLM repair
+
+A provider can still produce invalid output. Version 0.4 therefore uses a repair loop:
+
+```text
+LLM output
+ -> BoundaryGate
+ -> TwinDSL parser/semantic validator
+ -> reject if invalid
+ -> original trusted DSL bundle + ValidationDSL errors
+ -> retry
+```
+
+The rejected raw model response is never copied into the next prompt.
+
+Configure retries with:
+
+```dotenv
+LLM_REPAIR_ATTEMPTS=2
+```
+
+## API
+
+### Provider status
+
+```http
+GET /api/llm/status
+```
+
+The API reports only whether a key is present; it never returns the key value.
+
+### Bootstrap the twin
+
+```http
+POST /api/twin/bootstrap
+Content-Type: application/json
+
+{
+  "intent": "Build an application ...",
+  "reset": true
+}
+```
+
+### Scan sources
+
+```http
+GET /api/twin/sources
+```
+
+### Update the twin
+
+```http
+POST /api/twin/update
+Content-Type: application/json
+
+{}
+```
+
+### Build plan
+
+```http
+POST /api/twin/plan
+Content-Type: application/json
+
+{}
+```
+
+### Current twin
+
+```http
+GET /api/twin
+```
+
+## Persistent state
+
+The current twin is stored under:
+
+```text
+state/digital_twin.md
+```
+
+Each accepted revision is also written to:
+
+```text
+state/history/rev-XXXX-<timestamp>.md
+```
+
+Docker mounts `./state:/app/state` so accepted revisions survive container restarts.
+
+## Docker integration suite
+
+The `integration` service exercises:
+
+- real NATS request/reply,
+- JetStream stream/replay,
+- PostgreSQL authoritative Event Store,
+- transactional outbox,
+- Protobuf envelopes,
+- DSL-only ContextDSL → IntentDSL path,
+- DigitalTwinDSL bootstrap,
+- `sources/` update to revision 2,
+- BuildPlanDSL generation.
+
+Run:
 
 ```bash
 docker compose build
 docker compose run --rm integration
 ```
 
-The Compose integration uses:
+## Tests
 
-- NATS with JetStream,
-- PostgreSQL,
-- the POC application image.
-
-It executes:
-
-```text
-IFURI query → Core NATS request/reply
-Domain Event → PostgreSQL ES + outbox → JetStream → replay
-ContextDSL → IfEnvelope → LLM capability → IntentDSL
-```
-
-See `docs/DOCKER_TESTS.md`.
-
-## Web POC
+Local suite:
 
 ```bash
-python3 server.py
-# http://127.0.0.1:8787
+python3 -m unittest discover -s tests -v
 ```
 
-Useful endpoints:
+Version 0.4 currently contains 44 tests covering architecture invariants, IFURI, Protobuf, Event Sourcing/outbox, NATS wire protocol, multi-runtime URI parity, ContextDSL, IntentDSL, DigitalTwinDSL, source ingestion, OpenRouter configuration and the fail-closed repair loop.
 
-```text
-GET  /api/health
-GET  /api/ifuri/capabilities
-GET  /api/ifuri/route?uri=ifuri://scenario/scenario/abc/queries/status
-POST /api/ifuri/analyze-context
-POST /api/ifuri/compile-source
-```
-
-## Important files
-
-```text
-ifuri_core/uri.py               IFURI parser + subject mapping
-ifuri_core/envelope.py          Protobuf envelope codec/validation
-ifuri_core/manifest.py          CapabilityRegistry + deterministic resolver
-ifuri_core/runtime.py           logical call/emit dispatcher
-ifuri_core/transport.py         InProc + NATS Core + JetStream adapter
-ifuri_core/event_store.py       SQLite ES/outbox reference
-ifuri_core/postgres_store.py    PostgreSQL authoritative ES/outbox
-ifuri_core/outbox.py            post-commit JetStream publisher
-ifuri_core/cqrs.py              aggregate/repository core
-ifuri_core/artifacts.py         logical artifact → physical file placement
-ifuri_core/llm_gateway.py       single LLM capability boundary
-contracts/ifuri/v1/*.proto      wire contracts
-manifests/capabilities.yaml     explicit routing table
-docs/IFURI_SPEC.md              URI grammar
-docs/ARCHITECTURE_V03.md        architecture decisions
-docs/DOCKER_TESTS.md            Docker verification
-```
+See `TEST_REPORT.md` for the exact execution status of the delivered package.
 
 
 ## License

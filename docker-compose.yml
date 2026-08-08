@@ -29,16 +29,31 @@ services:
     build: .
     ports:
       - "8787:8787"
+    env_file:
+      - path: .env
+        required: false
     environment:
       HOST: 0.0.0.0
       PORT: 8787
       LLM_BACKEND: ${LLM_BACKEND:-demo}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_BASE_URL: ${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
+      OPENROUTER_MODEL: ${OPENROUTER_MODEL:-~openai/gpt-latest}
+      OPENROUTER_HTTP_REFERER: ${OPENROUTER_HTTP_REFERER:-http://localhost:8787}
+      OPENROUTER_APP_TITLE: ${OPENROUTER_APP_TITLE:-IFURI Digital Twin Lab}
       LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:8000/v1}
       LLM_MODEL: ${LLM_MODEL:-}
       LLM_API_KEY: ${LLM_API_KEY:-}
+      SOURCES_DIR: /app/sources
+      TWIN_STATE_DIR: /app/state
+      SOURCE_MAX_FILES: ${SOURCE_MAX_FILES:-64}
+      SOURCE_MAX_CHARS: ${SOURCE_MAX_CHARS:-120000}
       NATS_HOST: nats
       NATS_PORT: 4222
       POSTGRES_DSN: postgresql://ifuri:ifuri@postgres:5432/ifuri
+    volumes:
+      - ./sources:/app/sources:ro
+      - ./state:/app/state
     depends_on:
       - nats
       - postgres
@@ -47,15 +62,38 @@ services:
     build: .
     environment:
       LLM_BACKEND: demo
+      SOURCES_DIR: /app/sources
+      TWIN_STATE_DIR: /tmp/ifuri-twin-state
       NATS_HOST: nats
       NATS_PORT: 4222
       POSTGRES_DSN: postgresql://ifuri:ifuri@postgres:5432/ifuri
+    volumes:
+      - ./sources:/app/sources:ro
     depends_on:
       postgres:
         condition: service_healthy
       nats:
         condition: service_started
     command: ["python3", "scripts/docker_integration.py"]
+
+  openrouter-smoke:
+    build: .
+    profiles: ["llm"]
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      LLM_BACKEND: openrouter
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_BASE_URL: ${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
+      OPENROUTER_MODEL: ${OPENROUTER_MODEL:-~openai/gpt-latest}
+      OPENROUTER_HTTP_REFERER: ${OPENROUTER_HTTP_REFERER:-http://localhost:8787}
+      OPENROUTER_APP_TITLE: ${OPENROUTER_APP_TITLE:-IFURI Digital Twin Lab}
+      SOURCES_DIR: /app/sources
+      TWIN_STATE_DIR: /tmp/openrouter-smoke-state
+    volumes:
+      - ./sources:/app/sources:ro
+    command: ["python3", "scripts/openrouter_smoke.py"]
 
 volumes:
   nats-data:
