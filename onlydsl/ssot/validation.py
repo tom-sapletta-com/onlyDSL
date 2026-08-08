@@ -7,6 +7,7 @@ from source_ingest import validate_sourceindex_markdown
 
 from onlydsl_contracts.dsl.assumption import parse_assumptions
 from onlydsl_contracts.dsl.claim import parse_claims
+from onlydsl_contracts.dsl.development_evidence import parse_development_evidence
 from onlydsl_contracts.dsl.evidence_set import parse_evidence_set
 from onlydsl_contracts.dsl.parameter_contract import parse_parameter_contracts
 from onlydsl_contracts.dsl.repair_plan import parse_repair_plan
@@ -39,6 +40,8 @@ def _validate_known_dsl(path: str, content: str) -> tuple[str | None, str | None
         parse_claims(content)
     elif name in {"trust.dsl", "trust-policy.dsl"}:
         parse_trust_policy(content)
+    elif name == "development-evidence.dsl":
+        parse_development_evidence(content)
     elif name == "source-index.dsl":
         result = validate_sourceindex_markdown(content)
         if not result["valid"]:

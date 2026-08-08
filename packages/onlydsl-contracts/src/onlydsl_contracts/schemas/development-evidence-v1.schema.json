@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://onlydsl.dev/schemas/development-evidence-v1.schema.json",
+  "title": "onlyDSL Development Evidence Bundle v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "id", "projectId", "repositoryId", "repositoryRevision", "repositoryTree",
+    "producer", "producerVersion", "graphUri", "diagnosticsUri", "manifestUri",
+    "graphFingerprint", "assessment", "blockingDiagnostics", "warningDiagnostics",
+    "semanticHash", "evidenceUri", "authorityEffect", "mutationEffect"
+  ],
+  "properties": {
+    "schema": {"const": "onlydsl.development-evidence/v1"},
+    "id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,191}$"},
+    "projectId": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,191}$"},
+    "repositoryId": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]{0,191}$"},
+    "repositoryRevision": {"type": "string", "pattern": "^[0-9a-f]{40}([0-9a-f]{24})?$"},
+    "repositoryTree": {"type": "string", "pattern": "^[0-9a-f]{40}([0-9a-f]{24})?$"},
+    "producer": {"const": "todo2code"},
+    "producerVersion": {"type": "string", "minLength": 1},
+    "graphUri": {"$ref": "#/$defs/contentUrn"},
+    "diagnosticsUri": {"$ref": "#/$defs/contentUrn"},
+    "manifestUri": {"$ref": "#/$defs/contentUrn"},
+    "graphFingerprint": {"$ref": "#/$defs/hash"},
+    "assessment": {"enum": ["accepted", "incomplete", "rejected"]},
+    "blockingDiagnostics": {"type": "integer", "minimum": 0},
+    "warningDiagnostics": {"type": "integer", "minimum": 0},
+    "semanticHash": {"$ref": "#/$defs/hash"},
+    "evidenceUri": {"$ref": "#/$defs/contentUrn"},
+    "authorityEffect": {"const": "none"},
+    "mutationEffect": {"const": "none"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "contentUrn": {"type": "string", "pattern": "^urn:[A-Za-z0-9][A-Za-z0-9:._-]*:sha256:[0-9a-f]{64}$"}
+  }
+}

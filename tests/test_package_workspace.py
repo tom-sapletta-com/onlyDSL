@@ -66,7 +66,7 @@ def test_core_package_depends_only_on_contracts_and_protobuf():
     assert package["project"]["name"] == "onlydsl-core"
     assert package["project"]["version"] == expected
     assert package["project"]["dependencies"] == [
-        "onlydsl-contracts==0.0.8", "protobuf>=6.30,<7",
+        "onlydsl-contracts==0.0.9", "protobuf>=6.30,<7",
     ]
 
 
@@ -89,7 +89,7 @@ def test_ssot_package_depends_only_on_contracts():
     expected = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
     assert package["project"]["name"] == "onlydsl-ssot"
     assert package["project"]["version"] == expected
-    assert package["project"]["dependencies"] == ["onlydsl-contracts==0.0.8"]
+    assert package["project"]["dependencies"] == ["onlydsl-contracts==0.0.9"]
 
 
 def test_ssot_package_has_no_domain_runtime_or_execution_imports():
