@@ -104,6 +104,14 @@
 - Fix ast-unused-imports issues (ticket-17f64932)
 - Fix ast-sorted-imports issues (ticket-5f092505)
 
+## [0.0.13] - 2026-08-10
+
+### Docs
+- Update TEST_REPORT.md
+
+### Other
+- Update app.doql.less
+
 ## [0.0.12] - 2026-08-10
 
 ### Fixed
