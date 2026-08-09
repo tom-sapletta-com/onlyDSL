@@ -104,6 +104,17 @@
 - Fix ast-unused-imports issues (ticket-17f64932)
 - Fix ast-sorted-imports issues (ticket-5f092505)
 
+## [0.0.12] - 2026-08-09
+
+### Docs
+- Update README.md
+
+### Test
+- Update tests/test_package_workspace.py
+
+### Other
+- Update scripts/workspace_release.py
+
 ## [0.0.11] - 2026-08-09
 
 ### Docs

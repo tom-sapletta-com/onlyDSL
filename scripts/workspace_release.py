@@ -49,6 +49,12 @@ def verify_versions(expected: str) -> None:
         raise SystemExit(f"workspace release version mismatch: expected={expected} actual={mismatches}")
 
 
+def resolve_version(raw: str) -> str:
+    if raw == "{version}":
+        return (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+    return raw
+
+
 def release_artifacts(expected: str) -> list[Path]:
     artifacts = sorted(path for path in DIST.glob("*") if path.is_file() and expected in path.name)
     missing = [
@@ -86,10 +92,11 @@ def main() -> int:
     parser.add_argument("action", choices=("build", "publish"))
     parser.add_argument("--version", required=True)
     args = parser.parse_args()
+    version = resolve_version(args.version)
     if args.action == "build":
-        build(args.version)
+        build(version)
     else:
-        publish(args.version)
+        publish(version)
     return 0
 
 

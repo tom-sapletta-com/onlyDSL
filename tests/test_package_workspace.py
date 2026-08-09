@@ -76,6 +76,7 @@ def test_release_pipeline_covers_every_workspace_distribution():
         "onlydsl-contracts", "onlydsl-core", "onlydsl-ssot", "onlyDSL",
     ]
     module.verify_versions((ROOT / "VERSION").read_text(encoding="utf-8").strip())
+    assert module.resolve_version("{version}") == (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 
 
 def test_core_package_depends_only_on_contracts_and_protobuf():
