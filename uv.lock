@@ -466,12 +466,12 @@ dev = [
 
 [[package]]
 name = "onlydsl-contracts"
-version = "0.0.11"
+version = "0.0.12"
 source = { editable = "packages/onlydsl-contracts" }
 
 [[package]]
 name = "onlydsl-core"
-version = "0.0.11"
+version = "0.0.12"
 source = { editable = "packages/onlydsl-core" }
 dependencies = [
     { name = "onlydsl-contracts" },
@@ -486,7 +486,7 @@ requires-dist = [
 
 [[package]]
 name = "onlydsl-ssot"
-version = "0.0.11"
+version = "0.0.12"
 source = { editable = "packages/onlydsl-ssot" }
 dependencies = [
     { name = "onlydsl-contracts" },

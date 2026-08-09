@@ -41,6 +41,7 @@ while IFS= read -r -d '' analysis_file; do
         s/\Q$ENV{ANALYSIS_ROOT}\E\///g;
         s/\Q$ENV{ANALYSIS_ROOT}\E/./g;
         s/\Q$ENV{ANALYSIS_NAME}\E/onlyDSL/g;
+        s/[ \t]+$//mg;
     ' "$analysis_file"
 done < <(find ./project -type f \( \
     -name '*.yaml' -o -name '*.md' -o -name '*.mmd' -o \

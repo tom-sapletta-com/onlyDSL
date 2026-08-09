@@ -104,68 +104,26 @@
 - Fix ast-unused-imports issues (ticket-17f64932)
 - Fix ast-sorted-imports issues (ticket-5f092505)
 
-## [0.0.11] - 2026-08-10
+## [0.0.12] - 2026-08-10
 
-### Docs
-- Update project/README.md
-- Update project/context.md
+### Fixed
+- Make workspace publication idempotent after a partial PyPI upload.
+- Keep Goal Doctor from replacing the four-package publish strategy.
+- Keep generated analysis paths independent of the local clone directory.
 
-### Test
-- Update tests/test_package_workspace.py
-
-### Other
-- Update VERSION
-- Update onlydsl/__init__.py
-- Update packages/onlydsl-contracts/pyproject.toml
-- Update packages/onlydsl-core/pyproject.toml
-- Update packages/onlydsl-ssot/pyproject.toml
-- Update project/analysis.toon.yaml
-- Update project/calls.mmd
-- Update project/calls.png
-- Update project/calls.toon.yaml
-- Update project/calls.yaml
-- ... and 13 more files
+### Changed
+- Refresh the code analysis artifacts and workspace lock at version 0.0.12.
 
 ## [0.0.11] - 2026-08-10
 
-### Test
-- Update tests/test_architecture_contract.py
-- Update tests/test_package_workspace.py
+### Added
+- Publish `onlydsl-contracts`, `onlydsl-core`, `onlydsl-ssot` and `onlyDSL` as one release set.
+- Include every Compose command script in the source repository.
 
-### Other
-- Update VERSION
-- Update onlydsl/__init__.py
-- Update packages/onlydsl-contracts/pyproject.toml
-- Update packages/onlydsl-core/pyproject.toml
-- Update packages/onlydsl-ssot/pyproject.toml
-- Update scripts/workspace_release.py
-- Update uv.lock
-
-## [0.0.11] - 2026-08-10
-
-### Docs
-- Update README.md
-- Update TEST_REPORT.md
-- Update TODO.md
-- Update project/README.md
-- Update project/context.md
-
-### Test
-- Update tests/test_architecture_contract.py
-- Update tests/test_package_workspace.py
-
-### Other
-- Update .gitignore
-- Update app.doql.less
-- Update packages/onlydsl-contracts/src/onlydsl_contracts/__init__.py
-- Update packages/onlydsl-core/pyproject.toml
-- Update packages/onlydsl-core/src/onlydsl_core/__init__.py
-- Update packages/onlydsl-ssot/pyproject.toml
-- Update packages/onlydsl-ssot/src/onlydsl_ssot/__init__.py
-- Update prefact.yaml
-- Update project.sh
-- Update project/analysis.toon.yaml
-- ... and 22 more files
+### Fixed
+- Exclude build, distribution, environment and runtime output from project analysis.
+- Expose a consistent `__version__` API from all workspace distributions.
+- Verify clean wheel installation, Compose integration and release metadata.
 
 ## [0.0.10] - 2026-08-09
 

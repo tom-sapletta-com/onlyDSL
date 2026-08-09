@@ -1,4 +1,4 @@
-# onlyDSL 0.0.11 — test report
+# onlyDSL 0.0.12 — test report
 
 Current local verification: 2026-08-10
 
@@ -6,7 +6,7 @@ Current local verification: 2026-08-10
 
 **CURRENT_LOCAL_TESTS_PASS — 119/119**
 
-The current source tree passes the complete local pytest suite and the current
+The current source tree passes the complete local pytest suite and the release
 0.0.11 image passes the Docker integration workflow. Historical HTTP and
 real-provider evidence is retained below with its original version and date;
 it was not silently relabeled as a current rerun.
@@ -22,7 +22,7 @@ uv run pytest -q
 Result:
 
 ```text
-119 passed in 1.21s
+119 passed in 1.86s
 ```
 
 Coverage includes:

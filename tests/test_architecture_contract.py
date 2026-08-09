@@ -31,9 +31,10 @@ class ArchitectureContractTests(unittest.TestCase):
         self.assertEqual(metadata["project"]["scripts"]["onlydsl"], "onlydsl.cli:main")
 
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        expected = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
         self.assertFalse(metadata["tool"]["costs"]["badge"])
         self.assertFalse(metadata["tool"]["costs"]["update_readme"])
-        self.assertIn("version-0.0.11-blue", readme)
+        self.assertIn(f"version-{expected}-blue", readme)
         self.assertIn("python-3.10+-blue", readme)
 
     def test_goal_preserves_the_atomic_workspace_release_strategy(self):
@@ -47,6 +48,8 @@ class ArchitectureContractTests(unittest.TestCase):
             strategy["publish"],
             "ONLYDSL_DISTRIBUTION=onlyDSL python scripts/workspace_release.py publish",
         )
+        self.assertEqual(config["strategies"]["nodejs"]["publish"], "npm publish")
+        self.assertEqual(config["strategies"]["rust"]["publish"], "cargo publish")
 
     def test_no_grpc_foundation_dependency(self):
         requirements = (ROOT / "requirements.txt").read_text(encoding="utf-8").lower()
