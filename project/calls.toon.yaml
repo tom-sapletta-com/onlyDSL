@@ -1,17 +1,13 @@
 # code2llm call graph | /home/tom/github/tom-sapletta-com/onlyDSL
-# generated in 0.16s
-# nodes: 305 | edges: 381 | modules: 42
-# CC̄=4.1
+# generated in 0.23s
+# nodes: 350 | edges: 433 | modules: 46
+# CC̄=4.0
 
 HUBS[20]:
   onlydsl.ssot.cli.main
     CC=23  in:0  out:62  total:62
-  onlydsl.ssot.candidate.create_candidate
-    CC=17  in:0  out:50  total:50
   onlydsl.ssot.cli.build_parser
     CC=2  in:1  out:48  total:49
-  onlydsl.ssot.writer.SsotStore.promote
-    CC=16  in:0  out:48  total:48
   scripts.startup_testql.main
     CC=10  in:0  out:42  total:42
   digital_twin._quoted
@@ -24,26 +20,30 @@ HUBS[20]:
     CC=9  in:2  out:35  total:37
   server.Handler.do_GET
     CC=15  in:0  out:37  total:37
+  contextdsl.render_context_dsl
+    CC=9  in:1  out:35  total:36
   packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.spatial_class_from_twin
     CC=4  in:1  out:35  total:36
   intentdsl._parse_program_declaration
     CC=14  in:1  out:35  total:36
-  contextdsl.render_context_dsl
-    CC=9  in:1  out:35  total:36
-  intentdsl._codegen_php
-    CC=14  in:1  out:34  total:35
   evolution.EvolutionStore.status
     CC=14  in:0  out:35  total:35
   digital_twin.parse_twindsl
     CC=11  in:12  out:21  total:33
   contextdsl._ident
     CC=3  in:28  out:5  total:33
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan.parse_bound_build_plan
-    CC=21  in:1  out:31  total:32
+  intent_codegen._codegen_php
+    CC=14  in:1  out:31  total:32
   intentdsl.run_program
     CC=14  in:2  out:30  total:32
-  intentdsl._codegen_javascript_like
-    CC=13  in:1  out:29  total:30
+  server._bootstrap_twin
+    CC=5  in:1  out:28  total:29
+  patchdsl.parse_patchdsl
+    CC=15  in:1  out:28  total:29
+  llm_client.bootstrap_twin
+    CC=7  in:1  out:28  total:29
+  intentdsl.validate_program
+    CC=14  in:2  out:27  total:29
 
 MODULES:
   aql  [1 funcs]
@@ -101,9 +101,6 @@ MODULES:
     canonical_hash  CC=1  out:4
     complete_envelope  CC=3  out:4
     reject_envelope  CC=4  out:4
-  ifuri_core.dsl_document  [2 funcs]
-    make_dsl_document  CC=2  out:9
-    validate_dsl_document  CC=5  out:6
   ifuri_core.llm_gateway  [10 funcs]
     _extract_bundle_blocks  CC=3  out:7
     _extract_source_payload  CC=5  out:11
@@ -115,13 +112,6 @@ MODULES:
     build_llm_twin_bootstrap_handler  CC=1  out:9
     build_llm_twin_update_handler  CC=1  out:12
     gateway_provider_status  CC=1  out:1
-  ifuri_core.manifest  [6 funcs]
-    match  CC=4  out:4
-    register  CC=3  out:4
-    _parse_pattern  CC=1  out:3
-    _pattern_tokens  CC=12  out:6
-    _validate_capability  CC=7  out:13
-    _validate_pattern_tokens  CC=7  out:12
   ifuri_core.transport  [9 funcs]
     create_stream  CC=1  out:4
     publish  CC=1  out:2
@@ -132,17 +122,23 @@ MODULES:
     _js_response  CC=3  out:4
     _validate_nats_subject  CC=7  out:4
     capability_pattern_to_subject  CC=5  out:11
-  intentdsl  [21 funcs]
-    _auth_recovery_lines  CC=1  out:0
-    _codegen_javascript_like  CC=13  out:29
-    _codegen_php  CC=14  out:34
+  intent_codegen  [5 funcs]
+    _codegen_javascript_like  CC=13  out:28
+    _codegen_php  CC=14  out:31
     _codegen_python  CC=11  out:15
+    _normalize_python_expr  CC=1  out:2
+    generate_code  CC=3  out:3
+  intentdsl  [18 funcs]
+    _auth_recovery_lines  CC=1  out:0
     _expr_tree  CC=4  out:7
     _generic_demo_lines  CC=2  out:4
     _normalize_expr  CC=1  out:2
     _parse_call  CC=10  out:12
     _parse_program_declaration  CC=14  out:35
     _parse_rule_statement  CC=8  out:25
+    _slug_words  CC=3  out:2
+    _validate_rule_expressions  CC=6  out:5
+    codegen  CC=2  out:3
   llm_client  [13 funcs]
     _backend_call  CC=10  out:18
     _call_dsl_validated  CC=6  out:11
@@ -177,12 +173,6 @@ MODULES:
     _receipt  CC=1  out:1
     execute_repair_cycle  CC=8  out:11
     plan_integrity_repairs  CC=8  out:18
-  onlydsl.ssot.candidate  [5 funcs]
-    _candidate_from_dict  CC=3  out:13
-    create_candidate  CC=17  out:50
-    load_candidate  CC=2  out:4
-    save_candidate  CC=1  out:3
-    validate_candidate  CC=4  out:17
   onlydsl.ssot.cli  [3 funcs]
     _json  CC=1  out:2
     build_parser  CC=2  out:48
@@ -194,45 +184,28 @@ MODULES:
     atomic_write_json  CC=1  out:2
     atomic_write_text  CC=1  out:2
     fsync_directory  CC=2  out:3
-  onlydsl.ssot.manifest  [11 funcs]
-    calculate_revision_hash  CC=1  out:4
-    calculate_section_hashes  CC=4  out:10
-    collect_file_hashes  CC=5  out:12
-    create_manifest  CC=2  out:11
-    digest_bytes  CC=1  out:2
-    is_immutable_urn  CC=1  out:2
-    normalize_relative_path  CC=5  out:6
-    parse_manifest  CC=21  out:22
-    render_manifest  CC=6  out:17
-    utc_now  CC=1  out:3
-  onlydsl.ssot.reader  [3 funcs]
-    history  CC=2  out:7
-    manifest  CC=1  out:2
-    verified_manifest  CC=5  out:13
   onlydsl.ssot.registry  [4 funcs]
     entries  CC=2  out:3
     register  CC=2  out:9
     parse_registry  CC=13  out:16
     render_registry  CC=2  out:6
-  onlydsl.ssot.validation  [2 funcs]
-    _validate_known_dsl  CC=15  out:21
-    validate_tree  CC=15  out:18
-  onlydsl.ssot.writer  [7 funcs]
-    _promotion_lock  CC=3  out:10
-    _validate_approval  CC=10  out:10
-    _write_append_only  CC=3  out:4
-    _write_json_append_only  CC=3  out:5
-    initialize  CC=8  out:23
-    promote  CC=16  out:48
-    validate_candidate  CC=1  out:3
+  onlydsl.ssot.validation  [5 funcs]
+    _is_excluded_dsl_content  CC=4  out:2
+    _is_validatable_dsl_path  CC=4  out:5
+    _validate_known_dsl  CC=14  out:19
+    _validate_tree_file  CC=5  out:5
+    validate_tree  CC=8  out:9
   packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption  [4 funcs]
     _parse_assumption  CC=4  out:13
     _parse_assumption_fields  CC=5  out:3
     parse_assumptions  CC=9  out:15
     render_assumptions  CC=2  out:8
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan  [4 funcs]
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan  [7 funcs]
+    _parse_plan_body  CC=3  out:4
+    _parse_plan_directive  CC=11  out:15
+    _parse_task  CC=6  out:24
     _validate_tasks  CC=7  out:7
-    parse_bound_build_plan  CC=21  out:31
+    parse_bound_build_plan  CC=10  out:14
     semantic_twin_hash  CC=1  out:3
     validate_bound_build_plan  CC=10  out:10
   packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim  [4 funcs]
@@ -240,19 +213,35 @@ MODULES:
     _parse_claim_fields  CC=5  out:3
     parse_claims  CC=9  out:19
     render_claims  CC=3  out:8
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common  [4 funcs]
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common  [5 funcs]
     extract_one  CC=5  out:11
     json_string  CC=3  out:4
     list_value  CC=2  out:2
+    parse_json_list  CC=5  out:6
     quoted  CC=1  out:2
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence  [12 funcs]
+    _build_development_evidence  CC=3  out:7
+    _parse_development_evidence_fields  CC=5  out:2
+    _semantic_payload  CC=1  out:0
+    _validate_assessment  CC=10  out:7
+    _validate_development_evidence_fields  CC=6  out:9
+    _validate_identifiers  CC=5  out:4
+    _validate_producer  CC=5  out:4
+    _validate_uris  CC=3  out:2
+    _validate_values  CC=1  out:4
+    create_development_evidence  CC=1  out:5
   packages.onlydsl-contracts.src.onlydsl_contracts.dsl.evidence_set  [2 funcs]
     create_evidence_set  CC=2  out:7
     parse_evidence_set  CC=12  out:19
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract  [5 funcs]
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract  [9 funcs]
+    validate  CC=4  out:5
     _parse_allowed  CC=3  out:4
     _parse_parameter  CC=5  out:11
     _parse_parameter_fields  CC=5  out:3
     _parse_range  CC=6  out:7
+    _validate_metadata  CC=4  out:3
+    _validate_value  CC=9  out:7
+    _value_matches_type  CC=5  out:8
     parse_parameter_contracts  CC=9  out:13
   packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan  [5 funcs]
     _parse_repair_task  CC=5  out:16
@@ -263,8 +252,64 @@ MODULES:
   packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class  [2 funcs]
     parse_spatial_class  CC=11  out:19
     spatial_class_from_twin  CC=4  out:35
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust  [1 funcs]
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust  [4 funcs]
+    _parse_role  CC=4  out:7
+    _parse_role_fields  CC=5  out:3
+    parse_trust_policy  CC=9  out:15
     render_trust_policy  CC=2  out:6
+  packages.onlydsl-contracts.src.onlydsl_contracts.ifuri  [4 funcs]
+    parse  CC=4  out:9
+    _path_segments  CC=4  out:4
+    _validate_segments  CC=3  out:2
+    _validate_uri_parts  CC=8  out:4
+  packages.onlydsl-core.src.onlydsl_core.capabilities  [6 funcs]
+    match  CC=4  out:4
+    register  CC=3  out:4
+    _parse_pattern  CC=1  out:3
+    _pattern_tokens  CC=12  out:6
+    _validate_capability  CC=7  out:13
+    _validate_pattern_tokens  CC=7  out:12
+  packages.onlydsl-core.src.onlydsl_core.dsl_document  [2 funcs]
+    make_dsl_document  CC=2  out:9
+    validate_dsl_document  CC=5  out:6
+  packages.onlydsl-ssot.src.onlydsl_ssot.candidate  [9 funcs]
+    _apply_candidate_changes  CC=8  out:14
+    _candidate_from_dict  CC=3  out:13
+    _prepare_candidate_tree  CC=2  out:5
+    _validate_candidate_evidence  CC=3  out:5
+    _validate_candidate_tree  CC=4  out:4
+    create_candidate  CC=6  out:22
+    load_candidate  CC=2  out:4
+    save_candidate  CC=1  out:3
+    validate_candidate  CC=4  out:17
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest  [16 funcs]
+    _parse_manifest_entries  CC=12  out:8
+    _validate_manifest_entries  CC=4  out:4
+    _validate_manifest_hashes  CC=3  out:3
+    _validate_manifest_metadata  CC=8  out:7
+    _validate_manifest_scalars  CC=3  out:3
+    calculate_revision_hash  CC=1  out:4
+    calculate_section_hashes  CC=4  out:10
+    collect_file_hashes  CC=5  out:12
+    create_manifest  CC=2  out:11
+    digest_bytes  CC=1  out:2
+  packages.onlydsl-ssot.src.onlydsl_ssot.reader  [3 funcs]
+    history  CC=2  out:7
+    manifest  CC=1  out:2
+    verified_manifest  CC=5  out:13
+  packages.onlydsl-ssot.src.onlydsl_ssot.validation  [1 funcs]
+    basic_validate_tree  CC=14  out:16
+  packages.onlydsl-ssot.src.onlydsl_ssot.writer  [10 funcs]
+    _commit_promotion  CC=7  out:22
+    _prepare_promotion  CC=9  out:12
+    _promotion_lock  CC=3  out:10
+    _stage_promotion  CC=2  out:8
+    _validate_approval  CC=10  out:10
+    _write_append_only  CC=3  out:4
+    _write_json_append_only  CC=3  out:5
+    initialize  CC=8  out:23
+    promote  CC=1  out:8
+    validate_candidate  CC=1  out:3
   patchdsl  [7 funcs]
     _count_diff_lines  CC=6  out:5
     _json_string  CC=3  out:4
@@ -342,18 +387,18 @@ EDGES:
   evolution.EvolutionStore.diagnostic_for_incident → evolution._qid
   evolution.EvolutionStore.status → evolution._parse_event
   diagnostics.diagnose_incident → diagnostics._candidate_paths
-  intentdsl._parse_rule_statement → intentdsl._parse_call
-  intentdsl.parse_dsl → intentdsl._parse_program_declaration
-  intentdsl.parse_dsl → intentdsl._parse_rule_statement
-  intentdsl._expr_tree → intentdsl._normalize_expr
-  intentdsl.expr_names → intentdsl._expr_tree
-  intentdsl.eval_expr → intentdsl._expr_tree
-  intentdsl._validate_rule_expressions → intentdsl.expr_names
-  intentdsl.validate_markdown → intentdsl.extract_intentdsl
-  intentdsl.validate_markdown → intentdsl.parse_dsl
-  intentdsl.validate_markdown → intentdsl.validate_program
-  intentdsl.run_program → intentdsl.validate_program
-  intentdsl.run_program → intentdsl.eval_expr
-  intentdsl.demo_english_to_dsl → intentdsl._auth_recovery_lines
-  intentdsl.demo_english_to_dsl → intentdsl._generic_demo_lines
-  intentdsl._generic_demo_lines → intentdsl._slug_words
+  server._current_external_integrity → server._fetch_external_json
+  server._current_external_integrity → server._external_document
+  server._current_external_integrity → server._external_revision
+  server._current_external_integrity → onlydsl.runtime.integrity.parse_project_integrity
+  server._current_external_integrity → packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.spatial_class_from_twin
+  server._integrity_repair_plan → server._current_external_integrity
+  server._integrity_repair_plan → onlydsl.runtime.repair_controller.plan_integrity_repairs
+  server._context_registries → contextdsl.parse_context_dsl
+  server._context_registries → contextdsl.extract_contextdsl
+  server._ifuri_analyze_context → contextdsl.validate_context_markdown
+  server._ifuri_analyze_context → packages.onlydsl-core.src.onlydsl_core.dsl_document.make_dsl_document
+  server._ifuri_analyze_context → server._unpack_dsl
+  server._ifuri_analyze_context → server._context_registries
+  server._ifuri_analyze_context → intentdsl.validate_markdown
+  server._ifuri_analyze_context → intentdsl.parse_dsl

@@ -47,6 +47,7 @@ py-modules = [
   "server",
   "source_ingest",
   "twin_store",
+  "twin_models",
 ]
 
 [tool.setuptools.dynamic]

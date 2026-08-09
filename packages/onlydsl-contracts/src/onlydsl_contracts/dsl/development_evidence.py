@@ -62,22 +62,38 @@ def _semantic_payload(value: DevelopmentEvidenceBundle) -> dict[str, object]:
 
 
 def _validate_values(value: DevelopmentEvidenceBundle) -> None:
+    _validate_identifiers(value)
+    _validate_producer(value)
+    _validate_uris(value)
+    _validate_assessment(value)
+
+
+def _validate_identifiers(value: DevelopmentEvidenceBundle) -> None:
     for label, identifier in (("bundle", value.id), ("project", value.project_id), ("repository", value.repository_id)):
         if not ID_RE.fullmatch(identifier):
             raise ControlDslError(f"invalid {label} identifier")
     for label, revision in (("repository revision", value.repository_revision), ("repository tree", value.repository_tree)):
         if not GIT_OBJECT_RE.fullmatch(revision):
             raise ControlDslError(f"invalid {label}")
+
+
+def _validate_producer(value: DevelopmentEvidenceBundle) -> None:
     if value.producer != "todo2code":
         raise ControlDslError("DevelopmentEvidenceBundleDSL producer must be todo2code")
     if not value.producer_version.strip() or any(char in value.producer_version for char in "\r\n"):
         raise ControlDslError("invalid producer version")
+
+
+def _validate_uris(value: DevelopmentEvidenceBundle) -> None:
     for label, uri in (
         ("graph", value.graph_uri), ("diagnostics", value.diagnostics_uri),
         ("manifest", value.manifest_uri), ("evidence", value.evidence_uri),
     ):
         if not IMMUTABLE_URI_RE.fullmatch(uri):
             raise ControlDslError(f"{label} URI must be an immutable content URN")
+
+
+def _validate_assessment(value: DevelopmentEvidenceBundle) -> None:
     if not HASH_RE.fullmatch(value.graph_fingerprint) or not HASH_RE.fullmatch(value.semantic_hash):
         raise ControlDslError("DevelopmentEvidenceBundleDSL contains an invalid hash")
     if value.assessment not in ASSESSMENTS:
@@ -156,12 +172,22 @@ def parse_development_evidence(markdown: str) -> DevelopmentEvidenceBundle:
     if not lines or not lines[0].startswith("DEVELOPMENT_EVIDENCE ") or lines[-1] != "END_DEVELOPMENT_EVIDENCE":
         raise ControlDslError("invalid DevelopmentEvidenceBundleDSL envelope")
     bundle_id = lines[0].split(None, 1)[1]
+    fields = _parse_development_evidence_fields(lines[1:-1])
+    _validate_development_evidence_fields(fields)
+    return _build_development_evidence(bundle_id, fields)
+
+
+def _parse_development_evidence_fields(lines: list[str]) -> dict[str, str]:
     fields: dict[str, str] = {}
-    for line in lines[1:-1]:
+    for line in lines:
         key, separator, raw = line.partition(" ")
         if not separator or key not in FIELDS or key in fields:
             raise ControlDslError(f"invalid or duplicate development evidence field {key!r}")
         fields[key] = raw
+    return fields
+
+
+def _validate_development_evidence_fields(fields: dict[str, str]) -> None:
     if set(fields) != FIELDS:
         raise ControlDslError(f"DevelopmentEvidenceBundleDSL fields differ: {sorted(FIELDS - fields.keys())}")
     if fields["SCHEMA"] != SCHEMA:
@@ -169,16 +195,19 @@ def parse_development_evidence(markdown: str) -> DevelopmentEvidenceBundle:
     if fields["AUTHORITY_EFFECT"] != "none" or fields["MUTATION_EFFECT"] != "none":
         raise ControlDslError("development evidence cannot grant authority or mutation")
     try:
-        blocking = int(fields["BLOCKING_DIAGNOSTICS"])
-        warnings = int(fields["WARNING_DIAGNOSTICS"])
+        int(fields["BLOCKING_DIAGNOSTICS"])
+        int(fields["WARNING_DIAGNOSTICS"])
     except ValueError as exc:
         raise ControlDslError("diagnostic counts must be integers") from exc
+
+
+def _build_development_evidence(bundle_id: str, fields: dict[str, str]) -> DevelopmentEvidenceBundle:
     value = DevelopmentEvidenceBundle(
         bundle_id, fields["PROJECT"], fields["REPOSITORY"], fields["REPOSITORY_REVISION"],
         fields["REPOSITORY_TREE"], fields["PRODUCER"],
         json_string(fields["PRODUCER_VERSION"], "PRODUCER_VERSION"),
         fields["GRAPH_URI"], fields["DIAGNOSTICS_URI"], fields["MANIFEST_URI"],
-        fields["GRAPH_FINGERPRINT"], fields["ASSESSMENT"], blocking, warnings,
+        fields["GRAPH_FINGERPRINT"], fields["ASSESSMENT"], int(fields["BLOCKING_DIAGNOSTICS"]), int(fields["WARNING_DIAGNOSTICS"]),
         fields["SEMANTIC_HASH"], fields["EVIDENCE_URI"],
     )
     _validate_values(value)

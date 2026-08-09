@@ -85,78 +85,64 @@ class SsotStore(SsotReader):
     def promote(self, candidate_id: str, approval: PromotionApproval) -> SsotManifest:
         self._validate_approval(approval)
         with self._promotion_lock():
-            current = self.verified_manifest()
-            directory = self._candidate_directory(candidate_id)
-            candidate = load_candidate(directory)
-            if candidate.base_revision != current.revision_hash:
-                raise SsotConflict(f"STALE_BASE_REVISION:{candidate.base_revision}:{current.revision_hash}")
-            report = validate_candidate(
-                directory, current_revision=current.revision_hash,
-                current_files=current.files, validator=self.validator,
-            )
-            if not report.ok:
-                raise SsotValidationError("; ".join(report.issues))
-            if report.candidate_revision == current.revision_hash:
-                raise SsotConflict("NO_SEMANTIC_CHANGE")
-            effective_integrity = (report.integrity or approval.integrity).lower()
-            effective_completeness = (report.completeness or approval.completeness).lower()
-            if effective_integrity != "pass":
-                raise SsotValidationError("SSOT_PROMOTION_REQUIRES_INTEGRITY_PASS")
-            if effective_completeness != "complete" and not approval.allow_incomplete:
-                raise SsotValidationError("SSOT_INCOMPLETE_REQUIRES_EXPLICIT_GRANT")
-
-            promotion_uri = "urn:subactor:ssot-promotion:" + report.candidate_revision
-            receipts = tuple(dict.fromkeys((*approval.testql_receipts, *approval.eql_receipts, promotion_uri)))
-            stage = self.staging_root / (candidate_id + "-" + uuid.uuid4().hex[:8])
-            shutil.copytree(directory / "tree", stage)
-            manifest = create_manifest(
-                current.project_id, collect_file_hashes(stage), parent_hash=current.revision_hash,
-                receipts=receipts, integrity=effective_integrity,
-                completeness=effective_completeness,
-            )
-            if manifest.revision_hash != report.candidate_revision:
-                shutil.rmtree(stage)
-                raise SsotConflict("CANDIDATE_CHANGED_AFTER_VALIDATION")
-            manifest_text = render_manifest(manifest)
-            old_manifest_text = self.manifest_path.read_text(encoding="utf-8")
-            backup = self.staging_root / ("previous-" + uuid.uuid4().hex[:8])
-            swapped = False
-            try:
-                os.replace(self.current_root, backup)
-                os.replace(stage, self.current_root)
-                swapped = True
-                fsync_directory(self.ssot_root)
-                atomic_write_text(self.manifest_path, manifest_text)
-                self._write_append_only(self._history_path(manifest.revision_hash), manifest_text)
-                receipt = {
-                    "schema": "onlydsl.ssot-promotion-receipt/v1", "state": "accepted",
-                    "candidate_id": candidate_id, "project_id": manifest.project_id,
-                    "from_revision": current.revision_hash, "revision": manifest.revision_hash,
-                    "authority_contract_hash": approval.authority_contract_hash,
-                    "testql_receipts": list(approval.testql_receipts), "eql_receipts": list(approval.eql_receipts),
-                    "integrity": manifest.integrity, "completeness": manifest.completeness,
-                    "ssot_uri": "urn:subactor:ssot:" + manifest.revision_hash,
-                }
-                self._write_json_append_only(self.ssot_root / "receipts/mutation" / (manifest.revision_hash.split(":", 1)[1] + ".json"), receipt)
-            except Exception:
-                if swapped:
-                    failed = self.staging_root / ("failed-" + uuid.uuid4().hex[:8])
-                    if self.current_root.exists():
-                        os.replace(self.current_root, failed)
-                    if backup.exists():
-                        os.replace(backup, self.current_root)
-                    atomic_write_text(self.manifest_path, old_manifest_text)
-                raise
-            finally:
-                if stage.exists():
-                    shutil.rmtree(stage)
-            if backup.exists():
-                shutil.rmtree(backup)
-            save_candidate(directory, CandidateRevision(
-                candidate.candidate_id, candidate.project_id, candidate.base_revision,
-                candidate.created_at, candidate.file_hashes, candidate.evidence_uris, "promoted",
-            ))
+            current, candidate, directory, report, integrity, completeness = self._prepare_promotion(candidate_id, approval)
+            stage, manifest = self._stage_promotion(candidate_id, current, directory, report, approval, integrity, completeness)
+            self._commit_promotion(stage, manifest, current, candidate_id, approval)
+            save_candidate(directory, CandidateRevision(candidate.candidate_id, candidate.project_id, candidate.base_revision, candidate.created_at, candidate.file_hashes, candidate.evidence_uris, "promoted"))
             return self.verified_manifest()
+
+    def _prepare_promotion(self, candidate_id: str, approval: PromotionApproval):
+        current = self.verified_manifest()
+        directory = self._candidate_directory(candidate_id)
+        candidate = load_candidate(directory)
+        if candidate.base_revision != current.revision_hash:
+            raise SsotConflict(f"STALE_BASE_REVISION:{candidate.base_revision}:{current.revision_hash}")
+        report = validate_candidate(directory, current_revision=current.revision_hash, current_files=current.files, validator=self.validator)
+        if not report.ok:
+            raise SsotValidationError("; ".join(report.issues))
+        if report.candidate_revision == current.revision_hash:
+            raise SsotConflict("NO_SEMANTIC_CHANGE")
+        integrity = (report.integrity or approval.integrity).lower()
+        completeness = (report.completeness or approval.completeness).lower()
+        if integrity != "pass":
+            raise SsotValidationError("SSOT_PROMOTION_REQUIRES_INTEGRITY_PASS")
+        if completeness != "complete" and not approval.allow_incomplete:
+            raise SsotValidationError("SSOT_INCOMPLETE_REQUIRES_EXPLICIT_GRANT")
+        return current, candidate, directory, report, integrity, completeness
+
+    def _stage_promotion(self, candidate_id, current, directory, report, approval, integrity, completeness):
+        stage = self.staging_root / (candidate_id + "-" + uuid.uuid4().hex[:8])
+        shutil.copytree(directory / "tree", stage)
+        receipts = tuple(dict.fromkeys((*approval.testql_receipts, *approval.eql_receipts, "urn:subactor:ssot-promotion:" + report.candidate_revision)))
+        manifest = create_manifest(current.project_id, collect_file_hashes(stage), parent_hash=current.revision_hash, receipts=receipts, integrity=integrity, completeness=completeness)
+        if manifest.revision_hash != report.candidate_revision:
+            shutil.rmtree(stage)
+            raise SsotConflict("CANDIDATE_CHANGED_AFTER_VALIDATION")
+        return stage, manifest
+
+    def _commit_promotion(self, stage, manifest, current, candidate_id, approval) -> None:
+        manifest_text = render_manifest(manifest)
+        old_manifest_text = self.manifest_path.read_text(encoding="utf-8")
+        backup = self.staging_root / ("previous-" + uuid.uuid4().hex[:8])
+        swapped = False
+        try:
+            os.replace(self.current_root, backup); os.replace(stage, self.current_root); swapped = True
+            fsync_directory(self.ssot_root); atomic_write_text(self.manifest_path, manifest_text)
+            self._write_append_only(self._history_path(manifest.revision_hash), manifest_text)
+            self._write_json_append_only(self.ssot_root / "receipts/mutation" / (manifest.revision_hash.split(":", 1)[1] + ".json"), self._promotion_receipt(candidate_id, manifest, current, approval))
+        except Exception:
+            if swapped:
+                failed = self.staging_root / ("failed-" + uuid.uuid4().hex[:8])
+                if self.current_root.exists(): os.replace(self.current_root, failed)
+                if backup.exists(): os.replace(backup, self.current_root)
+                atomic_write_text(self.manifest_path, old_manifest_text)
+            raise
+        finally:
+            if stage.exists(): shutil.rmtree(stage)
+        if backup.exists(): shutil.rmtree(backup)
+
+    def _promotion_receipt(self, candidate_id, manifest, current, approval) -> dict:
+        return {"schema": "onlydsl.ssot-promotion-receipt/v1", "state": "accepted", "candidate_id": candidate_id, "project_id": manifest.project_id, "from_revision": current.revision_hash, "revision": manifest.revision_hash, "authority_contract_hash": approval.authority_contract_hash, "testql_receipts": list(approval.testql_receipts), "eql_receipts": list(approval.eql_receipts), "integrity": manifest.integrity, "completeness": manifest.completeness, "ssot_uri": "urn:subactor:ssot:" + manifest.revision_hash}
 
     def _candidate_directory(self, candidate_id: str) -> Path:
         if not ID_RE.fullmatch(candidate_id):

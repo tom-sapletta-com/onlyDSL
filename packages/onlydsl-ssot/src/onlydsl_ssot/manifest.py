@@ -82,6 +82,16 @@ def create_manifest(
 
 def validate_manifest(manifest: SsotManifest) -> list[str]:
     issues: list[str] = []
+    _validate_manifest_metadata(manifest, issues)
+    _validate_manifest_entries(manifest, issues)
+    expected_sections = calculate_section_hashes(manifest.files)
+    _validate_manifest_hashes(manifest, expected_sections, issues)
+    if any(not is_immutable_urn(receipt) for receipt in manifest.receipts):
+        issues.append("RECEIPT_URI_NOT_IMMUTABLE")
+    return issues
+
+
+def _validate_manifest_metadata(manifest: SsotManifest, issues: list[str]) -> None:
     if not manifest.project_id or any(character.isspace() for character in manifest.project_id):
         issues.append("PROJECT_ID_INVALID")
     if manifest.parent_hash is not None and not HASH_RE.fullmatch(manifest.parent_hash):
@@ -90,17 +100,19 @@ def validate_manifest(manifest: SsotManifest) -> list[str]:
         issues.append("INTEGRITY_INVALID")
     if manifest.completeness not in COMPLETENESS_VALUES:
         issues.append("COMPLETENESS_INVALID")
+
+
+def _validate_manifest_entries(manifest: SsotManifest, issues: list[str]) -> None:
     for name, digest in (*manifest.sections.items(), *manifest.files.items()):
         if not name or not HASH_RE.fullmatch(digest):
             issues.append(f"ENTRY_INVALID:{name}")
-    expected_sections = calculate_section_hashes(manifest.files)
+
+
+def _validate_manifest_hashes(manifest: SsotManifest, expected_sections: dict[str, str], issues: list[str]) -> None:
     if manifest.sections != expected_sections:
         issues.append("SECTION_HASH_MISMATCH")
     if manifest.revision_hash != calculate_revision_hash(manifest.project_id, expected_sections):
         issues.append("REVISION_HASH_MISMATCH")
-    if any(not is_immutable_urn(receipt) for receipt in manifest.receipts):
-        issues.append("RECEIPT_URI_NOT_IMMUTABLE")
-    return issues
 
 
 def render_manifest(manifest: SsotManifest) -> str:
@@ -125,11 +137,25 @@ def parse_manifest(text: str) -> SsotManifest:
     if not lines or not lines[0].startswith("SSOT ") or lines[-1] != "END_SSOT":
         raise SsotValidationError("invalid SSOT manifest envelope")
     project_id = lines[0].split(None, 1)[1]
+    scalars, sections, files, receipts = _parse_manifest_entries(lines[1:-1])
+    _validate_manifest_scalars(scalars)
+    manifest = SsotManifest(
+        project_id, scalars["REVISION"], None if scalars["PARENT"] == "none" else scalars["PARENT"],
+        scalars["CREATED_AT"], sections, files, tuple(receipts),
+        scalars["INTEGRITY"], scalars["COMPLETENESS"],
+    )
+    issues = validate_manifest(manifest)
+    if issues:
+        raise SsotValidationError("; ".join(issues))
+    return manifest
+
+
+def _parse_manifest_entries(lines: list[str]) -> tuple[dict[str, str], dict[str, str], dict[str, str], list[str]]:
     scalars: dict[str, str] = {}
     sections: dict[str, str] = {}
     files: dict[str, str] = {}
     receipts: list[str] = []
-    for line in lines[1:-1]:
+    for line in lines:
         parts = shlex.split(line)
         if not parts:
             continue
@@ -147,15 +173,10 @@ def parse_manifest(text: str) -> SsotManifest:
             scalars[key] = parts[1]
         else:
             raise SsotValidationError(f"invalid manifest line: {line}")
+    return scalars, sections, files, receipts
+
+
+def _validate_manifest_scalars(scalars: dict[str, str]) -> None:
     required = {"SCHEMA", "REVISION", "PARENT", "CREATED_AT", "INTEGRITY", "COMPLETENESS"}
     if set(scalars) != required or scalars.get("SCHEMA") != SCHEMA:
         raise SsotValidationError("manifest requires exact schema/revision/parent/time/integrity/completeness")
-    manifest = SsotManifest(
-        project_id, scalars["REVISION"], None if scalars["PARENT"] == "none" else scalars["PARENT"],
-        scalars["CREATED_AT"], sections, files, tuple(receipts),
-        scalars["INTEGRITY"], scalars["COMPLETENESS"],
-    )
-    issues = validate_manifest(manifest)
-    if issues:
-        raise SsotValidationError("; ".join(issues))
-    return manifest

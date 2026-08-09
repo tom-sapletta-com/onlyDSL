@@ -175,29 +175,6 @@ flowchart TD
         ifuri_core__artifacts__LocalFileArtifactStore__get["get"]
         ifuri_core__artifacts__LocalFileArtifactStore__exists["exists"]
     end
-    subgraph ifuri_core__cqrs
-        ifuri_core__cqrs__AggregateRoot____init__["__init__"]
-        ifuri_core__cqrs__AggregateRoot__apply["apply"]
-        ifuri_core__cqrs__AggregateRoot__load_from_history["load_from_history"]
-        ifuri_core__cqrs__AggregateRoot__raise_event["raise_event"]
-        ifuri_core__cqrs__AggregateRoot__pull_uncommitted["pull_uncommitted"]
-        ifuri_core__cqrs__AggregateRepository____init__["__init__"]
-        ifuri_core__cqrs__AggregateRepository__load["load"]
-        ifuri_core__cqrs__AggregateRepository__save["save"]
-    end
-    subgraph ifuri_core__dsl_document
-        ifuri_core__dsl_document__make_dsl_document["make_dsl_document"]
-        ifuri_core__dsl_document__validate_dsl_document["validate_dsl_document"]
-    end
-    subgraph ifuri_core__envelope
-        ifuri_core__envelope__EnvelopeCodec__create["create"]
-        ifuri_core__envelope__EnvelopeCodec__validate["validate"]
-        ifuri_core__envelope__EnvelopeCodec___validate_kind_uri["_validate_kind_uri"]
-        ifuri_core__envelope__EnvelopeCodec__serialize["serialize"]
-        ifuri_core__envelope__EnvelopeCodec__parse["parse"]
-        ifuri_core__envelope__EnvelopeCodec__unpack["unpack"]
-        ifuri_core__envelope__EnvelopeCodec__view["view"]
-    end
     subgraph ifuri_core__event_store
         ifuri_core__event_store__SqliteEventStore____init__["__init__"]
         ifuri_core__event_store__SqliteEventStore___init_schema["_init_schema"]
@@ -223,19 +200,7 @@ flowchart TD
         ifuri_core__llm_gateway__gateway_provider_status["gateway_provider_status"]
     end
     subgraph ifuri_core__manifest
-        ifuri_core__manifest__TransportPolicy__ordered["ordered"]
-        ifuri_core__manifest__Capability__match["match"]
-        ifuri_core__manifest__CapabilityRegistry____init__["__init__"]
-        ifuri_core__manifest__CapabilityRegistry__register["register"]
-        ifuri_core__manifest__CapabilityRegistry__from_mapping("from_mapping CC=13")
         ifuri_core__manifest__CapabilityRegistry__from_file["from_file"]
-        ifuri_core__manifest__CapabilityRegistry__resolve("resolve CC=8")
-        ifuri_core__manifest__CapabilityRegistry__explain["explain"]
-        ifuri_core__manifest__CapabilityRegistry__dump["dump"]
-        ifuri_core__manifest___pattern_tokens("_pattern_tokens CC=12")
-        ifuri_core__manifest___validate_pattern_tokens["_validate_pattern_tokens"]
-        ifuri_core__manifest___parse_pattern["_parse_pattern"]
-        ifuri_core__manifest___validate_capability["_validate_capability"]
     end
     subgraph ifuri_core__outbox
         ifuri_core__outbox__OutboxStore__pending_outbox["pending_outbox"]
@@ -255,18 +220,7 @@ flowchart TD
         ifuri_core__postgres_store__PostgresEventStore__outbox_stats["outbox_stats"]
         ifuri_core__postgres_store__PostgresEventStore__close["close"]
     end
-    subgraph ifuri_core__runtime
-        ifuri_core__runtime__RouteDecision__to_dict["to_dict"]
-        ifuri_core__runtime__IfuriRuntime____init__["__init__"]
-        ifuri_core__runtime__IfuriRuntime__inspect_route["inspect_route"]
-        ifuri_core__runtime__IfuriRuntime__call["call"]
-        ifuri_core__runtime__IfuriRuntime__call_envelope["call_envelope"]
-        ifuri_core__runtime__IfuriRuntime__emit["emit"]
-        ifuri_core__runtime__IfuriRuntime___validate_payload_contract["_validate_payload_contract"]
-    end
     subgraph ifuri_core__transport
-        ifuri_core__transport__IfTransport__call["call"]
-        ifuri_core__transport__IfTransport__publish["publish"]
         ifuri_core__transport__InProcessTransport____init__["__init__"]
         ifuri_core__transport__InProcessTransport__register["register"]
         ifuri_core__transport__InProcessTransport__has_handler["has_handler"]
@@ -300,6 +254,15 @@ flowchart TD
         ifuri_core__transport___validate_nats_subject["_validate_nats_subject"]
         ifuri_core__transport___js_response["_js_response"]
     end
+    subgraph intent_codegen
+        intent_codegen___normalize_python_expr["_normalize_python_expr"]
+        intent_codegen___js_literal["_js_literal"]
+        intent_codegen__php_array["php_array"]
+        intent_codegen___codegen_python("_codegen_python CC=11")
+        intent_codegen___codegen_javascript_like("_codegen_javascript_like CC=13")
+        intent_codegen___codegen_php("_codegen_php CC=14")
+        intent_codegen__generate_code["generate_code"]
+    end
     subgraph intentdsl
         intentdsl__extract_intentdsl["extract_intentdsl"]
         intentdsl___parse_literal("_parse_literal CC=8")
@@ -321,12 +284,7 @@ flowchart TD
         intentdsl__demo_english_to_dsl["demo_english_to_dsl"]
         intentdsl___auth_recovery_lines["_auth_recovery_lines"]
         intentdsl___generic_demo_lines["_generic_demo_lines"]
-        intentdsl___js_literal["_js_literal"]
-        intentdsl___codegen_python("_codegen_python CC=11")
-        intentdsl___codegen_javascript_like("_codegen_javascript_like CC=13")
-        intentdsl___codegen_php("_codegen_php CC=14")
         intentdsl__codegen["codegen"]
-        intentdsl__php_array["php_array"]
     end
     subgraph intentdsl__Program
         intentdsl__Program__to_dict["to_dict"]
@@ -376,14 +334,14 @@ flowchart TD
         onlydsl__governance__authority_projection__render_authority_projection["render_authority_projection"]
     end
     subgraph onlydsl__runtime
-        onlydsl__runtime__integrity___parse_finding("_parse_finding CC=8")
-        onlydsl__runtime__integrity___readiness["_readiness"]
-        onlydsl__runtime__integrity__parse_project_integrity("parse_project_integrity CC=12")
         onlydsl__runtime__repair_controller__RepairCycle__to_dict["to_dict"]
         onlydsl__runtime__repair_controller__load_repair_registry["load_repair_registry"]
         onlydsl__runtime__repair_controller__plan_integrity_repairs("plan_integrity_repairs CC=8")
         onlydsl__runtime__repair_controller__execute_repair_cycle("execute_repair_cycle CC=8")
         onlydsl__runtime__repair_controller___receipt["_receipt"]
+        onlydsl__runtime__integrity___parse_finding("_parse_finding CC=8")
+        onlydsl__runtime__integrity___readiness["_readiness"]
+        onlydsl__runtime__integrity__parse_project_integrity("parse_project_integrity CC=12")
     end
     subgraph onlydsl__ssot
         onlydsl__ssot__io__atomic_write_bytes["atomic_write_bytes"]
@@ -401,69 +359,38 @@ flowchart TD
         onlydsl__ssot__cli___json["_json"]
         onlydsl__ssot__cli__build_parser["build_parser"]
         onlydsl__ssot__cli__main{{main CC=23}}
-        onlydsl__ssot__validation___validate_known_dsl{{_validate_known_dsl CC=15}}
-        onlydsl__ssot__validation__validate_tree{{validate_tree CC=15}}
-        onlydsl__ssot__validation__render_validation["render_validation"]
-        onlydsl__ssot__candidate___candidate_from_dict["_candidate_from_dict"]
-        onlydsl__ssot__candidate__load_candidate["load_candidate"]
-        onlydsl__ssot__candidate__save_candidate["save_candidate"]
-        onlydsl__ssot__candidate__create_candidate{{create_candidate CC=17}}
+        onlydsl__ssot__candidate__create_candidate["create_candidate"]
         onlydsl__ssot__candidate__validate_candidate["validate_candidate"]
-        onlydsl__ssot__reader__SsotReader____init__["__init__"]
-        onlydsl__ssot__reader__SsotReader__manifest["manifest"]
-        onlydsl__ssot__reader__SsotReader__verified_manifest["verified_manifest"]
-        onlydsl__ssot__reader__SsotReader__status["status"]
-        onlydsl__ssot__reader__SsotReader__history["history"]
-        onlydsl__ssot__manifest__utc_now["utc_now"]
-        onlydsl__ssot__manifest__digest_bytes["digest_bytes"]
-        onlydsl__ssot__manifest__is_immutable_urn["is_immutable_urn"]
-        onlydsl__ssot__manifest__normalize_relative_path["normalize_relative_path"]
-        onlydsl__ssot__manifest__collect_file_hashes["collect_file_hashes"]
-        onlydsl__ssot__manifest__calculate_section_hashes["calculate_section_hashes"]
-        onlydsl__ssot__manifest__calculate_revision_hash["calculate_revision_hash"]
-        onlydsl__ssot__manifest__create_manifest["create_manifest"]
-        onlydsl__ssot__manifest__validate_manifest{{validate_manifest CC=15}}
-        onlydsl__ssot__manifest__render_manifest["render_manifest"]
-        onlydsl__ssot__manifest__parse_manifest{{parse_manifest CC=21}}
+        onlydsl__ssot__validation___validate_known_dsl("_validate_known_dsl CC=14")
+        onlydsl__ssot__validation__validate_tree("validate_tree CC=8")
+        onlydsl__ssot__validation___validate_tree_file["_validate_tree_file"]
+        onlydsl__ssot__validation___is_validatable_dsl_path["_is_validatable_dsl_path"]
+        onlydsl__ssot__validation___is_excluded_dsl_content["_is_excluded_dsl_content"]
         onlydsl__ssot__writer__SsotStore____init__["__init__"]
-        onlydsl__ssot__writer__SsotStore__initialize("initialize CC=8")
-        onlydsl__ssot__writer__SsotStore__create_candidate["create_candidate"]
-        onlydsl__ssot__writer__SsotStore__validate_candidate["validate_candidate"]
-        onlydsl__ssot__writer__SsotStore__candidate_diff["candidate_diff"]
-        onlydsl__ssot__writer__SsotStore__promote{{promote CC=16}}
-        onlydsl__ssot__writer__SsotStore___candidate_directory["_candidate_directory"]
-        onlydsl__ssot__writer__SsotStore___history_path["_history_path"]
-        onlydsl__ssot__writer__SsotStore___write_append_only["_write_append_only"]
-        onlydsl__ssot__writer__SsotStore___write_json_append_only["_write_json_append_only"]
-        onlydsl__ssot__writer__SsotStore___validate_approval("_validate_approval CC=10")
-        onlydsl__ssot__writer__SsotStore___promotion_lock["_promotion_lock"]
-        onlydsl__ssot__writer__SsotStore___recover_stale_lock["_recover_stale_lock"]
     end
     subgraph packages__onlydsl_contracts
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__extract_one["extract_one"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__json_string["json_string"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__quoted["quoted"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__canonical_hash["canonical_hash"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__list_value["list_value"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__parse_json_list["parse_json_list"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__AssumptionDocument__replace_with_evidence["replace_with_evidence"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption___parse_assumption_fields["_parse_assumption_fields"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption___parse_assumption["_parse_assumption"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__parse_assumptions("parse_assumptions CC=9")
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__render_assumptions["render_assumptions"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__assumptions_from_integrity("assumptions_from_integrity CC=8")
-        packages__onlydsl_contracts__src__onlydsl_contracts__ifuri__IfUri__parse{{parse CC=16}}
+        packages__onlydsl_contracts__src__onlydsl_contracts__ifuri__IfUri__parse["parse"]
         packages__onlydsl_contracts__src__onlydsl_contracts__ifuri__IfUri____str__["__str__"]
         packages__onlydsl_contracts__src__onlydsl_contracts__ifuri__IfUri__to_subject["to_subject"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__ifuri___validate_uri_parts("_validate_uri_parts CC=8")
+        packages__onlydsl_contracts__src__onlydsl_contracts__ifuri___path_segments["_path_segments"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__ifuri___validate_segments["_validate_segments"]
         packages__onlydsl_contracts__src__onlydsl_contracts__ifuri__canonicalize["canonicalize"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__ParameterContractDocument__validate["validate"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___validate_metadata["_validate_metadata"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___validate_value("_validate_value CC=9")
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___value_matches_type["_value_matches_type"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter_fields["_parse_parameter_fields"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_range["_parse_range"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_allowed["_parse_allowed"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter["_parse_parameter"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__parse_parameter_contracts("parse_parameter_contracts CC=9")
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__render_parameter_contracts["render_parameter_contracts"]
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust__TrustPolicy__priority_for["priority_for"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust__parse_trust_policy{{parse_trust_policy CC=16}}
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust___parse_role_fields["_parse_role_fields"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust___parse_role["_parse_role"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust__parse_trust_policy("parse_trust_policy CC=9")
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust__render_trust_policy["render_trust_policy"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__semantic_twin_hash["semantic_twin_hash"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan___parse_task["_parse_task"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan___validate_tasks["_validate_tasks"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__parse_bound_build_plan{{parse_bound_build_plan CC=21}}
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__validate_bound_build_plan("validate_bound_build_plan CC=10")
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__spatial_class__SpatialClassDocument__classify["classify"]
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__spatial_class__SpatialClassDocument__geometry_subjects["geometry_subjects"]
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__spatial_class__SpatialClassDocument__required_checks["required_checks"]
@@ -472,25 +399,128 @@ flowchart TD
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__spatial_class__parse_spatial_class("parse_spatial_class CC=11")
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__spatial_class__render_spatial_class["render_spatial_class"]
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__spatial_class__spatial_class_from_twin["spatial_class_from_twin"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__extract_one["extract_one"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__json_string["json_string"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__quoted["quoted"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__canonical_hash["canonical_hash"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__list_value["list_value"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__parse_json_list["parse_json_list"]
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__evidence_set__create_evidence_set["create_evidence_set"]
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__evidence_set__render_evidence_set["render_evidence_set"]
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__evidence_set__parse_evidence_set("parse_evidence_set CC=12")
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__ParameterContractDocument__validate{{validate CC=17}}
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter_fields["_parse_parameter_fields"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_range["_parse_range"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_allowed["_parse_allowed"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter["_parse_parameter"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__parse_parameter_contracts("parse_parameter_contracts CC=9")
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__render_parameter_contracts["render_parameter_contracts"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim___parse_claim_fields["_parse_claim_fields"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim___parse_claim("_parse_claim CC=12")
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim__parse_claims("parse_claims CC=9")
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim__render_claims["render_claims"]
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan___validate_repair_task["_validate_repair_task"]
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__validate_repair_plan("validate_repair_plan CC=10")
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__render_repair_plan["render_repair_plan"]
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan___parse_repair_task["_parse_repair_task"]
         packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__parse_repair_plan("parse_repair_plan CC=11")
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim___parse_claim_fields["_parse_claim_fields"]
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim___parse_claim("_parse_claim CC=12")
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim__parse_claims("parse_claims CC=9")
-        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim__render_claims["render_claims"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___semantic_payload["_semantic_payload"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_values["_validate_values"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_identifiers["_validate_identifiers"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_producer["_validate_producer"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_uris["_validate_uris"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_assessment("_validate_assessment CC=10")
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__create_development_evidence["create_development_evidence"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__render_development_evidence["render_development_evidence"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__parse_development_evidence["parse_development_evidence"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___parse_development_evidence_fields["_parse_development_evidence_fields"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_development_evidence_fields["_validate_development_evidence_fiel"]
+        packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___build_development_evidence["_build_development_evidence"]
+    end
+    subgraph packages__onlydsl_core
+        packages__onlydsl_core__src__onlydsl_core__runtime__RouteDecision__to_dict["to_dict"]
+        packages__onlydsl_core__src__onlydsl_core__runtime__IfuriRuntime____init__["__init__"]
+        packages__onlydsl_core__src__onlydsl_core__runtime__IfuriRuntime__inspect_route["inspect_route"]
+        packages__onlydsl_core__src__onlydsl_core__runtime__IfuriRuntime__call["call"]
+        packages__onlydsl_core__src__onlydsl_core__runtime__IfuriRuntime__call_envelope["call_envelope"]
+        packages__onlydsl_core__src__onlydsl_core__runtime__IfuriRuntime__emit["emit"]
+        packages__onlydsl_core__src__onlydsl_core__runtime__IfuriRuntime___validate_payload_contract["_validate_payload_contract"]
+        packages__onlydsl_core__src__onlydsl_core__ports__IfTransport__call["call"]
+        packages__onlydsl_core__src__onlydsl_core__ports__IfTransport__publish["publish"]
+        packages__onlydsl_core__src__onlydsl_core__cqrs__AggregateRoot____init__["__init__"]
+        packages__onlydsl_core__src__onlydsl_core__cqrs__AggregateRoot__apply["apply"]
+        packages__onlydsl_core__src__onlydsl_core__cqrs__AggregateRoot__load_from_history["load_from_history"]
+        packages__onlydsl_core__src__onlydsl_core__cqrs__AggregateRoot__raise_event["raise_event"]
+        packages__onlydsl_core__src__onlydsl_core__cqrs__AggregateRoot__pull_uncommitted["pull_uncommitted"]
+        packages__onlydsl_core__src__onlydsl_core__cqrs__AggregateRepository____init__["__init__"]
+        packages__onlydsl_core__src__onlydsl_core__cqrs__AggregateRepository__load["load"]
+        packages__onlydsl_core__src__onlydsl_core__cqrs__AggregateRepository__save["save"]
+        packages__onlydsl_core__src__onlydsl_core__capabilities__TransportPolicy__ordered["ordered"]
+        packages__onlydsl_core__src__onlydsl_core__capabilities__Capability__match["match"]
+        packages__onlydsl_core__src__onlydsl_core__capabilities__CapabilityRegistry____init__["__init__"]
+        packages__onlydsl_core__src__onlydsl_core__capabilities__CapabilityRegistry__register["register"]
+        packages__onlydsl_core__src__onlydsl_core__capabilities__CapabilityRegistry__from_mapping("from_mapping CC=13")
+        packages__onlydsl_core__src__onlydsl_core__capabilities__CapabilityRegistry__resolve("resolve CC=8")
+        packages__onlydsl_core__src__onlydsl_core__capabilities__CapabilityRegistry__explain["explain"]
+        packages__onlydsl_core__src__onlydsl_core__capabilities__CapabilityRegistry__dump["dump"]
+        packages__onlydsl_core__src__onlydsl_core__capabilities___pattern_tokens("_pattern_tokens CC=12")
+        packages__onlydsl_core__src__onlydsl_core__capabilities___validate_pattern_tokens["_validate_pattern_tokens"]
+        packages__onlydsl_core__src__onlydsl_core__capabilities___parse_pattern["_parse_pattern"]
+        packages__onlydsl_core__src__onlydsl_core__capabilities___validate_capability["_validate_capability"]
+        packages__onlydsl_core__src__onlydsl_core__envelope__EnvelopeCodec__create["create"]
+        packages__onlydsl_core__src__onlydsl_core__envelope__EnvelopeCodec__validate["validate"]
+        packages__onlydsl_core__src__onlydsl_core__envelope__EnvelopeCodec___validate_kind_uri["_validate_kind_uri"]
+        packages__onlydsl_core__src__onlydsl_core__envelope__EnvelopeCodec__serialize["serialize"]
+        packages__onlydsl_core__src__onlydsl_core__envelope__EnvelopeCodec__parse["parse"]
+        packages__onlydsl_core__src__onlydsl_core__envelope__EnvelopeCodec__unpack["unpack"]
+        packages__onlydsl_core__src__onlydsl_core__envelope__EnvelopeCodec__view["view"]
+        packages__onlydsl_core__src__onlydsl_core__dsl_document__make_dsl_document["make_dsl_document"]
+        packages__onlydsl_core__src__onlydsl_core__dsl_document__validate_dsl_document["validate_dsl_document"]
+    end
+    subgraph packages__onlydsl_ssot
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest__utc_now["utc_now"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest__digest_bytes["digest_bytes"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest__is_immutable_urn["is_immutable_urn"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest__normalize_relative_path["normalize_relative_path"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest__collect_file_hashes["collect_file_hashes"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest__calculate_section_hashes["calculate_section_hashes"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest__calculate_revision_hash["calculate_revision_hash"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest__create_manifest["create_manifest"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest__validate_manifest["validate_manifest"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest___validate_manifest_metadata("_validate_manifest_metadata CC=8")
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest___validate_manifest_entries["_validate_manifest_entries"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest___validate_manifest_hashes["_validate_manifest_hashes"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest__render_manifest["render_manifest"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest__parse_manifest("parse_manifest CC=8")
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest___parse_manifest_entries("_parse_manifest_entries CC=12")
+        packages__onlydsl_ssot__src__onlydsl_ssot__manifest___validate_manifest_scalars["_validate_manifest_scalars"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__candidate___candidate_from_dict["_candidate_from_dict"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__candidate__load_candidate["load_candidate"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__candidate__save_candidate["save_candidate"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__candidate__create_candidate["create_candidate"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__candidate___prepare_candidate_tree["_prepare_candidate_tree"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__candidate___apply_candidate_changes("_apply_candidate_changes CC=8")
+        packages__onlydsl_ssot__src__onlydsl_ssot__candidate___validate_candidate_tree["_validate_candidate_tree"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__candidate___validate_candidate_evidence["_validate_candidate_evidence"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__candidate__validate_candidate["validate_candidate"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__validation__TreeValidator____call__["__call__"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__validation__basic_validate_tree("basic_validate_tree CC=14")
+        packages__onlydsl_ssot__src__onlydsl_ssot__validation__render_validation["render_validation"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__reader__SsotReader____init__["__init__"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__reader__SsotReader__manifest["manifest"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__reader__SsotReader__verified_manifest["verified_manifest"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__reader__SsotReader__status["status"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__reader__SsotReader__history["history"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore____init__["__init__"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore__initialize("initialize CC=8")
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore__create_candidate["create_candidate"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore__validate_candidate["validate_candidate"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore__candidate_diff["candidate_diff"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore__promote["promote"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___prepare_promotion("_prepare_promotion CC=9")
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___stage_promotion["_stage_promotion"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___commit_promotion["_commit_promotion"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___promotion_receipt["_promotion_receipt"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___candidate_directory["_candidate_directory"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___history_path["_history_path"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___write_append_only["_write_append_only"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___write_json_append_only["_write_json_append_only"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___validate_approval("_validate_approval CC=10")
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___promotion_lock["_promotion_lock"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___recover_stale_lock["_recover_stale_lock"]
     end
     subgraph patchdsl
         patchdsl___json_string["_json_string"]
@@ -610,180 +640,6 @@ flowchart TD
     evolution__EvolutionStore__status --> evolution___parse_event
     diagnostics__diagnose_incident --> diagnostics___candidate_paths
     diagnostics__diagnose_incident --> diagnostics___q
-    intentdsl___parse_rule_statement --> intentdsl___parse_call
-    intentdsl__parse_dsl --> intentdsl___parse_program_declaration
-    intentdsl__parse_dsl --> intentdsl___parse_rule_statement
-    intentdsl___expr_tree --> intentdsl___normalize_expr
-    intentdsl__expr_names --> intentdsl___expr_tree
-    intentdsl__eval_expr --> intentdsl___expr_tree
-    intentdsl___validate_rule_expressions --> intentdsl__expr_names
-    intentdsl__validate_program --> intentdsl___validate_rule_runtime_capabilities
-    intentdsl__validate_program --> intentdsl___validate_rule_expressions
-    intentdsl__validate_markdown --> intentdsl__extract_intentdsl
-    intentdsl__validate_markdown --> intentdsl__parse_dsl
-    intentdsl__validate_markdown --> intentdsl__validate_program
-    intentdsl__run_program --> intentdsl__validate_program
-    intentdsl__run_program --> intentdsl__eval_expr
-    intentdsl__run_program --> intentdsl___type_ok
-    intentdsl__demo_english_to_dsl --> intentdsl___auth_recovery_lines
-    intentdsl__demo_english_to_dsl --> intentdsl___generic_demo_lines
-    intentdsl___generic_demo_lines --> intentdsl___slug_words
-    intentdsl___codegen_python --> intentdsl___normalize_expr
-    intentdsl___codegen_javascript_like --> intentdsl___js_literal
-    intentdsl__codegen --> intentdsl___codegen_php
-    intentdsl__codegen --> intentdsl___codegen_python
-    intentdsl__codegen --> intentdsl___codegen_javascript_like
-    patchdsl___parse_change --> patchdsl___json_string
-    patchdsl__parse_patchdsl --> patchdsl___json_string
-    patchdsl___validate_change --> patchdsl___count_diff_lines
-    patchdsl__validate_patch_policy --> patchdsl___validate_change
-    patchdsl__validate_patch_markdown --> patchdsl__parse_patchdsl
-    patchdsl__validate_patch_markdown --> patchdsl__validate_patch_policy
-    governance__authorize_patch --> aql__operation_for_path
-    governance__build_process_envelope --> governance__canonical_hash
-    governance__build_process_envelope --> aql__operation_for_path
-    governance__complete_envelope --> governance__canonical_hash
-    governance__reject_envelope --> governance__canonical_hash
-    boundary__DslBundle__validate_for_llm --> boundary__assert_dsl_only
-    boundary__build_source_compile_bundle --> boundary__contract_dsl
-    boundary__build_source_compile_bundle --> boundary__task_dsl
-    boundary__build_source_compile_bundle --> boundary__source_text_dsl
-    boundary__build_context_analysis_bundle --> boundary__assert_dsl_only
-    boundary__build_context_analysis_bundle --> boundary__contract_dsl
-    boundary__build_context_analysis_bundle --> boundary__task_dsl
-    boundary__build_twin_bootstrap_bundle --> boundary__assert_dsl_only
-    boundary__build_twin_bootstrap_bundle --> boundary__contract_dsl
-    boundary__build_twin_bootstrap_bundle --> boundary__task_dsl
-    boundary__build_twin_bootstrap_bundle --> boundary__source_text_dsl
-    boundary__build_twin_update_bundle --> boundary__assert_dsl_only
-    boundary__build_twin_update_bundle --> boundary__contract_dsl
-    boundary__build_twin_update_bundle --> boundary__task_dsl
-    boundary__build_build_plan_bundle --> boundary__assert_dsl_only
-    boundary__build_build_plan_bundle --> boundary__contract_dsl
-    boundary__build_build_plan_bundle --> boundary__task_dsl
-    boundary__build_autonomous_repair_bundle --> boundary__assert_dsl_only
-    boundary__build_autonomous_repair_bundle --> boundary__code_dsl
-    boundary__build_autonomous_repair_bundle --> boundary__contract_dsl
-    boundary__build_autonomous_repair_bundle --> boundary__task_dsl
-    boundary__build_autonomous_repair_bundle --> boundary__patchdsl_schema
-    boundary__build_autonomous_repair_bundle --> boundary__evolution_policy_dsl
-    twin_store__TwinStore__load --> digital_twin__parse_twindsl
-    twin_store__TwinStore__load --> digital_twin__extract_twindsl
-    twin_store__TwinStore__save --> digital_twin__validate_twin_markdown
-    twin_store__TwinStore__save --> digital_twin__parse_twindsl
-    twin_store__TwinStore__save --> digital_twin__extract_twindsl
-    ifuri_core__llm_gateway___reply --> ifuri_core__dsl_document__make_dsl_document
-    ifuri_core__llm_gateway__build_llm_reasoner_handler --> ifuri_core__dsl_document__validate_dsl_document
-    ifuri_core__llm_gateway__build_llm_reasoner_handler --> boundary__assert_dsl_only
-    ifuri_core__llm_gateway__build_llm_reasoner_handler --> contextdsl__validate_context_markdown
-    ifuri_core__llm_gateway__build_llm_reasoner_handler --> llm_client__analyze_context
-    ifuri_core__llm_gateway__build_llm_reasoner_handler --> ifuri_core__llm_gateway___reply
-    ifuri_core__llm_gateway___extract_source_payload --> boundary__assert_dsl_only
-    ifuri_core__llm_gateway__build_llm_semantic_handler --> ifuri_core__dsl_document__validate_dsl_document
-    ifuri_core__llm_gateway__build_llm_semantic_handler --> ifuri_core__llm_gateway___extract_source_payload
-    ifuri_core__llm_gateway__build_llm_semantic_handler --> llm_client__convert_english
-    ifuri_core__llm_gateway__build_llm_semantic_handler --> boundary__assert_dsl_only
-    ifuri_core__llm_gateway__build_llm_semantic_handler --> ifuri_core__llm_gateway___reply
-    ifuri_core__llm_gateway__build_llm_twin_bootstrap_handler --> ifuri_core__dsl_document__validate_dsl_document
-    ifuri_core__llm_gateway__build_llm_twin_bootstrap_handler --> ifuri_core__llm_gateway___extract_source_payload
-    ifuri_core__llm_gateway__build_llm_twin_bootstrap_handler --> llm_client__bootstrap_twin
-    ifuri_core__llm_gateway__build_llm_twin_bootstrap_handler --> ifuri_core__llm_gateway___reply
-    ifuri_core__llm_gateway__build_llm_twin_bootstrap_handler --> digital_twin__validate_twin_markdown
-    ifuri_core__llm_gateway___extract_bundle_blocks --> boundary__assert_dsl_only
-    ifuri_core__llm_gateway__build_llm_twin_update_handler --> ifuri_core__dsl_document__validate_dsl_document
-    ifuri_core__llm_gateway__build_llm_twin_update_handler --> ifuri_core__llm_gateway___extract_bundle_blocks
-    ifuri_core__llm_gateway__build_llm_twin_update_handler --> llm_client__update_twin
-    ifuri_core__llm_gateway__build_llm_twin_update_handler --> ifuri_core__llm_gateway___reply
-    ifuri_core__llm_gateway__build_llm_twin_update_handler --> source_ingest__validate_sourceindex_markdown
-    ifuri_core__llm_gateway__build_llm_build_plan_handler --> ifuri_core__dsl_document__validate_dsl_document
-    ifuri_core__llm_gateway__build_llm_build_plan_handler --> llm_client__plan_build
-    ifuri_core__llm_gateway__build_llm_build_plan_handler --> ifuri_core__llm_gateway___reply
-    ifuri_core__llm_gateway__build_llm_build_plan_handler --> digital_twin__validate_twin_markdown
-    ifuri_core__llm_gateway__build_llm_build_plan_handler --> digital_twin__validate_buildplan_markdown
-    ifuri_core__llm_gateway__build_llm_patch_handler --> ifuri_core__dsl_document__validate_dsl_document
-    ifuri_core__llm_gateway__build_llm_patch_handler --> boundary__assert_dsl_only
-    ifuri_core__llm_gateway__build_llm_patch_handler --> llm_client__propose_code_patch
-    ifuri_core__llm_gateway__build_llm_patch_handler --> ifuri_core__llm_gateway___reply
-    ifuri_core__llm_gateway__gateway_provider_status --> llm_client__provider_status
-    onlydsl__ssot__io__atomic_write_bytes --> onlydsl__ssot__io__fsync_directory
-    onlydsl__ssot__io__atomic_write_text --> onlydsl__ssot__io__atomic_write_bytes
-    onlydsl__ssot__io__atomic_write_json --> onlydsl__ssot__io__atomic_write_text
-    onlydsl__ssot__registry__ProjectRegistry__entries --> onlydsl__ssot__registry__parse_registry
-    onlydsl__ssot__registry__ProjectRegistry__register --> onlydsl__ssot__io__atomic_write_text
-    onlydsl__ssot__registry__ProjectRegistry__register --> onlydsl__ssot__registry__render_registry
-    scripts__startup_testql__render_testqldsl --> scripts__startup_testql__now
-    scripts__startup_testql__verify --> scripts__startup_testql__synthetic_failure
-    scripts__startup_testql__write_twin_observation --> scripts__startup_testql__now
-    scripts__startup_testql__write_twin_observation --> scripts__startup_testql__failure_summary
-    scripts__startup_testql__main --> scripts__startup_testql__wait_for
-    scripts__startup_testql__main --> scripts__startup_testql__verify
-    scripts__startup_testql__main --> scripts__startup_testql__synthetic_failure
-    multiruntime__typescript__ifuri__toNatsSubject --> multiruntime__typescript__ifuri__parseIfUri
-    multiruntime__javascript__ifuri__canonical --> multiruntime__javascript__ifuri__parseIfUri
-    multiruntime__javascript__ifuri__toNatsSubject --> multiruntime__javascript__ifuri__parseIfUri
-    multiruntime__javascript__ifuri__raw --> multiruntime__javascript__ifuri__canonical
-    multiruntime__javascript__ifuri__raw --> multiruntime__javascript__ifuri__toNatsSubject
-    multiruntime__php__ifuri__canonical_ifuri --> multiruntime__php__ifuri__parse_ifuri
-    multiruntime__php__ifuri__nats_subject --> multiruntime__php__ifuri__parse_ifuri
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption___parse_assumption --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__json_string
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption___parse_assumption --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__parse_json_list
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__parse_assumptions --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption___parse_assumption_fields
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__parse_assumptions --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption___parse_assumption
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__parse_assumptions --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__extract_one
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__render_assumptions --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__quoted
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__render_assumptions --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__list_value
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust__render_trust_policy --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__list_value
-    ifuri_core__manifest__Capability__match --> ifuri_core__manifest___parse_pattern
-    ifuri_core__manifest__CapabilityRegistry__register --> ifuri_core__manifest___validate_capability
-    ifuri_core__manifest___parse_pattern --> ifuri_core__manifest___pattern_tokens
-    ifuri_core__manifest___parse_pattern --> ifuri_core__manifest___validate_pattern_tokens
-    ifuri_core__manifest___validate_capability --> ifuri_core__manifest___parse_pattern
-    onlydsl__runtime__integrity___parse_finding --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__parse_json_list
-    onlydsl__runtime__integrity__parse_project_integrity --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__extract_one
-    onlydsl__runtime__integrity__parse_project_integrity --> onlydsl__runtime__integrity___readiness
-    onlydsl__runtime__integrity__parse_project_integrity --> governance__canonical_hash
-    source_ingest__SourceIndex__to_markdown --> evolution___q
-    source_ingest___flush_paragraph --> source_ingest___normalize_text
-    source_ingest___parse_text_content --> source_ingest___flush_paragraph
-    source_ingest__parse_markdown --> source_ingest___extract_code_blocks
-    source_ingest__parse_markdown --> source_ingest___parse_text_content
-    source_ingest__build_source_index --> source_ingest___sid
-    source_ingest__build_source_index --> source_ingest__parse_markdown
-    source_ingest__extract_source_refs --> source_ingest__validate_sourceindex_markdown
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan___parse_task --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__json_string
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__parse_bound_build_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan___validate_tasks
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__validate_bound_build_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__parse_bound_build_plan
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__validate_bound_build_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__semantic_twin_hash
-    onlydsl__ssot__cli__main --> onlydsl__ssot__cli__build_parser
-    onlydsl__ssot__cli__main --> onlydsl__ssot__cli___json
-    onlydsl__ssot__cli__main --> source_ingest__build_source_index
-    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__parse_assumptions
-    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__evidence_set__parse_evidence_set
-    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__parse_parameter_contracts
-    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__spatial_class__parse_spatial_class
-    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__parse_repair_plan
-    onlydsl__ssot__validation___validate_known_dsl --> onlydsl__runtime__integrity__parse_project_integrity
-    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim__parse_claims
-    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust__parse_trust_policy
-    onlydsl__ssot__validation___validate_known_dsl --> source_ingest__validate_sourceindex_markdown
-    onlydsl__ssot__validation___validate_known_dsl --> digital_twin__validate_twin_markdown
-    onlydsl__ssot__validation__validate_tree --> onlydsl__ssot__manifest__collect_file_hashes
-    onlydsl__ssot__validation__validate_tree --> onlydsl__ssot__validation___validate_known_dsl
-    onlydsl__ssot__candidate__load_candidate --> onlydsl__ssot__candidate___candidate_from_dict
-    onlydsl__ssot__candidate__save_candidate --> onlydsl__ssot__io__atomic_write_json
-    onlydsl__ssot__candidate__create_candidate --> onlydsl__ssot__manifest__collect_file_hashes
-    onlydsl__ssot__candidate__create_candidate --> onlydsl__ssot__validation__validate_tree
-    onlydsl__ssot__candidate__create_candidate --> onlydsl__ssot__candidate__save_candidate
-    onlydsl__ssot__candidate__create_candidate --> onlydsl__ssot__io__atomic_write_text
-    onlydsl__ssot__candidate__validate_candidate --> onlydsl__ssot__candidate__load_candidate
-    onlydsl__ssot__candidate__validate_candidate --> onlydsl__ssot__validation__validate_tree
-    onlydsl__ssot__candidate__validate_candidate --> onlydsl__ssot__manifest__calculate_section_hashes
-    onlydsl__ssot__candidate__validate_candidate --> onlydsl__ssot__manifest__calculate_revision_hash
-    onlydsl__ssot__candidate__validate_candidate --> onlydsl__ssot__diff__calculate_diff
-    onlydsl__ssot__candidate__validate_candidate --> onlydsl__ssot__io__atomic_write_text
-    onlydsl__ssot__candidate__validate_candidate --> onlydsl__ssot__candidate__save_candidate
-    onlydsl__ssot__candidate__validate_candidate --> onlydsl__ssot__diff__render_diff
-    onlydsl__ssot__candidate__validate_candidate --> onlydsl__ssot__validation__render_validation
     server___current_external_integrity --> server___fetch_external_json
     server___current_external_integrity --> server___external_document
     server___current_external_integrity --> server___external_revision
@@ -796,14 +652,14 @@ flowchart TD
     server___context_registries --> contextdsl__parse_context_dsl
     server___context_registries --> contextdsl__extract_contextdsl
     server___ifuri_analyze_context --> contextdsl__validate_context_markdown
-    server___ifuri_analyze_context --> ifuri_core__dsl_document__make_dsl_document
+    server___ifuri_analyze_context --> packages__onlydsl_core__src__onlydsl_core__dsl_document__make_dsl_document
     server___ifuri_analyze_context --> server___unpack_dsl
     server___ifuri_analyze_context --> server___context_registries
     server___ifuri_analyze_context --> intentdsl__validate_markdown
     server___ifuri_analyze_context --> intentdsl__parse_dsl
     server___ifuri_analyze_context --> contextdsl__compiler_from_payload
     server___ifuri_analyze_context --> intentdsl__extract_intentdsl
-    server___ifuri_compile_source --> ifuri_core__dsl_document__make_dsl_document
+    server___ifuri_compile_source --> packages__onlydsl_core__src__onlydsl_core__dsl_document__make_dsl_document
     server___ifuri_compile_source --> server___unpack_dsl
     server___ifuri_compile_source --> boundary__source_text_dsl
     server___ifuri_compile_source --> intentdsl__validate_markdown
@@ -813,18 +669,18 @@ flowchart TD
     server___twin_payload --> digital_twin__twin_to_mermaid
     server___bootstrap_twin --> digital_twin__intent_fingerprint
     server___bootstrap_twin --> boundary__source_text_dsl
-    server___bootstrap_twin --> ifuri_core__dsl_document__make_dsl_document
+    server___bootstrap_twin --> packages__onlydsl_core__src__onlydsl_core__dsl_document__make_dsl_document
     server___bootstrap_twin --> server___unpack_dsl
     server___bootstrap_twin --> server___twin_payload
     server___scan_sources --> source_ingest__build_source_index
     server___scan_sources --> source_ingest__validate_sourceindex_markdown
     server___update_twin --> server___scan_sources
-    server___update_twin --> ifuri_core__dsl_document__make_dsl_document
+    server___update_twin --> packages__onlydsl_core__src__onlydsl_core__dsl_document__make_dsl_document
     server___update_twin --> server___unpack_dsl
     server___update_twin --> server___twin_payload
     server___update_twin --> ifuri_core__llm_gateway__gateway_provider_status
     server___update_twin --> boundary__build_twin_update_bundle
-    server___plan_twin --> ifuri_core__dsl_document__make_dsl_document
+    server___plan_twin --> packages__onlydsl_core__src__onlydsl_core__dsl_document__make_dsl_document
     server___plan_twin --> server___unpack_dsl
     server___plan_twin --> digital_twin__parse_twindsl
     server___plan_twin --> digital_twin__extract_twindsl
@@ -855,23 +711,6 @@ flowchart TD
     server__Handler__do_GET --> server___twin_status
     server__Handler__do_GET --> server__evolution_authority_status
     server__main --> server___application_version
-    onlydsl__ssot__reader__SsotReader__manifest --> onlydsl__ssot__manifest__parse_manifest
-    onlydsl__ssot__reader__SsotReader__verified_manifest --> onlydsl__ssot__manifest__parse_manifest
-    onlydsl__ssot__reader__SsotReader__verified_manifest --> onlydsl__ssot__manifest__collect_file_hashes
-    onlydsl__ssot__reader__SsotReader__verified_manifest --> onlydsl__ssot__manifest__validate_manifest
-    onlydsl__ssot__reader__SsotReader__history --> onlydsl__ssot__manifest__parse_manifest
-    onlydsl__ssot__manifest__collect_file_hashes --> onlydsl__ssot__manifest__normalize_relative_path
-    onlydsl__ssot__manifest__collect_file_hashes --> onlydsl__ssot__manifest__digest_bytes
-    onlydsl__ssot__manifest__calculate_section_hashes --> governance__canonical_hash
-    onlydsl__ssot__manifest__calculate_section_hashes --> onlydsl__ssot__manifest__normalize_relative_path
-    onlydsl__ssot__manifest__calculate_revision_hash --> governance__canonical_hash
-    onlydsl__ssot__manifest__create_manifest --> onlydsl__ssot__manifest__calculate_section_hashes
-    onlydsl__ssot__manifest__create_manifest --> onlydsl__ssot__manifest__calculate_revision_hash
-    onlydsl__ssot__manifest__create_manifest --> onlydsl__ssot__manifest__utc_now
-    onlydsl__ssot__manifest__validate_manifest --> onlydsl__ssot__manifest__calculate_section_hashes
-    onlydsl__ssot__manifest__validate_manifest --> onlydsl__ssot__manifest__calculate_revision_hash
-    onlydsl__ssot__manifest__render_manifest --> onlydsl__ssot__manifest__validate_manifest
-    onlydsl__ssot__manifest__parse_manifest --> onlydsl__ssot__manifest__validate_manifest
     llm_client___backend_call --> llm_client___provider_config
     llm_client___backend_call --> llm_client___request_json
     llm_client___backend_call --> boundary__assert_dsl_only
@@ -917,21 +756,251 @@ flowchart TD
     llm_client__plan_build --> llm_client___call_dsl_validated
     llm_client__plan_build --> digital_twin__demo_build_plan
     llm_client__plan_build --> digital_twin__render_twin
-    onlydsl__governance__authority_projection__project_authority --> governance__canonical_hash
-    onlydsl__ssot__writer__SsotStore__initialize --> onlydsl__ssot__io__atomic_write_text
-    onlydsl__ssot__writer__SsotStore__initialize --> onlydsl__ssot__manifest__create_manifest
-    onlydsl__ssot__writer__SsotStore__initialize --> onlydsl__ssot__manifest__render_manifest
-    onlydsl__ssot__writer__SsotStore__promote --> onlydsl__ssot__candidate__load_candidate
-    onlydsl__ssot__writer__SsotStore__promote --> onlydsl__ssot__writer__SsotStore__validate_candidate
-    onlydsl__ssot__writer__SsotStore__promote --> onlydsl__ssot__manifest__create_manifest
-    onlydsl__ssot__writer__SsotStore__promote --> onlydsl__ssot__manifest__render_manifest
-    onlydsl__ssot__writer__SsotStore__promote --> onlydsl__ssot__candidate__save_candidate
-    onlydsl__ssot__writer__SsotStore___write_append_only --> onlydsl__ssot__io__atomic_write_text
-    onlydsl__ssot__writer__SsotStore___write_json_append_only --> onlydsl__ssot__io__atomic_write_json
-    onlydsl__ssot__writer__SsotStore___validate_approval --> onlydsl__ssot__manifest__is_immutable_urn
-    onlydsl__ssot__writer__SsotStore___promotion_lock --> onlydsl__ssot__io__atomic_write_json
+    intentdsl___parse_rule_statement --> intentdsl___parse_call
+    intentdsl__parse_dsl --> intentdsl___parse_program_declaration
+    intentdsl__parse_dsl --> intentdsl___parse_rule_statement
+    intentdsl___expr_tree --> intentdsl___normalize_expr
+    intentdsl__expr_names --> intentdsl___expr_tree
+    intentdsl__eval_expr --> intentdsl___expr_tree
+    intentdsl___validate_rule_expressions --> intentdsl__expr_names
+    intentdsl__validate_program --> intentdsl___validate_rule_runtime_capabilities
+    intentdsl__validate_program --> intentdsl___validate_rule_expressions
+    intentdsl__validate_markdown --> intentdsl__extract_intentdsl
+    intentdsl__validate_markdown --> intentdsl__parse_dsl
+    intentdsl__validate_markdown --> intentdsl__validate_program
+    intentdsl__run_program --> intentdsl__validate_program
+    intentdsl__run_program --> intentdsl__eval_expr
+    intentdsl__run_program --> intentdsl___type_ok
+    intentdsl__demo_english_to_dsl --> intentdsl___auth_recovery_lines
+    intentdsl__demo_english_to_dsl --> intentdsl___generic_demo_lines
+    intentdsl___generic_demo_lines --> intentdsl___slug_words
+    intentdsl__codegen --> intent_codegen__generate_code
+    patchdsl___parse_change --> patchdsl___json_string
+    patchdsl__parse_patchdsl --> patchdsl___json_string
+    patchdsl___validate_change --> patchdsl___count_diff_lines
+    patchdsl__validate_patch_policy --> patchdsl___validate_change
+    patchdsl__validate_patch_markdown --> patchdsl__parse_patchdsl
+    patchdsl__validate_patch_markdown --> patchdsl__validate_patch_policy
+    intent_codegen___codegen_python --> intent_codegen___normalize_python_expr
+    intent_codegen___codegen_javascript_like --> intent_codegen___js_literal
+    intent_codegen__generate_code --> intent_codegen___codegen_php
+    intent_codegen__generate_code --> intent_codegen___codegen_python
+    intent_codegen__generate_code --> intent_codegen___codegen_javascript_like
+    governance__authorize_patch --> aql__operation_for_path
+    governance__build_process_envelope --> governance__canonical_hash
+    governance__build_process_envelope --> aql__operation_for_path
+    governance__complete_envelope --> governance__canonical_hash
+    governance__reject_envelope --> governance__canonical_hash
+    boundary__DslBundle__validate_for_llm --> boundary__assert_dsl_only
+    boundary__build_source_compile_bundle --> boundary__contract_dsl
+    boundary__build_source_compile_bundle --> boundary__task_dsl
+    boundary__build_source_compile_bundle --> boundary__source_text_dsl
+    boundary__build_context_analysis_bundle --> boundary__assert_dsl_only
+    boundary__build_context_analysis_bundle --> boundary__contract_dsl
+    boundary__build_context_analysis_bundle --> boundary__task_dsl
+    boundary__build_twin_bootstrap_bundle --> boundary__assert_dsl_only
+    boundary__build_twin_bootstrap_bundle --> boundary__contract_dsl
+    boundary__build_twin_bootstrap_bundle --> boundary__task_dsl
+    boundary__build_twin_bootstrap_bundle --> boundary__source_text_dsl
+    boundary__build_twin_update_bundle --> boundary__assert_dsl_only
+    boundary__build_twin_update_bundle --> boundary__contract_dsl
+    boundary__build_twin_update_bundle --> boundary__task_dsl
+    boundary__build_build_plan_bundle --> boundary__assert_dsl_only
+    boundary__build_build_plan_bundle --> boundary__contract_dsl
+    boundary__build_build_plan_bundle --> boundary__task_dsl
+    boundary__build_autonomous_repair_bundle --> boundary__assert_dsl_only
+    boundary__build_autonomous_repair_bundle --> boundary__code_dsl
+    boundary__build_autonomous_repair_bundle --> boundary__contract_dsl
+    boundary__build_autonomous_repair_bundle --> boundary__task_dsl
+    boundary__build_autonomous_repair_bundle --> boundary__patchdsl_schema
+    boundary__build_autonomous_repair_bundle --> boundary__evolution_policy_dsl
+    twin_store__TwinStore__load --> digital_twin__parse_twindsl
+    twin_store__TwinStore__load --> digital_twin__extract_twindsl
+    twin_store__TwinStore__save --> digital_twin__validate_twin_markdown
+    twin_store__TwinStore__save --> digital_twin__parse_twindsl
+    twin_store__TwinStore__save --> digital_twin__extract_twindsl
+    source_ingest__SourceIndex__to_markdown --> evolution___q
+    source_ingest___flush_paragraph --> source_ingest___normalize_text
+    source_ingest___parse_text_content --> source_ingest___flush_paragraph
+    source_ingest__parse_markdown --> source_ingest___extract_code_blocks
+    source_ingest__parse_markdown --> source_ingest___parse_text_content
+    source_ingest__build_source_index --> source_ingest___sid
+    source_ingest__build_source_index --> source_ingest__parse_markdown
+    source_ingest__extract_source_refs --> source_ingest__validate_sourceindex_markdown
+    packages__onlydsl_core__src__onlydsl_core__capabilities__Capability__match --> packages__onlydsl_core__src__onlydsl_core__capabilities___parse_pattern
+    packages__onlydsl_core__src__onlydsl_core__capabilities__CapabilityRegistry__register --> packages__onlydsl_core__src__onlydsl_core__capabilities___validate_capability
+    packages__onlydsl_core__src__onlydsl_core__capabilities___parse_pattern --> packages__onlydsl_core__src__onlydsl_core__capabilities___pattern_tokens
+    packages__onlydsl_core__src__onlydsl_core__capabilities___parse_pattern --> packages__onlydsl_core__src__onlydsl_core__capabilities___validate_pattern_tokens
+    packages__onlydsl_core__src__onlydsl_core__capabilities___validate_capability --> packages__onlydsl_core__src__onlydsl_core__capabilities___parse_pattern
+    onlydsl__ssot__io__atomic_write_bytes --> onlydsl__ssot__io__fsync_directory
+    onlydsl__ssot__io__atomic_write_text --> onlydsl__ssot__io__atomic_write_bytes
+    onlydsl__ssot__io__atomic_write_json --> onlydsl__ssot__io__atomic_write_text
+    onlydsl__ssot__registry__ProjectRegistry__entries --> onlydsl__ssot__registry__parse_registry
+    onlydsl__ssot__registry__ProjectRegistry__register --> onlydsl__ssot__io__atomic_write_text
+    onlydsl__ssot__registry__ProjectRegistry__register --> onlydsl__ssot__registry__render_registry
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__collect_file_hashes --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__normalize_relative_path
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__collect_file_hashes --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__digest_bytes
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__calculate_section_hashes --> governance__canonical_hash
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__calculate_section_hashes --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__normalize_relative_path
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__calculate_revision_hash --> governance__canonical_hash
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__create_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__calculate_section_hashes
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__create_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__calculate_revision_hash
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__create_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__utc_now
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__validate_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest___validate_manifest_metadata
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__validate_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest___validate_manifest_entries
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__validate_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__calculate_section_hashes
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__validate_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest___validate_manifest_hashes
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__validate_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__is_immutable_urn
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest___validate_manifest_hashes --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__calculate_revision_hash
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__render_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__validate_manifest
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__parse_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest___parse_manifest_entries
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__parse_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest___validate_manifest_scalars
+    packages__onlydsl_ssot__src__onlydsl_ssot__manifest__parse_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__validate_manifest
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__load_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__candidate___candidate_from_dict
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__save_candidate --> onlydsl__ssot__io__atomic_write_json
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__create_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__collect_file_hashes
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__create_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__candidate___prepare_candidate_tree
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__create_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__candidate___apply_candidate_changes
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__create_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__candidate___validate_candidate_tree
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__create_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__candidate___validate_candidate_evidence
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__create_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__candidate__save_candidate
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__create_candidate --> onlydsl__ssot__io__atomic_write_text
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__create_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__utc_now
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__create_candidate --> onlydsl__ssot__diff__render_diff
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate___apply_candidate_changes --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__normalize_relative_path
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate___validate_candidate_evidence --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__is_immutable_urn
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__validate_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__candidate__load_candidate
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__validate_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__calculate_section_hashes
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__validate_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__calculate_revision_hash
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__validate_candidate --> onlydsl__ssot__diff__calculate_diff
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__validate_candidate --> onlydsl__ssot__io__atomic_write_text
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__validate_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__candidate__save_candidate
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__validate_candidate --> onlydsl__ssot__diff__render_diff
+    packages__onlydsl_ssot__src__onlydsl_ssot__candidate__validate_candidate --> packages__onlydsl_ssot__src__onlydsl_ssot__validation__render_validation
+    packages__onlydsl_ssot__src__onlydsl_ssot__validation__basic_validate_tree --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__collect_file_hashes
+    packages__onlydsl_ssot__src__onlydsl_ssot__reader__SsotReader__manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__parse_manifest
+    packages__onlydsl_ssot__src__onlydsl_ssot__reader__SsotReader__verified_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__parse_manifest
+    packages__onlydsl_ssot__src__onlydsl_ssot__reader__SsotReader__verified_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__collect_file_hashes
+    packages__onlydsl_ssot__src__onlydsl_ssot__reader__SsotReader__verified_manifest --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__validate_manifest
+    packages__onlydsl_ssot__src__onlydsl_ssot__reader__SsotReader__history --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__parse_manifest
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore__initialize --> onlydsl__ssot__io__atomic_write_text
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore__initialize --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__create_manifest
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore__initialize --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__render_manifest
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore__promote --> packages__onlydsl_ssot__src__onlydsl_ssot__candidate__save_candidate
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___prepare_promotion --> packages__onlydsl_ssot__src__onlydsl_ssot__candidate__load_candidate
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___prepare_promotion --> packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore__validate_candidate
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___stage_promotion --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__create_manifest
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___stage_promotion --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__collect_file_hashes
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___commit_promotion --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__render_manifest
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___commit_promotion --> onlydsl__ssot__io__fsync_directory
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___commit_promotion --> onlydsl__ssot__io__atomic_write_text
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___write_append_only --> onlydsl__ssot__io__atomic_write_text
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___write_json_append_only --> onlydsl__ssot__io__atomic_write_json
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___validate_approval --> packages__onlydsl_ssot__src__onlydsl_ssot__manifest__is_immutable_urn
+    packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore___promotion_lock --> onlydsl__ssot__io__atomic_write_json
+    packages__onlydsl_contracts__src__onlydsl_contracts__ifuri__IfUri__parse --> packages__onlydsl_contracts__src__onlydsl_contracts__ifuri___validate_uri_parts
+    packages__onlydsl_contracts__src__onlydsl_contracts__ifuri__IfUri__parse --> packages__onlydsl_contracts__src__onlydsl_contracts__ifuri___path_segments
+    packages__onlydsl_contracts__src__onlydsl_contracts__ifuri__IfUri__parse --> packages__onlydsl_contracts__src__onlydsl_contracts__ifuri___validate_segments
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__ParameterContractDocument__validate --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___validate_metadata
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__ParameterContractDocument__validate --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___validate_value
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___validate_value --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___value_matches_type
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter_fields
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_range
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_allowed
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__parse_parameter_contracts --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__parse_parameter_contracts --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__extract_one
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust___parse_role --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__parse_json_list
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust__parse_trust_policy --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust___parse_role_fields
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust__parse_trust_policy --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust___parse_role
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust__parse_trust_policy --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__extract_one
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust__render_trust_policy --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__list_value
     packages__onlydsl_contracts__src__onlydsl_contracts__dsl__spatial_class__parse_spatial_class --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__spatial_class___parse_type
     packages__onlydsl_contracts__src__onlydsl_contracts__dsl__spatial_class__parse_spatial_class --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__spatial_class___parse_component
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__evidence_set__create_evidence_set --> governance__canonical_hash
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim___parse_claim --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__json_string
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim__parse_claims --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim___parse_claim_fields
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim__render_claims --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__quoted
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim__render_claims --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__list_value
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__validate_repair_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan___validate_repair_task
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__render_repair_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__validate_repair_plan
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__render_repair_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__list_value
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__render_repair_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__quoted
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan___parse_repair_task --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__json_string
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan___parse_repair_task --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__parse_json_list
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__parse_repair_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__validate_repair_plan
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__parse_repair_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan___parse_repair_task
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_values --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_identifiers
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_values --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_producer
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_values --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_uris
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_values --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_assessment
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__create_development_evidence --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_values
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__create_development_evidence --> governance__canonical_hash
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__create_development_evidence --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___semantic_payload
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__render_development_evidence --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_values
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__render_development_evidence --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__create_development_evidence
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__render_development_evidence --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__quoted
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__parse_development_evidence --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___parse_development_evidence_fields
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__parse_development_evidence --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_development_evidence_fields
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__parse_development_evidence --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___build_development_evidence
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__parse_development_evidence --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__extract_one
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___build_development_evidence --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___validate_values
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___build_development_evidence --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__create_development_evidence
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence___build_development_evidence --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__json_string
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan___parse_task --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__json_string
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__parse_bound_build_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan___parse_plan_body
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__parse_bound_build_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan___validate_tasks
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__parse_bound_build_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__extract_one
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan___parse_plan_body --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan___parse_plan_directive
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan___parse_plan_body --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan___parse_task
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan___parse_plan_directive --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__json_string
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__validate_bound_build_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__parse_bound_build_plan
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__validate_bound_build_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__semantic_twin_hash
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption___parse_assumption --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__json_string
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption___parse_assumption --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__parse_json_list
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__parse_assumptions --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption___parse_assumption_fields
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__parse_assumptions --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption___parse_assumption
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__parse_assumptions --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__extract_one
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__render_assumptions --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__quoted
+    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__render_assumptions --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__list_value
+    ifuri_core__llm_gateway___reply --> packages__onlydsl_core__src__onlydsl_core__dsl_document__make_dsl_document
+    ifuri_core__llm_gateway__build_llm_reasoner_handler --> packages__onlydsl_core__src__onlydsl_core__dsl_document__validate_dsl_document
+    ifuri_core__llm_gateway__build_llm_reasoner_handler --> boundary__assert_dsl_only
+    ifuri_core__llm_gateway__build_llm_reasoner_handler --> contextdsl__validate_context_markdown
+    ifuri_core__llm_gateway__build_llm_reasoner_handler --> llm_client__analyze_context
+    ifuri_core__llm_gateway__build_llm_reasoner_handler --> ifuri_core__llm_gateway___reply
+    ifuri_core__llm_gateway___extract_source_payload --> boundary__assert_dsl_only
+    ifuri_core__llm_gateway__build_llm_semantic_handler --> packages__onlydsl_core__src__onlydsl_core__dsl_document__validate_dsl_document
+    ifuri_core__llm_gateway__build_llm_semantic_handler --> ifuri_core__llm_gateway___extract_source_payload
+    ifuri_core__llm_gateway__build_llm_semantic_handler --> llm_client__convert_english
+    ifuri_core__llm_gateway__build_llm_semantic_handler --> boundary__assert_dsl_only
+    ifuri_core__llm_gateway__build_llm_semantic_handler --> ifuri_core__llm_gateway___reply
+    ifuri_core__llm_gateway__build_llm_twin_bootstrap_handler --> packages__onlydsl_core__src__onlydsl_core__dsl_document__validate_dsl_document
+    ifuri_core__llm_gateway__build_llm_twin_bootstrap_handler --> ifuri_core__llm_gateway___extract_source_payload
+    ifuri_core__llm_gateway__build_llm_twin_bootstrap_handler --> llm_client__bootstrap_twin
+    ifuri_core__llm_gateway__build_llm_twin_bootstrap_handler --> ifuri_core__llm_gateway___reply
+    ifuri_core__llm_gateway__build_llm_twin_bootstrap_handler --> digital_twin__validate_twin_markdown
+    ifuri_core__llm_gateway___extract_bundle_blocks --> boundary__assert_dsl_only
+    ifuri_core__llm_gateway__build_llm_twin_update_handler --> packages__onlydsl_core__src__onlydsl_core__dsl_document__validate_dsl_document
+    ifuri_core__llm_gateway__build_llm_twin_update_handler --> ifuri_core__llm_gateway___extract_bundle_blocks
+    ifuri_core__llm_gateway__build_llm_twin_update_handler --> llm_client__update_twin
+    ifuri_core__llm_gateway__build_llm_twin_update_handler --> ifuri_core__llm_gateway___reply
+    ifuri_core__llm_gateway__build_llm_twin_update_handler --> source_ingest__validate_sourceindex_markdown
+    ifuri_core__llm_gateway__build_llm_build_plan_handler --> packages__onlydsl_core__src__onlydsl_core__dsl_document__validate_dsl_document
+    ifuri_core__llm_gateway__build_llm_build_plan_handler --> llm_client__plan_build
+    ifuri_core__llm_gateway__build_llm_build_plan_handler --> ifuri_core__llm_gateway___reply
+    ifuri_core__llm_gateway__build_llm_build_plan_handler --> digital_twin__validate_twin_markdown
+    ifuri_core__llm_gateway__build_llm_build_plan_handler --> digital_twin__validate_buildplan_markdown
+    ifuri_core__llm_gateway__build_llm_patch_handler --> packages__onlydsl_core__src__onlydsl_core__dsl_document__validate_dsl_document
+    ifuri_core__llm_gateway__build_llm_patch_handler --> boundary__assert_dsl_only
+    ifuri_core__llm_gateway__build_llm_patch_handler --> llm_client__propose_code_patch
+    ifuri_core__llm_gateway__build_llm_patch_handler --> ifuri_core__llm_gateway___reply
+    ifuri_core__llm_gateway__gateway_provider_status --> llm_client__provider_status
+    ifuri_core__transport__NatsWireClient__subscribe --> ifuri_core__transport___validate_nats_subject
+    ifuri_core__transport__NatsWireClient__publish --> ifuri_core__transport___validate_nats_subject
+    ifuri_core__transport__NatsJetStream__create_stream --> ifuri_core__transport___js_response
+    ifuri_core__transport__NatsJetStream__stream_info --> ifuri_core__transport___js_response
+    ifuri_core__transport__NatsJetStream__publish --> ifuri_core__transport___js_response
+    ifuri_core__transport__NatsTransport__serve_capability --> ifuri_core__transport__capability_pattern_to_subject
     onlydsl__runtime__repair_controller__RepairCycle__to_dict --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__render_assumptions
     onlydsl__runtime__repair_controller__RepairCycle__to_dict --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__render_repair_plan
     onlydsl__runtime__repair_controller__RepairCycle__to_dict --> onlydsl__governance__authority_projection__render_authority_projection
@@ -941,12 +1010,43 @@ flowchart TD
     onlydsl__runtime__repair_controller__execute_repair_cycle --> onlydsl__runtime__integrity__parse_project_integrity
     onlydsl__runtime__repair_controller__execute_repair_cycle --> onlydsl__runtime__repair_controller___receipt
     onlydsl__runtime__repair_controller___receipt --> governance__canonical_hash
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__evidence_set__create_evidence_set --> governance__canonical_hash
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter_fields
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_range
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_allowed
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__parse_parameter_contracts --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract___parse_parameter
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__parse_parameter_contracts --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__extract_one
+    onlydsl__runtime__integrity___parse_finding --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__parse_json_list
+    onlydsl__runtime__integrity__parse_project_integrity --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__extract_one
+    onlydsl__runtime__integrity__parse_project_integrity --> onlydsl__runtime__integrity___readiness
+    onlydsl__runtime__integrity__parse_project_integrity --> governance__canonical_hash
+    onlydsl__governance__authority_projection__project_authority --> governance__canonical_hash
+    onlydsl__ssot__cli__main --> onlydsl__ssot__cli__build_parser
+    onlydsl__ssot__cli__main --> onlydsl__ssot__cli___json
+    onlydsl__ssot__cli__main --> source_ingest__build_source_index
+    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__parse_assumptions
+    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__evidence_set__parse_evidence_set
+    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__parse_parameter_contracts
+    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__spatial_class__parse_spatial_class
+    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__parse_repair_plan
+    onlydsl__ssot__validation___validate_known_dsl --> onlydsl__runtime__integrity__parse_project_integrity
+    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim__parse_claims
+    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust__parse_trust_policy
+    onlydsl__ssot__validation___validate_known_dsl --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__development_evidence__parse_development_evidence
+    onlydsl__ssot__validation___validate_known_dsl --> source_ingest__validate_sourceindex_markdown
+    onlydsl__ssot__validation__validate_tree --> packages__onlydsl_ssot__src__onlydsl_ssot__validation__basic_validate_tree
+    onlydsl__ssot__validation__validate_tree --> onlydsl__ssot__validation___validate_tree_file
+    onlydsl__ssot__validation___validate_tree_file --> onlydsl__ssot__validation___is_excluded_dsl_content
+    onlydsl__ssot__validation___validate_tree_file --> onlydsl__ssot__validation___is_validatable_dsl_path
+    onlydsl__ssot__validation___validate_tree_file --> onlydsl__ssot__validation___validate_known_dsl
+    scripts__startup_testql__render_testqldsl --> scripts__startup_testql__now
+    scripts__startup_testql__verify --> scripts__startup_testql__synthetic_failure
+    scripts__startup_testql__write_twin_observation --> scripts__startup_testql__now
+    scripts__startup_testql__write_twin_observation --> scripts__startup_testql__failure_summary
+    scripts__startup_testql__main --> scripts__startup_testql__wait_for
+    scripts__startup_testql__main --> scripts__startup_testql__verify
+    scripts__startup_testql__main --> scripts__startup_testql__synthetic_failure
+    multiruntime__typescript__ifuri__toNatsSubject --> multiruntime__typescript__ifuri__parseIfUri
+    multiruntime__javascript__ifuri__canonical --> multiruntime__javascript__ifuri__parseIfUri
+    multiruntime__javascript__ifuri__toNatsSubject --> multiruntime__javascript__ifuri__parseIfUri
+    multiruntime__javascript__ifuri__raw --> multiruntime__javascript__ifuri__canonical
+    multiruntime__javascript__ifuri__raw --> multiruntime__javascript__ifuri__toNatsSubject
+    multiruntime__php__ifuri__canonical_ifuri --> multiruntime__php__ifuri__parse_ifuri
+    multiruntime__php__ifuri__nats_subject --> multiruntime__php__ifuri__parse_ifuri
     digital_twin__intent_fingerprint --> digital_twin__normalize_intent
     digital_twin___parse_json_text --> digital_twin___json_string
     digital_twin___parse_twin_node_block --> digital_twin___parse_json_text
@@ -1004,26 +1104,8 @@ flowchart TD
     digital_twin__demo_build_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__semantic_twin_hash
     digital_twin__demo_build_plan --> digital_twin___quoted
     digital_twin__demo_build_plan --> digital_twin__render_twin
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__validate_repair_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan___validate_repair_task
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__render_repair_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__validate_repair_plan
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__render_repair_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__list_value
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__render_repair_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__quoted
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan___parse_repair_task --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__json_string
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan___parse_repair_task --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__parse_json_list
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__parse_repair_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__validate_repair_plan
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan__parse_repair_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__repair_plan___parse_repair_task
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim___parse_claim --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__json_string
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim__parse_claims --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim___parse_claim_fields
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim__render_claims --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__quoted
-    packages__onlydsl_contracts__src__onlydsl_contracts__dsl__claim__render_claims --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__common__list_value
-    ifuri_core__transport__NatsWireClient__subscribe --> ifuri_core__transport___validate_nats_subject
-    ifuri_core__transport__NatsWireClient__publish --> ifuri_core__transport___validate_nats_subject
-    ifuri_core__transport__NatsJetStream__create_stream --> ifuri_core__transport___js_response
-    ifuri_core__transport__NatsJetStream__stream_info --> ifuri_core__transport___js_response
-    ifuri_core__transport__NatsJetStream__publish --> ifuri_core__transport___js_response
-    ifuri_core__transport__NatsTransport__serve_capability --> ifuri_core__transport__capability_pattern_to_subject
 
     classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
     classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
-    class contextdsl__parse_context_dsl,aql__AqlContract__parse,patchdsl__parse_patchdsl,packages__onlydsl_contracts__src__onlydsl_contracts__ifuri__IfUri__parse,packages__onlydsl_contracts__src__onlydsl_contracts__dsl__trust__parse_trust_policy,packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__parse_bound_build_plan,onlydsl__ssot__cli__main,onlydsl__ssot__validation___validate_known_dsl,onlydsl__ssot__validation__validate_tree,onlydsl__ssot__candidate__create_candidate,server__Handler__do_GET,onlydsl__ssot__manifest__validate_manifest,onlydsl__ssot__manifest__parse_manifest,onlydsl__ssot__writer__SsotStore__promote,packages__onlydsl_contracts__src__onlydsl_contracts__dsl__parameter_contract__ParameterContractDocument__validate highCC
-    class contextdsl__render_context_dsl,contextdsl___parse_context_declaration,contextdsl__compiler_from_payload,evolution___parse_event,evolution__EvolutionStore__status,aql__AqlContract__decide,intentdsl___parse_literal,intentdsl___parse_call,intentdsl___parse_rule_statement,intentdsl___parse_program_declaration,intentdsl__parse_dsl,intentdsl___validate_rule_runtime_capabilities,intentdsl__validate_program,intentdsl__run_program,intentdsl___codegen_python,intentdsl___codegen_javascript_like,intentdsl___codegen_php,patchdsl___parse_change,patchdsl___validate_change,boundary__assert_dsl_only,onlydsl__ssot__registry__parse_registry,scripts__startup_testql__main,multiruntime__typescript__ifuri__parseIfUri,multiruntime__javascript__ifuri__parseIfUri,multiruntime__php__ifuri__parse_ifuri,packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__parse_assumptions,packages__onlydsl_contracts__src__onlydsl_contracts__dsl__assumption__assumptions_from_integrity,ifuri_core__manifest__CapabilityRegistry__from_mapping,ifuri_core__manifest__CapabilityRegistry__resolve,ifuri_core__manifest___pattern_tokens medCC
+    class contextdsl__parse_context_dsl,server__Handler__do_GET,aql__AqlContract__parse,patchdsl__parse_patchdsl,onlydsl__ssot__cli__main highCC
+    class contextdsl__render_context_dsl,contextdsl___parse_context_declaration,contextdsl__compiler_from_payload,evolution___parse_event,evolution__EvolutionStore__status,server___current_external_integrity,llm_client___provider_config,llm_client___backend_call,llm_client___demo_context_analysis,llm_client___demo_update_twin,llm_client__update_twin,aql__AqlContract__decide,intentdsl___parse_literal,intentdsl___parse_call,intentdsl___parse_rule_statement,intentdsl___parse_program_declaration,intentdsl__parse_dsl,intentdsl___validate_rule_runtime_capabilities,intentdsl__validate_program,intentdsl__run_program,patchdsl___parse_change,patchdsl___validate_change,intent_codegen___codegen_python,intent_codegen___codegen_javascript_like,intent_codegen___codegen_php,boundary__assert_dsl_only,source_ingest___parse_text_content,source_ingest__build_source_index,source_ingest__validate_sourceindex_markdown,source_ingest__extract_source_refs medCC

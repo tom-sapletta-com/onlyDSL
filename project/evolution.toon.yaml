@@ -1,58 +1,50 @@
-# code2llm/evolution | 477 func | 50f | 2026-08-08
+# code2llm/evolution | 522 func | 57f | 2026-08-09
 # generated in 0.00s
 
-NEXT[10] (ranked by impact):
+NEXT[8] (ranked by impact):
   [1] !! SPLIT           digital_twin.py
-      WHY: 839L, 10 classes, max CC=12
-      EFFORT: ~4h  IMPACT: 10068
+      WHY: 764L, 2 classes, max CC=12
+      EFFORT: ~4h  IMPACT: 9168
 
-  [2] !! SPLIT           intentdsl.py
-      WHY: 583L, 4 classes, max CC=14
-      EFFORT: ~4h  IMPACT: 8162
-
-  [3] !! SPLIT           server.py
+  [2] !! SPLIT           server.py
       WHY: 535L, 1 classes, max CC=15
       EFFORT: ~4h  IMPACT: 8025
 
-  [4] !  SPLIT-FUNC      main  CC=23  fan=31
+  [3] !  SPLIT-FUNC      main  CC=23  fan=31
       WHY: CC=23 exceeds 15
       EFFORT: ~1h  IMPACT: 713
 
-  [5] !  SPLIT-FUNC      create_candidate  CC=17  fan=34
-      WHY: CC=17 exceeds 15
-      EFFORT: ~1h  IMPACT: 578
-
-  [6] !  SPLIT-FUNC      SsotStore.promote  CC=16  fan=32
-      WHY: CC=16 exceeds 15
-      EFFORT: ~1h  IMPACT: 512
-
-  [7] !  SPLIT-FUNC      parse_bound_build_plan  CC=21  fan=17
-      WHY: CC=21 exceeds 15
-      EFFORT: ~1h  IMPACT: 357
-
-  [8] !  SPLIT-FUNC      Handler.do_GET  CC=15  fan=22
+  [4] !  SPLIT-FUNC      Handler.do_GET  CC=15  fan=22
       WHY: CC=15 exceeds 15
       EFFORT: ~1h  IMPACT: 330
 
-  [9] !  SPLIT-FUNC      parse_manifest  CC=21  fan=14
-      WHY: CC=21 exceeds 15
-      EFFORT: ~1h  IMPACT: 294
-
-  [10] !  SPLIT-FUNC      _validate_known_dsl  CC=15  fan=18
+  [5] !  SPLIT-FUNC      AqlContract.parse  CC=15  fan=17
       WHY: CC=15 exceeds 15
-      EFFORT: ~1h  IMPACT: 270
+      EFFORT: ~1h  IMPACT: 255
+
+  [6] !  SPLIT-FUNC      parse_patchdsl  CC=15  fan=15
+      WHY: CC=15 exceeds 15
+      EFFORT: ~1h  IMPACT: 225
+
+  [7] !  SPLIT-FUNC      parse_context_dsl  CC=15  fan=14
+      WHY: CC=15 exceeds 15
+      EFFORT: ~1h  IMPACT: 210
+
+  [8] !! SPLIT           goal.yaml
+      WHY: 526L, 0 classes, max CC=0
+      EFFORT: ~4h  IMPACT: 0
 
 
 RISKS[3]:
   ⚠ Splitting digital_twin.py may break 50 import paths
-  ⚠ Splitting intentdsl.py may break 27 import paths
   ⚠ Splitting server.py may break 30 import paths
+  ⚠ Splitting goal.yaml may break 0 import paths
 
 METRICS-TARGET:
-  CC̄:          4.1 → ≤2.9
+  CC̄:          4.0 → ≤2.8
   max-CC:      23 → ≤11
-  god-modules: 5 → 0
-  high-CC(≥15): 15 → ≤7
+  god-modules: 4 → 0
+  high-CC(≥15): 5 → ≤2
   hub-types:   0 → ≤0
 
 PATTERNS (language parser shared logic):
@@ -80,4 +72,4 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  prev CC̄=4.2 → now CC̄=4.1
+  prev CC̄=4.0 → now CC̄=4.0

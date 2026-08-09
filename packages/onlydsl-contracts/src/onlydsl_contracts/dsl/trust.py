@@ -24,6 +24,28 @@ class TrustPolicy:
         return value.priority if value and domain in value.can_define else None
 
 
+def _parse_role_fields(lines: list[str], index: int) -> tuple[dict[str, str], int]:
+    fields: dict[str, str] = {}
+    index += 1
+    while index < len(lines) and lines[index] != "END_ROLE":
+        key, _, value = lines[index].partition(" ")
+        if key not in {"PRIORITY", "CAN_DEFINE"} or key in fields:
+            raise ControlDslError(f"invalid TrustDSL field {key!r}")
+        fields[key] = value
+        index += 1
+    return fields, index
+
+
+def _parse_role(role_id: str, fields: dict[str, str]) -> TrustRole:
+    if set(fields) != {"PRIORITY", "CAN_DEFINE"}:
+        raise ControlDslError(f"role {role_id} is duplicate or incomplete")
+    priority = int(fields["PRIORITY"])
+    domains = frozenset(parse_json_list(fields["CAN_DEFINE"], "CAN_DEFINE"))
+    if not 0 <= priority <= 100 or not domains:
+        raise ControlDslError(f"role {role_id} requires priority 0..100 and domains")
+    return TrustRole(role_id, priority, domains)
+
+
 def parse_trust_policy(markdown: str) -> TrustPolicy:
     lines = [line.strip() for line in extract_one(markdown, "trustdsl").splitlines() if line.strip()]
     if not lines or not lines[0].startswith("TRUST_POLICY ") or lines[-1] != "END_TRUST_POLICY":
@@ -34,21 +56,10 @@ def parse_trust_policy(markdown: str) -> TrustPolicy:
         if not lines[index].startswith("ROLE "):
             raise ControlDslError(f"expected ROLE, got {lines[index]!r}")
         role_id = lines[index].split(None, 1)[1]
-        fields: dict[str, str] = {}
-        index += 1
-        while index < len(lines) and lines[index] != "END_ROLE":
-            key, _, value = lines[index].partition(" ")
-            if key not in {"PRIORITY", "CAN_DEFINE"} or key in fields:
-                raise ControlDslError(f"invalid TrustDSL field {key!r}")
-            fields[key] = value
-            index += 1
-        if set(fields) != {"PRIORITY", "CAN_DEFINE"} or role_id in roles:
+        fields, index = _parse_role_fields(lines, index)
+        if role_id in roles:
             raise ControlDslError(f"role {role_id} is duplicate or incomplete")
-        priority = int(fields["PRIORITY"])
-        domains = frozenset(parse_json_list(fields["CAN_DEFINE"], "CAN_DEFINE"))
-        if not 0 <= priority <= 100 or not domains:
-            raise ControlDslError(f"role {role_id} requires priority 0..100 and domains")
-        roles[role_id] = TrustRole(role_id, priority, domains)
+        roles[role_id] = _parse_role(role_id, fields)
         index += 1
     return TrustPolicy(lines[0].split(None, 1)[1], roles)
 

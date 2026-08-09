@@ -1,0 +1,15 @@
+# redup/duplication | 0 groups | 9f 737L | 2026-08-09
+
+SUMMARY:
+  files_scanned: 9
+  total_lines:   737
+  dup_groups:    0
+  actionable:    0
+  review:        0
+  generated:     0
+  actionable_L:  0
+  review_L:      0
+  generated_L:   0
+  dup_fragments: 0
+  saved_lines:   0
+  scan_ms:       60

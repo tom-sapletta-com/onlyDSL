@@ -44,29 +44,47 @@ class ParameterContractDocument:
         contract = self.parameters.get((subject_type, name))
         if contract is None:
             return ParameterValidation(False, "PARAMETER_CONTRACT_MISSING", f"no contract for {subject_type}.{name}")
-        if unit == "mixed":
-            return ParameterValidation(False, "PARAMETER_UNIT_MIXED_FORBIDDEN", "UNIT mixed is never a domain contract")
-        if unit != contract.unit:
-            return ParameterValidation(False, "PARAMETER_UNIT_MISMATCH", f"expected {contract.unit}, got {unit}")
-        if quality != contract.quality:
-            return ParameterValidation(False, "PARAMETER_QUALITY_MISMATCH", f"expected {contract.quality}, got {quality}")
-        type_ok = {
-            "boolean": isinstance(value, bool),
-            "integer": isinstance(value, int) and not isinstance(value, bool),
-            "decimal": isinstance(value, (int, float, Decimal)) and not isinstance(value, bool) and (not isinstance(value, float) or math.isfinite(value)),
-            "string": isinstance(value, str),
-        }[contract.value_type]
-        if not type_ok:
-            return ParameterValidation(False, "PARAMETER_TYPE_MISMATCH", f"expected {contract.value_type}")
-        if contract.allowed and value not in contract.allowed:
-            return ParameterValidation(False, "PARAMETER_VALUE_NOT_ALLOWED", f"{value!r} is outside ALLOWED")
-        if contract.value_type in {"decimal", "integer"}:
-            numeric = Decimal(str(value))
-            if contract.minimum is not None and numeric < contract.minimum:
-                return ParameterValidation(False, "PARAMETER_BELOW_MINIMUM", f"{numeric} < {contract.minimum}")
-            if contract.maximum is not None and numeric > contract.maximum:
-                return ParameterValidation(False, "PARAMETER_ABOVE_MAXIMUM", f"{numeric} > {contract.maximum}")
+        metadata_error = _validate_metadata(contract, unit, quality)
+        if metadata_error:
+            return metadata_error
+        value_error = _validate_value(contract, value)
+        if value_error:
+            return value_error
         return ParameterValidation(True, "PARAMETER_VALID", "value satisfies the exact contract")
+
+
+def _validate_metadata(contract: ParameterContract, unit: str, quality: str) -> ParameterValidation | None:
+    if unit == "mixed":
+        return ParameterValidation(False, "PARAMETER_UNIT_MIXED_FORBIDDEN", "UNIT mixed is never a domain contract")
+    if unit != contract.unit:
+        return ParameterValidation(False, "PARAMETER_UNIT_MISMATCH", f"expected {contract.unit}, got {unit}")
+    if quality != contract.quality:
+        return ParameterValidation(False, "PARAMETER_QUALITY_MISMATCH", f"expected {contract.quality}, got {quality}")
+    return None
+
+
+def _validate_value(contract: ParameterContract, value: Any) -> ParameterValidation | None:
+    if not _value_matches_type(contract.value_type, value):
+        return ParameterValidation(False, "PARAMETER_TYPE_MISMATCH", f"expected {contract.value_type}")
+    if contract.allowed and value not in contract.allowed:
+        return ParameterValidation(False, "PARAMETER_VALUE_NOT_ALLOWED", f"{value!r} is outside ALLOWED")
+    if contract.value_type not in {"decimal", "integer"}:
+        return None
+    numeric = Decimal(str(value))
+    if contract.minimum is not None and numeric < contract.minimum:
+        return ParameterValidation(False, "PARAMETER_BELOW_MINIMUM", f"{numeric} < {contract.minimum}")
+    if contract.maximum is not None and numeric > contract.maximum:
+        return ParameterValidation(False, "PARAMETER_ABOVE_MAXIMUM", f"{numeric} > {contract.maximum}")
+    return None
+
+
+def _value_matches_type(value_type: str, value: Any) -> bool:
+    return {
+        "boolean": isinstance(value, bool),
+        "integer": isinstance(value, int) and not isinstance(value, bool),
+        "decimal": isinstance(value, (int, float, Decimal)) and not isinstance(value, bool) and (not isinstance(value, float) or math.isfinite(value)),
+        "string": isinstance(value, str),
+    }[value_type]
 
 
 def _parse_parameter_fields(lines: list[str], index: int) -> tuple[dict[str, str], int]:

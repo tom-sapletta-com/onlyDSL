@@ -87,43 +87,58 @@ def parse_bound_build_plan(markdown: str) -> BoundBuildPlan:
     if not lines or not lines[0].startswith("BUILD_PLAN ") or lines[-1] != "END_BUILD_PLAN":
         raise ControlDslError("invalid BuildPlanDSL envelope")
     twin_id = lines[0].split(None, 1)[1]
-    revision = None
-    twin_hash = None
-    tasks: list[BoundBuildTask] = []
-    index = 1
-    phase_depth = 0
-    while index < len(lines) - 1:
-        line = lines[index]
-        if line.startswith("FROM_REVISION "):
-            if revision is not None:
-                raise ControlDslError("duplicate FROM_REVISION")
-            revision = int(line.split(None, 1)[1])
-        elif line.startswith("FROM_TWIN_HASH "):
-            if twin_hash is not None:
-                raise ControlDslError("duplicate FROM_TWIN_HASH")
-            twin_hash = line.split(None, 1)[1]
-        elif line.startswith("PHASE "):
-            phase_depth += 1
-        elif line.startswith("PURPOSE "):
-            json_string(line.split(None, 1)[1], "PURPOSE")
-        elif line.startswith("TASK "):
-            if not phase_depth:
-                raise ControlDslError("TASK must be inside PHASE")
-            task, index = _parse_task(lines, index)
-            tasks.append(task)
-        elif line == "END_PHASE":
-            if not phase_depth:
-                raise ControlDslError("END_PHASE without PHASE")
-            phase_depth -= 1
-        else:
-            raise ControlDslError(f"unknown BuildPlanDSL directive {line!r}")
-        index += 1
+    revision, twin_hash, tasks, phase_depth = _parse_plan_body(lines)
     if phase_depth:
         raise ControlDslError("PHASE missing END_PHASE")
     if revision is None or twin_hash is None or not HASH_RE.fullmatch(twin_hash):
         raise ControlDslError("BuildPlanDSL requires exact FROM_REVISION and FROM_TWIN_HASH")
     _validate_tasks(tasks)
     return BoundBuildPlan(twin_id, revision, twin_hash, tuple(tasks))
+
+
+def _parse_plan_body(lines: list[str]) -> tuple[int | None, str | None, list[BoundBuildTask], int]:
+    revision: int | None = None
+    twin_hash: str | None = None
+    tasks: list[BoundBuildTask] = []
+    index = 1
+    phase_depth = 0
+    while index < len(lines) - 1:
+        revision, twin_hash, phase_depth, task_index = _parse_plan_directive(
+            lines, index, revision, twin_hash, phase_depth,
+        )
+        if task_index is not None:
+            task, index = _parse_task(lines, index)
+            tasks.append(task)
+        index += 1
+    return revision, twin_hash, tasks, phase_depth
+
+
+def _parse_plan_directive(
+    lines: list[str], index: int, revision: int | None, twin_hash: str | None, phase_depth: int,
+) -> tuple[int | None, str | None, int, int | None]:
+    line = lines[index]
+    if line.startswith("FROM_REVISION "):
+        if revision is not None:
+            raise ControlDslError("duplicate FROM_REVISION")
+        return int(line.split(None, 1)[1]), twin_hash, phase_depth, None
+    if line.startswith("FROM_TWIN_HASH "):
+        if twin_hash is not None:
+            raise ControlDslError("duplicate FROM_TWIN_HASH")
+        return revision, line.split(None, 1)[1], phase_depth, None
+    if line.startswith("PHASE "):
+        return revision, twin_hash, phase_depth + 1, None
+    if line.startswith("PURPOSE "):
+        json_string(line.split(None, 1)[1], "PURPOSE")
+        return revision, twin_hash, phase_depth, None
+    if line.startswith("TASK "):
+        if not phase_depth:
+            raise ControlDslError("TASK must be inside PHASE")
+        return revision, twin_hash, phase_depth, index
+    if line == "END_PHASE":
+        if not phase_depth:
+            raise ControlDslError("END_PHASE without PHASE")
+        return revision, twin_hash, phase_depth - 1, None
+    raise ControlDslError(f"unknown BuildPlanDSL directive {line!r}")
 
 
 def validate_bound_build_plan(markdown: str, twin: Any | None = None, rendered_twin_markdown: str = "") -> dict[str, Any]:

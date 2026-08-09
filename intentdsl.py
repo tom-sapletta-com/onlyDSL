@@ -6,6 +6,8 @@ import re
 from dataclasses import dataclass, field, asdict
 from typing import Any, Iterable
 
+from intent_codegen import generate_code, php_array
+
 FENCE_RE = re.compile(r"```intentdsl\s*\n(?P<body>.*?)```", re.I | re.S)
 IDENT_RE = r"[A-Za-z_][A-Za-z0-9_]*"
 TYPE_NAMES = {"string", "number", "integer", "boolean"}
@@ -460,124 +462,8 @@ def _generic_demo_lines(text: str) -> list[str]:
     ]
 
 
-def _js_literal(value: Any) -> str:
-    return json.dumps(value, ensure_ascii=False)
-
-
-def _codegen_python(program: Program) -> str:
-    lines = ["def run(ctx):", "    actions = []", "    events = []"]
-    for name in program.inputs:
-        lines.append(f"    {name} = ctx[{name!r}]")
-    for name, spec in program.states.items():
-        lines.append(f"    {name} = {spec['initial']!r}")
-    for rule in program.rules:
-        expr = _normalize_expr(rule.when)
-        lines.append(f"    if {expr}:")
-        if not rule.operations:
-            lines.append("        pass")
-        for op in rule.operations:
-            if op.kind == "do":
-                lines.append(f"        actions.append(({op.value!r}, {op.args!r}))")
-            elif op.kind == "emit":
-                lines.append(f"        events.append({{'name': {op.value!r}, 'args': {op.args!r}}})")
-            elif op.kind == "set":
-                lines.append(f"        {op.args['target']} = {_normalize_expr(op.value)}")
-            elif op.kind == "assert":
-                lines.append(f"        assert {_normalize_expr(op.value)}")
-            elif op.kind == "stop":
-                lines.append("        return {'actions': actions, 'events': events}")
-    lines.append("    return {'actions': actions, 'events': events}")
-    return "\n".join(lines)
-
-
-def _codegen_javascript_like(program: Program, target: str) -> str:
-    sig = "export function run(ctx: Record<string, unknown>)" if target == "typescript" else "export function run(ctx)"
-    lines = [f"{sig} {{", "  const actions = [];", "  const events = [];"]
-    for name, spec in program.states.items():
-        decl = f"let {name}" + (f": { {'string':'string','number':'number','integer':'number','boolean':'boolean'}[spec['type']] }" if target == "typescript" else "")
-        lines.append(f"  {decl} = {_js_literal(spec['initial'])};")
-    for inp in program.inputs:
-        typecast = " as any" if target == "typescript" else ""
-        lines.append(f"  const {inp} = ctx[{_js_literal(inp)}]{typecast};")
-    for rule in program.rules:
-        expr = rule.when.replace(" and ", " && ").replace(" or ", " || ").replace(" not ", " !")
-        expr = re.sub(r"\btrue\b", "true", re.sub(r"\bfalse\b", "false", expr, flags=re.I), flags=re.I)
-        lines.append(f"  if ({expr}) {{")
-        for op in rule.operations:
-            if op.kind == "do":
-                lines.append(f"    actions.push({{name: {_js_literal(op.value)}, args: {_js_literal(op.args)}}});")
-            elif op.kind == "emit":
-                lines.append(f"    events.push({{name: {_js_literal(op.value)}, args: {_js_literal(op.args)}}});")
-            elif op.kind == "set":
-                value = op.value.replace(" and ", " && ").replace(" or ", " || ")
-                lines.append(f"    {op.args['target']} = {value};")
-            elif op.kind == "assert":
-                expr2 = op.value.replace(" and ", " && ").replace(" or ", " || ")
-                lines.append(f"    if (!({expr2})) throw new Error({_js_literal('ASSERT failed: ' + op.value)});")
-            elif op.kind == "stop":
-                lines.append("    return {actions, events};")
-        lines.append("  }")
-    lines.append("  return {actions, events};")
-    lines.append("}")
-    return "\n".join(lines)
-
-
-def _codegen_php(program: Program) -> str:
-    lines = ["<?php", "function runIntent(array $ctx): array {", "    $actions = [];", "    $events = [];"]
-    symbols = program.inputs.keys() | program.states.keys()
-    symbol_pattern = rf"\b({'|'.join(map(re.escape, symbols))})\b" if symbols else None
-    for name, spec in program.states.items():
-        val = json.dumps(spec["initial"], ensure_ascii=False)
-        val = {"true": "true", "false": "false"}.get(val, val)
-        lines.append(f"    ${name} = {val};")
-    for inp in program.inputs:
-        lines.append(f"    ${inp} = $ctx[{json.dumps(inp)}];")
-    for rule in program.rules:
-        expr = rule.when.replace(" and ", " && ").replace(" or ", " || ")
-        if symbol_pattern is not None:
-            expr = re.sub(symbol_pattern, r"$\1", expr)
-        expr = expr.replace("true", "true").replace("false", "false")
-        lines.append(f"    if ({expr}) {{")
-        for op in rule.operations:
-            if op.kind == "do":
-                lines.append(f"        $actions[] = ['name' => {json.dumps(op.value)}, 'args' => {php_array(op.args)}];")
-            elif op.kind == "emit":
-                lines.append(f"        $events[] = ['name' => {json.dumps(op.value)}, 'args' => {php_array(op.args)}];")
-            elif op.kind == "set":
-                value = op.value.replace(" and ", " && ").replace(" or ", " || ")
-                if symbol_pattern is not None:
-                    value = re.sub(symbol_pattern, r"$\1", value)
-                lines.append(f"        ${op.args['target']} = {value};")
-            elif op.kind == "assert":
-                value = op.value
-                if symbol_pattern is not None:
-                    value = re.sub(symbol_pattern, r"$\1", value)
-                lines.append(f"        if (!({value})) throw new RuntimeException({json.dumps('ASSERT failed: ' + op.value)});")
-            elif op.kind == "stop":
-                lines.append("        return ['actions' => $actions, 'events' => $events];")
-        lines.append("    }")
-    lines.append("    return ['actions' => $actions, 'events' => $events];")
-    lines.append("}")
-    return "\n".join(lines)
-
-
 def codegen(program: Program, target: str) -> str:
     target = target.lower()
     if target not in {"python", "typescript", "javascript", "php"}:
         raise IntentDslError(f"Unsupported codegen target: {target}")
-    if target == "python":
-        return _codegen_python(program)
-    if target in {"typescript", "javascript"}:
-        return _codegen_javascript_like(program, target)
-    return _codegen_php(program)
-
-
-def php_array(values: dict[str, Any]) -> str:
-    if not values:
-        return "[]"
-    parts = []
-    for key, value in values.items():
-        lit = json.dumps(value, ensure_ascii=False)
-        lit = {"true": "true", "false": "false", "null": "null"}.get(lit, lit)
-        parts.append(f"{json.dumps(key)} => {lit}")
-    return "[" + ", ".join(parts) + "]"
+    return generate_code(program, target)

@@ -1,12 +1,10 @@
-# onlyDSL | 486 func | 52f | 10344L | python | 2026-08-08
+# onlyDSL | 531 func | 59f | 10836L | python | 2026-08-09
 # generated in 0.00s
 
 HEALTH:
-  CC̄=4.1  critical=55 (limit:10)  dup=1  cycles=0
+  CC̄=4.0  critical=51 (limit:10)  dup=3  cycles=0
 
 ALERTS[20]:
-  !!! high_fan_out     create_candidate = 34 (limit:10)
-  !!! high_fan_out     SsotStore.promote = 32 (limit:10)
   !!! high_fan_out     main = 31 (limit:10)
   !!! high_fan_out     main = 26 (limit:10)
   !!! high_fan_out     Handler.do_GET = 22 (limit:10)
@@ -14,39 +12,41 @@ ALERTS[20]:
   !!! high_fan_out     _bootstrap_twin = 20 (limit:10)
   !!! high_fan_out     update_twin = 20 (limit:10)
   !!  cc_exceeded      main = 23 (limit:15)
-  !!  cc_exceeded      parse_bound_build_plan = 21 (limit:15)
+  !!  high_fan_out     SsotStore.initialize = 19 (limit:10)
+  !!  high_fan_out     _ifuri_analyze_context = 18 (limit:10)
+  !!  high_fan_out     bootstrap_twin = 18 (limit:10)
 
-MODULES[97] (top by size):
-  M[digital_twin.py] 839L C:10 F:50 CC↑12 D:5 (python)
-  M[intentdsl.py] 583L C:4 F:27 CC↑14 D:2 (python)
+MODULES[120] (top by size):
+  M[digital_twin.py] 764L C:2 F:50 CC↑12 D:5 (python)
   M[server.py] 535L C:1 F:30 CC↑15 D:0 (python)
   M[goal.yaml] 526L C:0 F:0 CC↑0 D:0 (yaml)
-  M[llm_client.py] 507L C:1 F:13 CC↑14 D:1 (python)
+  M[llm_client.py] 506L C:1 F:13 CC↑14 D:1 (python)
+  M[intentdsl.py] 469L C:4 F:22 CC↑14 D:2 (python)
   M[contextdsl.py] 468L C:5 F:39 CC↑15 D:3 (python)
-  M[ifuri_core/transport.py] 437L C:7 F:34 CC↑7 D:0 (python)
-  M[diagnostics.py] 291L C:1 F:3 CC↑7 D:1 (python)
+  M[ifuri_core/transport.py] 424L C:5 F:32 CC↑7 D:0 (python)
+  M[diagnostics.py] 296L C:1 F:3 CC↑7 D:1 (python)
   M[evolution.py] 286L C:1 F:18 CC↑14 D:1 (python)
-  M[ifuri_core/manifest.py] 253L C:5 F:13 CC↑13 D:0 (python)
   M[boundary.py] 249L C:2 F:16 CC↑8 D:3 (python)
+  M[packages/onlydsl-core/src/onlydsl_core/capabilities.py] 239L C:5 F:12 CC↑13 D:0 (python)
   M[source_ingest.py] 236L C:3 F:13 CC↑12 D:5 (python)
-  M[onlydsl/ssot/writer.py] 224L C:1 F:13 CC↑16 D:0 (python)
+  M[packages/onlydsl-contracts/src/onlydsl_contracts/dsl/development_evidence.py] 230L C:1 F:12 CC↑10 D:1 (python)
+  M[packages/onlydsl-ssot/src/onlydsl_ssot/writer.py] 215L C:1 F:17 CC↑10 D:0 (python)
   M[docker-compose.yml] 209L C:0 F:0 CC↑0 D:0 (yml)
-  M[ifuri_core/llm_gateway.py] 202L C:1 F:10 CC↑5 D:1 (python)
-  LANGS: python:71/json:5/shell:4/yaml:4/toml:2/proto:2/txt:2/javascript:1/typescript:1/php:1/other:1/dsl:1/yml:1/conf:1
+  LANGS: python:91/json:6/shell:4/yaml:4/toml:4/proto:2/txt:2/javascript:1/typescript:1/php:1/other:1/dsl:1/yml:1/conf:1
 
 HOTSPOTS[10]:
-  ★ create_candidate fan=34  // Orchestrates 34 calls
-  ★ SsotStore.promote fan=32  // Orchestrates 32 calls
   ★ main fan=31  // Orchestrates 31 calls
   ★ main fan=26  // Orchestrates 26 calls
   ★ Handler.do_GET fan=22  // Orchestrates 22 calls
+  ★ build_source_index fan=21  // Orchestrates 21 calls
+  ★ _bootstrap_twin fan=20  // Orchestrates 20 calls
 
-REFACTOR[15]:
+REFACTOR[12]:
   [1] H/H Split god module server.py (535L, 1 classes)
-  [2] H/H Split god module intentdsl.py (583L, 4 classes)
-  [3] H/H Split god module llm_client.py (507L, 1 classes)
-  [4] H/H Split god module digital_twin.py (839L, 10 classes)
-  [5] H/H Split god module goal.yaml (526L, 0 classes)
+  [2] H/H Split god module llm_client.py (506L, 1 classes)
+  [3] H/H Split god module digital_twin.py (764L, 2 classes)
+  [4] H/H Split god module goal.yaml (526L, 0 classes)
+  [5] M/L Split parse_context_dsl (CC=15)
 
 EVOLUTION:
-  2026-08-08 CC̄=4.1 crit=55 10344L // Automated analysis
+  2026-08-09 CC̄=4.0 crit=51 10836L // Automated analysis

@@ -55,42 +55,62 @@ def create_candidate(
     directory = candidates_root / candidate_id
     if directory.exists():
         raise SsotValidationError(f"candidate already exists: {candidate_id}")
+    current_files = collect_file_hashes(current_tree)
+    temporary, tree = _prepare_candidate_tree(candidates_root, candidate_id, current_tree)
+    try:
+        _apply_candidate_changes(tree, updates or {}, removals)
+        file_hashes = _validate_candidate_tree(tree, validator)
+        evidence = _validate_candidate_evidence(evidence_uris)
+        value = CandidateRevision(candidate_id, project_id, base_revision, utc_now(), file_hashes, evidence)
+        save_candidate(temporary, value)
+        atomic_write_text(temporary / "semantic.diff.dsl", render_diff(candidate_id, base_revision, calculate_diff(current_files, file_hashes)))
+        temporary.rename(directory)
+        return value
+    except Exception:
+        shutil.rmtree(temporary, ignore_errors=True)
+        raise
+
+
+def _prepare_candidate_tree(candidates_root: Path, candidate_id: str, current_tree: Path) -> tuple[Path, Path]:
     temporary = candidates_root / ("." + candidate_id + ".tmp")
     candidates_root.mkdir(parents=True, exist_ok=True)
     if temporary.exists():
         shutil.rmtree(temporary)
     temporary.mkdir()
     tree = temporary / "tree"
-    current_files = collect_file_hashes(current_tree)
     shutil.copytree(current_tree, tree)
-    normalized_updates = {normalize_relative_path(relative): content for relative, content in (updates or {}).items()}
+    return temporary, tree
+
+
+def _apply_candidate_changes(tree: Path, updates: dict[str, bytes], removals: tuple[str, ...]) -> None:
+    normalized_updates = {normalize_relative_path(relative): content for relative, content in updates.items()}
     normalized_removals = tuple(normalize_relative_path(relative) for relative in removals)
     if set(normalized_removals) & set(normalized_updates):
-        shutil.rmtree(temporary)
         raise SsotValidationError("candidate cannot update and remove the same path")
-    for normalized in normalized_removals:
-        target = tree / normalized
+    for relative in normalized_removals:
+        target = tree / relative
         if target.is_symlink() or not target.is_file():
-            shutil.rmtree(temporary)
-            raise SsotValidationError(f"candidate removal target is not a regular file: {normalized}")
+            raise SsotValidationError(f"candidate removal target is not a regular file: {relative}")
         target.unlink()
-    for normalized, content in normalized_updates.items():
-        target = tree / normalized
+    for relative, content in normalized_updates.items():
+        target = tree / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(content)
+
+
+def _validate_candidate_tree(tree: Path, validator: TreeValidator) -> dict[str, str]:
     file_hashes, issues, _, _ = validator(tree)
-    if any(issue.startswith(("AUTHORITY_PATH_FORBIDDEN", "AUTHORITY_CONTENT_FORBIDDEN")) for issue in issues):
-        shutil.rmtree(temporary)
-        raise SsotValidationError("; ".join(issues))
+    forbidden = [issue for issue in issues if issue.startswith(("AUTHORITY_PATH_FORBIDDEN", "AUTHORITY_CONTENT_FORBIDDEN"))]
+    if forbidden:
+        raise SsotValidationError("; ".join(forbidden))
+    return file_hashes
+
+
+def _validate_candidate_evidence(evidence_uris: tuple[str, ...]) -> tuple[str, ...]:
     immutable_evidence = tuple(dict.fromkeys(evidence_uris))
     if any(not is_immutable_urn(uri) for uri in immutable_evidence):
-        shutil.rmtree(temporary)
         raise SsotValidationError("candidate evidence must use immutable urn:*:sha256:<64-hex> identifiers")
-    value = CandidateRevision(candidate_id, project_id, base_revision, utc_now(), file_hashes, immutable_evidence)
-    save_candidate(temporary, value)
-    atomic_write_text(temporary / "semantic.diff.dsl", render_diff(candidate_id, base_revision, calculate_diff(current_files, file_hashes)))
-    temporary.rename(directory)
-    return value
+    return immutable_evidence
 
 
 def validate_candidate(

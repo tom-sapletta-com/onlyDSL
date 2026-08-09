@@ -44,49 +44,20 @@ class IfUri:
         if not isinstance(raw, str) or not raw:
             raise IfUriError("URI must be a non-empty string")
         parsed = urlsplit(raw)
-        if parsed.scheme != "ifuri":
-            raise IfUriError("URI scheme must be 'ifuri'")
-        if parsed.username or parsed.password or parsed.port:
-            raise IfUriError("userinfo and port are forbidden in logical IFURI addresses")
-        if parsed.query or parsed.fragment:
-            raise IfUriError("query and fragment are forbidden in canonical IFURI addresses")
-        if not parsed.hostname:
-            raise IfUriError("bounded context is required")
-        segments = [seg for seg in parsed.path.split("/") if seg]
-        if len(segments) != 4:
-            raise IfUriError(
-                "IFURI must have exactly 4 path segments: "
-                "<entity>/<identity>/<kind>/<operation>"
-            )
+        _validate_uri_parts(parsed)
         bounded_context = parsed.hostname
-        entity, identity, kind, operation = segments
-        for label, value in (
-            ("bounded_context", bounded_context),
-            ("entity", entity),
-            ("identity", identity),
-            ("operation", operation),
-        ):
-            if not _SEGMENT_RE.fullmatch(value):
-                raise IfUriError(f"invalid {label}: {value!r}")
+        entity, identity, kind, operation = _path_segments(parsed.path)
+        _validate_segments(bounded_context, entity, identity, operation)
         if kind not in _KINDS:
             raise IfUriError(f"invalid kind {kind!r}; expected one of {sorted(_KINDS)}")
         return cls(bounded_context, entity, identity, kind, operation)
 
     def __str__(self) -> str:
-        return (
-            f"ifuri://{self.bounded_context}/{self.entity}/{self.identity}/"
-            f"{self.kind}/{self.operation}"
-        )
+        return f"ifuri://{self.bounded_context}/{self.entity}/{self.identity}/{self.kind}/{self.operation}"
 
     def to_subject(self, prefix: str = "ifuri") -> str:
-        """Map the logical URI deterministically to a NATS subject.
-
-        This mapping is a transport concern; the domain code keeps using IFURI.
-        """
-        p = _KIND_SUBJECT_PREFIX[self.kind]
-        return ".".join(
-            [prefix, p, self.bounded_context, self.entity, self.identity, self.operation]
-        )
+        """Map the logical URI deterministically to a NATS subject."""
+        return ".".join([prefix, _KIND_SUBJECT_PREFIX[self.kind], self.bounded_context, self.entity, self.identity, self.operation])
 
     @property
     def is_request_reply(self) -> bool:
@@ -95,6 +66,31 @@ class IfUri:
     @property
     def is_event(self) -> bool:
         return self.kind == "events"
+
+
+def _validate_uri_parts(parsed: object) -> None:
+    # urlsplit returns SplitResult, but keeping this helper structural avoids exposing it publicly.
+    if parsed.scheme != "ifuri":
+        raise IfUriError("URI scheme must be 'ifuri'")
+    if parsed.username or parsed.password or parsed.port:
+        raise IfUriError("userinfo and port are forbidden in logical IFURI addresses")
+    if parsed.query or parsed.fragment:
+        raise IfUriError("query and fragment are forbidden in canonical IFURI addresses")
+    if not parsed.hostname:
+        raise IfUriError("bounded context is required")
+
+
+def _path_segments(path: str) -> tuple[str, str, str, str]:
+    segments = [seg for seg in path.split("/") if seg]
+    if len(segments) != 4:
+        raise IfUriError("IFURI must have exactly 4 path segments: <entity>/<identity>/<kind>/<operation>")
+    return tuple(segments)  # type: ignore[return-value]
+
+
+def _validate_segments(bounded_context: str, entity: str, identity: str, operation: str) -> None:
+    for label, value in (("bounded_context", bounded_context), ("entity", entity), ("identity", identity), ("operation", operation)):
+        if not _SEGMENT_RE.fullmatch(value):
+            raise IfUriError(f"invalid {label}: {value!r}")
 
 
 def canonicalize(raw: str) -> str:

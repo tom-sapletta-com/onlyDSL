@@ -61,23 +61,36 @@ def validate_tree(tree: Path) -> tuple[dict[str, str], tuple[str, ...], str | No
     if any(issue.startswith("TREE_INVALID:") for issue in issues):
         return hashes, tuple(issues), integrity, completeness
     for relative in hashes:
-        parts = {part.lower() for part in Path(relative).parts}
-        if parts & PROTECTED_PARTS or relative.lower().endswith(".aql"):
-            continue
-        path = tree / relative
-        if path.suffix.lower() in {".dsl", ".projectdsl", ".md"}:
-            try:
-                content = path.read_text(encoding="utf-8")
-            except UnicodeDecodeError:
-                continue
-            if "PROFILE aql:contract" in content or "ALLOW URI_PROCESS" in content:
-                continue
-            if path.suffix.lower() == ".dsl" and not content.strip():
-                continue
-            try:
-                parsed_integrity, parsed_completeness = _validate_known_dsl(relative, content)
-                integrity = parsed_integrity or integrity
-                completeness = parsed_completeness or completeness
-            except Exception as exc:
-                issues.append(f"DSL_INVALID:{relative}:{type(exc).__name__}:{exc}")
+        result, issue = _validate_tree_file(tree, relative)
+        if issue:
+            issues.append(issue)
+        if result:
+            parsed_integrity, parsed_completeness = result
+            integrity = parsed_integrity or integrity
+            completeness = parsed_completeness or completeness
     return hashes, tuple(dict.fromkeys(issues)), integrity, completeness
+
+
+def _validate_tree_file(tree: Path, relative: str) -> tuple[tuple[str | None, str | None] | None, str | None]:
+    path = tree / relative
+    if not _is_validatable_dsl_path(relative, path):
+        return None, None
+    try:
+        content = path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        return None, None
+    if _is_excluded_dsl_content(path, content):
+        return None, None
+    try:
+        return _validate_known_dsl(relative, content), None
+    except Exception as exc:
+        return None, f"DSL_INVALID:{relative}:{type(exc).__name__}:{exc}"
+
+
+def _is_validatable_dsl_path(relative: str, path: Path) -> bool:
+    parts = {part.lower() for part in Path(relative).parts}
+    return not (parts & PROTECTED_PARTS or relative.lower().endswith(".aql")) and path.suffix.lower() in {".dsl", ".projectdsl", ".md"}
+
+
+def _is_excluded_dsl_content(path: Path, content: str) -> bool:
+    return "PROFILE aql:contract" in content or "ALLOW URI_PROCESS" in content or (path.suffix.lower() == ".dsl" and not content.strip())

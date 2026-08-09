@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from onlydsl_contracts.ifuri import IfUri, IfUriError
+from twin_models import BuildPlan, BuildTask, TwinCapability, TwinDocument, TwinEdge, TwinInvariant, TwinNode, TwinSourceRef
 
 _FENCE_RE = re.compile(r"```(?P<lang>[A-Za-z][A-Za-z0-9_.-]*)\s*\n(?P<body>.*?)```", re.S)
 _ID_RE = re.compile(r"^[A-Za-z][A-Za-z0-9_.-]{0,95}$")
@@ -164,82 +165,6 @@ def _parse_twin_source(line: str, lineno: int) -> TwinSourceRef:
     if match.group(3):
         path = _parse_json_text(match.group(3), label="SOURCE PATH")
     return TwinSourceRef(match.group(1), match.group(2), path)
-
-
-@dataclass(slots=True)
-class TwinNode:
-    id: str
-    kind: str
-    spatial_class: str = ""
-    responsibility: str = ""
-    evidence: list[str] = field(default_factory=list)
-
-
-@dataclass(slots=True)
-class TwinCapability:
-    id: str
-    uri: str = ""
-    owner: str = ""
-    input_type: str = ""
-    output_type: str = ""
-    responsibility: str = ""
-    evidence: list[str] = field(default_factory=list)
-
-
-@dataclass(slots=True)
-class TwinInvariant:
-    id: str
-    assertions: list[str] = field(default_factory=list)
-    evidence: list[str] = field(default_factory=list)
-
-
-@dataclass(slots=True)
-class TwinEdge:
-    source: str
-    target: str
-    relation: str
-
-
-@dataclass(slots=True)
-class TwinSourceRef:
-    id: str
-    digest: str
-    path: str = ""
-
-
-@dataclass(slots=True)
-class TwinDocument:
-    name: str
-    version: int
-    revision: int
-    intent_fingerprint: str
-    intent_summary: str
-    goals: list[str] = field(default_factory=list)
-    nodes: dict[str, TwinNode] = field(default_factory=dict)
-    capabilities: dict[str, TwinCapability] = field(default_factory=dict)
-    edges: list[TwinEdge] = field(default_factory=list)
-    invariants: dict[str, TwinInvariant] = field(default_factory=dict)
-    evolution_allow: list[str] = field(default_factory=list)
-    evolution_require: list[str] = field(default_factory=list)
-    evolution_forbid: list[str] = field(default_factory=list)
-    sources: dict[str, TwinSourceRef] = field(default_factory=dict)
-    open_questions: list[str] = field(default_factory=list)
-
-
-@dataclass(slots=True)
-class BuildTask:
-    id: str
-    target_uri: str
-    action: str
-    acceptance: str
-    evidence: list[str] = field(default_factory=list)
-
-
-@dataclass(slots=True)
-class BuildPlan:
-    twin: str
-    revision: int
-    phases: list[tuple[str, list[BuildTask]]]
 
 
 @dataclass(slots=True)

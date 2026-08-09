@@ -34,12 +34,14 @@ $VENV/bin/code2llm ./ -f all -o ./project --no-chunk --exclude '*.md'
 
 #$PIP install code2docs --upgrade --quiet
 #$VENV/bin/code2docs ./ --readme-only
-# Fast default: scan the main code hotspot and reuse a fresh report for one
-# hour. Use REDUP_MODE=full REDUP_MAX_AGE_SECONDS=0 for a whole-workspace audit.
+# Fast default: scan the core package.  The former `core` path belonged to the
+# pre-workspace layout; the package now lives below packages/onlydsl-core.
+# Set REDUP_TARGET=. to audit the complete workspace.
 if [ -x "platform/scripts/run-semcod-diagnostics.sh" ]; then
     bash platform/scripts/run-semcod-diagnostics.sh .
 else
-    $VENV/bin/redup scan core \
+    REDUP_TARGET="${REDUP_TARGET:-packages/onlydsl-core/src/onlydsl_core}"
+    $VENV/bin/redup scan "$REDUP_TARGET" \
         --ext '.py,.js,.mjs,.cjs,.ts,.tsx,.jsx,.php,.sh' \
         --min-lines 8 \
         --min-sim 0.92 \
