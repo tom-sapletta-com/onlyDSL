@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ast
+import importlib.util
 from importlib.resources import files
 from pathlib import Path
 import tomllib
@@ -58,6 +59,38 @@ def test_contract_package_is_dependency_free_and_versioned_with_runtime():
     assert package["project"]["name"] == "onlydsl-contracts"
     assert package["project"]["dependencies"] == []
     assert package["project"]["version"] == expected
+    assert root["project"]["dependencies"][:3] == [
+        "onlydsl-contracts>=0.0.11,<0.1",
+        "onlydsl-core>=0.0.11,<0.1",
+        "onlydsl-ssot>=0.0.11,<0.1",
+    ]
+
+
+def test_release_pipeline_covers_every_workspace_distribution():
+    script = ROOT / "scripts/workspace_release.py"
+    spec = importlib.util.spec_from_file_location("onlydsl_workspace_release", script)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    assert [item.name for item in module.DISTRIBUTIONS] == [
+        "onlydsl-contracts", "onlydsl-core", "onlydsl-ssot", "onlyDSL",
+    ]
+    module.verify_versions((ROOT / "VERSION").read_text(encoding="utf-8").strip())
+
+
+def test_every_workspace_distribution_exposes_the_release_version():
+    import onlydsl
+    import onlydsl_contracts
+    import onlydsl_core
+    import onlydsl_ssot
+
+    expected = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+    assert {
+        onlydsl.__version__,
+        onlydsl_contracts.__version__,
+        onlydsl_core.__version__,
+        onlydsl_ssot.__version__,
+    } == {expected}
 
 
 def test_core_package_depends_only_on_contracts_and_protobuf():
@@ -66,7 +99,7 @@ def test_core_package_depends_only_on_contracts_and_protobuf():
     assert package["project"]["name"] == "onlydsl-core"
     assert package["project"]["version"] == expected
     assert package["project"]["dependencies"] == [
-        "onlydsl-contracts==0.0.9", "protobuf>=6.30,<7",
+        "onlydsl-contracts>=0.0.11,<0.1", "protobuf>=6.30,<7",
     ]
 
 
@@ -89,7 +122,7 @@ def test_ssot_package_depends_only_on_contracts():
     expected = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
     assert package["project"]["name"] == "onlydsl-ssot"
     assert package["project"]["version"] == expected
-    assert package["project"]["dependencies"] == ["onlydsl-contracts==0.0.9"]
+    assert package["project"]["dependencies"] == ["onlydsl-contracts>=0.0.11,<0.1"]
 
 
 def test_ssot_package_has_no_domain_runtime_or_execution_imports():

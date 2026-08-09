@@ -269,11 +269,15 @@ __marimo__/
 .streamlit/secrets.toml
 .aider*
 
-# Runtime helpers remain local by default, except the TestQL startup contract used by
-# Dockerfile.testql and docker-compose.yml. Ignoring that file made a fresh clone unable to
-# reproduce the Digital Twin verification/observation bridge.
+# Runtime helpers remain local by default. Every helper referenced by Docker Compose is
+# explicitly versioned so a fresh clone can reproduce all declared services.
 scripts/*
+!scripts/autonomous_repair.py
+!scripts/docker_integration.py
+!scripts/live_supervisor.py
+!scripts/openrouter_smoke.py
 !scripts/startup_testql.py
+!scripts/workspace_release.py
 
 # koru runtime artefacts (generated)
 .planfile/.koru/

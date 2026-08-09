@@ -1,5 +1,5 @@
 # goal.yaml - Goal configuration file
-# Generated: 2026-08-08 18:40:48
+# Generated: 2026-08-10 00:06:04
 # Documentation: https://github.com/wronai/goal#configuration
 #
 # This file configures Goal's behavior for:
@@ -238,8 +238,8 @@ publishing:
 strategies:
   python:
     test: pytest tests/ -v
-    build: python -m build
-    publish: twine upload dist/onlyDSL-{version}*
+    build: python scripts/workspace_release.py build --version {version}
+    publish: ONLYDSL_DISTRIBUTION=onlyDSL python scripts/workspace_release.py publish --version {version}
     publish_enabled: true
     dependencies:
       file: requirements.txt

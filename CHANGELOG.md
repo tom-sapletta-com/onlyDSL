@@ -104,6 +104,32 @@
 - Fix ast-unused-imports issues (ticket-17f64932)
 - Fix ast-sorted-imports issues (ticket-5f092505)
 
+## [0.0.11] - 2026-08-10
+
+### Docs
+- Update README.md
+- Update TEST_REPORT.md
+- Update TODO.md
+- Update project/README.md
+- Update project/context.md
+
+### Test
+- Update tests/test_architecture_contract.py
+- Update tests/test_package_workspace.py
+
+### Other
+- Update .gitignore
+- Update app.doql.less
+- Update packages/onlydsl-contracts/src/onlydsl_contracts/__init__.py
+- Update packages/onlydsl-core/pyproject.toml
+- Update packages/onlydsl-core/src/onlydsl_core/__init__.py
+- Update packages/onlydsl-ssot/pyproject.toml
+- Update packages/onlydsl-ssot/src/onlydsl_ssot/__init__.py
+- Update prefact.yaml
+- Update project.sh
+- Update project/analysis.toon.yaml
+- ... and 22 more files
+
 ## [0.0.10] - 2026-08-09
 
 ### Docs

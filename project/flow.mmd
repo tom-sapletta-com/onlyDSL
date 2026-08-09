@@ -22,22 +22,22 @@ flowchart TD
     end
 
     subgraph Core
-        contextdsl__ContextDocument__to_dict["to_dict"]
-        contextdsl__ContextCompiler__policy["policy"]
-        contextdsl__ContextCompiler__capability["capability"]
-        contextdsl__ContextCompiler__state["state"]
-        contextdsl__ContextCompiler__metric["metric"]
-        contextdsl__ContextCompiler__record["record"]
-        contextdsl__ContextCompiler__event["event"]
-        contextdsl__ContextCompiler__exception["exception"]
-        contextdsl__ContextCompiler__tool_result["tool_result"]
-        contextdsl__ContextCompiler__retrieval["retrieval"]
-        contextdsl__ContextCompiler__memory["memory"]
-        contextdsl__ContextCompiler__code_fact["code_fact"]
-        contextdsl__ContextCompiler__database_fact["database_fact"]
-        contextdsl__ContextCompiler__legacy_log["legacy_log"]
-        contextdsl__ContextCompiler__to_markdown["to_markdown"]
-        ...["+202 more"]
+        evolution__EvolutionStore___write["_write"]
+        evolution__EvolutionStore__add_guidance["add_guidance"]
+        evolution__EvolutionStore__add_incident["add_incident"]
+        evolution__EvolutionStore__add_diagnostic["add_diagnostic"]
+        evolution__EvolutionStore__add_event["add_event"]
+        evolution__EvolutionStore__add_json_record["add_json_record"]
+        evolution__EvolutionStore__latest_guidance["latest_guidance"]
+        evolution__EvolutionStore__claim_incident["claim_incident"]
+        evolution__EvolutionStore__finish_incident["finish_incident"]
+        evolution__EvolutionStore__defer_incident["defer_incident"]
+        evolution__EvolutionStore__diagnostic_for_incident["diagnostic_for_incident"]
+        evolution__EvolutionStore__latest_diagnostics["latest_diagnostics"]
+        evolution__EvolutionStore__status["status"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore__initialize["initialize"]
+        packages__onlydsl_ssot__src__onlydsl_ssot__writer__SsotStore__candidate_diff["candidate_diff"]
+        ...["+178 more"]
     end
 
-    class contextdsl__ContextDocument__to_dict,contextdsl__ContextCompiler__policy,contextdsl__ContextCompiler__capability,contextdsl__ContextCompiler__state,contextdsl__ContextCompiler__metric,contextdsl__ContextCompiler__record,contextdsl__ContextCompiler__event,contextdsl__ContextCompiler__exception,contextdsl__ContextCompiler__tool_result,contextdsl__ContextCompiler__retrieval entry
+    class evolution__EvolutionStore___write,evolution__EvolutionStore__add_guidance,evolution__EvolutionStore__add_incident,evolution__EvolutionStore__add_diagnostic,evolution__EvolutionStore__add_event,evolution__EvolutionStore__add_json_record,evolution__EvolutionStore__latest_guidance,evolution__EvolutionStore__claim_incident,evolution__EvolutionStore__finish_incident,evolution__EvolutionStore__defer_incident entry

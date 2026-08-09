@@ -13,6 +13,8 @@ else
     VENV=".venv"
 fi
 PIP="$VENV/bin/pip"
+ANALYSIS_ROOT="$(pwd -P)"
+ANALYSIS_NAME="$(basename "$ANALYSIS_ROOT")"
 
 if [ ! -f "$PIP" ]; then
     echo "Creating virtual environment at $VENV..."
@@ -29,7 +31,21 @@ $PIP install glon --upgrade --quiet
 $PIP install code2logic --upgrade --quiet
 $PIP install code2llm --upgrade --quiet
 #$VENV/bin/code2llm ./ -f toon,evolution,code2logic,project-yaml -o ./project --no-chunk
-$VENV/bin/code2llm ./ -f all -o ./project --no-chunk --exclude '*.md'
+$VENV/bin/code2llm ./ -f all -o ./project --no-chunk \
+    --exclude .git .venv venv build dist project runtime '*.egg-info' '*.md'
+
+# code2llm records the analyzed absolute path in several generated files.
+# Normalize it so committed analysis is reproducible across clones and CI.
+while IFS= read -r -d '' analysis_file; do
+    ANALYSIS_ROOT="$ANALYSIS_ROOT" ANALYSIS_NAME="$ANALYSIS_NAME" perl -0pi -e '
+        s/\Q$ENV{ANALYSIS_ROOT}\E\///g;
+        s/\Q$ENV{ANALYSIS_ROOT}\E/./g;
+        s/\Q$ENV{ANALYSIS_NAME}\E/onlyDSL/g;
+    ' "$analysis_file"
+done < <(find ./project -type f \( \
+    -name '*.yaml' -o -name '*.md' -o -name '*.mmd' -o \
+    -name '*.txt' -o -name '*.html' -o -name '*.export' \
+\) -print0)
 #$VENV/bin/code2llm report --format all       # → all views
 
 #$PIP install code2docs --upgrade --quiet
@@ -53,7 +69,14 @@ fi
 #$VENV/bin/vallm batch ./src --recursive --semantic --model qwen2.5-coder:7b
 #$VENV/bin/vallm batch --parallel .
 #$VENV/bin/vallm batch . --recursive --format toon --output ./project
-$VENV/bin/prefact -a -e "examples/**"
+$VENV/bin/prefact -a \
+    -e "build/**" \
+    -e "dist/**" \
+    -e ".venv/**" \
+    -e "venv/**" \
+    -e "project/**" \
+    -e "runtime/**" \
+    -e "examples/**"
 
 
 $PIP install doql --upgrade --quiet

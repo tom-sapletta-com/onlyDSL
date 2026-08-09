@@ -1,14 +1,15 @@
-# onlyDSL 0.0.10 — test report
+# onlyDSL 0.0.11 — test report
 
-Current local verification: 2026-08-09
+Current local verification: 2026-08-10
 
 ## Verdict
 
-**CURRENT_LOCAL_TESTS_PASS — 114/114**
+**CURRENT_LOCAL_TESTS_PASS — 119/119**
 
-The current source tree passes the complete local pytest suite. Historical
-HTTP, Docker and real-provider evidence is retained below with its original
-version and date; it was not silently relabeled as a 0.0.10 rerun.
+The current source tree passes the complete local pytest suite and the current
+0.0.11 image passes the Docker integration workflow. Historical HTTP and
+real-provider evidence is retained below with its original version and date;
+it was not silently relabeled as a current rerun.
 
 ## Automated unit/integration-style suite
 
@@ -21,7 +22,7 @@ uv run pytest -q
 Result:
 
 ```text
-114 passed in 4.96s
+119 passed in 1.21s
 ```
 
 Coverage includes:
@@ -73,7 +74,7 @@ The already-running local `live-app` was queried on 2026-08-09:
 
 ```text
 GET http://127.0.0.1:18787/api/health
-version=0.0.10, ok=true, runtime_profile=demo
+version=0.0.11, ok=true, runtime_profile=demo
 request_transport=inproc, event_store=file, cqrs_es=false
 ```
 
@@ -138,7 +139,16 @@ OPENROUTER_SMOKE_SKIPPED: OPENROUTER_API_KEY is not set
 
 The OpenRouter network path itself is covered by tests using a mocked HTTP response, including endpoint, Bearer key forwarding, model selection, DSL-only request content and repair-loop behavior.
 
-## Recorded Docker execution status — 2026-08-08
+## Current Docker integration — 2026-08-10
+
+An isolated Compose project rebuilt the 0.0.11 image and completed
+`docker compose run --rm --build integration`. The run verified NATS 2.14.4
+request/reply, JetStream event publication and replay, PostgreSQL authoritative
+Event Store plus transactional outbox, and the DSL-only LLM/digital-twin flow
+through TwinDSL revision 2 and BuildPlanDSL. The temporary containers, network
+and volumes were removed after the run.
+
+## Earlier Docker/evolution evidence — 2026-08-08
 
 Docker execution was verified on 2026-08-08. At that time the regular stack and
 the guarded live-evolution profile built successfully, and the evolution

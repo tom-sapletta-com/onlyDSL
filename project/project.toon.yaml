@@ -1,47 +1,47 @@
-# onlyDSL | 531 func | 59f | 12249L | python | 2026-08-09
+# onlyDSL | 520 func | 55f | 12214L | python | 2026-08-09
 # generated in 0.00s
 
 HEALTH:
-  CC̄=4.0  critical=51 (limit:10)  dup=3  cycles=0
+  CC̄=3.9  critical=48 (limit:10)  dup=2  cycles=0
 
 ALERTS[20]:
-  !!! high_fan_out     main = 31 (limit:10)
+  !!! high_fan_out     main = 56 (limit:10)
+  !!! high_fan_out     AutonomousRepairAgent.process_once = 34 (limit:10)
+  !!! high_fan_out     AutonomousRepairAgent._propose = 26 (limit:10)
   !!! high_fan_out     main = 26 (limit:10)
+  !!! high_fan_out     main = 22 (limit:10)
   !!! high_fan_out     Handler.do_GET = 22 (limit:10)
   !!! high_fan_out     build_source_index = 21 (limit:10)
-  !!! high_fan_out     _bootstrap_twin = 20 (limit:10)
   !!! high_fan_out     update_twin = 20 (limit:10)
-  !!  cc_exceeded      main = 23 (limit:15)
-  !!  high_fan_out     SsotStore.initialize = 19 (limit:10)
-  !!  high_fan_out     _ifuri_analyze_context = 18 (limit:10)
-  !!  high_fan_out     bootstrap_twin = 18 (limit:10)
+  !!! high_fan_out     _bootstrap_twin = 20 (limit:10)
+  !!  cc_exceeded      AutonomousRepairAgent.process_once = 20 (limit:15)
 
-MODULES[122] (top by size):
+MODULES[113] (top by size):
   M[planfile.yaml] 1319L C:0 F:0 CC↑0 D:0 (yaml)
-  M[digital_twin.py] 764L C:2 F:50 CC↑12 D:5 (python)
+  M[digital_twin.py] 764L C:2 F:50 CC↑12 D:7 (python)
   M[server.py] 535L C:1 F:30 CC↑15 D:0 (python)
   M[goal.yaml] 526L C:0 F:0 CC↑0 D:0 (yaml)
   M[llm_client.py] 506L C:1 F:13 CC↑14 D:1 (python)
   M[intentdsl.py] 469L C:4 F:22 CC↑14 D:2 (python)
-  M[contextdsl.py] 468L C:5 F:39 CC↑15 D:3 (python)
+  M[contextdsl.py] 468L C:5 F:39 CC↑15 D:4 (python)
   M[ifuri_core/transport.py] 424L C:5 F:32 CC↑7 D:0 (python)
+  M[scripts/autonomous_repair.py] 320L C:2 F:11 CC↑20 D:0 (python)
   M[diagnostics.py] 296L C:1 F:3 CC↑7 D:1 (python)
   M[evolution.py] 286L C:1 F:18 CC↑14 D:1 (python)
-  M[boundary.py] 249L C:2 F:16 CC↑8 D:3 (python)
+  M[boundary.py] 249L C:2 F:16 CC↑8 D:6 (python)
   M[packages/onlydsl-core/src/onlydsl_core/capabilities.py] 239L C:5 F:12 CC↑13 D:0 (python)
-  M[source_ingest.py] 236L C:3 F:13 CC↑12 D:5 (python)
+  M[source_ingest.py] 236L C:3 F:13 CC↑12 D:7 (python)
   M[packages/onlydsl-contracts/src/onlydsl_contracts/dsl/development_evidence.py] 230L C:1 F:12 CC↑10 D:1 (python)
-  M[packages/onlydsl-ssot/src/onlydsl_ssot/writer.py] 215L C:1 F:17 CC↑10 D:0 (python)
-  LANGS: python:91/json:6/yaml:6/shell:4/toml:4/proto:2/txt:2/javascript:1/typescript:1/php:1/other:1/dsl:1/yml:1/conf:1
+  LANGS: python:90/yaml:6/json:5/shell:3/dsl:2/proto:2/txt:2/other:1/yml:1/conf:1
 
 HOTSPOTS[10]:
-  ★ main fan=31  // Orchestrates 31 calls
+  ★ main fan=56  // Orchestrates 56 calls
+  ★ AutonomousRepairAgent.process_once fan=34  // Analysis pipeline, 34 stages
+  ★ AutonomousRepairAgent._propose fan=26  // Orchestrates 26 calls
   ★ main fan=26  // Orchestrates 26 calls
-  ★ Handler.do_GET fan=22  // Orchestrates 22 calls
-  ★ build_source_index fan=21  // Orchestrates 21 calls
-  ★ _bootstrap_twin fan=20  // Orchestrates 20 calls
+  ★ main fan=22  // Orchestrates 22 calls
 
-REFACTOR[13]:
+REFACTOR[14]:
   [1] H/H Split god module server.py (535L, 1 classes)
   [2] H/H Split god module llm_client.py (506L, 1 classes)
   [3] H/H Split god module digital_twin.py (764L, 2 classes)
@@ -49,4 +49,4 @@ REFACTOR[13]:
   [5] H/H Split god module planfile.yaml (1319L, 0 classes)
 
 EVOLUTION:
-  2026-08-09 CC̄=4.0 crit=51 12249L // Automated analysis
+  2026-08-09 CC̄=3.9 crit=48 12214L // Automated analysis

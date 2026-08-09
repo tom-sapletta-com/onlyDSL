@@ -17,12 +17,12 @@ from .runtime import IfuriRuntime, RouteDecision, RuntimeErrorIfuri
 try:
     __version__ = version("onlydsl-core")
 except PackageNotFoundError:
-    __version__ = "0.0.9"
+    __version__ = "0+unknown"
 
 __all__ = [
     "Capability", "CapabilityRegistry", "DslDocumentError", "EnvelopeCodec",
     "EnvelopeError", "EnvelopeView", "IfTransport", "IfuriRuntime",
     "ManifestError", "MessageKind", "ResolvedCapability", "RouteDecision",
     "RuntimeErrorIfuri", "TransportError", "TransportPolicy",
-    "make_dsl_document", "validate_dsl_document",
+    "__version__", "make_dsl_document", "validate_dsl_document",
 ]

@@ -3,6 +3,12 @@ package_name: ''
 include:
 - '**/*.py'
 exclude:
+- 'build/**'
+- 'dist/**'
+- '.venv/**'
+- 'venv/**'
+- 'project/**'
+- 'runtime/**'
 - '**/__pycache__/**'
 - '**/node_modules/**'
 - '**/.venv/**'

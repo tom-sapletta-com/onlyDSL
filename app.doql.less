@@ -2,13 +2,13 @@
 
 app {
   name: onlyDSL;
-  version: 0.0.9;
+  version: 0.0.11;
   description: "DSL-governed IFURI digital twin and autonomous repair runtime";
   license: Apache-2.0;
 }
 
 dependencies {
-  runtime: "onlydsl-contracts==0.0.9, onlydsl-core==0.0.9, onlydsl-ssot==0.0.9, protobuf>=6.30,<7, PyYAML>=6,<7, psycopg[binary]>=3.2,<4";
+  runtime: "onlydsl-contracts>=0.0.11,<0.1, onlydsl-core>=0.0.11,<0.1, onlydsl-ssot>=0.0.11,<0.1, protobuf>=6.30,<7, PyYAML>=6,<7, psycopg[binary]>=3.2,<4";
 }
 
 database[name="postgres"] {
