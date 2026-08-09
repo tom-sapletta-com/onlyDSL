@@ -90,7 +90,11 @@ def build(expected: str) -> None:
 def publish(expected: str) -> None:
     verify_versions(expected)
     artifacts = release_artifacts(expected)
-    subprocess.run([sys.executable, "-m", "twine", "upload", *map(str, artifacts)], cwd=ROOT, check=True)
+    subprocess.run(
+        [sys.executable, "-m", "twine", "upload", "--skip-existing", *map(str, artifacts)],
+        cwd=ROOT,
+        check=True,
+    )
 
 
 def main() -> int:

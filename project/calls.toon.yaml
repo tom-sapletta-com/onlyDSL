@@ -1,6 +1,6 @@
 # code2llm call graph | .
-# generated in 0.36s
-# nodes: 337 | edges: 415 | modules: 42
+# generated in 0.38s
+# nodes: 344 | edges: 424 | modules: 43
 # CC̄=3.9
 
 HUBS[20]:
@@ -16,20 +16,20 @@ HUBS[20]:
     CC=2  in:0  out:41  total:41
   llm_client.update_twin
     CC=14  in:1  out:39  total:40
-  source_ingest.build_source_index
-    CC=9  in:4  out:35  total:39
   boundary.assert_dsl_only
     CC=8  in:23  out:16  total:39
+  source_ingest.build_source_index
+    CC=9  in:4  out:35  total:39
   server.Handler.do_GET
     CC=15  in:0  out:37  total:37
   digital_twin.parse_twindsl
     CC=11  in:16  out:21  total:37
-  contextdsl.render_context_dsl
-    CC=9  in:1  out:35  total:36
   intentdsl._parse_program_declaration
     CC=14  in:1  out:35  total:36
   packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.spatial_class_from_twin
     CC=4  in:1  out:35  total:36
+  contextdsl.render_context_dsl
+    CC=9  in:1  out:35  total:36
   evolution.EvolutionStore.status
     CC=14  in:0  out:35  total:35
   onlydsl.ssot.cli._run_command
@@ -42,8 +42,8 @@ HUBS[20]:
     CC=14  in:2  out:30  total:32
   patchdsl.parse_patchdsl
     CC=15  in:2  out:28  total:30
-  llm_client.bootstrap_twin
-    CC=7  in:1  out:28  total:29
+  server._bootstrap_twin
+    CC=5  in:1  out:28  total:29
 
 MODULES:
   aql  [1 funcs]
@@ -160,6 +160,18 @@ MODULES:
     _updates  CC=5  out:4
     build_parser  CC=2  out:48
     main  CC=2  out:6
+  onlydsl.ssot.diff  [1 funcs]
+    calculate_diff  CC=5  out:10
+  onlydsl.ssot.io  [4 funcs]
+    atomic_write_bytes  CC=1  out:10
+    atomic_write_json  CC=1  out:2
+    atomic_write_text  CC=1  out:2
+    fsync_directory  CC=2  out:3
+  onlydsl.ssot.registry  [4 funcs]
+    entries  CC=2  out:3
+    register  CC=2  out:9
+    parse_registry  CC=13  out:16
+    render_registry  CC=2  out:6
   onlydsl.ssot.validation  [5 funcs]
     _is_excluded_dsl_content  CC=4  out:2
     _is_validatable_dsl_path  CC=4  out:5
@@ -245,13 +257,6 @@ MODULES:
     load_candidate  CC=2  out:4
     save_candidate  CC=1  out:3
     validate_candidate  CC=4  out:17
-  packages.onlydsl-ssot.src.onlydsl_ssot.diff  [1 funcs]
-    calculate_diff  CC=5  out:10
-  packages.onlydsl-ssot.src.onlydsl_ssot.io  [4 funcs]
-    atomic_write_bytes  CC=1  out:10
-    atomic_write_json  CC=1  out:2
-    atomic_write_text  CC=1  out:2
-    fsync_directory  CC=2  out:3
   packages.onlydsl-ssot.src.onlydsl_ssot.manifest  [16 funcs]
     _parse_manifest_entries  CC=12  out:8
     _validate_manifest_entries  CC=4  out:4
@@ -267,11 +272,6 @@ MODULES:
     history  CC=2  out:7
     manifest  CC=1  out:2
     verified_manifest  CC=5  out:13
-  packages.onlydsl-ssot.src.onlydsl_ssot.registry  [4 funcs]
-    entries  CC=2  out:3
-    register  CC=2  out:9
-    parse_registry  CC=13  out:16
-    render_registry  CC=2  out:6
   packages.onlydsl-ssot.src.onlydsl_ssot.validation  [1 funcs]
     basic_validate_tree  CC=14  out:16
   packages.onlydsl-ssot.src.onlydsl_ssot.writer  [10 funcs]
@@ -308,6 +308,14 @@ MODULES:
     verify  CC=2  out:6
     wait_for  CC=4  out:5
     write_twin_observation  CC=4  out:11
+  scripts.workspace_release  [7 funcs]
+    build  CC=3  out:8
+    declared_version  CC=2  out:5
+    main  CC=2  out:7
+    publish  CC=1  out:4
+    release_artifacts  CC=9  out:7
+    requested_version  CC=2  out:1
+    verify_versions  CC=4  out:3
   server  [27 funcs]
     _post_routes  CC=1  out:19
     _send  CC=4  out:12
@@ -335,11 +343,31 @@ MODULES:
     save  CC=4  out:15
 
 EDGES:
-  governance.authorize_patch → aql.operation_for_path
-  governance.build_process_envelope → governance.canonical_hash
-  governance.build_process_envelope → aql.operation_for_path
-  governance.complete_envelope → governance.canonical_hash
-  governance.reject_envelope → governance.canonical_hash
+  contextdsl._event_code_from_text → contextdsl._ident
+  contextdsl.ContextCompiler.__init__ → contextdsl._ident
+  contextdsl.ContextCompiler.policy → contextdsl._ident
+  contextdsl.ContextCompiler.capability → contextdsl._ident
+  contextdsl.ContextCompiler.state → contextdsl._infer_type
+  contextdsl.ContextCompiler.state → contextdsl._ident
+  contextdsl.ContextCompiler.metric → contextdsl._ident
+  contextdsl.ContextCompiler.record → contextdsl._ident
+  contextdsl.ContextCompiler.tool_result → contextdsl._ident
+  contextdsl.ContextCompiler.legacy_log → contextdsl._event_code_from_text
+  contextdsl.ContextCompiler.legacy_log → contextdsl._parse_legacy_scalar
+  contextdsl.ContextCompiler.to_markdown → contextdsl.render_context_markdown
+  contextdsl.render_context_markdown → contextdsl.render_context_dsl
+  contextdsl._parse_record_field → contextdsl._parse_literal
+  contextdsl._parse_state → contextdsl._parse_literal
+  contextdsl._parse_metric → contextdsl._parse_literal
+  contextdsl._parse_context_declaration → contextdsl._ident
+  contextdsl.parse_context_dsl → contextdsl._parse_context_declaration
+  contextdsl.parse_context_dsl → contextdsl._parse_record_field
+  contextdsl.validate_context_markdown → contextdsl.parse_context_dsl
+  contextdsl.validate_context_markdown → contextdsl.extract_contextdsl
+  contextdsl.compiler_from_payload → contextdsl._compile_capabilities
+  contextdsl.compiler_from_payload → contextdsl._compile_events
+  contextdsl.compiler_from_payload → contextdsl._compile_logs
+  contextdsl.compiler_from_payload → contextdsl._compile_tool_results
   evolution.EvolutionStore._write → evolution._qid
   evolution.EvolutionStore.add_guidance → evolution._q
   evolution.EvolutionStore.add_guidance → evolution._qid
@@ -350,38 +378,18 @@ EDGES:
   evolution.EvolutionStore.diagnostic_for_incident → evolution._qid
   evolution.EvolutionStore.status → evolution._parse_event
   diagnostics.diagnose_incident → diagnostics._candidate_paths
-  scripts.docker_integration.main → scripts.docker_integration.connect_postgres
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.initialize → packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_text
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.initialize → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.create_manifest
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.initialize → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.render_manifest
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.promote → packages.onlydsl-ssot.src.onlydsl_ssot.candidate.save_candidate
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._prepare_promotion → packages.onlydsl-ssot.src.onlydsl_ssot.candidate.load_candidate
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._prepare_promotion → packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.validate_candidate
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._stage_promotion → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.create_manifest
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._stage_promotion → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.collect_file_hashes
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._commit_promotion → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.render_manifest
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._commit_promotion → packages.onlydsl-ssot.src.onlydsl_ssot.io.fsync_directory
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._commit_promotion → packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_text
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._write_append_only → packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_text
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._write_json_append_only → packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_json
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._validate_approval → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.is_immutable_urn
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._promotion_lock → packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_json
-  packages.onlydsl-ssot.src.onlydsl_ssot.registry.ProjectRegistry.entries → packages.onlydsl-ssot.src.onlydsl_ssot.registry.parse_registry
-  packages.onlydsl-ssot.src.onlydsl_ssot.registry.ProjectRegistry.register → packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_text
-  packages.onlydsl-ssot.src.onlydsl_ssot.registry.ProjectRegistry.register → packages.onlydsl-ssot.src.onlydsl_ssot.registry.render_registry
-  packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.manifest → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.parse_manifest
-  packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.verified_manifest → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.parse_manifest
-  packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.verified_manifest → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.collect_file_hashes
-  packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.verified_manifest → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.validate_manifest
-  packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.history → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.parse_manifest
-  intent_codegen._codegen_python → intent_codegen._normalize_python_expr
-  intent_codegen.generate_code → intent_codegen._codegen_php
-  intent_codegen.generate_code → intent_codegen._codegen_python
-  intent_codegen.generate_code → intent_codegen._codegen_javascript_like
-  packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_bytes → packages.onlydsl-ssot.src.onlydsl_ssot.io.fsync_directory
-  packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_text → packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_bytes
-  packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_json → packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_text
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.collect_file_hashes → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.normalize_relative_path
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.collect_file_hashes → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.digest_bytes
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_section_hashes → governance.canonical_hash
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_section_hashes → packages.onlydsl-ssot.src.onlydsl_ssot.manifest.normalize_relative_path
+  server._current_external_integrity → server._fetch_external_json
+  server._current_external_integrity → server._external_document
+  server._current_external_integrity → server._external_revision
+  server._current_external_integrity → packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.spatial_class_from_twin
+  server._integrity_repair_plan → server._current_external_integrity
+  server._context_registries → contextdsl.parse_context_dsl
+  server._context_registries → contextdsl.extract_contextdsl
+  server._ifuri_analyze_context → contextdsl.validate_context_markdown
+  server._ifuri_analyze_context → packages.onlydsl-core.src.onlydsl_core.dsl_document.make_dsl_document
+  server._ifuri_analyze_context → server._unpack_dsl
+  server._ifuri_analyze_context → server._context_registries
+  server._ifuri_analyze_context → intentdsl.validate_markdown
+  server._ifuri_analyze_context → intentdsl.parse_dsl
+  server._ifuri_compile_source → packages.onlydsl-core.src.onlydsl_core.dsl_document.make_dsl_document
+  server._ifuri_compile_source → server._unpack_dsl

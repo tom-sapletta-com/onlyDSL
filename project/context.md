@@ -5,12 +5,12 @@
 
 - **Project**: .
 - **Primary Language**: python
-- **Languages**: python: 90, yaml: 6, json: 5, shell: 3, txt: 2
+- **Languages**: python: 88, yaml: 6, json: 5, shell: 3, txt: 2
 - **Analysis Mode**: static
-- **Total Functions**: 520
-- **Total Classes**: 104
-- **Modules**: 113
-- **Entry Points**: 220
+- **Total Functions**: 527
+- **Total Classes**: 105
+- **Modules**: 110
+- **Entry Points**: 221
 
 ## Architecture by Module
 
@@ -49,14 +49,14 @@
 - **Classes**: 1
 - **File**: `writer.py`
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-- **Functions**: 16
-- **File**: `manifest.py`
-
 ### boundary
 - **Functions**: 16
 - **Classes**: 2
 - **File**: `boundary.py`
+
+### packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+- **Functions**: 16
+- **File**: `manifest.py`
 
 ### llm_client
 - **Functions**: 13
@@ -68,20 +68,25 @@
 - **Classes**: 3
 - **File**: `source_ingest.py`
 
-### packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-- **Functions**: 12
-- **Classes**: 1
-- **File**: `development_evidence.py`
-
 ### packages.onlydsl-core.src.onlydsl_core.capabilities
 - **Functions**: 12
 - **Classes**: 5
 - **File**: `capabilities.py`
 
+### packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
+- **Functions**: 12
+- **Classes**: 1
+- **File**: `development_evidence.py`
+
 ### scripts.autonomous_repair
 - **Functions**: 11
 - **Classes**: 2
 - **File**: `autonomous_repair.py`
+
+### packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
+- **Functions**: 10
+- **Classes**: 3
+- **File**: `parameter_contract.py`
 
 ### ifuri_core.llm_gateway
 - **Functions**: 10
@@ -93,11 +98,6 @@
 - **Classes**: 4
 - **File**: `event_store.py`
 
-### packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
-- **Functions**: 10
-- **Classes**: 3
-- **File**: `parameter_contract.py`
-
 ### aql
 - **Functions**: 9
 - **Classes**: 3
@@ -107,10 +107,10 @@
 - **Functions**: 9
 - **File**: `candidate.py`
 
-### scripts.live_supervisor
+### ifuri_core.postgres_store
 - **Functions**: 9
 - **Classes**: 1
-- **File**: `live_supervisor.py`
+- **File**: `postgres_store.py`
 
 ## Key Entry Points
 
@@ -149,23 +149,23 @@ Main execution flows into the system:
 ### aql.AqlContract.parse
 - **Calls**: enumerate, sorted, cls, text.splitlines, raw.strip, line.split, AqlError, AqlError
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.initialize
-- **Calls**: self.manifest_path.exists, self.current_root.mkdir, source.is_file, packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_text, packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_text, packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_text, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.create_manifest, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.render_manifest
-
-### scripts.live_supervisor.LiveSupervisor.run
-- **Calls**: signal.signal, signal.signal, self._snapshot, self._start, self.store.add_event, time.sleep, self._snapshot, sorted
-
 ### packages.onlydsl-core.src.onlydsl_core.envelope.EnvelopeCodec.create
 - **Calls**: IfUri.parse, IfUri.parse, EnvelopeCodec._validate_kind_uri, envelope_pb2.Envelope, Timestamp, now.FromMilliseconds, env.created_at.CopyFrom, EnvelopeCodec.validate
+
+### packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.initialize
+- **Calls**: self.manifest_path.exists, self.current_root.mkdir, source.is_file, onlydsl.ssot.io.atomic_write_text, onlydsl.ssot.io.atomic_write_text, onlydsl.ssot.io.atomic_write_text, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.create_manifest, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.render_manifest
 
 ### ifuri_core.event_store.SqliteEventStore.append
 - **Calls**: list, self.conn.cursor, cur.execute, cur.execute, None.fetchone, int, cur.execute, cur.execute
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._commit_promotion
-- **Calls**: packages.onlydsl-ssot.src.onlydsl_ssot.manifest.render_manifest, self.manifest_path.read_text, backup.exists, os.replace, os.replace, packages.onlydsl-ssot.src.onlydsl_ssot.io.fsync_directory, packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_text, self._write_append_only
+### scripts.live_supervisor.LiveSupervisor.run
+- **Calls**: signal.signal, signal.signal, self._snapshot, self._start, self.store.add_event, time.sleep, self._snapshot, sorted
 
 ### packages.onlydsl-ssot.src.onlydsl_ssot.candidate.create_candidate
 - **Calls**: directory.exists, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.collect_file_hashes, packages.onlydsl-ssot.src.onlydsl_ssot.candidate._prepare_candidate_tree, ID_RE.fullmatch, SsotValidationError, SsotValidationError, packages.onlydsl-ssot.src.onlydsl_ssot.candidate._apply_candidate_changes, packages.onlydsl-ssot.src.onlydsl_ssot.candidate._validate_candidate_tree
+
+### packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._commit_promotion
+- **Calls**: packages.onlydsl-ssot.src.onlydsl_ssot.manifest.render_manifest, self.manifest_path.read_text, backup.exists, os.replace, os.replace, onlydsl.ssot.io.fsync_directory, onlydsl.ssot.io.atomic_write_text, self._write_append_only
 
 ### ifuri_core.postgres_store.PostgresEventStore.append
 - **Calls**: list, self.conn.transaction, self.conn.cursor, cur.execute, cur.execute, int, cur.execute, int
@@ -174,17 +174,17 @@ Main execution flows into the system:
 > Lossy adapter for old text logs. Prefer `event()` at log emission time.
 - **Calls**: line.strip, LEGACY_LOG_RE.match, self.record, match.groupdict, KV_RE.sub, contextdsl._event_code_from_text, groups.get, self.record
 
-### scripts.autonomous_repair.AutonomousRepairAgent.__init__
-- **Calls**: None.resolve, None.lower, os.getenv, os.getenv, max, max, os.getenv, AqlContract.from_file
-
 ### server.Handler._post_routes
 - **Calls**: server._compile_context, server._ifuri_analyze_context, server._ifuri_analyze_context, server._ifuri_compile_source, server._ifuri_compile_source, server._bootstrap_twin, server._update_twin, server._integrity_repair_plan
 
 ### ifuri_core.transport.NatsTransport.serve_capability
 - **Calls**: ifuri_core.transport.capability_pattern_to_subject, self._service_sids.append, self._service_tasks.append, self.client.subscribe, asyncio.create_task, loop, q.get, EnvelopeCodec.parse
 
+### scripts.autonomous_repair.AutonomousRepairAgent.__init__
+- **Calls**: None.resolve, None.lower, os.getenv, os.getenv, max, max, os.getenv, AqlContract.from_file
+
 ### packages.onlydsl-ssot.src.onlydsl_ssot.candidate.validate_candidate
-- **Calls**: packages.onlydsl-ssot.src.onlydsl_ssot.candidate.load_candidate, validator, list, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_section_hashes, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_revision_hash, packages.onlydsl-ssot.src.onlydsl_ssot.diff.calculate_diff, ValidationReport, packages.onlydsl-ssot.src.onlydsl_ssot.io.atomic_write_text
+- **Calls**: packages.onlydsl-ssot.src.onlydsl_ssot.candidate.load_candidate, validator, list, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_section_hashes, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_revision_hash, onlydsl.ssot.diff.calculate_diff, ValidationReport, onlydsl.ssot.io.atomic_write_text
 
 ### scripts.autonomous_repair.AutonomousRepairAgent._candidate_files
 - **Calls**: re.findall, max, raw.lstrip, path.startswith, candidates.append, int, None.resolve, target.read_text
@@ -258,15 +258,9 @@ do_POST [server.Handler]
 parse [aql.AqlContract]
 ```
 
-### Flow 10: initialize
+### Flow 10: create
 ```
-initialize [packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore]
-  └─ →> atomic_write_text
-      └─> atomic_write_bytes
-          └─> fsync_directory
-  └─ →> atomic_write_text
-      └─> atomic_write_bytes
-          └─> fsync_directory
+create [packages.onlydsl-core.src.onlydsl_core.envelope.EnvelopeCodec]
 ```
 
 ## Key Classes
@@ -293,10 +287,6 @@ It intentionally implements only the pr
 - **Methods**: 12
 - **Key Methods**: ifuri_core.transport.NatsWireClient.__init__, ifuri_core.transport.NatsWireClient.connect, ifuri_core.transport.NatsWireClient._write, ifuri_core.transport.NatsWireClient.flush, ifuri_core.transport.NatsWireClient.subscribe, ifuri_core.transport.NatsWireClient.unsubscribe, ifuri_core.transport.NatsWireClient.publish, ifuri_core.transport.NatsWireClient.request, ifuri_core.transport.NatsWireClient.close, ifuri_core.transport.NatsWireClient._read_message
 
-### scripts.autonomous_repair.AutonomousRepairAgent
-- **Methods**: 10
-- **Key Methods**: scripts.autonomous_repair.AutonomousRepairAgent.__init__, scripts.autonomous_repair.AutonomousRepairAgent._candidate_files, scripts.autonomous_repair.AutonomousRepairAgent._git_apply, scripts.autonomous_repair.AutonomousRepairAgent._propose, scripts.autonomous_repair.AutonomousRepairAgent._backup, scripts.autonomous_repair.AutonomousRepairAgent._restore, scripts.autonomous_repair.AutonomousRepairAgent._tests, scripts.autonomous_repair.AutonomousRepairAgent._wait_for_health, scripts.autonomous_repair.AutonomousRepairAgent.process_once, scripts.autonomous_repair.AutonomousRepairAgent.run
-
 ### ifuri_core.event_store.SqliteEventStore
 > Reference authoritative ES adapter for tests/local POC.
 
@@ -304,9 +294,9 @@ PostgresEventStore implements the same sema
 - **Methods**: 10
 - **Key Methods**: ifuri_core.event_store.SqliteEventStore.__init__, ifuri_core.event_store.SqliteEventStore._init_schema, ifuri_core.event_store.SqliteEventStore.current_version, ifuri_core.event_store.SqliteEventStore.append, ifuri_core.event_store.SqliteEventStore.load_stream, ifuri_core.event_store.SqliteEventStore.pending_outbox, ifuri_core.event_store.SqliteEventStore.mark_outbox_published, ifuri_core.event_store.SqliteEventStore.mark_outbox_failed, ifuri_core.event_store.SqliteEventStore.outbox_stats, ifuri_core.event_store.SqliteEventStore.close
 
-### scripts.live_supervisor.LiveSupervisor
-- **Methods**: 9
-- **Key Methods**: scripts.live_supervisor.LiveSupervisor.__init__, scripts.live_supervisor.LiveSupervisor._files, scripts.live_supervisor.LiveSupervisor._snapshot, scripts.live_supervisor.LiveSupervisor._capture, scripts.live_supervisor.LiveSupervisor._start, scripts.live_supervisor.LiveSupervisor._stop_child, scripts.live_supervisor.LiveSupervisor._restart, scripts.live_supervisor.LiveSupervisor.shutdown, scripts.live_supervisor.LiveSupervisor.run
+### scripts.autonomous_repair.AutonomousRepairAgent
+- **Methods**: 10
+- **Key Methods**: scripts.autonomous_repair.AutonomousRepairAgent.__init__, scripts.autonomous_repair.AutonomousRepairAgent._candidate_files, scripts.autonomous_repair.AutonomousRepairAgent._git_apply, scripts.autonomous_repair.AutonomousRepairAgent._propose, scripts.autonomous_repair.AutonomousRepairAgent._backup, scripts.autonomous_repair.AutonomousRepairAgent._restore, scripts.autonomous_repair.AutonomousRepairAgent._tests, scripts.autonomous_repair.AutonomousRepairAgent._wait_for_health, scripts.autonomous_repair.AutonomousRepairAgent.process_once, scripts.autonomous_repair.AutonomousRepairAgent.run
 
 ### ifuri_core.postgres_store.PostgresEventStore
 > PostgreSQL authoritative event store + transactional outbox.
@@ -314,6 +304,10 @@ PostgresEventStore implements the same sema
 `psycopg[binary]` is an optional runti
 - **Methods**: 9
 - **Key Methods**: ifuri_core.postgres_store.PostgresEventStore.__init__, ifuri_core.postgres_store.PostgresEventStore.current_version, ifuri_core.postgres_store.PostgresEventStore.append, ifuri_core.postgres_store.PostgresEventStore.load_stream, ifuri_core.postgres_store.PostgresEventStore.pending_outbox, ifuri_core.postgres_store.PostgresEventStore.mark_outbox_published, ifuri_core.postgres_store.PostgresEventStore.mark_outbox_failed, ifuri_core.postgres_store.PostgresEventStore.outbox_stats, ifuri_core.postgres_store.PostgresEventStore.close
+
+### scripts.live_supervisor.LiveSupervisor
+- **Methods**: 9
+- **Key Methods**: scripts.live_supervisor.LiveSupervisor.__init__, scripts.live_supervisor.LiveSupervisor._files, scripts.live_supervisor.LiveSupervisor._snapshot, scripts.live_supervisor.LiveSupervisor._capture, scripts.live_supervisor.LiveSupervisor._start, scripts.live_supervisor.LiveSupervisor._stop_child, scripts.live_supervisor.LiveSupervisor._restart, scripts.live_supervisor.LiveSupervisor.shutdown, scripts.live_supervisor.LiveSupervisor.run
 
 ### aql.AqlContract
 > Small compatible reader for Subactor's canonical aql:contract/v1 profile.
@@ -324,14 +318,14 @@ PostgresEventStore implements the same sema
 - **Methods**: 7
 - **Key Methods**: packages.onlydsl-core.src.onlydsl_core.envelope.EnvelopeCodec.create, packages.onlydsl-core.src.onlydsl_core.envelope.EnvelopeCodec.validate, packages.onlydsl-core.src.onlydsl_core.envelope.EnvelopeCodec._validate_kind_uri, packages.onlydsl-core.src.onlydsl_core.envelope.EnvelopeCodec.serialize, packages.onlydsl-core.src.onlydsl_core.envelope.EnvelopeCodec.parse, packages.onlydsl-core.src.onlydsl_core.envelope.EnvelopeCodec.unpack, packages.onlydsl-core.src.onlydsl_core.envelope.EnvelopeCodec.view
 
-### twin_store.TwinStore
-- **Methods**: 6
-- **Key Methods**: twin_store.TwinStore.__init__, twin_store.TwinStore.exists, twin_store.TwinStore.reset_current, twin_store.TwinStore.load_markdown, twin_store.TwinStore.load, twin_store.TwinStore.save
-
 ### server.Handler
 - **Methods**: 6
 - **Key Methods**: server.Handler.log_message, server.Handler._send, server.Handler._body, server.Handler._post_routes, server.Handler.do_GET, server.Handler.do_POST
 - **Inherits**: BaseHTTPRequestHandler
+
+### twin_store.TwinStore
+- **Methods**: 6
+- **Key Methods**: twin_store.TwinStore.__init__, twin_store.TwinStore.exists, twin_store.TwinStore.reset_current, twin_store.TwinStore.load_markdown, twin_store.TwinStore.load, twin_store.TwinStore.save
 
 ### packages.onlydsl-core.src.onlydsl_core.capabilities.CapabilityRegistry
 - **Methods**: 6
@@ -345,6 +339,12 @@ PostgresEventStore implements the same sema
 - **Methods**: 6
 - **Key Methods**: ifuri_core.transport.NatsTransport.__init__, ifuri_core.transport.NatsTransport.call, ifuri_core.transport.NatsTransport.publish, ifuri_core.transport.NatsTransport.ensure_event_stream, ifuri_core.transport.NatsTransport.serve_capability, ifuri_core.transport.NatsTransport.stop_services
 
+### packages.onlydsl-core.src.onlydsl_core.cqrs.AggregateRoot
+> Minimal event-sourced aggregate base; domain state changes only by events.
+- **Methods**: 5
+- **Key Methods**: packages.onlydsl-core.src.onlydsl_core.cqrs.AggregateRoot.__init__, packages.onlydsl-core.src.onlydsl_core.cqrs.AggregateRoot.apply, packages.onlydsl-core.src.onlydsl_core.cqrs.AggregateRoot.load_from_history, packages.onlydsl-core.src.onlydsl_core.cqrs.AggregateRoot.raise_event, packages.onlydsl-core.src.onlydsl_core.cqrs.AggregateRoot.pull_uncommitted
+- **Inherits**: ABC
+
 ### packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader
 - **Methods**: 5
 - **Key Methods**: packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.__init__, packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.manifest, packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.verified_manifest, packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.status, packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.history
@@ -357,16 +357,6 @@ Canonical shape:
 - **Methods**: 5
 - **Key Methods**: packages.onlydsl-contracts.src.onlydsl_contracts.ifuri.IfUri.parse, packages.onlydsl-contracts.src.onlydsl_contracts.ifuri.IfUri.__str__, packages.onlydsl-contracts.src.onlydsl_contracts.ifuri.IfUri.to_subject, packages.onlydsl-contracts.src.onlydsl_contracts.ifuri.IfUri.is_request_reply, packages.onlydsl-contracts.src.onlydsl_contracts.ifuri.IfUri.is_event
 
-### ifuri_core.transport.InProcessTransport
-- **Methods**: 5
-- **Key Methods**: ifuri_core.transport.InProcessTransport.__init__, ifuri_core.transport.InProcessTransport.register, ifuri_core.transport.InProcessTransport.has_handler, ifuri_core.transport.InProcessTransport.call, ifuri_core.transport.InProcessTransport.publish
-
-### packages.onlydsl-core.src.onlydsl_core.cqrs.AggregateRoot
-> Minimal event-sourced aggregate base; domain state changes only by events.
-- **Methods**: 5
-- **Key Methods**: packages.onlydsl-core.src.onlydsl_core.cqrs.AggregateRoot.__init__, packages.onlydsl-core.src.onlydsl_core.cqrs.AggregateRoot.apply, packages.onlydsl-core.src.onlydsl_core.cqrs.AggregateRoot.load_from_history, packages.onlydsl-core.src.onlydsl_core.cqrs.AggregateRoot.raise_event, packages.onlydsl-core.src.onlydsl_core.cqrs.AggregateRoot.pull_uncommitted
-- **Inherits**: ABC
-
 ### ifuri_core.artifacts.LocalFileArtifactStore
 > Maps logical IFURI artifact identity to a safe local file placement.
 
@@ -374,84 +364,89 @@ The returned file:// URI is ph
 - **Methods**: 5
 - **Key Methods**: ifuri_core.artifacts.LocalFileArtifactStore.__init__, ifuri_core.artifacts.LocalFileArtifactStore._path, ifuri_core.artifacts.LocalFileArtifactStore.put, ifuri_core.artifacts.LocalFileArtifactStore.get, ifuri_core.artifacts.LocalFileArtifactStore.exists
 
+### ifuri_core.transport.InProcessTransport
+- **Methods**: 5
+- **Key Methods**: ifuri_core.transport.InProcessTransport.__init__, ifuri_core.transport.InProcessTransport.register, ifuri_core.transport.InProcessTransport.has_handler, ifuri_core.transport.InProcessTransport.call, ifuri_core.transport.InProcessTransport.publish
+
 ## Data Transformation Functions
 
 Key functions that process and transform data:
 
-### governance.load_process_pack
-- **Output to**: Path, json.loads, None.read_text
+### contextdsl._parse_literal
+- **Output to**: raw.strip, re.fullmatch, re.fullmatch, raw.startswith, ContextDslError
 
-### governance.build_process_envelope
-- **Output to**: governance.canonical_hash, governance.canonical_hash, sorted, sorted, asdict
+### contextdsl._parse_legacy_scalar
+- **Output to**: None.strip, raw.lower, re.fullmatch, re.fullmatch, raw.strip
+
+### contextdsl._parse_record_field
+- **Output to**: re.fullmatch, ContextDslError, match.group, contextdsl._parse_literal, raw.startswith
+
+### contextdsl._parse_policy
+- **Output to**: re.fullmatch, ContextDslError, match.group, match.group
+
+### contextdsl._parse_capability
+- **Output to**: re.fullmatch, capabilities.add, ContextDslError, match.group, match.group
+
+### contextdsl._parse_state
+- **Output to**: re.fullmatch, ContextDslError, match.group, match.group, contextdsl._parse_literal
+
+### contextdsl._parse_metric
+- **Output to**: re.fullmatch, contextdsl._parse_literal, ContextDslError, match.group, isinstance
+
+### contextdsl._parse_record
+- **Output to**: re.fullmatch, ContextRecord, ContextDslError, match.group, match.group
+
+### contextdsl._parse_context_declaration
+- **Output to**: stripped.startswith, int, stripped.startswith, None.strip, contextdsl._ident
+
+### contextdsl.parse_context_dsl
+- **Output to**: dsl.splitlines, enumerate, raw.strip, stripped.startswith, contextdsl._parse_context_declaration
+
+### contextdsl.validate_context_markdown
+- **Output to**: contextdsl.parse_context_dsl, errors.append, doc.policies.get, errors.append, doc.policies.get
 
 ### evolution._parse_event
 - **Output to**: path.read_text, re.search, re.search, re.search, re.findall
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.validate_candidate
-- **Output to**: self.verified_manifest, packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.validate_candidate, self._candidate_directory
+### llm_client._call_dsl_validated
+- **Output to**: max, range, LlmProviderError, int, os.getenv
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._validate_approval
-- **Output to**: HASH_RE.fullmatch, SsotValidationError, any, SsotValidationError, any
+### llm_client.convert_english
+> User text reaches the LLM only inside runtime-generated SourceDSL.
+- **Output to**: None.lower, boundary.build_source_compile_bundle, llm_client._backend_call, intentdsl.demo_english_to_dsl, os.getenv
 
 ### aql.AqlContract.parse
 - **Output to**: enumerate, sorted, cls, text.splitlines, raw.strip
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.registry.parse_registry
-- **Output to**: tuple, line.strip, ValueError, shlex.split, entries.append
+### intentdsl._parse_literal
+- **Output to**: raw.strip, re.fullmatch, re.fullmatch, IntentDslError, int
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.manifest.validate_manifest
-- **Output to**: packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_metadata, packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_entries, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_section_hashes, packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_hashes, any
+### intentdsl._parse_call
+- **Output to**: raw.strip, re.fullmatch, re.fullmatch, match.groups, arg_src.strip
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_metadata
-- **Output to**: any, issues.append, issues.append, issues.append, issues.append
+### intentdsl._parse_rule_statement
+- **Output to**: raw.startswith, None.strip, raw.startswith, intentdsl._parse_call, rule.operations.append
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_entries
-- **Output to**: manifest.sections.items, manifest.files.items, issues.append, HASH_RE.fullmatch
+### intentdsl._parse_program_declaration
+- **Output to**: stripped.startswith, stripped.startswith, None.strip, IntentDslError, re.fullmatch
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_hashes
-- **Output to**: issues.append, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_revision_hash, issues.append
+### intentdsl.parse_dsl
+- **Output to**: dsl.splitlines, enumerate, raw.strip, intentdsl._parse_program_declaration, IntentDslError
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.manifest.parse_manifest
-- **Output to**: packages.onlydsl-ssot.src.onlydsl_ssot.manifest._parse_manifest_entries, packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_scalars, SsotManifest, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.validate_manifest, line.strip
+### intentdsl._validate_rule_expressions
+- **Output to**: intentdsl.expr_names, errors.append, errors.append, None.join, sorted
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.manifest._parse_manifest_entries
-- **Output to**: shlex.split, len, SsotValidationError, receipts.append, len
+### intentdsl._validate_rule_runtime_capabilities
+- **Output to**: errors.append, errors.append, errors.append
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_scalars
-- **Output to**: SsotValidationError, set, scalars.get
+### intentdsl.validate_program
+- **Output to**: program.states.items, set, set, set, set
 
-### packages.onlydsl-ssot.src.onlydsl_ssot.candidate._validate_candidate_tree
-- **Output to**: validator, SsotValidationError, issue.startswith, None.join
-
-### packages.onlydsl-ssot.src.onlydsl_ssot.candidate._validate_candidate_evidence
-- **Output to**: tuple, any, dict.fromkeys, SsotValidationError, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.is_immutable_urn
-
-### packages.onlydsl-ssot.src.onlydsl_ssot.candidate.validate_candidate
-- **Output to**: packages.onlydsl-ssot.src.onlydsl_ssot.candidate.load_candidate, validator, list, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_section_hashes, packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_revision_hash
-
-### scripts.autonomous_repair.AutonomousRepairAgent.process_once
-- **Output to**: self.store.claim_incident, incident_path.read_text, self.store.add_event, os.getenv, None.split
-
-### packages.onlydsl-core.src.onlydsl_core.dsl_document.validate_dsl_document
-- **Output to**: None.hexdigest, DslDocumentError, DslDocumentError, DslDocumentError, hashlib.sha256
-
-### boundary.DslBundle.validate_for_llm
-- **Output to**: boundary.assert_dsl_only
+### intentdsl.validate_markdown
+- **Output to**: intentdsl.extract_intentdsl, intentdsl.parse_dsl, intentdsl.validate_program, str
 
 ### patchdsl._parse_change
 - **Output to**: patchdsl._json_string, None.strip, patchdsl._json_string, PatchChange, PatchDslError
-
-### patchdsl.parse_patchdsl
-- **Output to**: _FENCE_RE.fullmatch, patchdsl._json_string, PatchDocument, markdown.strip, PatchDslError
-
-### patchdsl._validate_change
-- **Output to**: PurePosixPath, None.resolve, patchdsl._count_diff_lines, posix.is_absolute, change.path.startswith
-
-### patchdsl.validate_patch_policy
-- **Output to**: None.resolve, patchdsl._validate_change, errors.extend, errors.append, Path
-
-### patchdsl.validate_patch_markdown
-- **Output to**: patchdsl.parse_patchdsl, patchdsl.validate_patch_policy, str
 
 ## Behavioral Patterns
 
@@ -477,38 +472,38 @@ Functions exposed as public API (no underscore prefix):
 - `llm_client.update_twin` - 39 calls
 - `packages.onlydsl-core.src.onlydsl_core.capabilities.CapabilityRegistry.from_mapping` - 39 calls
 - `server.Handler.do_GET` - 37 calls
-- `evolution.EvolutionStore.status` - 35 calls
 - `contextdsl.render_context_dsl` - 35 calls
+- `evolution.EvolutionStore.status` - 35 calls
 - `source_ingest.build_source_index` - 35 calls
 - `packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.spatial_class_from_twin` - 35 calls
 - `intentdsl.run_program` - 30 calls
 - `packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption.assumptions_from_integrity` - 29 calls
 - `evolution.EvolutionStore.add_incident` - 28 calls
-- `patchdsl.parse_patchdsl` - 28 calls
 - `llm_client.bootstrap_twin` - 28 calls
+- `patchdsl.parse_patchdsl` - 28 calls
 - `ifuri_core.llm_gateway.build_llm_patch_handler` - 28 calls
 - `intentdsl.validate_program` - 27 calls
 - `contextdsl.compiler_from_payload` - 25 calls
 - `server.Handler.do_POST` - 25 calls
 - `aql.AqlContract.parse` - 24 calls
-- `packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.initialize` - 23 calls
-- `scripts.live_supervisor.LiveSupervisor.run` - 23 calls
 - `packages.onlydsl-core.src.onlydsl_core.envelope.EnvelopeCodec.create` - 23 calls
+- `packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.initialize` - 23 calls
 - `ifuri_core.event_store.SqliteEventStore.append` - 23 calls
-- `packages.onlydsl-ssot.src.onlydsl_ssot.candidate.create_candidate` - 22 calls
+- `scripts.live_supervisor.LiveSupervisor.run` - 23 calls
 - `llm_client.plan_build` - 22 calls
-- `packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan.parse_repair_plan` - 21 calls
+- `packages.onlydsl-ssot.src.onlydsl_ssot.candidate.create_candidate` - 22 calls
 - `digital_twin.parse_twindsl` - 21 calls
+- `packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan.parse_repair_plan` - 21 calls
 - `ifuri_core.postgres_store.PostgresEventStore.append` - 21 calls
-- `scripts.startup_testql.render_testqldsl` - 20 calls
 - `contextdsl.ContextCompiler.legacy_log` - 20 calls
 - `contextdsl.parse_context_dsl` - 20 calls
 - `digital_twin.demo_bootstrap_twin` - 20 calls
-- `packages.onlydsl-contracts.src.onlydsl_contracts.dsl.evidence_set.parse_evidence_set` - 19 calls
+- `scripts.startup_testql.render_testqldsl` - 20 calls
 - `digital_twin.render_twin` - 19 calls
-- `ifuri_core.transport.NatsTransport.serve_capability` - 19 calls
 - `packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.parse_spatial_class` - 19 calls
+- `packages.onlydsl-contracts.src.onlydsl_contracts.dsl.evidence_set.parse_evidence_set` - 19 calls
 - `packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim.parse_claims` - 19 calls
+- `ifuri_core.transport.NatsTransport.serve_capability` - 19 calls
 
 ## System Interactions
 

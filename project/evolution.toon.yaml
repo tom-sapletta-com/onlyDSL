@@ -1,4 +1,4 @@
-# code2llm/evolution | 486 func | 49f | 2026-08-09
+# code2llm/evolution | 486 func | 49f | 2026-08-10
 # generated in 0.01s
 
 NEXT[7] (ranked by impact):
@@ -68,4 +68,4 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  prev CC̄=4.0 → now CC̄=3.9
+  prev CC̄=3.9 → now CC̄=3.9

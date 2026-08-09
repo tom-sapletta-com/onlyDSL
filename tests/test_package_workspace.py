@@ -78,6 +78,7 @@ def test_release_pipeline_covers_every_workspace_distribution():
     expected = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
     assert module.requested_version(None) == expected
     assert module.requested_version("9.8.7") == "9.8.7"
+    assert '"--skip-existing"' in script.read_text(encoding="utf-8")
     module.verify_versions(expected)
 
 

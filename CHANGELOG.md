@@ -106,6 +106,28 @@
 
 ## [0.0.11] - 2026-08-10
 
+### Docs
+- Update project/README.md
+- Update project/context.md
+
+### Test
+- Update tests/test_package_workspace.py
+
+### Other
+- Update VERSION
+- Update onlydsl/__init__.py
+- Update packages/onlydsl-contracts/pyproject.toml
+- Update packages/onlydsl-core/pyproject.toml
+- Update packages/onlydsl-ssot/pyproject.toml
+- Update project/analysis.toon.yaml
+- Update project/calls.mmd
+- Update project/calls.png
+- Update project/calls.toon.yaml
+- Update project/calls.yaml
+- ... and 13 more files
+
+## [0.0.11] - 2026-08-10
+
 ### Test
 - Update tests/test_architecture_contract.py
 - Update tests/test_package_workspace.py

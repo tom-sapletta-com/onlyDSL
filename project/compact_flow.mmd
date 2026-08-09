@@ -1,5 +1,5 @@
 flowchart TD
-%% generated in 0.02s
+%% generated in 0.04s
     aql["aql<br/>1 funcs"]
     boundary["boundary<br/>15 funcs"]
     boundary__DslBundle["boundary.DslBundle<br/>1 funcs"]
@@ -14,10 +14,10 @@ flowchart TD
     intent_codegen["intent_codegen<br/>7 funcs"]
     intentdsl["intentdsl<br/>21 funcs"]
     llm_client["llm_client<br/>13 funcs"]
-    onlydsl__ssot["onlydsl.ssot<br/>16 funcs"]
+    onlydsl__ssot["onlydsl.ssot<br/>27 funcs"]
     packages__onlydsl_contracts["packages.onlydsl-contracts<br/>66 funcs"]
     packages__onlydsl_core["packages.onlydsl-core<br/>31 funcs"]
-    packages__onlydsl_ssot["packages.onlydsl-ssot<br/>61 funcs"]
+    packages__onlydsl_ssot["packages.onlydsl-ssot<br/>50 funcs"]
     patchdsl["patchdsl<br/>7 funcs"]
     scripts__autonomous_repair["scripts.autonomous_repair<br/>11 funcs"]
     scripts__docker_integration["scripts.docker_integration<br/>3 funcs"]
@@ -30,52 +30,53 @@ flowchart TD
     llm_client ==>|30| digital_twin
     evolution__EvolutionStore ==>|23| evolution
     server__Handler ==>|20| server
+    packages__onlydsl_ssot ==>|19| onlydsl__ssot
     contextdsl__ContextCompiler ==>|18| contextdsl
     server ==>|11| intentdsl
     server ==>|11| digital_twin
     llm_client ==>|10| boundary
-    scripts__docker_integration ==>|8| packages__onlydsl_core
     onlydsl__ssot ==>|8| packages__onlydsl_contracts
+    scripts__docker_integration ==>|8| packages__onlydsl_core
     ifuri_core__llm_gateway ==>|7| packages__onlydsl_core
     ifuri_core__llm_gateway ==>|7| llm_client
     server ==>|6| contextdsl
     source_ingest__SourceIndex ==>|6| evolution
     ifuri_core__llm_gateway ==>|6| boundary
-    scripts__docker_integration ==>|5| digital_twin
-    twin_store__TwinStore ==>|5| digital_twin
-    scripts__autonomous_repair ==>|5| governance
-    scripts__openrouter_smoke ==>|5| digital_twin
     server ==>|5| packages__onlydsl_core
     server ==>|5| boundary
-    scripts__docker_integration ==>|4| ifuri_core__llm_gateway
-    scripts__openrouter_smoke ==>|4| ifuri_core__llm_gateway
-    llm_client ==>|4| source_ingest
+    twin_store__TwinStore ==>|5| digital_twin
+    scripts__openrouter_smoke ==>|5| digital_twin
+    scripts__docker_integration ==>|5| digital_twin
+    scripts__autonomous_repair ==>|5| governance
     server ==>|4| packages__onlydsl_contracts
-    governance -->|3| aql
-    scripts__openrouter_smoke -->|3| packages__onlydsl_core
+    llm_client ==>|4| source_ingest
+    scripts__openrouter_smoke ==>|4| ifuri_core__llm_gateway
+    scripts__docker_integration ==>|4| ifuri_core__llm_gateway
     server -->|3| ifuri_core__llm_gateway
+    governance -->|3| aql
     ifuri_core__llm_gateway -->|3| digital_twin
-    packages__onlydsl_ssot -->|2| governance
-    scripts__autonomous_repair -->|2| boundary
-    scripts__autonomous_repair -->|2| patchdsl
-    packages__onlydsl_contracts -->|2| governance
-    llm_client -->|2| contextdsl
-    onlydsl__ssot -->|2| source_ingest
+    scripts__openrouter_smoke -->|3| packages__onlydsl_core
     server -->|2| source_ingest
     server__Handler -->|2| ifuri_core__llm_gateway
+    llm_client -->|2| contextdsl
+    packages__onlydsl_ssot -->|2| governance
+    packages__onlydsl_contracts -->|2| governance
+    onlydsl__ssot -->|2| source_ingest
+    scripts__autonomous_repair -->|2| boundary
+    scripts__autonomous_repair -->|2| patchdsl
     evolution__EvolutionStore -->|1| diagnostics
+    server__Handler -->|1| intentdsl
+    llm_client -->|1| intentdsl
+    intentdsl -->|1| intent_codegen
+    boundary__DslBundle -->|1| boundary
+    ifuri_core__llm_gateway -->|1| contextdsl
+    ifuri_core__llm_gateway -->|1| source_ingest
+    onlydsl__ssot -->|1| digital_twin
+    onlydsl__ssot -->|1| packages__onlydsl_ssot
+    scripts__openrouter_smoke -->|1| source_ingest
+    scripts__openrouter_smoke -->|1| boundary
     scripts__docker_integration -->|1| boundary
     scripts__docker_integration -->|1| contextdsl
     scripts__docker_integration -->|1| source_ingest
     scripts__autonomous_repair -->|1| ifuri_core__llm_gateway
     scripts__autonomous_repair -->|1| packages__onlydsl_core
-    boundary__DslBundle -->|1| boundary
-    scripts__openrouter_smoke -->|1| source_ingest
-    scripts__openrouter_smoke -->|1| boundary
-    llm_client -->|1| intentdsl
-    onlydsl__ssot -->|1| digital_twin
-    onlydsl__ssot -->|1| packages__onlydsl_ssot
-    server__Handler -->|1| intentdsl
-    intentdsl -->|1| intent_codegen
-    ifuri_core__llm_gateway -->|1| contextdsl
-    ifuri_core__llm_gateway -->|1| source_ingest

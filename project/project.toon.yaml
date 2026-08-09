@@ -1,4 +1,4 @@
-# onlyDSL | 520 func | 55f | 12214L | python | 2026-08-09
+# onlyDSL | 527 func | 56f | 12174L | python | 2026-08-10
 # generated in 0.00s
 
 HEALTH:
@@ -7,16 +7,16 @@ HEALTH:
 ALERTS[20]:
   !!! high_fan_out     main = 56 (limit:10)
   !!! high_fan_out     AutonomousRepairAgent.process_once = 34 (limit:10)
-  !!! high_fan_out     AutonomousRepairAgent._propose = 26 (limit:10)
   !!! high_fan_out     main = 26 (limit:10)
-  !!! high_fan_out     main = 22 (limit:10)
+  !!! high_fan_out     AutonomousRepairAgent._propose = 26 (limit:10)
   !!! high_fan_out     Handler.do_GET = 22 (limit:10)
+  !!! high_fan_out     main = 22 (limit:10)
   !!! high_fan_out     build_source_index = 21 (limit:10)
-  !!! high_fan_out     update_twin = 20 (limit:10)
   !!! high_fan_out     _bootstrap_twin = 20 (limit:10)
+  !!! high_fan_out     update_twin = 20 (limit:10)
   !!  cc_exceeded      AutonomousRepairAgent.process_once = 20 (limit:15)
 
-MODULES[113] (top by size):
+MODULES[110] (top by size):
   M[planfile.yaml] 1319L C:0 F:0 CC↑0 D:0 (yaml)
   M[digital_twin.py] 764L C:2 F:50 CC↑12 D:7 (python)
   M[server.py] 535L C:1 F:30 CC↑15 D:0 (python)
@@ -32,14 +32,14 @@ MODULES[113] (top by size):
   M[packages/onlydsl-core/src/onlydsl_core/capabilities.py] 239L C:5 F:12 CC↑13 D:0 (python)
   M[source_ingest.py] 236L C:3 F:13 CC↑12 D:7 (python)
   M[packages/onlydsl-contracts/src/onlydsl_contracts/dsl/development_evidence.py] 230L C:1 F:12 CC↑10 D:1 (python)
-  LANGS: python:90/yaml:6/json:5/shell:3/dsl:2/proto:2/txt:2/other:1/yml:1/conf:1
+  LANGS: python:88/yaml:6/json:5/shell:3/proto:2/txt:2/other:1/dsl:1/yml:1/conf:1
 
 HOTSPOTS[10]:
   ★ main fan=56  // Orchestrates 56 calls
   ★ AutonomousRepairAgent.process_once fan=34  // Analysis pipeline, 34 stages
-  ★ AutonomousRepairAgent._propose fan=26  // Orchestrates 26 calls
   ★ main fan=26  // Orchestrates 26 calls
-  ★ main fan=22  // Orchestrates 22 calls
+  ★ AutonomousRepairAgent._propose fan=26  // Orchestrates 26 calls
+  ★ Handler.do_GET fan=22  // Orchestrates 22 calls
 
 REFACTOR[14]:
   [1] H/H Split god module server.py (535L, 1 classes)
@@ -49,4 +49,4 @@ REFACTOR[14]:
   [5] H/H Split god module planfile.yaml (1319L, 0 classes)
 
 EVOLUTION:
-  2026-08-09 CC̄=3.9 crit=48 12214L // Automated analysis
+  2026-08-10 CC̄=3.9 crit=48 12174L // Automated analysis

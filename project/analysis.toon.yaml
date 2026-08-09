@@ -1,153 +1,128 @@
-# code2llm | 113f 12214L | python:90,yaml:6,json:5,shell:3,txt:2,proto:2,dsl:2,yml:1,conf:1 | 2026-08-09
-# generated in 0.14s
-# CC̅=3.9 | critical:6/520 | dups:0 | cycles:0
+# code2llm | 110f 12174L | python:88,yaml:6,json:5,shell:3,txt:2,proto:2,yml:1,dsl:1,conf:1 | 2026-08-10
+# generated in 0.11s
+# CC̅=3.9 | critical:6/527 | dups:0 | cycles:0
 
 HEALTH[6]:
-  🟡 CC    main CC=15 (limit:15)
-  🟡 CC    parse CC=15 (limit:15)
-  🟡 CC    process_once CC=20 (limit:15)
-  🟡 CC    parse_patchdsl CC=15 (limit:15)
   🟡 CC    parse_context_dsl CC=15 (limit:15)
   🟡 CC    do_GET CC=15 (limit:15)
+  🟡 CC    parse CC=15 (limit:15)
+  🟡 CC    parse_patchdsl CC=15 (limit:15)
+  🟡 CC    main CC=15 (limit:15)
+  🟡 CC    process_once CC=20 (limit:15)
 
 REFACTOR[1]:
   1. split 6 high-CC methods  (CC>15)
 
-PIPELINES[203]:
-  [1] Src [__init__]: __init__
+PIPELINES[204]:
+  [1] Src [to_dict]: to_dict
       PURITY: 100% pure
-  [2] Src [_write]: _write → _qid
+  [2] Src [__init__]: __init__ → _ident
       PURITY: 100% pure
-  [3] Src [add_guidance]: add_guidance → _q
+  [3] Src [policy]: policy → _ident
       PURITY: 100% pure
-  [4] Src [add_incident]: add_incident → _q
+  [4] Src [capability]: capability → _ident
       PURITY: 100% pure
-  [5] Src [add_diagnostic]: add_diagnostic → diagnose_incident → _candidate_paths
+  [5] Src [state]: state → _infer_type
       PURITY: 100% pure
-  [6] Src [add_event]: add_event → _q
+  [6] Src [metric]: metric → _ident
       PURITY: 100% pure
-  [7] Src [add_json_record]: add_json_record
+  [7] Src [record]: record → _ident
       PURITY: 100% pure
-  [8] Src [latest_guidance]: latest_guidance
+  [8] Src [event]: event
       PURITY: 100% pure
-  [9] Src [claim_incident]: claim_incident
+  [9] Src [exception]: exception
       PURITY: 100% pure
-  [10] Src [finish_incident]: finish_incident
+  [10] Src [tool_result]: tool_result → _ident
       PURITY: 100% pure
-  [11] Src [defer_incident]: defer_incident
+  [11] Src [retrieval]: retrieval
       PURITY: 100% pure
-  [12] Src [diagnostic_for_incident]: diagnostic_for_incident → _qid
+  [12] Src [memory]: memory
       PURITY: 100% pure
-  [13] Src [latest_diagnostics]: latest_diagnostics
+  [13] Src [code_fact]: code_fact
       PURITY: 100% pure
-  [14] Src [status]: status → _parse_event
+  [14] Src [database_fact]: database_fact
       PURITY: 100% pure
-  [15] Src [main]: main → connect_postgres
+  [15] Src [legacy_log]: legacy_log → _event_code_from_text → _ident
       PURITY: 100% pure
-  [16] Src [__init__]: __init__
+  [16] Src [to_markdown]: to_markdown → render_context_markdown → render_context_dsl → _ident
       PURITY: 100% pure
-  [17] Src [initialize]: initialize → atomic_write_text → atomic_write_bytes → fsync_directory
+  [17] Src [__init__]: __init__
       PURITY: 100% pure
-  [18] Src [candidate_diff]: candidate_diff
+  [18] Src [_write]: _write → _qid
       PURITY: 100% pure
-  [19] Src [promote]: promote → save_candidate → atomic_write_json → atomic_write_text → ...(2 more)
+  [19] Src [add_guidance]: add_guidance → _q
       PURITY: 100% pure
-  [20] Src [_prepare_promotion]: _prepare_promotion → load_candidate → _candidate_from_dict
+  [20] Src [add_incident]: add_incident → _q
       PURITY: 100% pure
-  [21] Src [_stage_promotion]: _stage_promotion → create_manifest → calculate_section_hashes → canonical_hash
+  [21] Src [add_diagnostic]: add_diagnostic → diagnose_incident → _candidate_paths
       PURITY: 100% pure
-  [22] Src [_commit_promotion]: _commit_promotion → render_manifest → validate_manifest → _validate_manifest_metadata
+  [22] Src [add_event]: add_event → _q
       PURITY: 100% pure
-  [23] Src [_promotion_receipt]: _promotion_receipt
+  [23] Src [add_json_record]: add_json_record
       PURITY: 100% pure
-  [24] Src [_candidate_directory]: _candidate_directory
+  [24] Src [latest_guidance]: latest_guidance
       PURITY: 100% pure
-  [25] Src [_history_path]: _history_path
+  [25] Src [claim_incident]: claim_incident
       PURITY: 100% pure
-  [26] Src [_write_append_only]: _write_append_only → atomic_write_text → atomic_write_bytes → fsync_directory
+  [26] Src [finish_incident]: finish_incident
       PURITY: 100% pure
-  [27] Src [_write_json_append_only]: _write_json_append_only → atomic_write_json → atomic_write_text → atomic_write_bytes → ...(1 more)
+  [27] Src [defer_incident]: defer_incident
       PURITY: 100% pure
-  [28] Src [_validate_approval]: _validate_approval → is_immutable_urn
+  [28] Src [diagnostic_for_incident]: diagnostic_for_incident → _qid
       PURITY: 100% pure
-  [29] Src [_promotion_lock]: _promotion_lock → atomic_write_json → atomic_write_text → atomic_write_bytes → ...(1 more)
+  [29] Src [latest_diagnostics]: latest_diagnostics
       PURITY: 100% pure
-  [30] Src [_recover_stale_lock]: _recover_stale_lock
+  [30] Src [status]: status → _parse_event
       PURITY: 100% pure
-  [31] Src [__init__]: __init__
+  [31] Src [_plan_twin]: _plan_twin → make_dsl_document
       PURITY: 100% pure
-  [32] Src [parse]: parse
+  [32] Src [log_message]: log_message
       PURITY: 100% pure
-  [33] Src [from_file]: from_file
+  [33] Src [_send]: _send → _json_bytes
       PURITY: 100% pure
-  [34] Src [_matches]: _matches
+  [34] Src [_body]: _body
       PURITY: 100% pure
-  [35] Src [decide]: decide
+  [35] Src [_post_routes]: _post_routes → _compile_context → validate_context_markdown → parse_context_dsl → ...(2 more)
       PURITY: 100% pure
-  [36] Src [require]: require
+  [36] Src [do_GET]: do_GET → _application_version
       PURITY: 100% pure
-  [37] Src [require_secret_rotation]: require_secret_rotation
+  [37] Src [do_POST]: do_POST
       PURITY: 100% pure
-  [38] Src [public_status]: public_status
+  [38] Src [main]: main → _application_version
       PURITY: 100% pure
   [39] Src [__init__]: __init__
       PURITY: 100% pure
-  [40] Src [entries]: entries → parse_registry
+  [40] Src [parse]: parse
       PURITY: 100% pure
-  [41] Src [register]: register → atomic_write_text → atomic_write_bytes → fsync_directory
+  [41] Src [from_file]: from_file
       PURITY: 100% pure
-  [42] Src [__init__]: __init__
+  [42] Src [_matches]: _matches
       PURITY: 100% pure
-  [43] Src [manifest]: manifest → parse_manifest → _parse_manifest_entries
+  [43] Src [decide]: decide
       PURITY: 100% pure
-  [44] Src [verified_manifest]: verified_manifest → parse_manifest → _parse_manifest_entries
+  [44] Src [require]: require
       PURITY: 100% pure
-  [45] Src [status]: status
+  [45] Src [require_secret_rotation]: require_secret_rotation
       PURITY: 100% pure
-  [46] Src [history]: history → parse_manifest → _parse_manifest_entries
+  [46] Src [public_status]: public_status
       PURITY: 100% pure
-  [47] Src [create_candidate]: create_candidate → collect_file_hashes → normalize_relative_path
+  [47] Src [to_dict]: to_dict
       PURITY: 100% pure
-  [48] Src [validate_candidate]: validate_candidate → load_candidate → _candidate_from_dict
+  [48] Src [validate_patch_markdown]: validate_patch_markdown → parse_patchdsl → _json_string
       PURITY: 100% pure
-  [49] Src [__init__]: __init__
+  [49] Src [extract_buildplanddsl]: extract_buildplanddsl
       PURITY: 100% pure
-  [50] Src [exists]: exists
+  [50] Src [validate_for_llm]: validate_for_llm → assert_dsl_only
       PURITY: 100% pure
 
 LAYERS:
-  scripts/                        CC̄=4.5    ←in:0  →out:45  !! split
+  scripts/                        CC̄=4.3    ←in:0  →out:45  !! split
   │ !! autonomous_repair          320L  2C   11m  CC=20     ←0
   │ !! docker_integration         205L  0C    3m  CC=15     ←0
   │ startup_testql             171L  0C    8m  CC=10     ←0
   │ live_supervisor            129L  1C    9m  CC=10     ←0
+  │ workspace_release          110L  1C    7m  CC=9      ←0
   │ openrouter_smoke            76L  0C    2m  CC=2      ←0
-  │
-  onlydsl/                        CC̄=4.4    ←in:0  →out:0
-  │ cli                        136L  0C    8m  CC=12     ←0
-  │ validation                  96L  0C    5m  CC=14     ←0
-  │ __init__                    19L  0C    0m  CC=0.0    ←0
-  │ model                       16L  0C    0m  CC=0.0    ←0
-  │ candidate                   15L  0C    2m  CC=1      ←0
-  │ cli                         15L  0C    1m  CC=5      ←0
-  │ writer                      13L  1C    1m  CC=1      ←0
-  │ __init__                     7L  0C    0m  CC=0.0    ←0
-  │ reader                       3L  0C    0m  CC=0.0    ←0
-  │ registry                     3L  0C    0m  CC=0.0    ←0
-  │ manifest                     3L  0C    0m  CC=0.0    ←0
-  │ diff                         3L  0C    0m  CC=0.0    ←0
-  │ io                           3L  0C    0m  CC=0.0    ←0
-  │ evidence_set                 3L  0C    0m  CC=0.0    ←0
-  │ trust                        3L  0C    0m  CC=0.0    ←0
-  │ common                       3L  0C    0m  CC=0.0    ←0
-  │ assumption                   3L  0C    0m  CC=0.0    ←0
-  │ development_evidence         3L  0C    0m  CC=0.0    ←0
-  │ repair_plan                  3L  0C    0m  CC=0.0    ←0
-  │ spatial_class                3L  0C    0m  CC=0.0    ←0
-  │ parameter_contract           3L  0C    0m  CC=0.0    ←0
-  │ claim                        3L  0C    0m  CC=0.0    ←0
-  │ __init__                     1L  0C    0m  CC=0.0    ←0
-  │ __init__                     1L  0C    0m  CC=0.0    ←0
   │
   ./                              CC̄=4.2    ←in:0  →out:0
   │ !! planfile.yaml             1319L  0C    0m  CC=0.0    ←0
@@ -176,7 +151,7 @@ LAYERS:
   │ run-tests.sh                 4L  0C    0m  CC=0.0    ←0
   │ requirements.txt             3L  0C    0m  CC=0.0    ←0
   │
-  packages/                       CC̄=4.1    ←in:0  →out:0
+  packages/                       CC̄=4.2    ←in:0  →out:0
   │ capabilities               239L  5C   12m  CC=13     ←0
   │ development_evidence       230L  1C   12m  CC=10     ←1
   │ writer                     215L  1C   17m  CC=10     ←0
@@ -189,7 +164,6 @@ LAYERS:
   │ claim                      123L  2C    4m  CC=12     ←1
   │ assumption                 122L  2C    6m  CC=9      ←2
   │ ifuri                       97L  2C    7m  CC=8      ←0
-  │ registry                    76L  2C    5m  CC=13     ←0
   │ trust                       75L  2C    5m  CC=9      ←1
   │ validation                  67L  1C    3m  CC=14     ←2
   │ ssot                        62L  7C    0m  CC=0.0    ←0
@@ -199,17 +173,41 @@ LAYERS:
   │ evidence_set                48L  1C    3m  CC=12     ←1
   │ dsl_document                40L  1C    2m  CC=5      ←5
   │ development-evidence-v1.schema.json    38L  0C    0m  CC=0.0    ←0
-  │ io                          36L  0C    4m  CC=2      ←3
-  │ diff                        35L  1C    2m  CC=5      ←1
   │ envelope.proto              33L  0C    0m  CC=0.0    ←0
   │ __init__                    32L  0C    0m  CC=0.0    ←0
+  │ __init__                    29L  0C    0m  CC=0.0    ←0
   │ __init__                    28L  0C    0m  CC=0.0    ←0
   │ ports                       25L  2C    2m  CC=1      ←0
-  │ __init__                    22L  0C    0m  CC=0.0    ←0
   │ envelope_pb2                11L  0C    0m  CC=0.0    ←0
   │ dsl.proto                   10L  0C    0m  CC=0.0    ←0
   │ dsl_pb2                      9L  0C    0m  CC=0.0    ←0
   │ model                        3L  0C    0m  CC=0.0    ←0
+  │ __init__                     1L  0C    0m  CC=0.0    ←0
+  │
+  onlydsl/                        CC̄=3.9    ←in:0  →out:0
+  │ cli                        136L  0C    8m  CC=12     ←0
+  │ validation                  96L  0C    5m  CC=14     ←0
+  │ __init__                    19L  0C    0m  CC=0.0    ←0
+  │ model                       16L  0C    0m  CC=0.0    ←0
+  │ cli                         15L  0C    1m  CC=5      ←0
+  │ candidate                   15L  0C    2m  CC=1      ←0
+  │ writer                      13L  1C    1m  CC=1      ←0
+  │ __init__                     7L  0C    0m  CC=0.0    ←0
+  │ io                           3L  0C    4m  CC=2      ←3
+  │ registry                     3L  2C    5m  CC=13     ←0
+  │ diff                         3L  1C    2m  CC=5      ←1
+  │ parameter_contract           3L  0C    0m  CC=0.0    ←0
+  │ trust                        3L  0C    0m  CC=0.0    ←0
+  │ spatial_class                3L  0C    0m  CC=0.0    ←0
+  │ common                       3L  0C    0m  CC=0.0    ←0
+  │ evidence_set                 3L  0C    0m  CC=0.0    ←0
+  │ claim                        3L  0C    0m  CC=0.0    ←0
+  │ repair_plan                  3L  0C    0m  CC=0.0    ←0
+  │ development_evidence         3L  0C    0m  CC=0.0    ←0
+  │ assumption                   3L  0C    0m  CC=0.0    ←0
+  │ manifest                     3L  0C    0m  CC=0.0    ←0
+  │ reader                       3L  0C    0m  CC=0.0    ←0
+  │ __init__                     1L  0C    0m  CC=0.0    ←0
   │ __init__                     1L  0C    0m  CC=0.0    ←0
   │
   ifuri_core/                     CC̄=2.4    ←in:14  →out:25  !! split
@@ -224,22 +222,18 @@ LAYERS:
   │ uri                          5L  0C    0m  CC=0.0    ←0
   │ envelope_pb2                 3L  0C    0m  CC=0.0    ←0
   │ dsl_pb2                      3L  0C    0m  CC=0.0    ←0
+  │ cqrs                         3L  0C    0m  CC=0.0    ←0
   │ envelope                     3L  0C    0m  CC=0.0    ←0
   │ dsl_document                 3L  0C    0m  CC=0.0    ←0
-  │ cqrs                         3L  0C    0m  CC=0.0    ←0
   │
   examples/                       CC̄=1.0    ←in:0  →out:0
   │ dsl_native_logging          34L  0C    1m  CC=1      ←0
   │
-  testql/                         CC̄=0.0    ←in:0  →out:0
-  │ digital-twin-startup.testql.toon.yaml    15L  0C    0m  CC=0.0    ←0
-  │ onlydsl-startup.testql.toon.yaml    11L  0C    0m  CC=0.0    ←0
+  SSOT/                           CC̄=0.0    ←in:0  →out:0
+  │ manifest.dsl                10L  0C    0m  CC=0.0    ←0
   │
   nats/                           CC̄=0.0    ←in:0  →out:0
   │ nats.conf                    8L  0C    0m  CC=0.0    ←0
-  │
-  manifests/                      CC̄=0.0    ←in:0  →out:0
-  │ capabilities.yaml          180L  0C    0m  CC=0.0    ←0
   │
   config/                         CC̄=0.0    ←in:0  →out:0
   │ process.v1.json             37L  0C    0m  CC=0.0    ←0
@@ -247,43 +241,48 @@ LAYERS:
   │ recipe.v1.urirun.json       17L  0C    0m  CC=0.0    ←0
   │ expectations.v1.eql.json    14L  0C    0m  CC=0.0    ←0
   │
-  SSOT/                           CC̄=0.0    ←in:0  →out:0
-  │ manifest.dsl                10L  0C    0m  CC=0.0    ←0
-  │ 78d2de9b906d6466c0d72473f5b23285b30093eb2708317e663883c362ae460f.manifest.dsl    10L  0C    0m  CC=0.0    ←0
+  manifests/                      CC̄=0.0    ←in:0  →out:0
+  │ capabilities.yaml          180L  0C    0m  CC=0.0    ←0
+  │
+  testql/                         CC̄=0.0    ←in:0  →out:0
+  │ digital-twin-startup.testql.toon.yaml    15L  0C    0m  CC=0.0    ←0
+  │ onlydsl-startup.testql.toon.yaml    11L  0C    0m  CC=0.0    ←0
   │
 
 COUPLING:
-                                            digital_twin                  llm_client                      server                     scripts                  ifuri_core                    boundary       packages.onlydsl-core               source_ingest                   intentdsl  packages.onlydsl-contracts                  governance                onlydsl.ssot                  contextdsl                   evolution                  twin_store
-                digital_twin                          ──                         ←30                         ←11                         ←10                          ←3                                                                                                                                                                                                  ←1                                                                                  ←5  hub
-                  llm_client                          30                          ──                                                                                  ←7                          10                                                       4                           1                                                                                                               2                                                          hub
-                      server                          11                                                      ──                                                       5                           5                           5                           2                          12                           4                                                                                   6                                                          !! fan-out
-                     scripts                          10                                                                                  ──                           9                           4                          12                           2                                                                                   5                                                       1                                                          !! fan-out
-                  ifuri_core                           3                           7                          ←5                          ←9                          ──                           6                           7                           1                                                                                                                                           1                                                          hub
-                    boundary                                                     ←10                          ←5                          ←4                          ←6                          ──                                                                                                                                                                                                                                                              hub
-       packages.onlydsl-core                                                                                  ←5                         ←12                          ←7                                                      ──                                                                                                                                                                                                                                  hub
-               source_ingest                                                      ←4                          ←2                          ←2                          ←1                                                                                  ──                                                                                                              ←2                                                       6                              hub
-                   intentdsl                                                      ←1                         ←12                                                                                                                                                                      ──                                                                                                                                                                          hub
-  packages.onlydsl-contracts                                                                                  ←4                                                                                                                                                                                                  ──                           2                          ←8                                                                                      hub
-                  governance                                                                                                              ←5                                                                                                                                                                      ←2                          ──                                                                                                                  hub
-                onlydsl.ssot                           1                                                                                                                                                                                                   2                                                       8                                                      ──                                                                                      !! fan-out
-                  contextdsl                                                      ←2                          ←6                          ←1                          ←1                                                                                                                                                                                                                              ──                                                          hub
-                   evolution                                                                                                                                                                                                                              ←6                                                                                                                                                                      ──                              hub
-                  twin_store                           5                                                                                                                                                                                                                                                                                                                                                                                                      ──
+                                            digital_twin                  llm_client                      server                     scripts                  ifuri_core                onlydsl.ssot                    boundary       packages.onlydsl-core       packages.onlydsl-ssot               source_ingest                   intentdsl  packages.onlydsl-contracts                  governance                  contextdsl                   evolution
+                digital_twin                          ──                         ←30                         ←11                         ←10                          ←3                          ←1                                                                                                                                                                                                                                                              hub
+                  llm_client                          30                          ──                                                                                  ←7                                                      10                                                                                   4                           1                                                                                   2                              hub
+                      server                          11                                                      ──                                                       5                                                       5                           5                                                       2                          12                           4                                                       6                              !! fan-out
+                     scripts                          10                                                                                  ──                           9                                                       4                          12                                                       2                                                                                   5                           1                              !! fan-out
+                  ifuri_core                           3                           7                          ←5                          ←9                          ──                                                       6                           7                                                       1                                                                                                               1                              hub
+                onlydsl.ssot                           1                                                                                                                                          ──                                                                                   1                           2                                                       8                                                                                      hub
+                    boundary                                                     ←10                          ←5                          ←4                          ←6                                                      ──                                                                                                                                                                                                                                  hub
+       packages.onlydsl-core                                                                                  ←5                         ←12                          ←7                                                                                  ──                                                                                                                                                                                                      hub
+       packages.onlydsl-ssot                                                                                                                                                                      19                                                                                  ──                                                                                                               2                                                          !! fan-out
+               source_ingest                                                      ←4                          ←2                          ←2                          ←1                          ←2                                                                                                              ──                                                                                                                                           6  hub
+                   intentdsl                                                      ←1                         ←12                                                                                                                                                                                                                              ──                                                                                                                  hub
+  packages.onlydsl-contracts                                                                                  ←4                                                                                  ←8                                                                                                                                                                      ──                           2                                                          hub
+                  governance                                                                                                              ←5                                                                                                                                          ←2                                                                                  ←2                          ──                                                          hub
+                  contextdsl                                                      ←2                          ←6                          ←1                          ←1                                                                                                                                                                                                                                                          ──                              hub
+                   evolution                                                                                                                                                                                                                                                                                      ←6                                                                                                                                          ──  hub
   CYCLES: none
+  HUB: contextdsl/ (fan-in=10)
+  HUB: onlydsl.ssot/ (fan-in=19)
+  HUB: intentdsl/ (fan-in=13)
+  HUB: boundary/ (fan-in=25)
   HUB: evolution/ (fan-in=6)
   HUB: ifuri_core/ (fan-in=14)
   HUB: digital_twin/ (fan-in=60)
-  HUB: packages.onlydsl-contracts/ (fan-in=12)
-  HUB: intentdsl/ (fan-in=13)
-  HUB: contextdsl/ (fan-in=10)
-  HUB: boundary/ (fan-in=25)
   HUB: source_ingest/ (fan-in=11)
-  HUB: packages.onlydsl-core/ (fan-in=24)
   HUB: governance/ (fan-in=9)
+  HUB: packages.onlydsl-core/ (fan-in=24)
+  HUB: packages.onlydsl-contracts/ (fan-in=12)
   HUB: llm_client/ (fan-in=7)
-  SMELL: ifuri_core/ fan-out=25 → split needed
   SMELL: onlydsl.ssot/ fan-out=12 → split needed
+  SMELL: ifuri_core/ fan-out=25 → split needed
   SMELL: server/ fan-out=50 → split needed
+  SMELL: packages.onlydsl-ssot/ fan-out=21 → split needed
   SMELL: llm_client/ fan-out=47 → split needed
   SMELL: scripts/ fan-out=45 → split needed
 
