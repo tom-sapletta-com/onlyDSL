@@ -106,6 +106,21 @@
 
 ## [0.0.11] - 2026-08-10
 
+### Test
+- Update tests/test_architecture_contract.py
+- Update tests/test_package_workspace.py
+
+### Other
+- Update VERSION
+- Update onlydsl/__init__.py
+- Update packages/onlydsl-contracts/pyproject.toml
+- Update packages/onlydsl-core/pyproject.toml
+- Update packages/onlydsl-ssot/pyproject.toml
+- Update scripts/workspace_release.py
+- Update uv.lock
+
+## [0.0.11] - 2026-08-10
+
 ### Docs
 - Update README.md
 - Update TEST_REPORT.md

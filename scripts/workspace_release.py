@@ -39,6 +39,11 @@ def declared_version(distribution: Distribution) -> str:
     return str(metadata["project"]["version"])
 
 
+def requested_version(value: str | None) -> str:
+    """Use the release SSOT when an orchestrator does not provide a version."""
+    return value or declared_version(DISTRIBUTIONS[-1])
+
+
 def verify_versions(expected: str) -> None:
     mismatches = {
         distribution.name: declared_version(distribution)
@@ -91,12 +96,13 @@ def publish(expected: str) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("action", choices=("build", "publish"))
-    parser.add_argument("--version", required=True)
+    parser.add_argument("--version")
     args = parser.parse_args()
+    expected = requested_version(args.version)
     if args.action == "build":
-        build(args.version)
+        build(expected)
     else:
-        publish(args.version)
+        publish(expected)
     return 0
 
 

@@ -75,7 +75,10 @@ def test_release_pipeline_covers_every_workspace_distribution():
     assert [item.name for item in module.DISTRIBUTIONS] == [
         "onlydsl-contracts", "onlydsl-core", "onlydsl-ssot", "onlyDSL",
     ]
-    module.verify_versions((ROOT / "VERSION").read_text(encoding="utf-8").strip())
+    expected = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+    assert module.requested_version(None) == expected
+    assert module.requested_version("9.8.7") == "9.8.7"
+    module.verify_versions(expected)
 
 
 def test_every_workspace_distribution_exposes_the_release_version():

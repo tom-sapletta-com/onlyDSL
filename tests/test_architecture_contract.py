@@ -41,11 +41,11 @@ class ArchitectureContractTests(unittest.TestCase):
         strategy = config["strategies"]["python"]
         self.assertEqual(
             strategy["build"],
-            "python scripts/workspace_release.py build --version {version}",
+            "python scripts/workspace_release.py build",
         )
         self.assertEqual(
             strategy["publish"],
-            "ONLYDSL_DISTRIBUTION=onlyDSL python scripts/workspace_release.py publish --version {version}",
+            "ONLYDSL_DISTRIBUTION=onlyDSL python scripts/workspace_release.py publish",
         )
 
     def test_no_grpc_foundation_dependency(self):

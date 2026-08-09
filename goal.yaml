@@ -238,8 +238,8 @@ publishing:
 strategies:
   python:
     test: pytest tests/ -v
-    build: python scripts/workspace_release.py build --version {version}
-    publish: ONLYDSL_DISTRIBUTION=onlyDSL python scripts/workspace_release.py publish --version {version}
+    build: python scripts/workspace_release.py build
+    publish: ONLYDSL_DISTRIBUTION=onlyDSL python scripts/workspace_release.py publish
     publish_enabled: true
     dependencies:
       file: requirements.txt
