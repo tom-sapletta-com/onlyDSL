@@ -1,25 +1,27 @@
-# onlyDSL 0.0.7 — test report
+# onlyDSL 0.0.10 — test report
 
-Date: 2026-08-08
+Current local verification: 2026-08-09
 
 ## Verdict
 
-**LOCAL_TESTS_PASS**
+**CURRENT_LOCAL_TESTS_PASS — 114/114**
 
-The delivered source tree passes all tests that can be executed in the current runtime.
+The current source tree passes the complete local pytest suite. Historical
+HTTP, Docker and real-provider evidence is retained below with its original
+version and date; it was not silently relabeled as a 0.0.10 rerun.
 
 ## Automated unit/integration-style suite
 
 Command:
 
 ```bash
-.venv/bin/python -m pytest tests/ -q
+uv run pytest -q
 ```
 
 Result:
 
 ```text
-97 passed in 1.07s
+114 passed in 4.96s
 ```
 
 Coverage includes:
@@ -65,7 +67,22 @@ Coverage includes:
   exact add/remove operations, immutable evidence URIs, stale-base rejection,
   authority isolation, append-only receipts and federated registry.
 
-## HTTP end-to-end test
+## Current HTTP health observation
+
+The already-running local `live-app` was queried on 2026-08-09:
+
+```text
+GET http://127.0.0.1:18787/api/health
+version=0.0.10, ok=true, runtime_profile=demo
+request_transport=inproc, event_store=file, cqrs_es=false
+```
+
+This is a liveness and configuration observation, not a rerun of the complete
+HTTP workflow or proof that the web request path uses PostgreSQL/NATS.
+
+## Recorded HTTP end-to-end evidence — 0.0.7
+
+The following sequence is retained from the 2026-08-08 run of version 0.0.7.
 
 A local HTTP server was started with:
 
@@ -121,9 +138,12 @@ OPENROUTER_SMOKE_SKIPPED: OPENROUTER_API_KEY is not set
 
 The OpenRouter network path itself is covered by tests using a mocked HTTP response, including endpoint, Bearer key forwarding, model selection, DSL-only request content and repair-loop behavior.
 
-## Docker execution status
+## Recorded Docker execution status — 2026-08-08
 
-Docker execution was verified on 2026-08-08. The regular stack and the guarded live-evolution profile built successfully. The evolution profile is currently healthy on `127.0.0.1:18787` with `EVOLUTION_MODE=observe` and an empty active incident queue.
+Docker execution was verified on 2026-08-08. At that time the regular stack and
+the guarded live-evolution profile built successfully, and the evolution
+profile was healthy on `127.0.0.1:18787` with `EVOLUTION_MODE=observe` and an
+empty active incident queue.
 
 The rebuilt `0.0.7` image also passed the installed-package SSOT smoke outside
 the source working directory. `onlydsl ssot init`, `status` and the candidate

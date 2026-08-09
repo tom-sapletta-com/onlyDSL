@@ -1,5 +1,10 @@
 # Audyt uruchomienia Docker i OpenRouter
 
+> **Migawka historyczna.** Poniższe obserwacje są dowodem z audytu wykonanego
+> 2026-08-08, a nie opisem bieżącej wersji. Aktualną nawigację i wyniki testów
+> zawierają [menu dokumentacji](README.md), [README projektu](../README.md) oraz
+> [raport testów](../TEST_REPORT.md).
+
 Data testu: 2026-08-08 (Europe/Warsaw)
 Wersja aplikacji w bieżącym drzewie: 0.0.7
 Commit bazowy: `45c6031`

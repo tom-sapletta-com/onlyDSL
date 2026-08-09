@@ -1,12 +1,12 @@
-# IFURI Digital Twin Lab 0.4
+# onlyDSL — IFURI Digital Twin Lab
 
 
 ## AI Cost Tracking
 
 ![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.0.10-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$3.00-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-9.4h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$3.37-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-9.4h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $2.9985 (15 commits)
+- 🤖 **LLM usage:** $3.3672 (16 commits)
 - 👤 **Human dev:** ~$941 (9.4h @ $100/h, 30min dedup)
 
 Generated on 2026-08-09 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
@@ -14,6 +14,49 @@ Generated on 2026-08-09 using [openrouter/qwen/qwen3-coder-next](https://openrou
 ---
 
 A reference implementation for building software from user intent and external Markdown sources while keeping the LLM behind a strict DSL-only boundary.
+
+Current package version: **0.0.10**. Documents named `ARCHITECTURE_V03` and
+`ARCHITECTURE_V04` are historical design records, not the current package
+version or a claim that every described adapter is active in the HTTP server.
+
+[Quick start](#quick-start) · [Project map](#project-map) ·
+[Documentation](#documentation) · [API](#api) · [Tests](#tests)
+
+## Project map
+
+| Area | Important files |
+| --- | --- |
+| Documentation | [documentation menu](docs/README.md), [test evidence](TEST_REPORT.md), [changelog](CHANGELOG.md), [open work](TODO.md) |
+| Contracts | [onlydsl-contracts](packages/onlydsl-contracts/README.md), [schemas](packages/onlydsl-contracts/src/onlydsl_contracts/schemas), [IFURI specification](docs/IFURI_SPEC.md) |
+| Runtime | [HTTP service](server.py), [capability manifest](manifests/capabilities.yaml), [application contract](app.doql.less) |
+| Packages | [onlydsl-core](packages/onlydsl-core/README.md), [onlydsl-ssot](packages/onlydsl-ssot/README.md), [workspace configuration](pyproject.toml), [locked dependencies](uv.lock) |
+| Operations | [Compose stack](docker-compose.yml), [environment template](.env.example), [autonomous evolution guide](docs/AUTONOMOUS_EVOLUTION.md) |
+| Governance | [Goal release policy](goal.yaml), [Planfile](planfile.yaml), [accepted-state layout](SSOT/README.md) |
+| Verification | [test suite](tests), [TestQL scenarios](testql), [Docker tests](docs/DOCKER_TESTS.md) |
+| Generated analysis | [project analysis index](project/README.md) — generated evidence, not the implementation source of truth |
+
+`START.md`, when present, is an ignored local hand-off containing the observed
+state of the currently running services. It is intentionally not linked as
+repository documentation because it is host-specific and is not published.
+
+## Documentation
+
+The complete, categorized menu is maintained in [docs/README.md](docs/README.md).
+
+- Architecture and boundaries: [LLM boundary](docs/LLM_BOUNDARY_ARCHITECTURE.md),
+  [IFURI](docs/IFURI_SPEC.md), [Project Integrity Closure v2](docs/PROJECT_INTEGRITY_CLOSURE_V2.md),
+  [SSOT](docs/SSOT_ACCEPTED_TRUTH.md).
+- Operation and integration: [autonomous evolution](docs/AUTONOMOUS_EVOLUTION.md),
+  [Docker tests](docs/DOCKER_TESTS.md), [OpenRouter test](docs/OPENROUTER_TEST.md),
+  [OQL OS integration](docs/OQLOS_INTEGRATION.md).
+- Historical evidence: [architecture v0.3](docs/ARCHITECTURE_V03.md),
+  [architecture v0.4](docs/ARCHITECTURE_V04.md),
+  [Docker/OpenRouter audit from 2026-08-08](docs/AUDYT_DOCKER_OPENROUTER_2026-08-08.md),
+  [documentation intent audit from 2026-08-09](docs/DOCUMENTATION_INTENT_AUDIT_2026-08-09.md).
+
+For current behavior, use code, schemas and executable tests first. The test
+report records a concrete run; dated audits and historical architecture files
+remain useful evidence but do not override the current implementation.
 
 ## Package workspace
 
@@ -102,7 +145,10 @@ sources/*.md
   -> future code-builder capability
 ```
 
-The wider runtime retains the previous architecture:
+The repository implements two distinct execution paths. The web service uses
+the in-process adapter and file-backed twin state; `GET /api/health` reports
+`request_transport=inproc`, `event_store=file` and `cqrs_es=false`. The separate
+Compose `integration` service verifies:
 
 - logical `ifuri://...` capability addresses instead of host:port identities,
 - Protobuf `IfEnvelope` as a transport-neutral wire contract,
@@ -113,9 +159,15 @@ The wider runtime retains the previous architecture:
 - no gRPC foundation dependency,
 - Python/Node/PHP IFURI parity tests.
 
+Thus PostgreSQL is authoritative inside the integration contract, not inside
+the current HTTP persistence path. Wiring that path to NATS/PostgreSQL remains
+a future runtime change and is not presented as an implemented feature.
+
 ## Why `OPENROUTER_API_KEY` exists now
 
-Version 0.3 had a generic `LLM_API_KEY` but no first-class OpenRouter provider. Version 0.4 adds a dedicated provider configuration and a Docker smoke profile.
+The v0.3 design used a generic `LLM_API_KEY`; the v0.4 design record introduced
+a dedicated OpenRouter provider configuration and Docker smoke profile. The
+current package keeps that provider boundary.
 
 Create `.env`:
 
@@ -143,13 +195,14 @@ Official references:
 - https://openrouter.ai/docs/quickstart
 - https://openrouter.ai/docs/api_reference/authentication
 
-## Quick test without spending API credits
+## Quick start
 
 The deterministic `demo` backend exercises the complete architecture without a network LLM:
 
 ```bash
-python3 -m unittest discover -s tests -v
-python3 server.py
+uv sync
+uv run pytest -q
+uv run onlydsl serve
 ```
 
 Open:
@@ -191,7 +244,9 @@ TwinDSL + SourceIndexDSL -> ifuri://llm/twin/default/commands/update -> TwinDSL 
 TwinDSL r2 -> ifuri://llm/builder/default/commands/plan -> BuildPlanDSL
 ```
 
-If `OPENROUTER_API_KEY` is missing, the smoke script exits without making a paid request.
+The smoke script has a preflight key guard. An unconfigured run reports
+`OPENROUTER_SMOKE_SKIPPED: OPENROUTER_API_KEY is not set` and sends no paid
+request.
 
 ## `sources/` design
 
@@ -292,7 +347,7 @@ Unsupported information should remain an `OPEN_QUESTION` instead of silently bec
 
 ## Fail-closed LLM repair
 
-A provider can still produce invalid output. Version 0.4 therefore uses a repair loop:
+A provider can still produce invalid output. The current runtime therefore uses a repair loop:
 
 ```text
 LLM output
@@ -313,15 +368,24 @@ LLM_REPAIR_ATTEMPTS=2
 
 ## API
 
-### Provider status
+The route table below mirrors the handlers in [server.py](server.py). The API
+reports only whether an LLM key is present; it never returns the key value.
 
-```http
-GET /api/llm/status
-```
+| Method | Routes | Purpose |
+| --- | --- | --- |
+| `GET` | `/api/health`, `/api/llm/status` | Runtime and provider status |
+| `GET` | `/api/ifuri/route`, `/api/ifuri/capabilities` | Explain IFURI resolution and list capabilities |
+| `POST` | `/api/compile-context`, `/api/analyze-context`, `/api/ifuri/analyze-context` | Compile ContextDSL and run intent analysis |
+| `POST` | `/api/convert`, `/api/ifuri/compile-source` | Compile source text to SourceDSL |
+| `GET` | `/api/twin`, `/api/twin/sources` | Read the accepted twin and deterministic source index |
+| `POST` | `/api/twin/bootstrap`, `/api/twin/update`, `/api/twin/plan` | Create or refine TwinDSL and derive BuildPlanDSL |
+| `GET` | `/api/integrity/current` | Read live ProjectIntegrityDSL and the closure-v2 contracts |
+| `POST` | `/api/integrity/repair-plan` | Derive a system-owned RepairPlanDSL from live integrity findings |
+| `GET` | `/api/evolution/status`, `/api/evolution/diagnostics` | Inspect the guarded evolution loop |
+| `POST` | `/api/evolution/guidance`, `/api/evolution/report` | Record GuidanceDSL or IncidentDSL |
+| `POST` | `/api/validate`, `/api/run`, `/api/codegen` | Validate Markdown DSL, run IntentDSL, or generate code artifacts |
 
-The API reports only whether a key is present; it never returns the key value.
-
-### Bootstrap the twin
+Example bootstrap request:
 
 ```http
 POST /api/twin/bootstrap
@@ -331,36 +395,6 @@ Content-Type: application/json
   "intent": "Build an application ...",
   "reset": true
 }
-```
-
-### Scan sources
-
-```http
-GET /api/twin/sources
-```
-
-### Update the twin
-
-```http
-POST /api/twin/update
-Content-Type: application/json
-
-{}
-```
-
-### Build plan
-
-```http
-POST /api/twin/plan
-Content-Type: application/json
-
-{}
-```
-
-### Current twin
-
-```http
-GET /api/twin
 ```
 
 ## Persistent state
@@ -418,10 +452,10 @@ After reviewing the policy, enable guarded application with `EVOLUTION_MODE=appl
 Local suite:
 
 ```bash
-python3 -m unittest discover -s tests -v
+uv run pytest -q
 ```
 
-The local suite currently contains 73 tests covering packaging and architecture invariants,
+The verified 2026-08-09 run contains 114 passing tests covering packaging and architecture invariants,
 IFURI, Protobuf, Event Sourcing/outbox, NATS wire protocol, multi-runtime URI parity,
 ContextDSL, IntentDSL, TwinDSL, source ingestion, OpenRouter, TestQL, the embedded dashboard,
 deterministic diagnostics, AQL/URI authorization, process envelopes, guarded rollback and the
@@ -429,7 +463,9 @@ complete ProjectIntegrity → RepairPlan → TestQL/EQL closure cycle.
 
 The browser detects and highlights JSON, JSONL, Mermaid and the project DSL family. Runtime values are HTML-escaped before token markup is added. Mermaid is rendered with its strict security profile; if the CDN renderer is unavailable, the highlighted source and an explicit error remain visible.
 
-See `TEST_REPORT.md` for the exact execution status of the delivered package.
+See [TEST_REPORT.md](TEST_REPORT.md) for the exact execution status and the
+distinction between the current local run and retained historical Docker/HTTP
+evidence.
 
 
 ## License

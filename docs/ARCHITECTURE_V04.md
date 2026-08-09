@@ -1,5 +1,10 @@
 # Architecture v0.4 — intent-bounded digital twin
 
+> **Historical design record.** This document preserves the v0.4 digital-twin
+> decision and is not the current package version. See the
+> [documentation menu](README.md) and [project README](../README.md) for current
+> behavior and runtime modes.
+
 ## Decision
 
 The digital twin becomes the authoritative semantic model used by the code-building agent. The LLM is not allowed to reason directly over arbitrary application context or raw Markdown files.

@@ -1,5 +1,10 @@
 # IFURI Runtime Lab 0.3 architecture
 
+> **Historical design record.** This document preserves the v0.3 architecture
+> decision and is not the current runtime status. See the
+> [documentation menu](README.md) and [project README](../README.md) for the
+> implemented package and active HTTP profile.
+
 ## Invariants
 
 1. **IFURI is identity, not placement.** Domain code never selects host:port.

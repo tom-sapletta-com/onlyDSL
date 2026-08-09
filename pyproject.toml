@@ -41,6 +41,7 @@ py-modules = [
   "digital_twin",
   "evolution",
   "governance",
+  "intent_codegen",
   "intentdsl",
   "llm_client",
   "patchdsl",
