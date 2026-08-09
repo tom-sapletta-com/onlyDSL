@@ -1,4 +1,4 @@
-# code2llm | 120f 10836L | python:91,json:6,shell:4,yaml:4,toml:4,txt:2,proto:2,yml:1,dsl:1,conf:1,typescript:1,javascript:1,php:1 | 2026-08-09
+# code2llm | 122f 12249L | python:91,yaml:6,json:6,shell:4,toml:4,txt:2,proto:2,yml:1,dsl:1,conf:1,typescript:1,javascript:1,php:1 | 2026-08-09
 # generated in 0.03s
 # CC̅=4.0 | critical:5/531 | dups:0 | cycles:0
 
@@ -147,6 +147,7 @@ LAYERS:
   │ __init__                     1L  0C    0m  CC=0.0    ←0
   │
   ./                              CC̄=4.2    ←in:0  →out:0
+  │ !! planfile.yaml             1319L  0C    0m  CC=0.0    ←0
   │ !! digital_twin               764L  2C   50m  CC=12     ←5
   │ !! server                     535L  1C   30m  CC=15     ←0
   │ !! goal.yaml                  526L  0C    0m  CC=0.0    ←0
@@ -162,6 +163,7 @@ LAYERS:
   │ !! aql                        151L  3C    9m  CC=15     ←1
   │ intent_codegen             132L  0C    7m  CC=14     ←1
   │ governance                  95L  0C    6m  CC=5      ←6
+  │ prefact.yaml                94L  0C    0m  CC=0.0    ←0
   │ pyproject.toml              89L  0C    0m  CC=0.0    ←0
   │ twin_models                 81L  8C    0m  CC=0.0    ←0
   │ project.sh                  81L  0C    0m  CC=0.0    ←0
@@ -278,24 +280,24 @@ COUPLING:
                   contextdsl                          ←2                          ←6                                                                                  ←1                                                                                                                                                                                                                                                          ──                              hub
                    evolution                                                                                                                                                                                                                                                          ←6                                                                                                                                                                      ──  hub
   CYCLES: none
-  HUB: contextdsl/ (fan-in=9)
-  HUB: llm_client/ (fan-in=7)
-  HUB: governance/ (fan-in=7)
-  HUB: digital_twin/ (fan-in=50)
-  HUB: packages.onlydsl-contracts/ (fan-in=21)
-  HUB: source_ingest/ (fan-in=9)
-  HUB: boundary/ (fan-in=21)
-  HUB: ifuri_core/ (fan-in=5)
-  HUB: intentdsl/ (fan-in=13)
-  HUB: evolution/ (fan-in=6)
-  HUB: packages.onlydsl-core/ (fan-in=12)
   HUB: onlydsl.ssot/ (fan-in=19)
-  SMELL: llm_client/ fan-out=48 → split needed
-  SMELL: server/ fan-out=53 → split needed
-  SMELL: ifuri_core/ fan-out=25 → split needed
+  HUB: digital_twin/ (fan-in=50)
+  HUB: intentdsl/ (fan-in=13)
+  HUB: llm_client/ (fan-in=7)
+  HUB: packages.onlydsl-contracts/ (fan-in=21)
+  HUB: ifuri_core/ (fan-in=5)
+  HUB: boundary/ (fan-in=21)
+  HUB: governance/ (fan-in=7)
+  HUB: source_ingest/ (fan-in=9)
+  HUB: packages.onlydsl-core/ (fan-in=12)
+  HUB: evolution/ (fan-in=6)
+  HUB: contextdsl/ (fan-in=9)
   SMELL: onlydsl.runtime/ fan-out=10 → split needed
   SMELL: packages.onlydsl-ssot/ fan-out=21 → split needed
   SMELL: onlydsl.ssot/ fan-out=13 → split needed
+  SMELL: llm_client/ fan-out=48 → split needed
+  SMELL: ifuri_core/ fan-out=25 → split needed
+  SMELL: server/ fan-out=53 → split needed
 
 EXTERNAL:
   validation: run `vallm batch .` → validation.toon

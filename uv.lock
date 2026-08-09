@@ -72,12 +72,12 @@ dev = [{ name = "pytest", specifier = ">=9.0,<10" }]
 
 [[package]]
 name = "onlydsl-contracts"
-version = "0.0.9"
+version = "0.0.10"
 source = { editable = "packages/onlydsl-contracts" }
 
 [[package]]
 name = "onlydsl-core"
-version = "0.0.9"
+version = "0.0.10"
 source = { editable = "packages/onlydsl-core" }
 dependencies = [
     { name = "onlydsl-contracts" },
@@ -92,7 +92,7 @@ requires-dist = [
 
 [[package]]
 name = "onlydsl-ssot"
-version = "0.0.9"
+version = "0.0.10"
 source = { editable = "packages/onlydsl-ssot" }
 dependencies = [
     { name = "onlydsl-contracts" },

@@ -791,6 +791,63 @@ flowchart TD
     governance__build_process_envelope --> aql__operation_for_path
     governance__complete_envelope --> governance__canonical_hash
     governance__reject_envelope --> governance__canonical_hash
+    digital_twin__intent_fingerprint --> digital_twin__normalize_intent
+    digital_twin___parse_json_text --> digital_twin___json_string
+    digital_twin___parse_twin_node_block --> digital_twin___parse_json_text
+    digital_twin___parse_twin_invariant_block --> digital_twin___parse_json_text
+    digital_twin___parse_twin_invariant_block --> digital_twin___parse_twin_evidence
+    digital_twin___parse_twin_evolution_block --> digital_twin___parse_json_text
+    digital_twin___parse_twin_source --> digital_twin___parse_json_text
+    digital_twin___parse_twin_scalar --> digital_twin___parse_json_text
+    digital_twin___parse_twin_declaration --> digital_twin___parse_twin_scalar
+    digital_twin___parse_twin_declaration --> digital_twin___parse_twin_node_block
+    digital_twin___parse_twin_declaration --> digital_twin___parse_twin_capability_block
+    digital_twin___parse_twin_declaration --> digital_twin___parse_twin_invariant_block
+    digital_twin__parse_twindsl --> digital_twin___build_twin_document
+    digital_twin__parse_twindsl --> digital_twin__validate_twin
+    digital_twin__parse_twindsl --> digital_twin___parse_twin_declaration
+    digital_twin__validate_twin --> digital_twin___validate_twin_basics
+    digital_twin__validate_twin --> digital_twin___validate_twin_capabilities
+    digital_twin__validate_twin --> digital_twin___validate_twin_edges
+    digital_twin__validate_twin --> digital_twin___validate_twin_invariants
+    digital_twin__validate_twin --> digital_twin___validate_twin_sources
+    digital_twin__validate_twin --> digital_twin___validate_twin_nodes
+    digital_twin__validate_twin_markdown --> digital_twin__parse_twindsl
+    digital_twin__validate_twin_markdown --> digital_twin__extract_twindsl
+    digital_twin__validate_twin_update --> digital_twin__validate_twin
+    digital_twin__twin_to_mermaid --> digital_twin___render_twin_nodes
+    digital_twin__twin_to_mermaid --> digital_twin___render_twin_capabilities
+    digital_twin__twin_to_mermaid --> digital_twin___render_twin_edges
+    digital_twin__demo_bootstrap_twin --> digital_twin__normalize_intent
+    digital_twin__demo_bootstrap_twin --> digital_twin__intent_fingerprint
+    digital_twin__demo_bootstrap_twin --> digital_twin___bootstrap_node_lines
+    digital_twin__demo_bootstrap_twin --> digital_twin___bootstrap_capability_lines
+    digital_twin__demo_bootstrap_twin --> digital_twin___bootstrap_edges_lines
+    digital_twin__demo_bootstrap_twin --> digital_twin___bootstrap_invariant_lines
+    digital_twin__demo_bootstrap_twin --> digital_twin___bootstrap_evolution_lines
+    digital_twin___bootstrap_node_lines --> digital_twin___quoted
+    digital_twin___bootstrap_capability_lines --> digital_twin___quoted
+    digital_twin___bootstrap_invariant_lines --> digital_twin___quoted
+    digital_twin___bootstrap_evolution_lines --> digital_twin___quoted
+    digital_twin__render_twin --> digital_twin___render_twin_header
+    digital_twin__render_twin --> digital_twin___render_twin_goals
+    digital_twin__render_twin --> digital_twin___render_twin_nodes_block
+    digital_twin__render_twin --> digital_twin___render_twin_capabilities_block
+    digital_twin__render_twin --> digital_twin___render_twin_edges_block
+    digital_twin__render_twin --> digital_twin___render_twin_invariants_block
+    digital_twin___render_twin_header --> digital_twin___quoted
+    digital_twin___render_twin_goals --> digital_twin___quoted
+    digital_twin___render_twin_nodes_block --> digital_twin___quoted
+    digital_twin___render_twin_capabilities_block --> digital_twin___quoted
+    digital_twin___render_twin_invariants_block --> digital_twin___quoted
+    digital_twin___render_twin_evolution_block --> digital_twin___quoted
+    digital_twin___render_twin_sources_block --> digital_twin___quoted
+    digital_twin___render_twin_questions_block --> digital_twin___quoted
+    digital_twin__validate_buildplan_markdown --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__validate_bound_build_plan
+    digital_twin__validate_buildplan_markdown --> digital_twin__render_twin
+    digital_twin__demo_build_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__semantic_twin_hash
+    digital_twin__demo_build_plan --> digital_twin___quoted
+    digital_twin__demo_build_plan --> digital_twin__render_twin
     boundary__DslBundle__validate_for_llm --> boundary__assert_dsl_only
     boundary__build_source_compile_bundle --> boundary__contract_dsl
     boundary__build_source_compile_bundle --> boundary__task_dsl
@@ -1047,65 +1104,8 @@ flowchart TD
     multiruntime__javascript__ifuri__raw --> multiruntime__javascript__ifuri__toNatsSubject
     multiruntime__php__ifuri__canonical_ifuri --> multiruntime__php__ifuri__parse_ifuri
     multiruntime__php__ifuri__nats_subject --> multiruntime__php__ifuri__parse_ifuri
-    digital_twin__intent_fingerprint --> digital_twin__normalize_intent
-    digital_twin___parse_json_text --> digital_twin___json_string
-    digital_twin___parse_twin_node_block --> digital_twin___parse_json_text
-    digital_twin___parse_twin_invariant_block --> digital_twin___parse_json_text
-    digital_twin___parse_twin_invariant_block --> digital_twin___parse_twin_evidence
-    digital_twin___parse_twin_evolution_block --> digital_twin___parse_json_text
-    digital_twin___parse_twin_source --> digital_twin___parse_json_text
-    digital_twin___parse_twin_scalar --> digital_twin___parse_json_text
-    digital_twin___parse_twin_declaration --> digital_twin___parse_twin_scalar
-    digital_twin___parse_twin_declaration --> digital_twin___parse_twin_node_block
-    digital_twin___parse_twin_declaration --> digital_twin___parse_twin_capability_block
-    digital_twin___parse_twin_declaration --> digital_twin___parse_twin_invariant_block
-    digital_twin__parse_twindsl --> digital_twin___build_twin_document
-    digital_twin__parse_twindsl --> digital_twin__validate_twin
-    digital_twin__parse_twindsl --> digital_twin___parse_twin_declaration
-    digital_twin__validate_twin --> digital_twin___validate_twin_basics
-    digital_twin__validate_twin --> digital_twin___validate_twin_capabilities
-    digital_twin__validate_twin --> digital_twin___validate_twin_edges
-    digital_twin__validate_twin --> digital_twin___validate_twin_invariants
-    digital_twin__validate_twin --> digital_twin___validate_twin_sources
-    digital_twin__validate_twin --> digital_twin___validate_twin_nodes
-    digital_twin__validate_twin_markdown --> digital_twin__parse_twindsl
-    digital_twin__validate_twin_markdown --> digital_twin__extract_twindsl
-    digital_twin__validate_twin_update --> digital_twin__validate_twin
-    digital_twin__twin_to_mermaid --> digital_twin___render_twin_nodes
-    digital_twin__twin_to_mermaid --> digital_twin___render_twin_capabilities
-    digital_twin__twin_to_mermaid --> digital_twin___render_twin_edges
-    digital_twin__demo_bootstrap_twin --> digital_twin__normalize_intent
-    digital_twin__demo_bootstrap_twin --> digital_twin__intent_fingerprint
-    digital_twin__demo_bootstrap_twin --> digital_twin___bootstrap_node_lines
-    digital_twin__demo_bootstrap_twin --> digital_twin___bootstrap_capability_lines
-    digital_twin__demo_bootstrap_twin --> digital_twin___bootstrap_edges_lines
-    digital_twin__demo_bootstrap_twin --> digital_twin___bootstrap_invariant_lines
-    digital_twin__demo_bootstrap_twin --> digital_twin___bootstrap_evolution_lines
-    digital_twin___bootstrap_node_lines --> digital_twin___quoted
-    digital_twin___bootstrap_capability_lines --> digital_twin___quoted
-    digital_twin___bootstrap_invariant_lines --> digital_twin___quoted
-    digital_twin___bootstrap_evolution_lines --> digital_twin___quoted
-    digital_twin__render_twin --> digital_twin___render_twin_header
-    digital_twin__render_twin --> digital_twin___render_twin_goals
-    digital_twin__render_twin --> digital_twin___render_twin_nodes_block
-    digital_twin__render_twin --> digital_twin___render_twin_capabilities_block
-    digital_twin__render_twin --> digital_twin___render_twin_edges_block
-    digital_twin__render_twin --> digital_twin___render_twin_invariants_block
-    digital_twin___render_twin_header --> digital_twin___quoted
-    digital_twin___render_twin_goals --> digital_twin___quoted
-    digital_twin___render_twin_nodes_block --> digital_twin___quoted
-    digital_twin___render_twin_capabilities_block --> digital_twin___quoted
-    digital_twin___render_twin_invariants_block --> digital_twin___quoted
-    digital_twin___render_twin_evolution_block --> digital_twin___quoted
-    digital_twin___render_twin_sources_block --> digital_twin___quoted
-    digital_twin___render_twin_questions_block --> digital_twin___quoted
-    digital_twin__validate_buildplan_markdown --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__validate_bound_build_plan
-    digital_twin__validate_buildplan_markdown --> digital_twin__render_twin
-    digital_twin__demo_build_plan --> packages__onlydsl_contracts__src__onlydsl_contracts__dsl__build_plan__semantic_twin_hash
-    digital_twin__demo_build_plan --> digital_twin___quoted
-    digital_twin__demo_build_plan --> digital_twin__render_twin
 
     classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
     classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
     class contextdsl__parse_context_dsl,server__Handler__do_GET,aql__AqlContract__parse,patchdsl__parse_patchdsl,onlydsl__ssot__cli__main highCC
-    class contextdsl__render_context_dsl,contextdsl___parse_context_declaration,contextdsl__compiler_from_payload,evolution___parse_event,evolution__EvolutionStore__status,server___current_external_integrity,llm_client___provider_config,llm_client___backend_call,llm_client___demo_context_analysis,llm_client___demo_update_twin,llm_client__update_twin,aql__AqlContract__decide,intentdsl___parse_literal,intentdsl___parse_call,intentdsl___parse_rule_statement,intentdsl___parse_program_declaration,intentdsl__parse_dsl,intentdsl___validate_rule_runtime_capabilities,intentdsl__validate_program,intentdsl__run_program,patchdsl___parse_change,patchdsl___validate_change,intent_codegen___codegen_python,intent_codegen___codegen_javascript_like,intent_codegen___codegen_php,boundary__assert_dsl_only,source_ingest___parse_text_content,source_ingest__build_source_index,source_ingest__validate_sourceindex_markdown,source_ingest__extract_source_refs medCC
+    class contextdsl__render_context_dsl,contextdsl___parse_context_declaration,contextdsl__compiler_from_payload,evolution___parse_event,evolution__EvolutionStore__status,server___current_external_integrity,llm_client___provider_config,llm_client___backend_call,llm_client___demo_context_analysis,llm_client___demo_update_twin,llm_client__update_twin,aql__AqlContract__decide,intentdsl___parse_literal,intentdsl___parse_call,intentdsl___parse_rule_statement,intentdsl___parse_program_declaration,intentdsl__parse_dsl,intentdsl___validate_rule_runtime_capabilities,intentdsl__validate_program,intentdsl__run_program,patchdsl___parse_change,patchdsl___validate_change,intent_codegen___codegen_python,intent_codegen___codegen_javascript_like,intent_codegen___codegen_php,digital_twin___parse_twin_node_block,digital_twin___parse_twin_capability_block,digital_twin___parse_twin_invariant_block,digital_twin___parse_twin_evolution_block,digital_twin___parse_twin_declaration medCC

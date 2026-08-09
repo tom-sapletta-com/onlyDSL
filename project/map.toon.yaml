@@ -1,12 +1,12 @@
-# onlyDSL | 120f 10836L | python:91,shell:4,yaml:4,yml:1,txt:2,toml:4,json:6,proto:2,dsl:1,conf:1,typescript:1,javascript:1,php:1 | 2026-08-09
+# onlyDSL | 122f 12249L | python:91,shell:4,yaml:6,yml:1,txt:2,toml:4,json:6,proto:2,dsl:1,conf:1,typescript:1,javascript:1,php:1 | 2026-08-09
 # generated in 0.02s
 # producer: code2llm | artifact: map.toon.yaml | schema: 1
-# stats: 531 func | 0 cls | 120 mod | CC̄=4.0 | critical:5 | cycles:0
+# stats: 531 func | 0 cls | 122 mod | CC̄=4.0 | critical:5 | cycles:0
 # alerts[5]: fan-out main=31; fan-out main=26; fan-out Handler.do_GET=22; fan-out build_source_index=21; fan-out _bootstrap_twin=20
 # hotspots[5]: main fan=31; main fan=26; Handler.do_GET fan=22; build_source_index fan=21; _bootstrap_twin fan=20
 # evolution: CC̄ 4.0→4.0 (flat 0.0)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[120]:
+M[122]:
   Dockerfile,17
   SSOT/manifest.dsl,10
   aql.py,151
@@ -114,6 +114,8 @@ M[120]:
   packages/onlydsl-ssot/src/onlydsl_ssot/validation.py,67
   packages/onlydsl-ssot/src/onlydsl_ssot/writer.py,215
   patchdsl.py,165
+  planfile.yaml,1319
+  prefact.yaml,94
   project.sh,81
   pyproject.toml,89
   requirements.txt,3
@@ -321,60 +323,6 @@ D:
     toNatsSubject()
     x()
     raw()
-  source_ingest.py:
-    e: SourceIngestError,MarkdownDocument,SourceIndex,_q,_sid,_normalize_text,_extract_code_blocks,_flush_paragraph,_parse_text_content,parse_markdown,build_source_index,validate_sourceindex_markdown,extract_source_refs
-    SourceIngestError(ValueError):
-    MarkdownDocument:
-    SourceIndex: to_markdown(0),envelope(0),source_refs(0)
-    _q(value)
-    _sid(path;index)
-    _normalize_text(text)
-    _extract_code_blocks(raw;max_item_chars)
-    _flush_paragraph(doc;lines;max_item_chars)
-    _parse_text_content(doc;raw;code_spans;max_item_chars)
-    parse_markdown(path;root;source_id)
-    build_source_index(root)
-    validate_sourceindex_markdown(markdown)
-    extract_source_refs(markdown)
-  packages/onlydsl-ssot/src/onlydsl_ssot/manifest.py:
-    e: utc_now,digest_bytes,is_immutable_urn,normalize_relative_path,collect_file_hashes,calculate_section_hashes,calculate_revision_hash,create_manifest,validate_manifest,_validate_manifest_metadata,_validate_manifest_entries,_validate_manifest_hashes,render_manifest,parse_manifest,_parse_manifest_entries,_validate_manifest_scalars
-    utc_now()
-    digest_bytes(value)
-    is_immutable_urn(value)
-    normalize_relative_path(value)
-    collect_file_hashes(tree)
-    calculate_section_hashes(files)
-    calculate_revision_hash(project_id;sections)
-    create_manifest(project_id;files)
-    validate_manifest(manifest)
-    _validate_manifest_metadata(manifest;issues)
-    _validate_manifest_entries(manifest;issues)
-    _validate_manifest_hashes(manifest;expected_sections;issues)
-    render_manifest(manifest)
-    parse_manifest(text)
-    _parse_manifest_entries(lines)
-    _validate_manifest_scalars(scalars)
-  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/evidence_set.py:
-    e: EvidenceSet,create_evidence_set,render_evidence_set,parse_evidence_set
-    EvidenceSet:
-    create_evidence_set(set_id;query_uri;member_uris)
-    render_evidence_set(value)
-    parse_evidence_set(markdown)
-  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/claim.py:
-    e: Claim,ClaimDocument,_parse_claim_fields,_parse_claim,parse_claims,render_claims
-    Claim:
-    ClaimDocument:
-    _parse_claim_fields(lines;index)
-    _parse_claim(claim_id;fields)
-    parse_claims(markdown)
-    render_claims(document)
-  onlydsl/runtime/integrity.py:
-    e: IntegrityFinding,ProjectIntegrity,_parse_finding,_readiness,parse_project_integrity
-    IntegrityFinding:
-    ProjectIntegrity:
-    _parse_finding(lines;index)
-    _readiness(result;completeness;findings)
-    parse_project_integrity(markdown)
   digital_twin.py:
     e: TwinDslError,_TwinParseState,normalize_intent,intent_fingerprint,_quoted,_json_string,extract_twindsl,_parse_json_text,_parse_twin_evidence,_parse_twin_node_block,_parse_twin_capability_block,_parse_twin_invariant_block,_parse_twin_evolution_block,_parse_twin_source,_parse_twin_scalar,_parse_twin_declaration,_build_twin_document,parse_twindsl,validate_twin,_validate_twin_basics,_validate_twin_capabilities,_validate_twin_edges,_validate_twin_invariants,_validate_twin_sources,_validate_twin_nodes,validate_twin_markdown,validate_twin_update,twin_to_mermaid,_render_twin_nodes,_render_twin_capabilities,_render_twin_edges,demo_bootstrap_twin,_bootstrap_node_lines,_bootstrap_capability_lines,_bootstrap_edges_lines,_bootstrap_invariant_lines,_bootstrap_evolution_lines,render_twin,_render_twin_header,_render_twin_goals,_render_twin_nodes_block,_render_twin_capabilities_block,_render_twin_edges_block,_render_twin_invariants_block,_render_twin_evolution_block,_render_twin_sources_block,_render_twin_questions_block,twindsl_schema,buildplandsl_schema,extract_buildplanddsl,validate_buildplan_markdown,demo_build_plan
     TwinDslError(ValueError):
@@ -429,6 +377,60 @@ D:
     extract_buildplanddsl(markdown)
     validate_buildplan_markdown(markdown;twin)
     demo_build_plan(doc)
+  source_ingest.py:
+    e: SourceIngestError,MarkdownDocument,SourceIndex,_q,_sid,_normalize_text,_extract_code_blocks,_flush_paragraph,_parse_text_content,parse_markdown,build_source_index,validate_sourceindex_markdown,extract_source_refs
+    SourceIngestError(ValueError):
+    MarkdownDocument:
+    SourceIndex: to_markdown(0),envelope(0),source_refs(0)
+    _q(value)
+    _sid(path;index)
+    _normalize_text(text)
+    _extract_code_blocks(raw;max_item_chars)
+    _flush_paragraph(doc;lines;max_item_chars)
+    _parse_text_content(doc;raw;code_spans;max_item_chars)
+    parse_markdown(path;root;source_id)
+    build_source_index(root)
+    validate_sourceindex_markdown(markdown)
+    extract_source_refs(markdown)
+  packages/onlydsl-ssot/src/onlydsl_ssot/manifest.py:
+    e: utc_now,digest_bytes,is_immutable_urn,normalize_relative_path,collect_file_hashes,calculate_section_hashes,calculate_revision_hash,create_manifest,validate_manifest,_validate_manifest_metadata,_validate_manifest_entries,_validate_manifest_hashes,render_manifest,parse_manifest,_parse_manifest_entries,_validate_manifest_scalars
+    utc_now()
+    digest_bytes(value)
+    is_immutable_urn(value)
+    normalize_relative_path(value)
+    collect_file_hashes(tree)
+    calculate_section_hashes(files)
+    calculate_revision_hash(project_id;sections)
+    create_manifest(project_id;files)
+    validate_manifest(manifest)
+    _validate_manifest_metadata(manifest;issues)
+    _validate_manifest_entries(manifest;issues)
+    _validate_manifest_hashes(manifest;expected_sections;issues)
+    render_manifest(manifest)
+    parse_manifest(text)
+    _parse_manifest_entries(lines)
+    _validate_manifest_scalars(scalars)
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/evidence_set.py:
+    e: EvidenceSet,create_evidence_set,render_evidence_set,parse_evidence_set
+    EvidenceSet:
+    create_evidence_set(set_id;query_uri;member_uris)
+    render_evidence_set(value)
+    parse_evidence_set(markdown)
+  packages/onlydsl-contracts/src/onlydsl_contracts/dsl/claim.py:
+    e: Claim,ClaimDocument,_parse_claim_fields,_parse_claim,parse_claims,render_claims
+    Claim:
+    ClaimDocument:
+    _parse_claim_fields(lines;index)
+    _parse_claim(claim_id;fields)
+    parse_claims(markdown)
+    render_claims(document)
+  onlydsl/runtime/integrity.py:
+    e: IntegrityFinding,ProjectIntegrity,_parse_finding,_readiness,parse_project_integrity
+    IntegrityFinding:
+    ProjectIntegrity:
+    _parse_finding(lines;index)
+    _readiness(result;completeness;findings)
+    parse_project_integrity(markdown)
   packages/onlydsl-contracts/src/onlydsl_contracts/dsl/repair_plan.py:
     e: RepairTask,RepairPlan,_validate_repair_task,validate_repair_plan,render_repair_plan,_parse_repair_task,parse_repair_plan
     RepairTask:
@@ -690,6 +692,18 @@ Domain c...
   run-tests.sh:
   docker-test.sh:
   requirements.txt:
+  twin_models.py:
+    e: TwinNode,TwinCapability,TwinInvariant,TwinEdge,TwinSourceRef,TwinDocument,BuildTask,BuildPlan
+    TwinNode:
+    TwinCapability:
+    TwinInvariant:
+    TwinEdge:
+    TwinSourceRef:
+    TwinDocument:
+    BuildTask:
+    BuildPlan:
+  pyproject.toml:
+  project.sh:
   packages/onlydsl-core/pyproject.toml:
   packages/onlydsl-core/src/onlydsl_core/envelope_pb2.py:
   packages/onlydsl-core/src/onlydsl_core/dsl_pb2.py:
@@ -751,15 +765,5 @@ Domain c...
   manifests/capabilities.yaml:
   testql/onlydsl-startup.testql.toon.yaml:
   testql/digital-twin-startup.testql.toon.yaml:
-  twin_models.py:
-    e: TwinNode,TwinCapability,TwinInvariant,TwinEdge,TwinSourceRef,TwinDocument,BuildTask,BuildPlan
-    TwinNode:
-    TwinCapability:
-    TwinInvariant:
-    TwinEdge:
-    TwinSourceRef:
-    TwinDocument:
-    BuildTask:
-    BuildPlan:
-  pyproject.toml:
-  project.sh:
+  planfile.yaml:
+  prefact.yaml:

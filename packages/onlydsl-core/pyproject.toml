@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "onlydsl-core"
-version = "0.0.9"
+version = "0.0.10"
 description = "Transport-neutral IFURI routing and wire runtime for onlyDSL"
 readme = "README.md"
 requires-python = ">=3.10"

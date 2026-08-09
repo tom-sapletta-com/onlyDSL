@@ -1,5 +1,5 @@
 # code2llm call graph | /home/tom/github/tom-sapletta-com/onlyDSL
-# generated in 0.23s
+# generated in 0.16s
 # nodes: 350 | edges: 433 | modules: 46
 # CC̄=4.0
 
@@ -16,34 +16,34 @@ HUBS[20]:
     CC=14  in:1  out:39  total:40
   boundary.assert_dsl_only
     CC=8  in:22  out:16  total:38
-  source_ingest.build_source_index
-    CC=9  in:2  out:35  total:37
   server.Handler.do_GET
     CC=15  in:0  out:37  total:37
-  contextdsl.render_context_dsl
-    CC=9  in:1  out:35  total:36
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.spatial_class_from_twin
-    CC=4  in:1  out:35  total:36
+  source_ingest.build_source_index
+    CC=9  in:2  out:35  total:37
   intentdsl._parse_program_declaration
     CC=14  in:1  out:35  total:36
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.spatial_class_from_twin
+    CC=4  in:1  out:35  total:36
+  contextdsl.render_context_dsl
+    CC=9  in:1  out:35  total:36
   evolution.EvolutionStore.status
     CC=14  in:0  out:35  total:35
   digital_twin.parse_twindsl
     CC=11  in:12  out:21  total:33
   contextdsl._ident
     CC=3  in:28  out:5  total:33
-  intent_codegen._codegen_php
-    CC=14  in:1  out:31  total:32
   intentdsl.run_program
     CC=14  in:2  out:30  total:32
-  server._bootstrap_twin
-    CC=5  in:1  out:28  total:29
+  intent_codegen._codegen_php
+    CC=14  in:1  out:31  total:32
+  intent_codegen._codegen_javascript_like
+    CC=13  in:1  out:28  total:29
   patchdsl.parse_patchdsl
     CC=15  in:1  out:28  total:29
+  server._bootstrap_twin
+    CC=5  in:1  out:28  total:29
   llm_client.bootstrap_twin
     CC=7  in:1  out:28  total:29
-  intentdsl.validate_program
-    CC=14  in:2  out:27  total:29
 
 MODULES:
   aql  [1 funcs]

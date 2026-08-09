@@ -1,5 +1,5 @@
 source: code2llm
-# generated in 0.09s
+# generated in 0.10s
 schema: code2llm.planfile_tickets.v1
 project_root: /home/tom/github/tom-sapletta-com/onlyDSL
 tickets:
@@ -114,7 +114,7 @@ tickets:
   dedupe_key: 'code2llm:smell:god_function:llm_client.py:397:God Function: update_twin'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: backend'
-  description: 'code2llm reports `Shotgun Surgery: backend` in `llm_client.py:309`.
+  description: 'code2llm reports `Shotgun Surgery: backend` in `llm_client.py:397`.
 
 
     Mutation of variable ''backend'' spans 9 functions in /home/tom/github/tom-sapletta-com/onlyDSL/llm_client.py.
@@ -130,10 +130,10 @@ tickets:
   - shotgun-surgery
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:llm_client.py:309:Shotgun Surgery: backend'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:llm_client.py:397:Shotgun Surgery: backend'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: bundle'
-  description: 'code2llm reports `Shotgun Surgery: bundle` in `llm_client.py:309`.
+  description: 'code2llm reports `Shotgun Surgery: bundle` in `llm_client.py:397`.
 
 
     Mutation of variable ''bundle'' spans 6 functions in /home/tom/github/tom-sapletta-com/onlyDSL/llm_client.py.
@@ -149,10 +149,10 @@ tickets:
   - shotgun-surgery
   files:
   - llm_client.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:llm_client.py:309:Shotgun Surgery: bundle'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:llm_client.py:397:Shotgun Surgery: bundle'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: doc'
-  description: 'code2llm reports `Shotgun Surgery: doc` in `contextdsl.py:298`.
+  description: 'code2llm reports `Shotgun Surgery: doc` in `contextdsl.py:313`.
 
 
     Mutation of variable ''doc'' spans 6 functions in /home/tom/github/tom-sapletta-com/onlyDSL/contextdsl.py.
@@ -168,29 +168,10 @@ tickets:
   - shotgun-surgery
   files:
   - contextdsl.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:contextdsl.py:298:Shotgun Surgery: doc'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:contextdsl.py:313:Shotgun Surgery: doc'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: errors'
-  description: 'code2llm reports `Shotgun Surgery: errors` in `intentdsl.py:236`.
-
-
-    Mutation of variable ''errors'' spans 6 functions in /home/tom/github/tom-sapletta-com/onlyDSL/intentdsl.py.
-    Changing this logic requires work in many places.
-
-
-    Make the smallest refactor that removes the smell and run local tests.'
-  priority: high
-  labels:
-  - llm-ready
-  - code2llm
-  - code-smell
-  - shotgun-surgery
-  files:
-  - intentdsl.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:intentdsl.py:236:Shotgun Surgery: errors'
-- signal: code2llm_smell_shotgun_surgery
-  title: 'Address code smell: Shotgun Surgery: errors'
-  description: 'code2llm reports `Shotgun Surgery: errors` in `digital_twin.py:351`.
+  description: 'code2llm reports `Shotgun Surgery: errors` in `digital_twin.py:384`.
 
 
     Mutation of variable ''errors'' spans 8 functions in /home/tom/github/tom-sapletta-com/onlyDSL/digital_twin.py.
@@ -206,11 +187,11 @@ tickets:
   - shotgun-surgery
   files:
   - digital_twin.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:digital_twin.py:351:Shotgun Surgery:
+  dedupe_key: 'code2llm:smell:shotgun_surgery:digital_twin.py:384:Shotgun Surgery:
     errors'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: index'
-  description: 'code2llm reports `Shotgun Surgery: index` in `digital_twin.py:65`.
+  description: 'code2llm reports `Shotgun Surgery: index` in `digital_twin.py:207`.
 
 
     Mutation of variable ''index'' spans 5 functions in /home/tom/github/tom-sapletta-com/onlyDSL/digital_twin.py.
@@ -226,11 +207,11 @@ tickets:
   - shotgun-surgery
   files:
   - digital_twin.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:digital_twin.py:65:Shotgun Surgery:
+  dedupe_key: 'code2llm:smell:shotgun_surgery:digital_twin.py:207:Shotgun Surgery:
     index'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: issues'
-  description: 'code2llm reports `Shotgun Surgery: issues` in `packages/onlydsl-ssot/src/onlydsl_ssot/manifest.py:83`.
+  description: 'code2llm reports `Shotgun Surgery: issues` in `packages/onlydsl-ssot/src/onlydsl_ssot/manifest.py:111`.
 
 
     Mutation of variable ''issues'' spans 6 functions in /home/tom/github/tom-sapletta-com/onlyDSL/packages/onlydsl-ssot/src/onlydsl_ssot/manifest.py.
@@ -246,11 +227,11 @@ tickets:
   - shotgun-surgery
   files:
   - packages/onlydsl-ssot/src/onlydsl_ssot/manifest.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:packages/onlydsl-ssot/src/onlydsl_ssot/manifest.py:83:Shotgun
+  dedupe_key: 'code2llm:smell:shotgun_surgery:packages/onlydsl-ssot/src/onlydsl_ssot/manifest.py:111:Shotgun
     Surgery: issues'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: line'
-  description: 'code2llm reports `Shotgun Surgery: line` in `digital_twin.py:65`.
+  description: 'code2llm reports `Shotgun Surgery: line` in `digital_twin.py:207`.
 
 
     Mutation of variable ''line'' spans 5 functions in /home/tom/github/tom-sapletta-com/onlyDSL/digital_twin.py.
@@ -266,11 +247,11 @@ tickets:
   - shotgun-surgery
   files:
   - digital_twin.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:digital_twin.py:65:Shotgun Surgery:
+  dedupe_key: 'code2llm:smell:shotgun_surgery:digital_twin.py:207:Shotgun Surgery:
     line'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: lineno'
-  description: 'code2llm reports `Shotgun Surgery: lineno` in `digital_twin.py:65`.
+  description: 'code2llm reports `Shotgun Surgery: lineno` in `digital_twin.py:207`.
 
 
     Mutation of variable ''lineno'' spans 6 functions in /home/tom/github/tom-sapletta-com/onlyDSL/digital_twin.py.
@@ -286,11 +267,11 @@ tickets:
   - shotgun-surgery
   files:
   - digital_twin.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:digital_twin.py:65:Shotgun Surgery:
+  dedupe_key: 'code2llm:smell:shotgun_surgery:digital_twin.py:207:Shotgun Surgery:
     lineno'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: lines'
-  description: 'code2llm reports `Shotgun Surgery: lines` in `digital_twin.py:552`.
+  description: 'code2llm reports `Shotgun Surgery: lines` in `digital_twin.py:433`.
 
 
     Mutation of variable ''lines'' spans 10 functions in /home/tom/github/tom-sapletta-com/onlyDSL/digital_twin.py.
@@ -306,11 +287,11 @@ tickets:
   - shotgun-surgery
   files:
   - digital_twin.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:digital_twin.py:552:Shotgun Surgery:
+  dedupe_key: 'code2llm:smell:shotgun_surgery:digital_twin.py:433:Shotgun Surgery:
     lines'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: match'
-  description: 'code2llm reports `Shotgun Surgery: match` in `contextdsl.py:298`.
+  description: 'code2llm reports `Shotgun Surgery: match` in `contextdsl.py:330`.
 
 
     Mutation of variable ''match'' spans 8 functions in /home/tom/github/tom-sapletta-com/onlyDSL/contextdsl.py.
@@ -326,10 +307,10 @@ tickets:
   - shotgun-surgery
   files:
   - contextdsl.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:contextdsl.py:298:Shotgun Surgery: match'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:contextdsl.py:330:Shotgun Surgery: match'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: md'
-  description: 'code2llm reports `Shotgun Surgery: md` in `boundary.py:107`.
+  description: 'code2llm reports `Shotgun Surgery: md` in `boundary.py:101`.
 
 
     Mutation of variable ''md'' spans 6 functions in /home/tom/github/tom-sapletta-com/onlyDSL/boundary.py.
@@ -345,10 +326,10 @@ tickets:
   - shotgun-surgery
   files:
   - boundary.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:boundary.py:107:Shotgun Surgery: md'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:boundary.py:101:Shotgun Surgery: md'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: output'
-  description: 'code2llm reports `Shotgun Surgery: output` in `server.py:201`.
+  description: 'code2llm reports `Shotgun Surgery: output` in `server.py:195`.
 
 
     Mutation of variable ''output'' spans 6 functions in /home/tom/github/tom-sapletta-com/onlyDSL/server.py.
@@ -364,10 +345,10 @@ tickets:
   - shotgun-surgery
   files:
   - server.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:server.py:201:Shotgun Surgery: output'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:server.py:195:Shotgun Surgery: output'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: reply'
-  description: 'code2llm reports `Shotgun Surgery: reply` in `server.py:201`.
+  description: 'code2llm reports `Shotgun Surgery: reply` in `server.py:250`.
 
 
     Mutation of variable ''reply'' spans 5 functions in /home/tom/github/tom-sapletta-com/onlyDSL/server.py.
@@ -383,7 +364,7 @@ tickets:
   - shotgun-surgery
   files:
   - server.py
-  dedupe_key: 'code2llm:smell:shotgun_surgery:server.py:201:Shotgun Surgery: reply'
+  dedupe_key: 'code2llm:smell:shotgun_surgery:server.py:250:Shotgun Surgery: reply'
 - signal: code2llm_smell_shotgun_surgery
   title: 'Address code smell: Shotgun Surgery: result'
   description: 'code2llm reports `Shotgun Surgery: result` in `llm_client.py:101`.
@@ -489,11 +470,116 @@ tickets:
   - server.py
   dedupe_key: code2llm:cc:server.py:server.Handler.do_GET
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: self, candidate_id, approval'
-  description: 'code2llm reports `Data Clump: self, candidate_id, approval` in `packages/onlydsl-ssot/src/onlydsl_ssot/writer.py:85`.
+  title: 'Address code smell: Data Clump: doc, stripped, lineno'
+  description: 'code2llm reports `Data Clump: doc, stripped, lineno` in `contextdsl.py:298`.
 
 
-    Arguments (self, candidate_id, approval) are used together in multiple functions:
+    Arguments (doc, stripped, lineno) are used together in multiple functions: contextdsl._parse_policy,
+    contextdsl._parse_capability, contextdsl._parse_state, contextdsl._parse_metric,
+    contextdsl._parse_context_declaration.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - data-clump
+  files:
+  - contextdsl.py
+  dedupe_key: 'code2llm:smell:data_clump:contextdsl.py:298:Data Clump: doc, stripped,
+    lineno'
+- signal: code2llm_smell_data_clump
+  title: 'Address code smell: Data Clump: doc, stripped, lineno'
+  description: 'code2llm reports `Data Clump: doc, stripped, lineno` in `contextdsl.py:305`.
+
+
+    Arguments (doc, stripped, lineno) are used together in multiple functions: contextdsl._parse_policy,
+    contextdsl._parse_capability, contextdsl._parse_state, contextdsl._parse_metric,
+    contextdsl._parse_context_declaration.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - data-clump
+  files:
+  - contextdsl.py
+  dedupe_key: 'code2llm:smell:data_clump:contextdsl.py:305:Data Clump: doc, stripped,
+    lineno'
+- signal: code2llm_smell_data_clump
+  title: 'Address code smell: Data Clump: doc, stripped, lineno'
+  description: 'code2llm reports `Data Clump: doc, stripped, lineno` in `contextdsl.py:313`.
+
+
+    Arguments (doc, stripped, lineno) are used together in multiple functions: contextdsl._parse_policy,
+    contextdsl._parse_capability, contextdsl._parse_state, contextdsl._parse_metric,
+    contextdsl._parse_context_declaration.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - data-clump
+  files:
+  - contextdsl.py
+  dedupe_key: 'code2llm:smell:data_clump:contextdsl.py:313:Data Clump: doc, stripped,
+    lineno'
+- signal: code2llm_smell_data_clump
+  title: 'Address code smell: Data Clump: doc, stripped, lineno'
+  description: 'code2llm reports `Data Clump: doc, stripped, lineno` in `contextdsl.py:320`.
+
+
+    Arguments (doc, stripped, lineno) are used together in multiple functions: contextdsl._parse_policy,
+    contextdsl._parse_capability, contextdsl._parse_state, contextdsl._parse_metric,
+    contextdsl._parse_context_declaration.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - data-clump
+  files:
+  - contextdsl.py
+  dedupe_key: 'code2llm:smell:data_clump:contextdsl.py:320:Data Clump: doc, stripped,
+    lineno'
+- signal: code2llm_smell_data_clump
+  title: 'Address code smell: Data Clump: doc, stripped, lineno'
+  description: 'code2llm reports `Data Clump: doc, stripped, lineno` in `contextdsl.py:337`.
+
+
+    Arguments (doc, stripped, lineno) are used together in multiple functions: contextdsl._parse_policy,
+    contextdsl._parse_capability, contextdsl._parse_state, contextdsl._parse_metric,
+    contextdsl._parse_context_declaration.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - data-clump
+  files:
+  - contextdsl.py
+  dedupe_key: 'code2llm:smell:data_clump:contextdsl.py:337:Data Clump: doc, stripped,
+    lineno'
+- signal: code2llm_smell_data_clump
+  title: 'Address code smell: Data Clump: self, approval, candidate_id'
+  description: 'code2llm reports `Data Clump: self, approval, candidate_id` in `packages/onlydsl-ssot/src/onlydsl_ssot/writer.py:85`.
+
+
+    Arguments (self, approval, candidate_id) are used together in multiple functions:
     packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.promote, packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._prepare_promotion.
 
 
@@ -507,13 +593,13 @@ tickets:
   files:
   - packages/onlydsl-ssot/src/onlydsl_ssot/writer.py
   dedupe_key: 'code2llm:smell:data_clump:packages/onlydsl-ssot/src/onlydsl_ssot/writer.py:85:Data
-    Clump: self, candidate_id, approval'
+    Clump: self, approval, candidate_id'
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: self, candidate_id, approval'
-  description: 'code2llm reports `Data Clump: self, candidate_id, approval` in `packages/onlydsl-ssot/src/onlydsl_ssot/writer.py:94`.
+  title: 'Address code smell: Data Clump: self, approval, candidate_id'
+  description: 'code2llm reports `Data Clump: self, approval, candidate_id` in `packages/onlydsl-ssot/src/onlydsl_ssot/writer.py:94`.
 
 
-    Arguments (self, candidate_id, approval) are used together in multiple functions:
+    Arguments (self, approval, candidate_id) are used together in multiple functions:
     packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.promote, packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._prepare_promotion.
 
 
@@ -527,7 +613,7 @@ tickets:
   files:
   - packages/onlydsl-ssot/src/onlydsl_ssot/writer.py
   dedupe_key: 'code2llm:smell:data_clump:packages/onlydsl-ssot/src/onlydsl_ssot/writer.py:94:Data
-    Clump: self, candidate_id, approval'
+    Clump: self, approval, candidate_id'
 - signal: code2llm_smell_data_clump
   title: 'Address code smell: Data Clump: self, envelope, resolved'
   description: 'code2llm reports `Data Clump: self, envelope, resolved` in `ifuri_core/transport.py:51`.
@@ -569,12 +655,12 @@ tickets:
   dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:315:Data Clump: self,
     envelope, resolved'
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: self, envelope, timeout, resolved'
-  description: 'code2llm reports `Data Clump: self, envelope, timeout, resolved` in
+  title: 'Address code smell: Data Clump: self, envelope, resolved, timeout'
+  description: 'code2llm reports `Data Clump: self, envelope, resolved, timeout` in
     `ifuri_core/transport.py:42`.
 
 
-    Arguments (self, envelope, timeout, resolved) are used together in multiple functions:
+    Arguments (self, envelope, resolved, timeout) are used together in multiple functions:
     ifuri_core.transport.InProcessTransport.call, ifuri_core.transport.NatsTransport.call.
 
 
@@ -588,14 +674,14 @@ tickets:
   files:
   - ifuri_core/transport.py
   dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:42:Data Clump: self,
-    envelope, timeout, resolved'
+    envelope, resolved, timeout'
 - signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: self, envelope, timeout, resolved'
-  description: 'code2llm reports `Data Clump: self, envelope, timeout, resolved` in
+  title: 'Address code smell: Data Clump: self, envelope, resolved, timeout'
+  description: 'code2llm reports `Data Clump: self, envelope, resolved, timeout` in
     `ifuri_core/transport.py:310`.
 
 
-    Arguments (self, envelope, timeout, resolved) are used together in multiple functions:
+    Arguments (self, envelope, resolved, timeout) are used together in multiple functions:
     ifuri_core.transport.InProcessTransport.call, ifuri_core.transport.NatsTransport.call.
 
 
@@ -609,7 +695,7 @@ tickets:
   files:
   - ifuri_core/transport.py
   dedupe_key: 'code2llm:smell:data_clump:ifuri_core/transport.py:310:Data Clump: self,
-    envelope, timeout, resolved'
+    envelope, resolved, timeout'
 - signal: code2llm_smell_data_clump
   title: 'Address code smell: Data Clump: self, payload, target_uri'
   description: 'code2llm reports `Data Clump: self, payload, target_uri` in `packages/onlydsl-core/src/onlydsl_core/runtime.py:55`.
@@ -692,119 +778,14 @@ tickets:
   - aql.py
   dedupe_key: 'code2llm:smell:data_clump:aql.py:108:Data Clump: self, uri_process,
     principal, oql'
-- signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: stripped, lineno, doc'
-  description: 'code2llm reports `Data Clump: stripped, lineno, doc` in `contextdsl.py:298`.
-
-
-    Arguments (stripped, lineno, doc) are used together in multiple functions: contextdsl._parse_policy,
-    contextdsl._parse_capability, contextdsl._parse_state, contextdsl._parse_metric,
-    contextdsl._parse_context_declaration.
-
-
-    Make the smallest refactor that removes the smell and run local tests.'
-  priority: normal
-  labels:
-  - llm-ready
-  - code2llm
-  - code-smell
-  - data-clump
-  files:
-  - contextdsl.py
-  dedupe_key: 'code2llm:smell:data_clump:contextdsl.py:298:Data Clump: stripped, lineno,
-    doc'
-- signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: stripped, lineno, doc'
-  description: 'code2llm reports `Data Clump: stripped, lineno, doc` in `contextdsl.py:305`.
-
-
-    Arguments (stripped, lineno, doc) are used together in multiple functions: contextdsl._parse_policy,
-    contextdsl._parse_capability, contextdsl._parse_state, contextdsl._parse_metric,
-    contextdsl._parse_context_declaration.
-
-
-    Make the smallest refactor that removes the smell and run local tests.'
-  priority: normal
-  labels:
-  - llm-ready
-  - code2llm
-  - code-smell
-  - data-clump
-  files:
-  - contextdsl.py
-  dedupe_key: 'code2llm:smell:data_clump:contextdsl.py:305:Data Clump: stripped, lineno,
-    doc'
-- signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: stripped, lineno, doc'
-  description: 'code2llm reports `Data Clump: stripped, lineno, doc` in `contextdsl.py:313`.
-
-
-    Arguments (stripped, lineno, doc) are used together in multiple functions: contextdsl._parse_policy,
-    contextdsl._parse_capability, contextdsl._parse_state, contextdsl._parse_metric,
-    contextdsl._parse_context_declaration.
-
-
-    Make the smallest refactor that removes the smell and run local tests.'
-  priority: normal
-  labels:
-  - llm-ready
-  - code2llm
-  - code-smell
-  - data-clump
-  files:
-  - contextdsl.py
-  dedupe_key: 'code2llm:smell:data_clump:contextdsl.py:313:Data Clump: stripped, lineno,
-    doc'
-- signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: stripped, lineno, doc'
-  description: 'code2llm reports `Data Clump: stripped, lineno, doc` in `contextdsl.py:320`.
-
-
-    Arguments (stripped, lineno, doc) are used together in multiple functions: contextdsl._parse_policy,
-    contextdsl._parse_capability, contextdsl._parse_state, contextdsl._parse_metric,
-    contextdsl._parse_context_declaration.
-
-
-    Make the smallest refactor that removes the smell and run local tests.'
-  priority: normal
-  labels:
-  - llm-ready
-  - code2llm
-  - code-smell
-  - data-clump
-  files:
-  - contextdsl.py
-  dedupe_key: 'code2llm:smell:data_clump:contextdsl.py:320:Data Clump: stripped, lineno,
-    doc'
-- signal: code2llm_smell_data_clump
-  title: 'Address code smell: Data Clump: stripped, lineno, doc'
-  description: 'code2llm reports `Data Clump: stripped, lineno, doc` in `contextdsl.py:337`.
-
-
-    Arguments (stripped, lineno, doc) are used together in multiple functions: contextdsl._parse_policy,
-    contextdsl._parse_capability, contextdsl._parse_state, contextdsl._parse_metric,
-    contextdsl._parse_context_declaration.
-
-
-    Make the smallest refactor that removes the smell and run local tests.'
-  priority: normal
-  labels:
-  - llm-ready
-  - code2llm
-  - code-smell
-  - data-clump
-  files:
-  - contextdsl.py
-  dedupe_key: 'code2llm:smell:data_clump:contextdsl.py:337:Data Clump: stripped, lineno,
-    doc'
 - signal: code2llm_smell_feature_envy
   title: 'Address code smell: Feature Envy: _demo_update_twin'
   description: 'code2llm reports `Feature Envy: _demo_update_twin` in `llm_client.py:369`.
 
 
-    Function ''_demo_update_twin'' mutates multiple variables in other modules: updated.open_questions,
-    updated.invariants[''evidence_before_evolution''].evidence, updated.revision,
-    updated.nodes[''source_ingest''].evidence.
+    Function ''_demo_update_twin'' mutates multiple variables in other modules: updated.revision,
+    updated.invariants[''evidence_before_evolution''].evidence, updated.nodes[''source_ingest''].evidence,
+    updated.open_questions.
 
 
     Make the smallest refactor that removes the smell and run local tests.'

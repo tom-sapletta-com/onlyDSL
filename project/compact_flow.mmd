@@ -52,12 +52,12 @@ flowchart TD
     server -->|2| source_ingest
     server__Handler -->|2| ifuri_core__llm_gateway
     llm_client -->|2| contextdsl
+    digital_twin -->|2| packages__onlydsl_contracts
     packages__onlydsl_ssot -->|2| governance
     packages__onlydsl_contracts -->|2| governance
     onlydsl__runtime -->|2| onlydsl__governance
     onlydsl__runtime -->|2| governance
     onlydsl__ssot -->|2| source_ingest
-    digital_twin -->|2| packages__onlydsl_contracts
     evolution__EvolutionStore -->|1| diagnostics
     server__Handler -->|1| intentdsl
     llm_client -->|1| intentdsl

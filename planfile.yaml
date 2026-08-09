@@ -1,0 +1,1319 @@
+name: Code Quality Improvement
+project_name: ''
+project_type: prefactoring
+domain: dev-tools
+goal: Improve code quality using prefact
+goals:
+- Fix all prefact-detected issues
+- Improve code maintainability
+- Ensure consistent code style
+quality_gates:
+- metric: Prefact Issues
+  threshold: '0'
+sprints:
+- id: sprint-1
+  name: Code Quality Improvements
+  duration: 2 weeks
+  objectives:
+  - Fix code quality issues
+  task_patterns:
+  - id: ticket-ab39e67d
+    name: Fix ast-unused-imports issues
+    description: Resolve 1 ast-unused-imports issues in boundary.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - boundary.py
+    rule_id: ast-unused-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-87c78a8d
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in boundary.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - boundary.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-be22553e
+    name: Fix ast-string-concat issues
+    description: Resolve 17 ast-string-concat issues in boundary.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - boundary.py
+    rule_id: ast-string-concat
+    count: 17
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-38c4baaa
+    name: Fix string-concat-fstring issues
+    description: Resolve 31 string-concat-fstring issues in boundary.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - boundary.py
+    rule_id: string-concat-fstring
+    count: 31
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d63233b5
+    name: Fix magic-numbers issues
+    description: Resolve 0 magic-numbers issues in boundary.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - boundary.py
+    rule_id: magic-numbers
+    count: 0
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-bf93d1a6
+    name: Fix import-optimization issues
+    description: Resolve 0 import-optimization issues in boundary.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - boundary.py
+    rule_id: import-optimization
+    count: 0
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f1fc8a31
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in build/lib/aql.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/aql.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-2dfc720f
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in build/lib/aql.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/aql.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-c87ac5d3
+    name: Fix ast-string-concat issues
+    description: Resolve 3 ast-string-concat issues in build/lib/aql.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/aql.py
+    rule_id: ast-string-concat
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ea3305ad
+    name: Fix string-concat-fstring issues
+    description: Resolve 8 string-concat-fstring issues in build/lib/aql.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - build/lib/aql.py
+    rule_id: string-concat-fstring
+    count: 8
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7f29a733
+    name: Fix import-optimization issues
+    description: Resolve 2 import-optimization issues in build/lib/aql.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/aql.py
+    rule_id: import-optimization
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9cc1f95b
+    name: Fix ast-unused-imports issues
+    description: Resolve 1 ast-unused-imports issues in build/lib/boundary.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/boundary.py
+    rule_id: ast-unused-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a8578edb
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in build/lib/boundary.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/boundary.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-49ac4d14
+    name: Fix ast-string-concat issues
+    description: Resolve 17 ast-string-concat issues in build/lib/boundary.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - build/lib/boundary.py
+    rule_id: ast-string-concat
+    count: 17
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-fd525429
+    name: Fix string-concat-fstring issues
+    description: Resolve 31 string-concat-fstring issues in build/lib/boundary.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - build/lib/boundary.py
+    rule_id: string-concat-fstring
+    count: 31
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-5aa00b2a
+    name: Fix magic-numbers issues
+    description: Resolve 0 magic-numbers issues in build/lib/boundary.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/boundary.py
+    rule_id: magic-numbers
+    count: 0
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-363a06bc
+    name: Fix import-optimization issues
+    description: Resolve 0 import-optimization issues in build/lib/boundary.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/boundary.py
+    rule_id: import-optimization
+    count: 0
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-eefec421
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in aql.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - aql.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8fd3a900
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in aql.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - aql.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ad363141
+    name: Fix ast-string-concat issues
+    description: Resolve 3 ast-string-concat issues in aql.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - aql.py
+    rule_id: ast-string-concat
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0b7c3996
+    name: Fix string-concat-fstring issues
+    description: Resolve 8 string-concat-fstring issues in aql.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - aql.py
+    rule_id: string-concat-fstring
+    count: 8
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-60dd2bcf
+    name: Fix import-optimization issues
+    description: Resolve 2 import-optimization issues in aql.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - aql.py
+    rule_id: import-optimization
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-54bd040e
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in build/lib/evolution.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/evolution.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-fa10193a
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in build/lib/evolution.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/evolution.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-efcbc134
+    name: Fix ast-string-concat issues
+    description: Resolve 1 ast-string-concat issues in build/lib/evolution.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/evolution.py
+    rule_id: ast-string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-4dfcae4d
+    name: Fix ruff-sorted-imports issues
+    description: Resolve 1 ruff-sorted-imports issues in build/lib/evolution.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/evolution.py
+    rule_id: ruff-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-da5adab7
+    name: Fix string-concat-fstring issues
+    description: Resolve 2 string-concat-fstring issues in build/lib/evolution.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/evolution.py
+    rule_id: string-concat-fstring
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-26cac717
+    name: Fix magic-numbers issues
+    description: Resolve 3 magic-numbers issues in build/lib/evolution.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/evolution.py
+    rule_id: magic-numbers
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-278b8e94
+    name: Fix string-formatting issues
+    description: Resolve 1 string-formatting issues in build/lib/evolution.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/evolution.py
+    rule_id: string-formatting
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d020b4b0
+    name: Fix import-optimization issues
+    description: Resolve 2 import-optimization issues in build/lib/evolution.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/evolution.py
+    rule_id: import-optimization
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-87efdff8
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in build/lib/diagnostics.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/diagnostics.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d65d9f15
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in build/lib/diagnostics.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/diagnostics.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-2146aa53
+    name: Fix ast-string-concat issues
+    description: Resolve 2 ast-string-concat issues in build/lib/diagnostics.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/diagnostics.py
+    rule_id: ast-string-concat
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-32698c13
+    name: Fix string-concat-fstring issues
+    description: Resolve 6 string-concat-fstring issues in build/lib/diagnostics.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - build/lib/diagnostics.py
+    rule_id: string-concat-fstring
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-3175ba9f
+    name: Fix magic-numbers issues
+    description: Resolve 1 magic-numbers issues in build/lib/diagnostics.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/diagnostics.py
+    rule_id: magic-numbers
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0a7b70c6
+    name: Fix import-optimization issues
+    description: Resolve 2 import-optimization issues in build/lib/diagnostics.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/diagnostics.py
+    rule_id: import-optimization
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-79fb18c4
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in build/lib/digital_twin.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/digital_twin.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-2ec1ddfb
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in build/lib/digital_twin.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/digital_twin.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-3982bc6c
+    name: Fix ast-string-concat issues
+    description: Resolve 10 ast-string-concat issues in build/lib/digital_twin.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - build/lib/digital_twin.py
+    rule_id: ast-string-concat
+    count: 10
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-5d675abc
+    name: Fix string-concat-fstring issues
+    description: Resolve 28 string-concat-fstring issues in build/lib/digital_twin.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - build/lib/digital_twin.py
+    rule_id: string-concat-fstring
+    count: 28
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-28f5edb0
+    name: Fix magic-numbers issues
+    description: Resolve 1 magic-numbers issues in build/lib/digital_twin.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/digital_twin.py
+    rule_id: magic-numbers
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-85cd7d76
+    name: Fix llm-generated-code issues
+    description: Resolve 2 llm-generated-code issues in build/lib/digital_twin.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/digital_twin.py
+    rule_id: llm-generated-code
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e9c98441
+    name: Fix ast-unused-imports issues
+    description: Resolve 6 ast-unused-imports issues in build/lib/contextdsl.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - build/lib/contextdsl.py
+    rule_id: ast-unused-imports
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-248f2ee8
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in build/lib/contextdsl.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/contextdsl.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7f4def94
+    name: Fix ast-string-concat issues
+    description: Resolve 6 ast-string-concat issues in build/lib/contextdsl.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - build/lib/contextdsl.py
+    rule_id: ast-string-concat
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-3b95dcac
+    name: Fix ruff-unused-imports issues
+    description: Resolve 1 ruff-unused-imports issues in build/lib/contextdsl.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/contextdsl.py
+    rule_id: ruff-unused-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-54264d4f
+    name: Fix string-concat-fstring issues
+    description: Resolve 12 string-concat-fstring issues in build/lib/contextdsl.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - build/lib/contextdsl.py
+    rule_id: string-concat-fstring
+    count: 12
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-4035248a
+    name: Fix unused-imports issues
+    description: Resolve 2 unused-imports issues in build/lib/contextdsl.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/contextdsl.py
+    rule_id: unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-43a39e07
+    name: Fix magic-numbers issues
+    description: Resolve 1 magic-numbers issues in build/lib/contextdsl.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/contextdsl.py
+    rule_id: magic-numbers
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-10242b6f
+    name: Fix import-optimization issues
+    description: Resolve 2 import-optimization issues in build/lib/contextdsl.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/contextdsl.py
+    rule_id: import-optimization
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8ca9ac60
+    name: Fix relative-imports issues
+    description: Resolve 8 relative-imports issues in build/lib/ifuri_core/__init__.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - build/lib/ifuri_core/__init__.py
+    rule_id: relative-imports
+    count: 8
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e0467282
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in build/lib/ifuri_core/__init__.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/__init__.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e7559a3b
+    name: Fix ruff-sorted-imports issues
+    description: Resolve 1 ruff-sorted-imports issues in build/lib/ifuri_core/__init__.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/__init__.py
+    rule_id: ruff-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-3b6d33f3
+    name: Fix import-optimization issues
+    description: Resolve 2 import-optimization issues in build/lib/ifuri_core/__init__.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/__init__.py
+    rule_id: import-optimization
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-75dbaea9
+    name: Fix no-relative-imports issues
+    description: Resolve 4 no-relative-imports issues in build/lib/ifuri_core/__init__.py
+    task_type: bugfix
+    priority: critical
+    estimate: 2d
+    files:
+    - build/lib/ifuri_core/__init__.py
+    rule_id: no-relative-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ed83d6b0
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in build/lib/governance.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/governance.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-beff5312
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in build/lib/governance.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/governance.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-c881fd3f
+    name: Fix ast-string-concat issues
+    description: Resolve 1 ast-string-concat issues in build/lib/governance.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/governance.py
+    rule_id: ast-string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-2ecf2034
+    name: Fix string-concat-fstring issues
+    description: Resolve 2 string-concat-fstring issues in build/lib/governance.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/governance.py
+    rule_id: string-concat-fstring
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0912bbb8
+    name: Fix magic-numbers issues
+    description: Resolve 1 magic-numbers issues in build/lib/governance.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/governance.py
+    rule_id: magic-numbers
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9c37f1d6
+    name: Fix import-optimization issues
+    description: Resolve 2 import-optimization issues in build/lib/governance.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/governance.py
+    rule_id: import-optimization
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-5eb87726
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in build/lib/ifuri_core/artifacts.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/artifacts.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-bd94dcd4
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in build/lib/ifuri_core/artifacts.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/artifacts.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-c759ff9f
+    name: Fix ast-string-concat issues
+    description: Resolve 1 ast-string-concat issues in build/lib/ifuri_core/artifacts.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/artifacts.py
+    rule_id: ast-string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-32630522
+    name: Fix string-concat-fstring issues
+    description: Resolve 2 string-concat-fstring issues in build/lib/ifuri_core/artifacts.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/artifacts.py
+    rule_id: string-concat-fstring
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a7d68e9f
+    name: Fix import-optimization issues
+    description: Resolve 1 import-optimization issues in build/lib/ifuri_core/artifacts.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/artifacts.py
+    rule_id: import-optimization
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d2cc5b03
+    name: Fix no-relative-imports issues
+    description: Resolve 1 no-relative-imports issues in build/lib/ifuri_core/artifacts.py
+    task_type: bugfix
+    priority: critical
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/artifacts.py
+    rule_id: no-relative-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-709909c0
+    name: Fix ruff-sorted-imports issues
+    description: Resolve 1 ruff-sorted-imports issues in build/lib/ifuri_core/dsl_pb2.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/dsl_pb2.py
+    rule_id: ruff-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b08689ef
+    name: Fix import-optimization issues
+    description: Resolve 2 import-optimization issues in build/lib/ifuri_core/dsl_pb2.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/dsl_pb2.py
+    rule_id: import-optimization
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-cacd7d67
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in build/lib/ifuri_core/dsl_document.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/dsl_document.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-828a4318
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in build/lib/ifuri_core/dsl_document.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/dsl_document.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-c442fc48
+    name: Fix no-relative-imports issues
+    description: Resolve 1 no-relative-imports issues in build/lib/ifuri_core/dsl_document.py
+    task_type: bugfix
+    priority: critical
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/dsl_document.py
+    rule_id: no-relative-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b570f94f
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in build/lib/ifuri_core/cqrs.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/cqrs.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-291b5509
+    name: Fix string-concat-fstring issues
+    description: Resolve 2 string-concat-fstring issues in build/lib/ifuri_core/cqrs.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/cqrs.py
+    rule_id: string-concat-fstring
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-89cc57ee
+    name: Fix import-optimization issues
+    description: Resolve 1 import-optimization issues in build/lib/ifuri_core/cqrs.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/cqrs.py
+    rule_id: import-optimization
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f6680d27
+    name: Fix relative-imports issues
+    description: Resolve 4 relative-imports issues in build/lib/ifuri_core/envelope.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - build/lib/ifuri_core/envelope.py
+    rule_id: relative-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f85a2994
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in build/lib/ifuri_core/envelope.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/envelope.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7a7eda58
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in build/lib/ifuri_core/envelope.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/envelope.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a10443f7
+    name: Fix import-optimization issues
+    description: Resolve 5 import-optimization issues in build/lib/ifuri_core/envelope.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - build/lib/ifuri_core/envelope.py
+    rule_id: import-optimization
+    count: 5
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b1b0d832
+    name: Fix no-relative-imports issues
+    description: Resolve 2 no-relative-imports issues in build/lib/ifuri_core/envelope.py
+    task_type: bugfix
+    priority: critical
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/envelope.py
+    rule_id: no-relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-3d8b75c7
+    name: Fix ast-unused-imports issues
+    description: Resolve 6 ast-unused-imports issues in build/lib/ifuri_core/envelope_pb2.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - build/lib/ifuri_core/envelope_pb2.py
+    rule_id: ast-unused-imports
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-23a7640d
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in build/lib/ifuri_core/envelope_pb2.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/envelope_pb2.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-19b8c3c9
+    name: Fix ruff-unused-imports issues
+    description: Resolve 2 ruff-unused-imports issues in build/lib/ifuri_core/envelope_pb2.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/envelope_pb2.py
+    rule_id: ruff-unused-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-1408cb98
+    name: Fix ruff-sorted-imports issues
+    description: Resolve 1 ruff-sorted-imports issues in build/lib/ifuri_core/envelope_pb2.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/envelope_pb2.py
+    rule_id: ruff-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ac1b6bd0
+    name: Fix unused-imports issues
+    description: Resolve 4 unused-imports issues in build/lib/ifuri_core/envelope_pb2.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - build/lib/ifuri_core/envelope_pb2.py
+    rule_id: unused-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e9f32de9
+    name: Fix string-formatting issues
+    description: Resolve 1 string-formatting issues in build/lib/ifuri_core/envelope_pb2.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/envelope_pb2.py
+    rule_id: string-formatting
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-226720a1
+    name: Fix import-optimization issues
+    description: Resolve 2 import-optimization issues in build/lib/ifuri_core/envelope_pb2.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/envelope_pb2.py
+    rule_id: import-optimization
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7d911761
+    name: Fix relative-imports issues
+    description: Resolve 6 relative-imports issues in build/lib/ifuri_core/llm_gateway.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - build/lib/ifuri_core/llm_gateway.py
+    rule_id: relative-imports
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-bfa965aa
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in build/lib/ifuri_core/llm_gateway.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/llm_gateway.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-55229c1a
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in build/lib/ifuri_core/llm_gateway.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/llm_gateway.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a3fc0ec8
+    name: Fix ast-string-concat issues
+    description: Resolve 1 ast-string-concat issues in build/lib/ifuri_core/llm_gateway.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/llm_gateway.py
+    rule_id: ast-string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0b354deb
+    name: Fix ast-missing-return-type issues
+    description: Resolve 13 ast-missing-return-type issues in build/lib/ifuri_core/llm_gateway.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - build/lib/ifuri_core/llm_gateway.py
+    rule_id: ast-missing-return-type
+    count: 13
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e464a61e
+    name: Fix ruff-sorted-imports issues
+    description: Resolve 1 ruff-sorted-imports issues in build/lib/ifuri_core/llm_gateway.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/llm_gateway.py
+    rule_id: ruff-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-17e457a2
+    name: Fix smart-return-type issues
+    description: Resolve 13 smart-return-type issues in build/lib/ifuri_core/llm_gateway.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - build/lib/ifuri_core/llm_gateway.py
+    rule_id: smart-return-type
+    count: 13
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-1a63fd86
+    name: Fix string-concat-fstring issues
+    description: Resolve 2 string-concat-fstring issues in build/lib/ifuri_core/llm_gateway.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/llm_gateway.py
+    rule_id: string-concat-fstring
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-79acbd8b
+    name: Fix import-optimization issues
+    description: Resolve 6 import-optimization issues in build/lib/ifuri_core/llm_gateway.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - build/lib/ifuri_core/llm_gateway.py
+    rule_id: import-optimization
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8065ddd3
+    name: Fix no-relative-imports issues
+    description: Resolve 3 no-relative-imports issues in build/lib/ifuri_core/llm_gateway.py
+    task_type: bugfix
+    priority: critical
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/llm_gateway.py
+    rule_id: no-relative-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-5e445e1b
+    name: Fix relative-imports issues
+    description: Resolve 4 relative-imports issues in build/lib/ifuri_core/event_store.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - build/lib/ifuri_core/event_store.py
+    rule_id: relative-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-17f64932
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in build/lib/ifuri_core/event_store.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/event_store.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-5f092505
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in build/lib/ifuri_core/event_store.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - build/lib/ifuri_core/event_store.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced

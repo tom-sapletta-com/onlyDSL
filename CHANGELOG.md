@@ -1,5 +1,131 @@
 # Changelog
 
+## [Unreleased] - 2026-08-09
+
+### Fixed
+- Fix ast-unused-imports issues (ticket-ab39e67d)
+- Fix ast-sorted-imports issues (ticket-87c78a8d)
+- Fix ast-string-concat issues (ticket-be22553e)
+- Fix string-concat-fstring issues (ticket-38c4baaa)
+- Fix magic-numbers issues (ticket-d63233b5)
+- Fix import-optimization issues (ticket-bf93d1a6)
+- Fix ast-unused-imports issues (ticket-f1fc8a31)
+- Fix ast-sorted-imports issues (ticket-2dfc720f)
+- Fix ast-string-concat issues (ticket-c87ac5d3)
+- Fix string-concat-fstring issues (ticket-ea3305ad)
+- Fix import-optimization issues (ticket-7f29a733)
+- Fix ast-unused-imports issues (ticket-9cc1f95b)
+- Fix ast-sorted-imports issues (ticket-a8578edb)
+- Fix ast-string-concat issues (ticket-49ac4d14)
+- Fix string-concat-fstring issues (ticket-fd525429)
+- Fix magic-numbers issues (ticket-5aa00b2a)
+- Fix import-optimization issues (ticket-363a06bc)
+- Fix ast-unused-imports issues (ticket-eefec421)
+- Fix ast-sorted-imports issues (ticket-8fd3a900)
+- Fix ast-string-concat issues (ticket-ad363141)
+- Fix string-concat-fstring issues (ticket-0b7c3996)
+- Fix import-optimization issues (ticket-60dd2bcf)
+- Fix ast-unused-imports issues (ticket-54bd040e)
+- Fix ast-sorted-imports issues (ticket-fa10193a)
+- Fix ast-string-concat issues (ticket-efcbc134)
+- Fix ruff-sorted-imports issues (ticket-4dfcae4d)
+- Fix string-concat-fstring issues (ticket-da5adab7)
+- Fix magic-numbers issues (ticket-26cac717)
+- Fix string-formatting issues (ticket-278b8e94)
+- Fix import-optimization issues (ticket-d020b4b0)
+- Fix ast-unused-imports issues (ticket-87efdff8)
+- Fix ast-sorted-imports issues (ticket-d65d9f15)
+- Fix ast-string-concat issues (ticket-2146aa53)
+- Fix string-concat-fstring issues (ticket-32698c13)
+- Fix magic-numbers issues (ticket-3175ba9f)
+- Fix import-optimization issues (ticket-0a7b70c6)
+- Fix ast-unused-imports issues (ticket-79fb18c4)
+- Fix ast-sorted-imports issues (ticket-2ec1ddfb)
+- Fix ast-string-concat issues (ticket-3982bc6c)
+- Fix string-concat-fstring issues (ticket-5d675abc)
+- Fix magic-numbers issues (ticket-28f5edb0)
+- Fix llm-generated-code issues (ticket-85cd7d76)
+- Fix ast-unused-imports issues (ticket-e9c98441)
+- Fix ast-sorted-imports issues (ticket-248f2ee8)
+- Fix ast-string-concat issues (ticket-7f4def94)
+- Fix ruff-unused-imports issues (ticket-3b95dcac)
+- Fix string-concat-fstring issues (ticket-54264d4f)
+- Fix unused-imports issues (ticket-4035248a)
+- Fix magic-numbers issues (ticket-43a39e07)
+- Fix import-optimization issues (ticket-10242b6f)
+- Fix relative-imports issues (ticket-8ca9ac60)
+- Fix ast-sorted-imports issues (ticket-e0467282)
+- Fix ruff-sorted-imports issues (ticket-e7559a3b)
+- Fix import-optimization issues (ticket-3b6d33f3)
+- Fix no-relative-imports issues (ticket-75dbaea9)
+- Fix ast-unused-imports issues (ticket-ed83d6b0)
+- Fix ast-sorted-imports issues (ticket-beff5312)
+- Fix ast-string-concat issues (ticket-c881fd3f)
+- Fix string-concat-fstring issues (ticket-2ecf2034)
+- Fix magic-numbers issues (ticket-0912bbb8)
+- Fix import-optimization issues (ticket-9c37f1d6)
+- Fix relative-imports issues (ticket-5eb87726)
+- Fix ast-unused-imports issues (ticket-bd94dcd4)
+- Fix ast-string-concat issues (ticket-c759ff9f)
+- Fix string-concat-fstring issues (ticket-32630522)
+- Fix import-optimization issues (ticket-a7d68e9f)
+- Fix no-relative-imports issues (ticket-d2cc5b03)
+- Fix ruff-sorted-imports issues (ticket-709909c0)
+- Fix import-optimization issues (ticket-b08689ef)
+- Fix relative-imports issues (ticket-cacd7d67)
+- Fix ast-unused-imports issues (ticket-828a4318)
+- Fix no-relative-imports issues (ticket-c442fc48)
+- Fix ast-unused-imports issues (ticket-b570f94f)
+- Fix string-concat-fstring issues (ticket-291b5509)
+- Fix import-optimization issues (ticket-89cc57ee)
+- Fix relative-imports issues (ticket-f6680d27)
+- Fix ast-unused-imports issues (ticket-f85a2994)
+- Fix ast-sorted-imports issues (ticket-7a7eda58)
+- Fix import-optimization issues (ticket-a10443f7)
+- Fix no-relative-imports issues (ticket-b1b0d832)
+- Fix ast-unused-imports issues (ticket-3d8b75c7)
+- Fix ast-sorted-imports issues (ticket-23a7640d)
+- Fix ruff-unused-imports issues (ticket-19b8c3c9)
+- Fix ruff-sorted-imports issues (ticket-1408cb98)
+- Fix unused-imports issues (ticket-ac1b6bd0)
+- Fix string-formatting issues (ticket-e9f32de9)
+- Fix import-optimization issues (ticket-226720a1)
+- Fix relative-imports issues (ticket-7d911761)
+- Fix ast-unused-imports issues (ticket-bfa965aa)
+- Fix ast-sorted-imports issues (ticket-55229c1a)
+- Fix ast-string-concat issues (ticket-a3fc0ec8)
+- Fix ast-missing-return-type issues (ticket-0b354deb)
+- Fix ruff-sorted-imports issues (ticket-e464a61e)
+- Fix smart-return-type issues (ticket-17e457a2)
+- Fix string-concat-fstring issues (ticket-1a63fd86)
+- Fix import-optimization issues (ticket-79acbd8b)
+- Fix no-relative-imports issues (ticket-8065ddd3)
+- Fix relative-imports issues (ticket-5e445e1b)
+- Fix ast-unused-imports issues (ticket-17f64932)
+- Fix ast-sorted-imports issues (ticket-5f092505)
+
+## [0.0.10] - 2026-08-09
+
+### Docs
+- Update CHANGELOG.md
+- Update README.md
+- Update TODO.md
+- Update project/README.md
+- Update project/context.md
+
+### Other
+- Update app.doql.less
+- Update planfile.yaml
+- Update project/analysis.toon.yaml
+- Update project/calls.mmd
+- Update project/calls.png
+- Update project/calls.toon.yaml
+- Update project/calls.yaml
+- Update project/compact_flow.mmd
+- Update project/duplication-core.toon.yaml
+- Update project/evolution.toon.yaml
+- ... and 6 more files
+
 ## 2026-08-08 — governed diagnostics
 
 - Added deterministic error-code classification and persisted DiagnosticDSL solutions.

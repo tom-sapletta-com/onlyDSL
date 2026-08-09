@@ -30,20 +30,20 @@ NEXT[8] (ranked by impact):
       WHY: CC=15 exceeds 15
       EFFORT: ~1h  IMPACT: 210
 
-  [8] !! SPLIT           goal.yaml
-      WHY: 526L, 0 classes, max CC=0
+  [8] !! SPLIT           planfile.yaml
+      WHY: 1319L, 0 classes, max CC=0
       EFFORT: ~4h  IMPACT: 0
 
 
 RISKS[3]:
+  ⚠ Splitting planfile.yaml may break 0 import paths
   ⚠ Splitting digital_twin.py may break 50 import paths
   ⚠ Splitting server.py may break 30 import paths
-  ⚠ Splitting goal.yaml may break 0 import paths
 
 METRICS-TARGET:
   CC̄:          4.0 → ≤2.8
   max-CC:      23 → ≤11
-  god-modules: 4 → 0
+  god-modules: 5 → 0
   high-CC(≥15): 5 → ≤2
   hub-types:   0 → ≤0
 

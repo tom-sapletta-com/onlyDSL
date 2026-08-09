@@ -335,6 +335,6 @@ code2llm ./ -f yaml --separate-orphans
 **Analysis Date**: 2026-08-09  
 **Total Functions**: 531  
 **Total Classes**: 111  
-**Modules**: 120  
+**Modules**: 122  
 
 For more information about code2llm, visit: https://github.com/tom-sapletta/code2llm

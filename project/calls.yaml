@@ -5,26 +5,271 @@ stats:
   total_edges: 433
   modules_count: 46
 nodes:
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._semantic_payload:
-    name: _semantic_payload
+  patchdsl._count_diff_lines:
+    name: _count_diff_lines
+    module: patchdsl
+    line: 94
+    cyclomatic_complexity: 6
+    calls_out: 5
+    calls_in: 1
+  onlydsl.ssot.io.atomic_write_text:
+    name: atomic_write_text
+    module: onlydsl.ssot.io
+    line: 20
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 13
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract.ParameterContractDocument.validate:
+    name: validate
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
+    line: 43
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 0
+  digital_twin._bootstrap_invariant_lines:
+    name: _bootstrap_invariant_lines
+    module: digital_twin
+    line: 526
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  contextdsl.ContextCompiler.to_markdown:
+    name: to_markdown
+    module: contextdsl
+    line: 249
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.is_immutable_urn:
+    name: is_immutable_urn
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 27
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 4
+  patchdsl.validate_patch_markdown:
+    name: validate_patch_markdown
+    module: patchdsl
+    line: 160
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 0
+  contextdsl.ContextCompiler.state:
+    name: state
+    module: contextdsl
+    line: 164
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 0
+  packages.onlydsl-ssot.src.onlydsl_ssot.candidate._validate_candidate_tree:
+    name: _validate_candidate_tree
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
+    line: 101
+    cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 1
+  onlydsl.runtime.integrity._readiness:
+    name: _readiness
+    module: onlydsl.runtime.integrity
+    line: 53
+    cyclomatic_complexity: 7
+    calls_out: 1
+    calls_in: 1
+  multiruntime.javascript.ifuri.parseIfUri:
+    name: parseIfUri
+    module: multiruntime.javascript.ifuri
+    line: 6
+    cyclomatic_complexity: 13
+    calls_out: 6
+    calls_in: 2
+  source_ingest._flush_paragraph:
+    name: _flush_paragraph
+    module: source_ingest
+    line: 102
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 4
+  contextdsl.ContextCompiler.record:
+    name: record
+    module: contextdsl
+    line: 177
+    cyclomatic_complexity: 4
+    calls_out: 9
+    calls_in: 0
+  digital_twin._validate_twin_sources:
+    name: _validate_twin_sources
+    module: digital_twin
+    line: 351
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._parse_parameter:
+    name: _parse_parameter
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
+    line: 126
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._commit_promotion:
+    name: _commit_promotion
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
+    line: 123
+    cyclomatic_complexity: 7
+    calls_out: 22
+    calls_in: 0
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._validate_values:
+    name: _validate_values
     module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-    line: 42
+    line: 64
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 3
+  digital_twin._validate_twin_basics:
+    name: _validate_twin_basics
+    module: digital_twin
+    line: 298
+    cyclomatic_complexity: 11
+    calls_out: 13
+    calls_in: 1
+  digital_twin.validate_twin:
+    name: validate_twin
+    module: digital_twin
+    line: 285
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 2
+  contextdsl._compile_logs:
+    name: _compile_logs
+    module: contextdsl
+    line: 454
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.validate_manifest:
+    name: validate_manifest
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 83
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 3
+  llm_client.update_twin:
+    name: update_twin
+    module: llm_client
+    line: 397
+    cyclomatic_complexity: 14
+    calls_out: 39
+    calls_in: 1
+  boundary.task_dsl:
+    name: task_dsl
+    module: boundary
+    line: 69
     cyclomatic_complexity: 1
     calls_out: 0
-    calls_in: 1
-  onlydsl.runtime.repair_controller.plan_integrity_repairs:
-    name: plan_integrity_repairs
-    module: onlydsl.runtime.repair_controller
-    line: 39
+    calls_in: 6
+  evolution._parse_event:
+    name: _parse_event
+    module: evolution
+    line: 31
     cyclomatic_complexity: 8
-    calls_out: 18
+    calls_out: 11
     calls_in: 1
-  llm_client.provider_status:
-    name: provider_status
-    module: llm_client
-    line: 169
+  digital_twin.intent_fingerprint:
+    name: intent_fingerprint
+    module: digital_twin
+    line: 25
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 3
+  packages.onlydsl-ssot.src.onlydsl_ssot.candidate._validate_candidate_evidence:
+    name: _validate_candidate_evidence
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
+    line: 109
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.candidate._apply_candidate_changes:
+    name: _apply_candidate_changes
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
+    line: 85
+    cyclomatic_complexity: 8
+    calls_out: 14
+    calls_in: 1
+  packages.onlydsl-core.src.onlydsl_core.capabilities._parse_pattern:
+    name: _parse_pattern
+    module: packages.onlydsl-core.src.onlydsl_core.capabilities
+    line: 210
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 2
+  contextdsl.ContextCompiler.__init__:
+    name: __init__
+    module: contextdsl
+    line: 142
+    cyclomatic_complexity: 2
+    calls_out: 9
+    calls_in: 0
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan.parse_bound_build_plan:
+    name: parse_bound_build_plan
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
+    line: 85
+    cyclomatic_complexity: 10
+    calls_out: 14
+    calls_in: 1
+  server._fetch_external_json:
+    name: _fetch_external_json
+    module: server
+    line: 96
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 3
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._value_matches_type:
+    name: _value_matches_type
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
+    line: 81
     cyclomatic_complexity: 5
+    calls_out: 8
+    calls_in: 1
+  server.Handler._send:
+    name: _send
+    module: server
+    line: 375
+    cyclomatic_complexity: 4
+    calls_out: 12
+    calls_in: 0
+  intentdsl.validate_markdown:
+    name: validate_markdown
+    module: intentdsl
+    line: 309
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 3
+  evolution._now:
+    name: _now
+    module: evolution
+    line: 18
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 3
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_scalars:
+    name: _validate_manifest_scalars
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 179
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  server._ifuri_compile_source:
+    name: _ifuri_compile_source
+    module: server
+    line: 229
+    cyclomatic_complexity: 1
     calls_out: 7
+    calls_in: 2
+  packages.onlydsl-core.src.onlydsl_core.capabilities._validate_pattern_tokens:
+    name: _validate_pattern_tokens
+    module: packages.onlydsl-core.src.onlydsl_core.capabilities
+    line: 193
+    cyclomatic_complexity: 7
+    calls_out: 12
     calls_in: 1
   scripts.startup_testql.wait_for:
     name: wait_for
@@ -33,171 +278,52 @@ nodes:
     cyclomatic_complexity: 4
     calls_out: 5
     calls_in: 1
-  intentdsl.codegen:
-    name: codegen
-    module: intentdsl
-    line: 465
-    cyclomatic_complexity: 2
-    calls_out: 3
-    calls_in: 1
-  patchdsl._parse_change:
-    name: _parse_change
-    module: patchdsl
-    line: 43
+  scripts.startup_testql.main:
+    name: main
+    module: scripts.startup_testql
+    line: 125
     cyclomatic_complexity: 10
-    calls_out: 22
-    calls_in: 1
-  contextdsl.ContextCompiler.tool_result:
-    name: tool_result
-    module: contextdsl
-    line: 199
-    cyclomatic_complexity: 6
-    calls_out: 9
+    calls_out: 42
     calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._validate_assessment:
-    name: _validate_assessment
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-    line: 96
-    cyclomatic_complexity: 10
-    calls_out: 7
-    calls_in: 1
-  digital_twin._validate_twin_nodes:
-    name: _validate_twin_nodes
-    module: digital_twin
-    line: 357
-    cyclomatic_complexity: 5
-    calls_out: 3
-    calls_in: 1
-  patchdsl._json_string:
-    name: _json_string
-    module: patchdsl
-    line: 33
-    cyclomatic_complexity: 3
-    calls_out: 4
+  source_ingest.extract_source_refs:
+    name: extract_source_refs
+    module: source_ingest
+    line: 218
+    cyclomatic_complexity: 9
+    calls_out: 16
     calls_in: 3
-  contextdsl.ContextCompiler.policy:
-    name: policy
-    module: contextdsl
-    line: 150
+  scripts.startup_testql.synthetic_failure:
+    name: synthetic_failure
+    module: scripts.startup_testql
+    line: 59
     cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 0
-  governance.reject_envelope:
-    name: reject_envelope
-    module: governance
-    line: 83
-    cyclomatic_complexity: 4
-    calls_out: 4
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._parse_parameter:
-    name: _parse_parameter
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
-    line: 126
-    cyclomatic_complexity: 5
-    calls_out: 11
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan.parse_repair_plan:
-    name: parse_repair_plan
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan
-    line: 116
-    cyclomatic_complexity: 11
-    calls_out: 21
-    calls_in: 1
-  server._record_guidance:
-    name: _record_guidance
-    module: server
-    line: 342
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._validate_values:
-    name: _validate_values
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-    line: 64
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 3
-  ifuri_core.llm_gateway.build_llm_patch_handler:
-    name: build_llm_patch_handler
-    module: ifuri_core.llm_gateway
-    line: 157
-    cyclomatic_complexity: 1
-    calls_out: 28
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption.render_assumptions:
-    name: render_assumptions
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption
-    line: 90
-    cyclomatic_complexity: 2
     calls_out: 8
     calls_in: 2
-  digital_twin._validate_twin_sources:
-    name: _validate_twin_sources
-    module: digital_twin
-    line: 351
-    cyclomatic_complexity: 3
-    calls_out: 3
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim.parse_claims:
-    name: parse_claims
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim
-    line: 89
-    cyclomatic_complexity: 9
-    calls_out: 19
-    calls_in: 1
-  ifuri_core.llm_gateway._extract_bundle_blocks:
-    name: _extract_bundle_blocks
-    module: ifuri_core.llm_gateway
-    line: 108
-    cyclomatic_complexity: 3
-    calls_out: 7
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan.validate_repair_plan:
-    name: validate_repair_plan
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan
-    line: 56
+  intentdsl._parse_call:
+    name: _parse_call
+    module: intentdsl
+    line: 75
     cyclomatic_complexity: 10
-    calls_out: 10
+    calls_out: 12
     calls_in: 2
-  packages.onlydsl-core.src.onlydsl_core.capabilities._pattern_tokens:
-    name: _pattern_tokens
-    module: packages.onlydsl-core.src.onlydsl_core.capabilities
-    line: 181
-    cyclomatic_complexity: 12
-    calls_out: 6
-    calls_in: 1
-  evolution.EvolutionStore.add_guidance:
-    name: add_guidance
-    module: evolution
-    line: 90
-    cyclomatic_complexity: 2
-    calls_out: 15
-    calls_in: 0
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._validate_approval:
-    name: _validate_approval
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
-    line: 173
-    cyclomatic_complexity: 10
-    calls_out: 10
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._parse_development_evidence_fields:
-    name: _parse_development_evidence_fields
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-    line: 180
-    cyclomatic_complexity: 5
-    calls_out: 2
-    calls_in: 1
-  llm_client.plan_build:
-    name: plan_build
-    module: llm_client
-    line: 468
+  contextdsl._event_code_from_text:
+    name: _event_code_from_text
+    module: contextdsl
+    line: 79
     cyclomatic_complexity: 4
-    calls_out: 22
-    calls_in: 1
-  patchdsl.validate_patch_policy:
-    name: validate_patch_policy
-    module: patchdsl
-    line: 140
+    calls_out: 5
+    calls_in: 2
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common.parse_json_list:
+    name: parse_json_list
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common
+    line: 51
+    cyclomatic_complexity: 5
+    calls_out: 6
+    calls_in: 9
+  onlydsl.ssot.validation._is_validatable_dsl_path:
+    name: _is_validatable_dsl_path
+    module: onlydsl.ssot.validation
+    line: 90
     cyclomatic_complexity: 4
     calls_out: 5
     calls_in: 1
@@ -208,349 +334,27 @@ nodes:
     cyclomatic_complexity: 2
     calls_out: 3
     calls_in: 2
-  onlydsl.ssot.cli._json:
-    name: _json
-    module: onlydsl.ssot.cli
-    line: 25
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 10
-  multiruntime.javascript.ifuri.toNatsSubject:
-    name: toNatsSubject
-    module: multiruntime.javascript.ifuri
-    line: 23
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  server._ifuri_analyze_context:
-    name: _ifuri_analyze_context
-    module: server
-    line: 201
-    cyclomatic_complexity: 6
-    calls_out: 19
-    calls_in: 2
-  digital_twin.twindsl_schema:
-    name: twindsl_schema
-    module: digital_twin
-    line: 648
-    cyclomatic_complexity: 1
-    calls_out: 0
-    calls_in: 4
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common.extract_one:
-    name: extract_one
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common
-    line: 19
-    cyclomatic_complexity: 5
-    calls_out: 11
-    calls_in: 10
-  packages.onlydsl-core.src.onlydsl_core.capabilities._validate_pattern_tokens:
-    name: _validate_pattern_tokens
-    module: packages.onlydsl-core.src.onlydsl_core.capabilities
-    line: 193
-    cyclomatic_complexity: 7
-    calls_out: 12
-    calls_in: 1
-  onlydsl.ssot.validation._is_excluded_dsl_content:
-    name: _is_excluded_dsl_content
-    module: onlydsl.ssot.validation
-    line: 95
-    cyclomatic_complexity: 4
-    calls_out: 2
-    calls_in: 1
-  onlydsl.runtime.repair_controller._receipt:
-    name: _receipt
-    module: onlydsl.runtime.repair_controller
-    line: 90
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 2
-  server._bootstrap_twin:
-    name: _bootstrap_twin
-    module: server
-    line: 250
-    cyclomatic_complexity: 5
-    calls_out: 28
-    calls_in: 1
-  server._json_bytes:
-    name: _json_bytes
-    module: server
-    line: 185
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  ifuri_core.transport.NatsJetStream.create_stream:
-    name: create_stream
-    module: ifuri_core.transport
-    line: 242
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 0
-  governance.complete_envelope:
-    name: complete_envelope
-    module: governance
-    line: 68
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 0
-  packages.onlydsl-ssot.src.onlydsl_ssot.candidate.load_candidate:
-    name: load_candidate
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
-    line: 33
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 2
-  server._context_registries:
-    name: _context_registries
-    module: server
-    line: 189
-    cyclomatic_complexity: 2
-    calls_out: 3
-    calls_in: 1
-  scripts.startup_testql.now:
-    name: now
-    module: scripts.startup_testql
-    line: 20
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 2
-  digital_twin._parse_json_text:
-    name: _parse_json_text
-    module: digital_twin
-    line: 54
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 10
-  contextdsl._parse_record_field:
-    name: _parse_record_field
-    module: contextdsl
-    line: 291
-    cyclomatic_complexity: 3
-    calls_out: 6
-    calls_in: 1
-  contextdsl._parse_context_declaration:
-    name: _parse_context_declaration
-    module: contextdsl
-    line: 337
-    cyclomatic_complexity: 11
-    calls_out: 23
-    calls_in: 1
-  digital_twin._parse_twin_declaration:
-    name: _parse_twin_declaration
-    module: digital_twin
-    line: 207
-    cyclomatic_complexity: 11
-    calls_out: 21
-    calls_in: 1
-  contextdsl.ContextCompiler.capability:
-    name: capability
-    module: contextdsl
-    line: 154
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 0
-  ifuri_core.transport.NatsJetStream.publish:
-    name: publish
-    module: ifuri_core.transport
-    line: 267
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust._parse_role_fields:
-    name: _parse_role_fields
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust
-    line: 27
-    cyclomatic_complexity: 5
-    calls_out: 3
-    calls_in: 1
-  digital_twin._render_twin_header:
-    name: _render_twin_header
-    module: digital_twin
-    line: 566
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 1
-  intentdsl._expr_tree:
-    name: _expr_tree
-    module: intentdsl
-    line: 202
-    cyclomatic_complexity: 4
-    calls_out: 7
-    calls_in: 2
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_section_hashes:
-    name: calculate_section_hashes
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.normalize_relative_path:
+    name: normalize_relative_path
     module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 51
-    cyclomatic_complexity: 4
-    calls_out: 10
-    calls_in: 3
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.create_manifest:
-    name: create_manifest
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 64
-    cyclomatic_complexity: 2
-    calls_out: 11
-    calls_in: 2
-  onlydsl.ssot.diff.calculate_diff:
-    name: calculate_diff
-    module: onlydsl.ssot.diff
-    line: 15
+    line: 31
     cyclomatic_complexity: 5
-    calls_out: 10
-    calls_in: 2
-  server._scan_sources:
-    name: _scan_sources
-    module: server
-    line: 280
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 2
-  packages.onlydsl-ssot.src.onlydsl_ssot.candidate._apply_candidate_changes:
-    name: _apply_candidate_changes
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
-    line: 85
-    cyclomatic_complexity: 8
-    calls_out: 14
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence.render_development_evidence:
-    name: render_development_evidence
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-    line: 132
-    cyclomatic_complexity: 3
-    calls_out: 5
-    calls_in: 0
-  aql.operation_for_path:
-    name: operation_for_path
-    module: aql
-    line: 147
-    cyclomatic_complexity: 6
-    calls_out: 3
-    calls_in: 3
-  source_ingest._flush_paragraph:
-    name: _flush_paragraph
-    module: source_ingest
-    line: 102
-    cyclomatic_complexity: 2
-    calls_out: 3
-    calls_in: 4
-  contextdsl._compile_events:
-    name: _compile_events
-    module: contextdsl
-    line: 443
-    cyclomatic_complexity: 4
-    calls_out: 11
-    calls_in: 1
-  evolution.EvolutionStore.status:
-    name: status
-    module: evolution
-    line: 226
-    cyclomatic_complexity: 14
-    calls_out: 35
-    calls_in: 0
-  contextdsl._compile_logs:
-    name: _compile_logs
-    module: contextdsl
-    line: 454
-    cyclomatic_complexity: 4
     calls_out: 6
-    calls_in: 1
-  digital_twin.extract_twindsl:
-    name: extract_twindsl
-    module: digital_twin
-    line: 44
-    cyclomatic_complexity: 5
-    calls_out: 11
-    calls_in: 12
-  intentdsl.parse_dsl:
-    name: parse_dsl
-    module: intentdsl
-    line: 160
-    cyclomatic_complexity: 10
-    calls_out: 14
     calls_in: 4
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common.list_value:
-    name: list_value
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common
-    line: 47
-    cyclomatic_complexity: 2
-    calls_out: 2
-    calls_in: 5
-  digital_twin.validate_twin:
-    name: validate_twin
-    module: digital_twin
-    line: 285
-    cyclomatic_complexity: 1
+  contextdsl.validate_context_markdown:
+    name: validate_context_markdown
+    module: contextdsl
+    line: 404
+    cyclomatic_complexity: 5
     calls_out: 9
-    calls_in: 2
-  onlydsl.ssot.io.atomic_write_text:
-    name: atomic_write_text
-    module: onlydsl.ssot.io
-    line: 20
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 13
-  evolution._qid:
-    name: _qid
-    module: evolution
-    line: 22
-    cyclomatic_complexity: 3
-    calls_out: 5
-    calls_in: 10
-  digital_twin._parse_twin_capability_block:
-    name: _parse_twin_capability_block
-    module: digital_twin
-    line: 88
-    cyclomatic_complexity: 12
-    calls_out: 27
-    calls_in: 1
-  multiruntime.php.ifuri.nats_subject:
-    name: nats_subject
-    module: multiruntime.php.ifuri
-    line: 20
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 0
-  boundary.build_twin_bootstrap_bundle:
-    name: build_twin_bootstrap_bundle
-    module: boundary
-    line: 107
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 2
-  multiruntime.javascript.ifuri.raw:
-    name: raw
-    module: multiruntime.javascript.ifuri
-    line: 29
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 0
-  governance.authorize_patch:
-    name: authorize_patch
-    module: governance
-    line: 26
-    cyclomatic_complexity: 4
-    calls_out: 5
-    calls_in: 0
-  digital_twin.intent_fingerprint:
-    name: intent_fingerprint
-    module: digital_twin
-    line: 25
-    cyclomatic_complexity: 1
-    calls_out: 4
     calls_in: 3
-  onlydsl.ssot.validation._validate_known_dsl:
-    name: _validate_known_dsl
-    module: onlydsl.ssot.validation
-    line: 24
-    cyclomatic_complexity: 14
-    calls_out: 19
+  digital_twin.demo_bootstrap_twin:
+    name: demo_bootstrap_twin
+    module: digital_twin
+    line: 433
+    cyclomatic_complexity: 2
+    calls_out: 20
     calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.utc_now:
-    name: utc_now
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 19
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 3
   packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan._validate_repair_task:
     name: _validate_repair_task
     module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan
@@ -558,146 +362,6 @@ nodes:
     cyclomatic_complexity: 4
     calls_out: 8
     calls_in: 1
-  evolution._parse_event:
-    name: _parse_event
-    module: evolution
-    line: 31
-    cyclomatic_complexity: 8
-    calls_out: 11
-    calls_in: 1
-  intentdsl._generic_demo_lines:
-    name: _generic_demo_lines
-    module: intentdsl
-    line: 450
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._validate_metadata:
-    name: _validate_metadata
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
-    line: 56
-    cyclomatic_complexity: 4
-    calls_out: 3
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._validate_producer:
-    name: _validate_producer
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-    line: 80
-    cyclomatic_complexity: 5
-    calls_out: 4
-    calls_in: 1
-  governance.canonical_hash:
-    name: canonical_hash
-    module: governance
-    line: 13
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 11
-  source_ingest._extract_code_blocks:
-    name: _extract_code_blocks
-    module: source_ingest
-    line: 89
-    cyclomatic_complexity: 3
-    calls_out: 17
-    calls_in: 1
-  onlydsl.ssot.io.atomic_write_bytes:
-    name: atomic_write_bytes
-    module: onlydsl.ssot.io
-    line: 9
-    cyclomatic_complexity: 1
-    calls_out: 10
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan._validate_tasks:
-    name: _validate_tasks
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
-    line: 72
-    cyclomatic_complexity: 7
-    calls_out: 7
-    calls_in: 1
-  llm_client._demo_context_analysis:
-    name: _demo_context_analysis
-    module: llm_client
-    line: 266
-    cyclomatic_complexity: 11
-    calls_out: 10
-    calls_in: 1
-  ifuri_core.transport._js_response:
-    name: _js_response
-    module: ifuri_core.transport
-    line: 417
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 3
-  onlydsl.ssot.cli.main:
-    name: main
-    module: onlydsl.ssot.cli
-    line: 90
-    cyclomatic_complexity: 23
-    calls_out: 62
-    calls_in: 0
-  digital_twin._render_twin_capabilities:
-    name: _render_twin_capabilities
-    module: digital_twin
-    line: 412
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption._parse_assumption:
-    name: _parse_assumption
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption
-    line: 55
-    cyclomatic_complexity: 4
-    calls_out: 13
-    calls_in: 1
-  digital_twin._render_twin_edges:
-    name: _render_twin_edges
-    module: digital_twin
-    line: 422
-    cyclomatic_complexity: 2
-    calls_out: 3
-    calls_in: 1
-  llm_client.convert_english:
-    name: convert_english
-    module: llm_client
-    line: 223
-    cyclomatic_complexity: 3
-    calls_out: 5
-    calls_in: 1
-  digital_twin._validate_twin_basics:
-    name: _validate_twin_basics
-    module: digital_twin
-    line: 298
-    cyclomatic_complexity: 11
-    calls_out: 13
-    calls_in: 1
-  onlydsl.governance.authority_projection.render_authority_projection:
-    name: render_authority_projection
-    module: onlydsl.governance.authority_projection
-    line: 35
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  intentdsl.demo_english_to_dsl:
-    name: demo_english_to_dsl
-    module: intentdsl
-    line: 415
-    cyclomatic_complexity: 6
-    calls_out: 5
-    calls_in: 1
-  server.evolution_authority_status:
-    name: evolution_authority_status
-    module: server
-    line: 88
-    cyclomatic_complexity: 2
-    calls_out: 5
-    calls_in: 1
-  contextdsl.ContextCompiler.record:
-    name: record
-    module: contextdsl
-    line: 177
-    cyclomatic_complexity: 4
-    calls_out: 9
-    calls_in: 0
   server._record_incident:
     name: _record_incident
     module: server
@@ -705,111 +369,83 @@ nodes:
     cyclomatic_complexity: 2
     calls_out: 15
     calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_scalars:
-    name: _validate_manifest_scalars
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 179
+  llm_client._call_dsl_validated:
+    name: _call_dsl_validated
+    module: llm_client
+    line: 189
+    cyclomatic_complexity: 6
+    calls_out: 11
+    calls_in: 4
+  contextdsl.ContextCompiler.capability:
+    name: capability
+    module: contextdsl
+    line: 154
     cyclomatic_complexity: 3
-    calls_out: 3
+    calls_out: 4
+    calls_in: 0
+  multiruntime.typescript.ifuri.parseIfUri:
+    name: parseIfUri
+    module: multiruntime.typescript.ifuri
+    line: 5
+    cyclomatic_complexity: 13
+    calls_out: 5
     calls_in: 1
-  digital_twin._render_twin_evolution_block:
-    name: _render_twin_evolution_block
-    module: digital_twin
-    line: 625
-    cyclomatic_complexity: 4
+  contextdsl._parse_literal:
+    name: _parse_literal
+    module: contextdsl
+    line: 99
+    cyclomatic_complexity: 7
+    calls_out: 9
+    calls_in: 4
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_metadata:
+    name: _validate_manifest_metadata
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 94
+    cyclomatic_complexity: 8
     calls_out: 7
     calls_in: 1
-  intent_codegen.generate_code:
-    name: generate_code
-    module: intent_codegen
-    line: 127
-    cyclomatic_complexity: 3
-    calls_out: 3
-    calls_in: 1
-  scripts.startup_testql.verify:
-    name: verify
-    module: scripts.startup_testql
-    line: 85
-    cyclomatic_complexity: 2
-    calls_out: 6
-    calls_in: 1
-  digital_twin.normalize_intent:
-    name: normalize_intent
+  digital_twin.buildplandsl_schema:
+    name: buildplandsl_schema
     module: digital_twin
-    line: 21
+    line: 689
     cyclomatic_complexity: 1
-    calls_out: 4
+    calls_out: 0
     calls_in: 2
-  digital_twin.validate_buildplan_markdown:
-    name: validate_buildplan_markdown
-    module: digital_twin
-    line: 725
-    cyclomatic_complexity: 2
-    calls_out: 2
-    calls_in: 4
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common.json_string:
-    name: json_string
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common
-    line: 28
+  ifuri_core.transport.NatsWireClient.subscribe:
+    name: subscribe
+    module: ifuri_core.transport
+    line: 125
     cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 14
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._validate_uris:
-    name: _validate_uris
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-    line: 87
-    cyclomatic_complexity: 3
-    calls_out: 2
-    calls_in: 1
-  ifuri_core.llm_gateway.build_llm_semantic_handler:
-    name: build_llm_semantic_handler
-    module: ifuri_core.llm_gateway
-    line: 75
-    cyclomatic_complexity: 1
     calls_out: 8
     calls_in: 0
-  digital_twin._build_twin_document:
-    name: _build_twin_document
-    module: digital_twin
-    line: 239
-    cyclomatic_complexity: 5
-    calls_out: 2
-    calls_in: 1
-  twin_store.TwinStore.save:
-    name: save
-    module: twin_store
-    line: 39
-    cyclomatic_complexity: 4
-    calls_out: 15
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan.semantic_twin_hash:
-    name: semantic_twin_hash
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
-    line: 35
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.utc_now:
+    name: utc_now
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 19
     cyclomatic_complexity: 1
     calls_out: 3
     calls_in: 3
-  digital_twin._bootstrap_node_lines:
-    name: _bootstrap_node_lines
+  intent_codegen._codegen_javascript_like:
+    name: _codegen_javascript_like
+    module: intent_codegen
+    line: 58
+    cyclomatic_complexity: 13
+    calls_out: 28
+    calls_in: 1
+  digital_twin._bootstrap_evolution_lines:
+    name: _bootstrap_evolution_lines
     module: digital_twin
-    line: 459
+    line: 539
     cyclomatic_complexity: 1
-    calls_out: 5
+    calls_out: 6
     calls_in: 1
-  server._update_twin:
-    name: _update_twin
-    module: server
-    line: 290
-    cyclomatic_complexity: 3
-    calls_out: 16
-    calls_in: 1
-  contextdsl.render_context_dsl:
-    name: render_context_dsl
-    module: contextdsl
-    line: 253
-    cyclomatic_complexity: 9
-    calls_out: 35
-    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.candidate.validate_candidate:
+    name: validate_candidate
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
+    line: 116
+    cyclomatic_complexity: 4
+    calls_out: 17
+    calls_in: 0
   onlydsl.ssot.registry.render_registry:
     name: render_registry
     module: onlydsl.ssot.registry
@@ -817,110 +453,61 @@ nodes:
     cyclomatic_complexity: 2
     calls_out: 6
     calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.candidate._validate_candidate_tree:
-    name: _validate_candidate_tree
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
-    line: 101
-    cyclomatic_complexity: 4
-    calls_out: 4
-    calls_in: 1
-  onlydsl.runtime.repair_controller.execute_repair_cycle:
-    name: execute_repair_cycle
-    module: onlydsl.runtime.repair_controller
-    line: 71
-    cyclomatic_complexity: 8
-    calls_out: 11
-    calls_in: 0
-  contextdsl.parse_context_dsl:
-    name: parse_context_dsl
-    module: contextdsl
-    line: 363
-    cyclomatic_complexity: 15
-    calls_out: 20
-    calls_in: 3
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.validate_candidate:
-    name: validate_candidate
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
-    line: 73
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 2
-  boundary.DslBundle.validate_for_llm:
-    name: validate_for_llm
-    module: boundary
-    line: 26
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 0
-  server._current_external_integrity:
-    name: _current_external_integrity
-    module: server
-    line: 116
-    cyclomatic_complexity: 9
-    calls_out: 24
-    calls_in: 2
-  digital_twin.render_twin:
-    name: render_twin
-    module: digital_twin
-    line: 552
-    cyclomatic_complexity: 1
-    calls_out: 19
-    calls_in: 4
-  patchdsl.parse_patchdsl:
-    name: parse_patchdsl
-    module: patchdsl
-    line: 67
-    cyclomatic_complexity: 15
-    calls_out: 28
-    calls_in: 1
-  intentdsl._parse_rule_statement:
-    name: _parse_rule_statement
-    module: intentdsl
-    line: 101
-    cyclomatic_complexity: 8
-    calls_out: 25
-    calls_in: 1
-  onlydsl.ssot.registry.ProjectRegistry.register:
-    name: register
-    module: onlydsl.ssot.registry
-    line: 66
+  evolution.EvolutionStore.diagnostic_for_incident:
+    name: diagnostic_for_incident
+    module: evolution
+    line: 208
     cyclomatic_complexity: 2
-    calls_out: 9
+    calls_out: 4
     calls_in: 0
-  server._ifuri_compile_source:
-    name: _ifuri_compile_source
-    module: server
-    line: 229
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 2
-  digital_twin._parse_twin_source:
-    name: _parse_twin_source
+  digital_twin._render_twin_invariants_block:
+    name: _render_twin_invariants_block
     module: digital_twin
-    line: 160
-    cyclomatic_complexity: 3
+    line: 615
+    cyclomatic_complexity: 4
+    calls_out: 6
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim._parse_claim:
+    name: _parse_claim
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim
+    line: 59
+    cyclomatic_complexity: 12
+    calls_out: 23
+    calls_in: 1
+  contextdsl._compile_tool_results:
+    name: _compile_tool_results
+    module: contextdsl
+    line: 461
+    cyclomatic_complexity: 4
     calls_out: 8
     calls_in: 1
-  server._compile_context:
-    name: _compile_context
-    module: server
-    line: 337
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 1
-  intent_codegen._normalize_python_expr:
-    name: _normalize_python_expr
-    module: intent_codegen
-    line: 14
-    cyclomatic_complexity: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.ifuri._validate_segments:
+    name: _validate_segments
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.ifuri
+    line: 90
+    cyclomatic_complexity: 3
     calls_out: 2
-    calls_in: 3
-  server._external_document:
-    name: _external_document
-    module: server
-    line: 101
-    cyclomatic_complexity: 5
+    calls_in: 1
+  onlydsl.runtime.repair_controller.RepairCycle.to_dict:
+    name: to_dict
+    module: onlydsl.runtime.repair_controller
+    line: 23
+    cyclomatic_complexity: 1
     calls_out: 4
+    calls_in: 0
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common.json_string:
+    name: json_string
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common
+    line: 28
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 14
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._validate_assessment:
+    name: _validate_assessment
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
+    line: 96
+    cyclomatic_complexity: 10
+    calls_out: 7
     calls_in: 1
   ifuri_core.llm_gateway.build_llm_reasoner_handler:
     name: build_llm_reasoner_handler
@@ -929,103 +516,19 @@ nodes:
     cyclomatic_complexity: 1
     calls_out: 11
     calls_in: 0
-  llm_client.bootstrap_twin:
-    name: bootstrap_twin
-    module: llm_client
-    line: 324
-    cyclomatic_complexity: 7
-    calls_out: 28
-    calls_in: 1
-  contextdsl.compiler_from_payload:
-    name: compiler_from_payload
+  contextdsl._compile_capabilities:
+    name: _compile_capabilities
     module: contextdsl
-    line: 419
-    cyclomatic_complexity: 9
-    calls_out: 25
-    calls_in: 2
-  digital_twin._render_twin_nodes:
-    name: _render_twin_nodes
-    module: digital_twin
-    line: 408
-    cyclomatic_complexity: 2
-    calls_out: 1
+    line: 437
+    cyclomatic_complexity: 4
+    calls_out: 4
     calls_in: 1
-  llm_client.analyze_context:
-    name: analyze_context
-    module: llm_client
-    line: 309
-    cyclomatic_complexity: 3
-    calls_out: 5
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.candidate.save_candidate:
-    name: save_candidate
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
-    line: 40
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 3
-  contextdsl._event_code_from_text:
-    name: _event_code_from_text
+  contextdsl._parse_metric:
+    name: _parse_metric
     module: contextdsl
-    line: 79
+    line: 320
     cyclomatic_complexity: 4
-    calls_out: 5
-    calls_in: 2
-  packages.onlydsl-contracts.src.onlydsl_contracts.ifuri.IfUri.parse:
-    name: parse
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.ifuri
-    line: 43
-    cyclomatic_complexity: 4
-    calls_out: 9
-    calls_in: 0
-  intent_codegen._codegen_php:
-    name: _codegen_php
-    module: intent_codegen
-    line: 90
-    cyclomatic_complexity: 14
-    calls_out: 31
-    calls_in: 1
-  source_ingest._parse_text_content:
-    name: _parse_text_content
-    module: source_ingest
-    line: 109
-    cyclomatic_complexity: 10
-    calls_out: 27
-    calls_in: 1
-  intentdsl.validate_markdown:
-    name: validate_markdown
-    module: intentdsl
-    line: 309
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 3
-  intentdsl.validate_program:
-    name: validate_program
-    module: intentdsl
-    line: 264
-    cyclomatic_complexity: 14
-    calls_out: 27
-    calls_in: 2
-  digital_twin._validate_twin_invariants:
-    name: _validate_twin_invariants
-    module: digital_twin
-    line: 345
-    cyclomatic_complexity: 3
-    calls_out: 2
-    calls_in: 1
-  ifuri_core.transport._validate_nats_subject:
-    name: _validate_nats_subject
-    module: ifuri_core.transport
-    line: 410
-    cyclomatic_complexity: 7
-    calls_out: 4
-    calls_in: 3
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._validate_development_evidence_fields:
-    name: _validate_development_evidence_fields
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-    line: 190
-    cyclomatic_complexity: 6
-    calls_out: 9
+    calls_out: 8
     calls_in: 1
   packages.onlydsl-contracts.src.onlydsl_contracts.dsl.evidence_set.create_evidence_set:
     name: create_evidence_set
@@ -1034,89 +537,271 @@ nodes:
     cyclomatic_complexity: 2
     calls_out: 7
     calls_in: 0
-  contextdsl._compile_capabilities:
-    name: _compile_capabilities
-    module: contextdsl
-    line: 437
+  intentdsl._normalize_expr:
+    name: _normalize_expr
+    module: intentdsl
+    line: 198
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  intent_codegen._codegen_python:
+    name: _codegen_python
+    module: intent_codegen
+    line: 33
+    cyclomatic_complexity: 11
+    calls_out: 15
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.candidate._prepare_candidate_tree:
+    name: _prepare_candidate_tree
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
+    line: 74
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 1
+  llm_client.provider_status:
+    name: provider_status
+    module: llm_client
+    line: 169
+    cyclomatic_complexity: 5
+    calls_out: 7
+    calls_in: 1
+  boundary.assert_dsl_only:
+    name: assert_dsl_only
+    module: boundary
+    line: 31
+    cyclomatic_complexity: 8
+    calls_out: 16
+    calls_in: 22
+  onlydsl.runtime.repair_controller.execute_repair_cycle:
+    name: execute_repair_cycle
+    module: onlydsl.runtime.repair_controller
+    line: 71
+    cyclomatic_complexity: 8
+    calls_out: 11
+    calls_in: 0
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence.create_development_evidence:
+    name: create_development_evidence
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
+    line: 109
+    cyclomatic_complexity: 1
+    calls_out: 5
+    calls_in: 2
+  server._json_bytes:
+    name: _json_bytes
+    module: server
+    line: 185
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  multiruntime.javascript.ifuri.raw:
+    name: raw
+    module: multiruntime.javascript.ifuri
+    line: 29
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 0
+  digital_twin._validate_twin_nodes:
+    name: _validate_twin_nodes
+    module: digital_twin
+    line: 357
+    cyclomatic_complexity: 5
+    calls_out: 3
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.candidate.create_candidate:
+    name: create_candidate
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
+    line: 46
+    cyclomatic_complexity: 6
+    calls_out: 22
+    calls_in: 0
+  governance.reject_envelope:
+    name: reject_envelope
+    module: governance
+    line: 83
     cyclomatic_complexity: 4
     calls_out: 4
+    calls_in: 0
+  contextdsl.ContextCompiler.policy:
+    name: policy
+    module: contextdsl
+    line: 150
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 0
+  ifuri_core.llm_gateway.build_llm_semantic_handler:
+    name: build_llm_semantic_handler
+    module: ifuri_core.llm_gateway
+    line: 75
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 0
+  packages.onlydsl-contracts.src.onlydsl_contracts.ifuri.IfUri.parse:
+    name: parse
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.ifuri
+    line: 43
+    cyclomatic_complexity: 4
+    calls_out: 9
+    calls_in: 0
+  digital_twin.render_twin:
+    name: render_twin
+    module: digital_twin
+    line: 552
+    cyclomatic_complexity: 1
+    calls_out: 19
+    calls_in: 4
+  server._ifuri_analyze_context:
+    name: _ifuri_analyze_context
+    module: server
+    line: 201
+    cyclomatic_complexity: 6
+    calls_out: 19
+    calls_in: 2
+  boundary.source_text_dsl:
+    name: source_text_dsl
+    module: boundary
+    line: 79
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 4
+  boundary.build_build_plan_bundle:
+    name: build_build_plan_bundle
+    module: boundary
+    line: 132
+    cyclomatic_complexity: 1
+    calls_out: 7
     calls_in: 1
-  intentdsl._slug_words:
-    name: _slug_words
-    module: intentdsl
-    line: 410
+  evolution.EvolutionStore._write:
+    name: _write
+    module: evolution
+    line: 81
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 0
+  digital_twin._bootstrap_node_lines:
+    name: _bootstrap_node_lines
+    module: digital_twin
+    line: 459
+    cyclomatic_complexity: 1
+    calls_out: 5
+    calls_in: 1
+  digital_twin.validate_twin_markdown:
+    name: validate_twin_markdown
+    module: digital_twin
+    line: 367
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 9
+  server._record_guidance:
+    name: _record_guidance
+    module: server
+    line: 342
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  llm_client.plan_build:
+    name: plan_build
+    module: llm_client
+    line: 468
+    cyclomatic_complexity: 4
+    calls_out: 22
+    calls_in: 1
+  patchdsl._json_string:
+    name: _json_string
+    module: patchdsl
+    line: 33
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 3
+  ifuri_core.transport.NatsWireClient.publish:
+    name: publish
+    module: ifuri_core.transport
+    line: 147
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 0
+  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._prepare_promotion:
+    name: _prepare_promotion
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
+    line: 94
+    cyclomatic_complexity: 9
+    calls_out: 12
+    calls_in: 0
+  digital_twin._validate_twin_invariants:
+    name: _validate_twin_invariants
+    module: digital_twin
+    line: 345
     cyclomatic_complexity: 3
     calls_out: 2
     calls_in: 1
-  source_ingest.parse_markdown:
-    name: parse_markdown
-    module: source_ingest
-    line: 147
-    cyclomatic_complexity: 1
+  patchdsl.parse_patchdsl:
+    name: parse_patchdsl
+    module: patchdsl
+    line: 67
+    cyclomatic_complexity: 15
+    calls_out: 28
+    calls_in: 1
+  contextdsl.ContextCompiler.tool_result:
+    name: tool_result
+    module: contextdsl
+    line: 199
+    cyclomatic_complexity: 6
     calls_out: 9
+    calls_in: 0
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._parse_allowed:
+    name: _parse_allowed
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
+    line: 117
+    cyclomatic_complexity: 3
+    calls_out: 4
     calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.parse_spatial_class:
-    name: parse_spatial_class
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class
-    line: 93
-    cyclomatic_complexity: 11
-    calls_out: 19
+  source_ingest._normalize_text:
+    name: _normalize_text
+    module: source_ingest
+    line: 85
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 3
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._parse_parameter_fields:
+    name: _parse_parameter_fields
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
+    line: 90
+    cyclomatic_complexity: 5
+    calls_out: 3
     calls_in: 1
-  onlydsl.runtime.integrity._readiness:
-    name: _readiness
-    module: onlydsl.runtime.integrity
-    line: 53
-    cyclomatic_complexity: 7
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_entries:
+    name: _validate_manifest_entries
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 105
+    cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 1
+  digital_twin._render_twin_header:
+    name: _render_twin_header
+    module: digital_twin
+    line: 566
+    cyclomatic_complexity: 1
     calls_out: 1
     calls_in: 1
-  ifuri_core.transport.capability_pattern_to_subject:
-    name: capability_pattern_to_subject
-    module: ifuri_core.transport
-    line: 394
-    cyclomatic_complexity: 5
-    calls_out: 11
-    calls_in: 1
-  scripts.startup_testql.main:
-    name: main
-    module: scripts.startup_testql
-    line: 125
-    cyclomatic_complexity: 10
-    calls_out: 42
-    calls_in: 0
-  intentdsl.run_program:
-    name: run_program
+  intentdsl.expr_names:
+    name: expr_names
     module: intentdsl
-    line: 324
-    cyclomatic_complexity: 14
-    calls_out: 30
+    line: 213
+    cyclomatic_complexity: 4
+    calls_out: 3
     calls_in: 2
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust.render_trust_policy:
-    name: render_trust_policy
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust
-    line: 67
-    cyclomatic_complexity: 2
-    calls_out: 6
+  evolution.EvolutionStore.status:
+    name: status
+    module: evolution
+    line: 226
+    cyclomatic_complexity: 14
+    calls_out: 35
     calls_in: 0
-  boundary.build_autonomous_repair_bundle:
-    name: build_autonomous_repair_bundle
-    module: boundary
-    line: 205
-    cyclomatic_complexity: 7
-    calls_out: 15
-    calls_in: 1
-  boundary.build_twin_update_bundle:
-    name: build_twin_update_bundle
-    module: boundary
-    line: 118
-    cyclomatic_complexity: 1
+  digital_twin._parse_twin_source:
+    name: _parse_twin_source
+    module: digital_twin
+    line: 160
+    cyclomatic_complexity: 3
     calls_out: 8
-    calls_in: 2
-  packages.onlydsl-ssot.src.onlydsl_ssot.validation.basic_validate_tree:
-    name: basic_validate_tree
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.validation
-    line: 22
-    cyclomatic_complexity: 14
-    calls_out: 16
     calls_in: 1
   multiruntime.php.ifuri.parse_ifuri:
     name: parse_ifuri
@@ -1125,52 +810,367 @@ nodes:
     cyclomatic_complexity: 10
     calls_out: 11
     calls_in: 2
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.validate_manifest:
-    name: validate_manifest
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 83
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan._parse_plan_body:
+    name: _parse_plan_body
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
+    line: 99
     cyclomatic_complexity: 3
-    calls_out: 7
-    calls_in: 3
-  digital_twin.validate_twin_markdown:
-    name: validate_twin_markdown
-    module: digital_twin
-    line: 367
+    calls_out: 4
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.parse_spatial_class:
+    name: parse_spatial_class
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class
+    line: 93
+    cyclomatic_complexity: 11
+    calls_out: 19
+    calls_in: 1
+  ifuri_core.llm_gateway.build_llm_twin_bootstrap_handler:
+    name: build_llm_twin_bootstrap_handler
+    module: ifuri_core.llm_gateway
+    line: 92
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 0
+  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.promote:
+    name: promote
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
+    line: 85
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 0
+  server._twin_status:
+    name: _twin_status
+    module: server
+    line: 75
     cyclomatic_complexity: 2
     calls_out: 6
-    calls_in: 9
-  packages.onlydsl-core.src.onlydsl_core.capabilities._validate_capability:
-    name: _validate_capability
-    module: packages.onlydsl-core.src.onlydsl_core.capabilities
-    line: 216
-    cyclomatic_complexity: 7
-    calls_out: 13
     calls_in: 1
-  patchdsl._count_diff_lines:
-    name: _count_diff_lines
-    module: patchdsl
-    line: 94
-    cyclomatic_complexity: 6
+  ifuri_core.llm_gateway._extract_bundle_blocks:
+    name: _extract_bundle_blocks
+    module: ifuri_core.llm_gateway
+    line: 108
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 1
+  governance.complete_envelope:
+    name: complete_envelope
+    module: governance
+    line: 68
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  onlydsl.ssot.validation._validate_tree_file:
+    name: _validate_tree_file
+    module: onlydsl.ssot.validation
+    line: 74
+    cyclomatic_complexity: 5
     calls_out: 5
     calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan._parse_plan_directive:
-    name: _parse_plan_directive
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
-    line: 116
-    cyclomatic_complexity: 11
-    calls_out: 15
+  contextdsl._compile_events:
+    name: _compile_events
+    module: contextdsl
+    line: 443
+    cyclomatic_complexity: 4
+    calls_out: 11
     calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.candidate._candidate_from_dict:
-    name: _candidate_from_dict
+  server._external_document:
+    name: _external_document
+    module: server
+    line: 101
+    cyclomatic_complexity: 5
+    calls_out: 4
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.candidate.load_candidate:
+    name: load_candidate
     module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
-    line: 25
-    cyclomatic_complexity: 3
+    line: 33
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 2
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract.parse_parameter_contracts:
+    name: parse_parameter_contracts
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
+    line: 143
+    cyclomatic_complexity: 9
     calls_out: 13
     calls_in: 1
-  boundary.build_repair_bundle:
-    name: build_repair_bundle
+  server._bootstrap_twin:
+    name: _bootstrap_twin
+    module: server
+    line: 250
+    cyclomatic_complexity: 5
+    calls_out: 28
+    calls_in: 1
+  onlydsl.ssot.registry.ProjectRegistry.entries:
+    name: entries
+    module: onlydsl.ssot.registry
+    line: 63
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 0
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence.render_development_evidence:
+    name: render_development_evidence
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
+    line: 132
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 0
+  ifuri_core.llm_gateway.build_llm_twin_update_handler:
+    name: build_llm_twin_update_handler
+    module: ifuri_core.llm_gateway
+    line: 119
+    cyclomatic_complexity: 1
+    calls_out: 12
+    calls_in: 0
+  ifuri_core.llm_gateway.build_llm_build_plan_handler:
+    name: build_llm_build_plan_handler
+    module: ifuri_core.llm_gateway
+    line: 139
+    cyclomatic_complexity: 1
+    calls_out: 14
+    calls_in: 0
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan._validate_tasks:
+    name: _validate_tasks
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
+    line: 72
+    cyclomatic_complexity: 7
+    calls_out: 7
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._write_append_only:
+    name: _write_append_only
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
+    line: 158
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  intentdsl._auth_recovery_lines:
+    name: _auth_recovery_lines
+    module: intentdsl
+    line: 429
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 1
+  llm_client._backend_call:
+    name: _backend_call
+    module: llm_client
+    line: 101
+    cyclomatic_complexity: 10
+    calls_out: 18
+    calls_in: 3
+  server._twin_payload:
+    name: _twin_payload
+    module: server
+    line: 236
+    cyclomatic_complexity: 5
+    calls_out: 8
+    calls_in: 3
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._build_development_evidence:
+    name: _build_development_evidence
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
+    line: 204
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 1
+  multiruntime.javascript.ifuri.canonical:
+    name: canonical
+    module: multiruntime.javascript.ifuri
+    line: 18
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  server._update_twin:
+    name: _update_twin
+    module: server
+    line: 290
+    cyclomatic_complexity: 3
+    calls_out: 16
+    calls_in: 1
+  server._codegen_intent:
+    name: _codegen_intent
+    module: server
+    line: 363
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan.validate_bound_build_plan:
+    name: validate_bound_build_plan
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
+    line: 144
+    cyclomatic_complexity: 10
+    calls_out: 10
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption.parse_assumptions:
+    name: parse_assumptions
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption
+    line: 71
+    cyclomatic_complexity: 9
+    calls_out: 15
+    calls_in: 1
+  source_ingest._extract_code_blocks:
+    name: _extract_code_blocks
+    module: source_ingest
+    line: 89
+    cyclomatic_complexity: 3
+    calls_out: 17
+    calls_in: 1
+  contextdsl._parse_context_declaration:
+    name: _parse_context_declaration
+    module: contextdsl
+    line: 337
+    cyclomatic_complexity: 11
+    calls_out: 23
+    calls_in: 1
+  digital_twin.validate_twin_update:
+    name: validate_twin_update
+    module: digital_twin
+    line: 384
+    cyclomatic_complexity: 7
+    calls_out: 6
+    calls_in: 2
+  server._integrity_repair_plan:
+    name: _integrity_repair_plan
+    module: server
+    line: 146
+    cyclomatic_complexity: 5
+    calls_out: 22
+    calls_in: 1
+  packages.onlydsl-core.src.onlydsl_core.dsl_document.validate_dsl_document:
+    name: validate_dsl_document
+    module: packages.onlydsl-core.src.onlydsl_core.dsl_document
+    line: 33
+    cyclomatic_complexity: 5
+    calls_out: 6
+    calls_in: 6
+  digital_twin._bootstrap_capability_lines:
+    name: _bootstrap_capability_lines
+    module: digital_twin
+    line: 488
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 1
+  server._context_registries:
+    name: _context_registries
+    module: server
+    line: 189
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._stage_promotion:
+    name: _stage_promotion
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
+    line: 113
+    cyclomatic_complexity: 2
+    calls_out: 8
+    calls_in: 0
+  boundary.build_autonomous_repair_bundle:
+    name: build_autonomous_repair_bundle
     module: boundary
-    line: 239
+    line: 205
+    cyclomatic_complexity: 7
+    calls_out: 15
+    calls_in: 1
+  digital_twin.extract_twindsl:
+    name: extract_twindsl
+    module: digital_twin
+    line: 44
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 12
+  intentdsl._expr_tree:
+    name: _expr_tree
+    module: intentdsl
+    line: 202
+    cyclomatic_complexity: 4
+    calls_out: 7
+    calls_in: 2
+  twin_store.TwinStore.save:
+    name: save
+    module: twin_store
+    line: 39
+    cyclomatic_complexity: 4
+    calls_out: 15
+    calls_in: 0
+  packages.onlydsl-core.src.onlydsl_core.capabilities._pattern_tokens:
+    name: _pattern_tokens
+    module: packages.onlydsl-core.src.onlydsl_core.capabilities
+    line: 181
+    cyclomatic_complexity: 12
+    calls_out: 6
+    calls_in: 1
+  boundary.DslBundle.validate_for_llm:
+    name: validate_for_llm
+    module: boundary
+    line: 26
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  server.Handler.do_GET:
+    name: do_GET
+    module: server
+    line: 419
+    cyclomatic_complexity: 15
+    calls_out: 37
+    calls_in: 0
+  ifuri_core.transport.NatsJetStream.create_stream:
+    name: create_stream
+    module: ifuri_core.transport
+    line: 242
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 0
+  onlydsl.governance.authority_projection.render_authority_projection:
+    name: render_authority_projection
+    module: onlydsl.governance.authority_projection
+    line: 35
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  intentdsl._parse_program_declaration:
+    name: _parse_program_declaration
+    module: intentdsl
+    line: 123
+    cyclomatic_complexity: 14
+    calls_out: 35
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan._parse_task:
+    name: _parse_task
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
+    line: 44
+    cyclomatic_complexity: 6
+    calls_out: 24
+    calls_in: 1
+  server._unpack_dsl:
+    name: _unpack_dsl
+    module: server
+    line: 195
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 5
+  onlydsl.ssot.diff.calculate_diff:
+    name: calculate_diff
+    module: onlydsl.ssot.diff
+    line: 15
+    cyclomatic_complexity: 5
+    calls_out: 10
+    calls_in: 2
+  digital_twin._render_twin_nodes_block:
+    name: _render_twin_nodes_block
+    module: digital_twin
+    line: 580
+    cyclomatic_complexity: 4
+    calls_out: 7
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.validation.basic_validate_tree:
+    name: basic_validate_tree
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.validation
+    line: 22
+    cyclomatic_complexity: 14
+    calls_out: 16
+    calls_in: 1
+  server._run_intent:
+    name: _run_intent
+    module: server
+    line: 358
     cyclomatic_complexity: 2
     calls_out: 7
     calls_in: 1
@@ -1181,425 +1181,12 @@ nodes:
     cyclomatic_complexity: 4
     calls_out: 6
     calls_in: 1
-  multiruntime.php.ifuri.canonical_ifuri:
-    name: canonical_ifuri
-    module: multiruntime.php.ifuri
-    line: 16
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 0
-  multiruntime.typescript.ifuri.toNatsSubject:
-    name: toNatsSubject
-    module: multiruntime.typescript.ifuri
-    line: 15
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 0
-  source_ingest.build_source_index:
-    name: build_source_index
-    module: source_ingest
-    line: 157
-    cyclomatic_complexity: 9
-    calls_out: 35
-    calls_in: 2
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.initialize:
-    name: initialize
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
-    line: 32
-    cyclomatic_complexity: 8
-    calls_out: 23
-    calls_in: 0
-  server._unpack_dsl:
-    name: _unpack_dsl
-    module: server
-    line: 195
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 5
-  patchdsl.validate_patch_markdown:
-    name: validate_patch_markdown
-    module: patchdsl
-    line: 160
-    cyclomatic_complexity: 3
+  digital_twin._render_twin_edges:
+    name: _render_twin_edges
+    module: digital_twin
+    line: 422
+    cyclomatic_complexity: 2
     calls_out: 3
-    calls_in: 0
-  contextdsl._parse_metric:
-    name: _parse_metric
-    module: contextdsl
-    line: 320
-    cyclomatic_complexity: 4
-    calls_out: 8
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_hashes:
-    name: _validate_manifest_hashes
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 111
-    cyclomatic_complexity: 3
-    calls_out: 3
-    calls_in: 1
-  digital_twin.validate_twin_update:
-    name: validate_twin_update
-    module: digital_twin
-    line: 384
-    cyclomatic_complexity: 7
-    calls_out: 6
-    calls_in: 2
-  contextdsl.ContextCompiler.metric:
-    name: metric
-    module: contextdsl
-    line: 171
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._parse_allowed:
-    name: _parse_allowed
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
-    line: 117
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_metadata:
-    name: _validate_manifest_metadata
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 94
-    cyclomatic_complexity: 8
-    calls_out: 7
-    calls_in: 1
-  digital_twin._bootstrap_capability_lines:
-    name: _bootstrap_capability_lines
-    module: digital_twin
-    line: 488
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 1
-  digital_twin.parse_twindsl:
-    name: parse_twindsl
-    module: digital_twin
-    line: 253
-    cyclomatic_complexity: 11
-    calls_out: 21
-    calls_in: 12
-  server._fetch_external_json:
-    name: _fetch_external_json
-    module: server
-    line: 96
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 3
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan._parse_repair_task:
-    name: _parse_repair_task
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan
-    line: 96
-    cyclomatic_complexity: 5
-    calls_out: 16
-    calls_in: 1
-  digital_twin._quoted:
-    name: _quoted
-    module: digital_twin
-    line: 30
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 39
-  llm_client._backend_call:
-    name: _backend_call
-    module: llm_client
-    line: 101
-    cyclomatic_complexity: 10
-    calls_out: 18
-    calls_in: 3
-  onlydsl.runtime.repair_controller.RepairCycle.to_dict:
-    name: to_dict
-    module: onlydsl.runtime.repair_controller
-    line: 23
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan._parse_plan_body:
-    name: _parse_plan_body
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
-    line: 99
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  ifuri_core.llm_gateway.build_llm_build_plan_handler:
-    name: build_llm_build_plan_handler
-    module: ifuri_core.llm_gateway
-    line: 139
-    cyclomatic_complexity: 1
-    calls_out: 14
-    calls_in: 0
-  evolution.EvolutionStore.add_event:
-    name: add_event
-    module: evolution
-    line: 164
-    cyclomatic_complexity: 3
-    calls_out: 13
-    calls_in: 0
-  governance.build_process_envelope:
-    name: build_process_envelope
-    module: governance
-    line: 36
-    cyclomatic_complexity: 5
-    calls_out: 7
-    calls_in: 0
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_entries:
-    name: _validate_manifest_entries
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 105
-    cyclomatic_complexity: 4
-    calls_out: 4
-    calls_in: 1
-  boundary.build_context_analysis_bundle:
-    name: build_context_analysis_bundle
-    module: boundary
-    line: 101
-    cyclomatic_complexity: 1
-    calls_out: 6
-    calls_in: 2
-  scripts.startup_testql.write_twin_observation:
-    name: write_twin_observation
-    module: scripts.startup_testql
-    line: 106
-    cyclomatic_complexity: 4
-    calls_out: 11
-    calls_in: 1
-  intentdsl._normalize_expr:
-    name: _normalize_expr
-    module: intentdsl
-    line: 198
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  contextdsl.extract_contextdsl:
-    name: extract_contextdsl
-    module: contextdsl
-    line: 284
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 3
-  source_ingest.SourceIndex.to_markdown:
-    name: to_markdown
-    module: source_ingest
-    line: 48
-    cyclomatic_complexity: 7
-    calls_out: 14
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.evidence_set.parse_evidence_set:
-    name: parse_evidence_set
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.evidence_set
-    line: 36
-    cyclomatic_complexity: 12
-    calls_out: 19
-    calls_in: 1
-  digital_twin._validate_twin_edges:
-    name: _validate_twin_edges
-    module: digital_twin
-    line: 337
-    cyclomatic_complexity: 4
-    calls_out: 2
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._stage_promotion:
-    name: _stage_promotion
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
-    line: 113
-    cyclomatic_complexity: 2
-    calls_out: 8
-    calls_in: 0
-  onlydsl.ssot.cli.build_parser:
-    name: build_parser
-    module: onlydsl.ssot.cli
-    line: 29
-    cyclomatic_complexity: 2
-    calls_out: 48
-    calls_in: 1
-  server._codegen_intent:
-    name: _codegen_intent
-    module: server
-    line: 363
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.ifuri._validate_segments:
-    name: _validate_segments
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.ifuri
-    line: 90
-    cyclomatic_complexity: 3
-    calls_out: 2
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.manifest:
-    name: manifest
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.reader
-    line: 18
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract.ParameterContractDocument.validate:
-    name: validate
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
-    line: 43
-    cyclomatic_complexity: 4
-    calls_out: 5
-    calls_in: 0
-  contextdsl.ContextCompiler.__init__:
-    name: __init__
-    module: contextdsl
-    line: 142
-    cyclomatic_complexity: 2
-    calls_out: 9
-    calls_in: 0
-  packages.onlydsl-ssot.src.onlydsl_ssot.candidate._validate_candidate_evidence:
-    name: _validate_candidate_evidence
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
-    line: 109
-    cyclomatic_complexity: 3
-    calls_out: 5
-    calls_in: 1
-  onlydsl.ssot.validation._is_validatable_dsl_path:
-    name: _is_validatable_dsl_path
-    module: onlydsl.ssot.validation
-    line: 90
-    cyclomatic_complexity: 4
-    calls_out: 5
-    calls_in: 1
-  source_ingest._normalize_text:
-    name: _normalize_text
-    module: source_ingest
-    line: 85
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 3
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust._parse_role:
-    name: _parse_role
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust
-    line: 39
-    cyclomatic_complexity: 4
-    calls_out: 7
-    calls_in: 1
-  digital_twin._bootstrap_evolution_lines:
-    name: _bootstrap_evolution_lines
-    module: digital_twin
-    line: 539
-    cyclomatic_complexity: 1
-    calls_out: 6
-    calls_in: 1
-  ifuri_core.transport.NatsTransport.serve_capability:
-    name: serve_capability
-    module: ifuri_core.transport
-    line: 333
-    cyclomatic_complexity: 1
-    calls_out: 19
-    calls_in: 0
-  boundary.build_build_plan_bundle:
-    name: build_build_plan_bundle
-    module: boundary
-    line: 132
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 1
-  llm_client.update_twin:
-    name: update_twin
-    module: llm_client
-    line: 397
-    cyclomatic_complexity: 14
-    calls_out: 39
-    calls_in: 1
-  ifuri_core.transport.NatsWireClient.publish:
-    name: publish
-    module: ifuri_core.transport
-    line: 147
-    cyclomatic_complexity: 2
-    calls_out: 7
-    calls_in: 0
-  boundary.assert_dsl_only:
-    name: assert_dsl_only
-    module: boundary
-    line: 31
-    cyclomatic_complexity: 8
-    calls_out: 16
-    calls_in: 22
-  digital_twin.demo_build_plan:
-    name: demo_build_plan
-    module: digital_twin
-    line: 730
-    cyclomatic_complexity: 1
-    calls_out: 15
-    calls_in: 1
-  contextdsl.ContextCompiler.state:
-    name: state
-    module: contextdsl
-    line: 164
-    cyclomatic_complexity: 3
-    calls_out: 3
-    calls_in: 0
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.digest_bytes:
-    name: digest_bytes
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 23
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.parse_manifest:
-    name: parse_manifest
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 135
-    cyclomatic_complexity: 8
-    calls_out: 13
-    calls_in: 3
-  llm_client._demo_update_twin:
-    name: _demo_update_twin
-    module: llm_client
-    line: 369
-    cyclomatic_complexity: 11
-    calls_out: 11
-    calls_in: 1
-  evolution._q:
-    name: _q
-    module: evolution
-    line: 27
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 15
-  evolution.EvolutionStore._write:
-    name: _write
-    module: evolution
-    line: 81
-    cyclomatic_complexity: 1
-    calls_out: 6
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim._parse_claim:
-    name: _parse_claim
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim
-    line: 59
-    cyclomatic_complexity: 12
-    calls_out: 23
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common.parse_json_list:
-    name: parse_json_list
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common
-    line: 51
-    cyclomatic_complexity: 5
-    calls_out: 6
-    calls_in: 9
-  contextdsl._compile_tool_results:
-    name: _compile_tool_results
-    module: contextdsl
-    line: 461
-    cyclomatic_complexity: 4
-    calls_out: 8
-    calls_in: 1
-  multiruntime.javascript.ifuri.parseIfUri:
-    name: parseIfUri
-    module: multiruntime.javascript.ifuri
-    line: 6
-    cyclomatic_complexity: 13
-    calls_out: 6
-    calls_in: 2
-  digital_twin._render_twin_questions_block:
-    name: _render_twin_questions_block
-    module: digital_twin
-    line: 644
-    cyclomatic_complexity: 2
-    calls_out: 1
     calls_in: 1
   server._application_version:
     name: _application_version
@@ -1608,19 +1195,376 @@ nodes:
     cyclomatic_complexity: 3
     calls_out: 2
     calls_in: 3
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan.parse_bound_build_plan:
-    name: parse_bound_build_plan
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
-    line: 85
-    cyclomatic_complexity: 10
-    calls_out: 14
+  digital_twin._quoted:
+    name: _quoted
+    module: digital_twin
+    line: 30
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 39
+  onlydsl.ssot.cli._json:
+    name: _json
+    module: onlydsl.ssot.cli
+    line: 25
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 10
+  intent_codegen._normalize_python_expr:
+    name: _normalize_python_expr
+    module: intent_codegen
+    line: 14
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 3
+  multiruntime.javascript.ifuri.toNatsSubject:
+    name: toNatsSubject
+    module: multiruntime.javascript.ifuri
+    line: 23
+    cyclomatic_complexity: 1
+    calls_out: 2
     calls_in: 1
-  contextdsl._parse_legacy_scalar:
-    name: _parse_legacy_scalar
-    module: contextdsl
-    line: 127
-    cyclomatic_complexity: 4
+  ifuri_core.llm_gateway.build_llm_patch_handler:
+    name: build_llm_patch_handler
+    module: ifuri_core.llm_gateway
+    line: 157
+    cyclomatic_complexity: 1
+    calls_out: 28
+    calls_in: 0
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.collect_file_hashes:
+    name: collect_file_hashes
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 38
+    cyclomatic_complexity: 5
+    calls_out: 12
+    calls_in: 5
+  twin_store.TwinStore.load:
+    name: load
+    module: twin_store
+    line: 36
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 0
+  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._promotion_lock:
+    name: _promotion_lock
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
+    line: 182
+    cyclomatic_complexity: 3
+    calls_out: 10
+    calls_in: 0
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common.quoted:
+    name: quoted
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common
+    line: 38
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 10
+  digital_twin._render_twin_capabilities_block:
+    name: _render_twin_capabilities_block
+    module: digital_twin
+    line: 592
+    cyclomatic_complexity: 8
+    calls_out: 10
+    calls_in: 1
+  multiruntime.php.ifuri.canonical_ifuri:
+    name: canonical_ifuri
+    module: multiruntime.php.ifuri
+    line: 16
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  packages.onlydsl-core.src.onlydsl_core.dsl_document.make_dsl_document:
+    name: make_dsl_document
+    module: packages.onlydsl-core.src.onlydsl_core.dsl_document
+    line: 20
+    cyclomatic_complexity: 2
+    calls_out: 9
+    calls_in: 6
+  llm_client._demo_context_analysis:
+    name: _demo_context_analysis
+    module: llm_client
+    line: 266
+    cyclomatic_complexity: 11
+    calls_out: 10
+    calls_in: 1
+  evolution.EvolutionStore.add_guidance:
+    name: add_guidance
+    module: evolution
+    line: 90
+    cyclomatic_complexity: 2
+    calls_out: 15
+    calls_in: 0
+  intentdsl._parse_rule_statement:
+    name: _parse_rule_statement
+    module: intentdsl
+    line: 101
+    cyclomatic_complexity: 8
+    calls_out: 25
+    calls_in: 1
+  digital_twin._render_twin_sources_block:
+    name: _render_twin_sources_block
+    module: digital_twin
+    line: 634
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  onlydsl.governance.authority_projection.project_authority:
+    name: project_authority
+    module: onlydsl.governance.authority_projection
+    line: 20
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 1
+  scripts.startup_testql.now:
+    name: now
+    module: scripts.startup_testql
+    line: 20
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 2
+  governance.canonical_hash:
+    name: canonical_hash
+    module: governance
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 11
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust.parse_trust_policy:
+    name: parse_trust_policy
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust
+    line: 49
+    cyclomatic_complexity: 9
+    calls_out: 15
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim.render_claims:
+    name: render_claims
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim
+    line: 109
+    cyclomatic_complexity: 3
     calls_out: 8
+    calls_in: 0
+  server._current_external_integrity:
+    name: _current_external_integrity
+    module: server
+    line: 116
+    cyclomatic_complexity: 9
+    calls_out: 24
+    calls_in: 2
+  contextdsl._parse_record_field:
+    name: _parse_record_field
+    module: contextdsl
+    line: 291
+    cyclomatic_complexity: 3
+    calls_out: 6
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan.semantic_twin_hash:
+    name: semantic_twin_hash
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
+    line: 35
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 3
+  patchdsl._validate_change:
+    name: _validate_change
+    module: patchdsl
+    line: 104
+    cyclomatic_complexity: 14
+    calls_out: 15
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._semantic_payload:
+    name: _semantic_payload
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
+    line: 42
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 1
+  intentdsl._generic_demo_lines:
+    name: _generic_demo_lines
+    module: intentdsl
+    line: 450
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 1
+  boundary.contract_dsl:
+    name: contract_dsl
+    module: boundary
+    line: 52
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 6
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.spatial_class_from_twin:
+    name: spatial_class_from_twin
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class
+    line: 131
+    cyclomatic_complexity: 4
+    calls_out: 35
+    calls_in: 1
+  digital_twin.normalize_intent:
+    name: normalize_intent
+    module: digital_twin
+    line: 21
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 2
+  server._plan_twin:
+    name: _plan_twin
+    module: server
+    line: 316
+    cyclomatic_complexity: 1
+    calls_out: 11
+    calls_in: 0
+  digital_twin._render_twin_capabilities:
+    name: _render_twin_capabilities
+    module: digital_twin
+    line: 412
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._validate_identifiers:
+    name: _validate_identifiers
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
+    line: 71
+    cyclomatic_complexity: 5
+    calls_out: 4
+    calls_in: 1
+  packages.onlydsl-core.src.onlydsl_core.capabilities.Capability.match:
+    name: match
+    module: packages.onlydsl-core.src.onlydsl_core.capabilities
+    line: 43
+    cyclomatic_complexity: 4
+    calls_out: 4
+    calls_in: 0
+  llm_client.convert_english:
+    name: convert_english
+    module: llm_client
+    line: 223
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.initialize:
+    name: initialize
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
+    line: 32
+    cyclomatic_complexity: 8
+    calls_out: 23
+    calls_in: 0
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust._parse_role_fields:
+    name: _parse_role_fields
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust
+    line: 27
+    cyclomatic_complexity: 5
+    calls_out: 3
+    calls_in: 1
+  digital_twin._parse_twin_node_block:
+    name: _parse_twin_node_block
+    module: digital_twin
+    line: 65
+    cyclomatic_complexity: 9
+    calls_out: 17
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.candidate._candidate_from_dict:
+    name: _candidate_from_dict
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
+    line: 25
+    cyclomatic_complexity: 3
+    calls_out: 13
+    calls_in: 1
+  governance.build_process_envelope:
+    name: build_process_envelope
+    module: governance
+    line: 36
+    cyclomatic_complexity: 5
+    calls_out: 7
+    calls_in: 0
+  packages.onlydsl-ssot.src.onlydsl_ssot.candidate.save_candidate:
+    name: save_candidate
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
+    line: 40
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 3
+  digital_twin.validate_buildplan_markdown:
+    name: validate_buildplan_markdown
+    module: digital_twin
+    line: 725
+    cyclomatic_complexity: 2
+    calls_out: 2
+    calls_in: 4
+  ifuri_core.transport.NatsTransport.serve_capability:
+    name: serve_capability
+    module: ifuri_core.transport
+    line: 333
+    cyclomatic_complexity: 1
+    calls_out: 19
+    calls_in: 0
+  llm_client.bootstrap_twin:
+    name: bootstrap_twin
+    module: llm_client
+    line: 324
+    cyclomatic_complexity: 7
+    calls_out: 28
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim._parse_claim_fields:
+    name: _parse_claim_fields
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim
+    line: 47
+    cyclomatic_complexity: 5
+    calls_out: 3
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan.validate_repair_plan:
+    name: validate_repair_plan
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan
+    line: 56
+    cyclomatic_complexity: 10
+    calls_out: 10
+    calls_in: 2
+  boundary.build_context_analysis_bundle:
+    name: build_context_analysis_bundle
+    module: boundary
+    line: 101
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 2
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._validate_value:
+    name: _validate_value
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
+    line: 66
+    cyclomatic_complexity: 9
+    calls_out: 7
+    calls_in: 1
+  ifuri_core.llm_gateway.gateway_provider_status:
+    name: gateway_provider_status
+    module: ifuri_core.llm_gateway
+    line: 201
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 5
+  intent_codegen.generate_code:
+    name: generate_code
+    module: intent_codegen
+    line: 127
+    cyclomatic_complexity: 3
+    calls_out: 3
+    calls_in: 1
+  scripts.startup_testql.write_twin_observation:
+    name: write_twin_observation
+    module: scripts.startup_testql
+    line: 106
+    cyclomatic_complexity: 4
+    calls_out: 11
+    calls_in: 1
+  digital_twin._validate_twin_capabilities:
+    name: _validate_twin_capabilities
+    module: digital_twin
+    line: 319
+    cyclomatic_complexity: 9
+    calls_out: 7
+    calls_in: 1
+  digital_twin._render_twin_questions_block:
+    name: _render_twin_questions_block
+    module: digital_twin
+    line: 644
+    cyclomatic_complexity: 2
+    calls_out: 1
     calls_in: 1
   intentdsl._validate_rule_expressions:
     name: _validate_rule_expressions
@@ -1629,62 +1573,699 @@ nodes:
     cyclomatic_complexity: 6
     calls_out: 5
     calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._value_matches_type:
-    name: _value_matches_type
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
-    line: 81
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._parse_development_evidence_fields:
+    name: _parse_development_evidence_fields
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
+    line: 180
     cyclomatic_complexity: 5
-    calls_out: 8
+    calls_out: 2
     calls_in: 1
-  onlydsl.runtime.integrity.parse_project_integrity:
-    name: parse_project_integrity
-    module: onlydsl.runtime.integrity
-    line: 62
-    cyclomatic_complexity: 12
-    calls_out: 21
-    calls_in: 4
-  onlydsl.ssot.validation.validate_tree:
-    name: validate_tree
-    module: onlydsl.ssot.validation
-    line: 56
-    cyclomatic_complexity: 8
-    calls_out: 9
-    calls_in: 0
-  ifuri_core.llm_gateway.gateway_provider_status:
-    name: gateway_provider_status
-    module: ifuri_core.llm_gateway
-    line: 201
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 5
-  digital_twin.buildplandsl_schema:
-    name: buildplandsl_schema
-    module: digital_twin
-    line: 689
-    cyclomatic_complexity: 1
-    calls_out: 0
-    calls_in: 2
-  evolution.EvolutionStore.add_diagnostic:
-    name: add_diagnostic
-    module: evolution
-    line: 151
+  diagnostics.diagnose_incident:
+    name: diagnose_incident
+    module: diagnostics
+    line: 260
+    cyclomatic_complexity: 7
+    calls_out: 18
+    calls_in: 1
+  server._scan_sources:
+    name: _scan_sources
+    module: server
+    line: 280
     cyclomatic_complexity: 1
     calls_out: 4
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract.parse_parameter_contracts:
-    name: parse_parameter_contracts
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
-    line: 143
-    cyclomatic_complexity: 9
+    calls_in: 2
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan.parse_repair_plan:
+    name: parse_repair_plan
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan
+    line: 116
+    cyclomatic_complexity: 11
+    calls_out: 21
+    calls_in: 1
+  packages.onlydsl-core.src.onlydsl_core.capabilities._validate_capability:
+    name: _validate_capability
+    module: packages.onlydsl-core.src.onlydsl_core.capabilities
+    line: 216
+    cyclomatic_complexity: 7
     calls_out: 13
     calls_in: 1
-  intentdsl._parse_call:
-    name: _parse_call
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._validate_producer:
+    name: _validate_producer
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
+    line: 80
+    cyclomatic_complexity: 5
+    calls_out: 4
+    calls_in: 1
+  intentdsl.run_program:
+    name: run_program
     module: intentdsl
-    line: 75
-    cyclomatic_complexity: 10
-    calls_out: 12
+    line: 324
+    cyclomatic_complexity: 14
+    calls_out: 30
     calls_in: 2
+  source_ingest.validate_sourceindex_markdown:
+    name: validate_sourceindex_markdown
+    module: source_ingest
+    line: 202
+    cyclomatic_complexity: 12
+    calls_out: 18
+    calls_in: 5
+  digital_twin._build_twin_document:
+    name: _build_twin_document
+    module: digital_twin
+    line: 239
+    cyclomatic_complexity: 5
+    calls_out: 2
+    calls_in: 1
+  boundary.build_twin_update_bundle:
+    name: build_twin_update_bundle
+    module: boundary
+    line: 118
+    cyclomatic_complexity: 1
+    calls_out: 8
+    calls_in: 2
+  ifuri_core.transport._validate_nats_subject:
+    name: _validate_nats_subject
+    module: ifuri_core.transport
+    line: 410
+    cyclomatic_complexity: 7
+    calls_out: 4
+    calls_in: 3
+  aql.operation_for_path:
+    name: operation_for_path
+    module: aql
+    line: 147
+    cyclomatic_complexity: 6
+    calls_out: 3
+    calls_in: 3
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan._parse_repair_task:
+    name: _parse_repair_task
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan
+    line: 96
+    cyclomatic_complexity: 5
+    calls_out: 16
+    calls_in: 1
+  server._external_revision:
+    name: _external_revision
+    module: server
+    line: 108
+    cyclomatic_complexity: 5
+    calls_out: 5
+    calls_in: 1
+  digital_twin._json_string:
+    name: _json_string
+    module: digital_twin
+    line: 34
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  onlydsl.runtime.repair_controller._receipt:
+    name: _receipt
+    module: onlydsl.runtime.repair_controller
+    line: 90
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 2
+  llm_client._provider_config:
+    name: _provider_config
+    module: llm_client
+    line: 73
+    cyclomatic_complexity: 9
+    calls_out: 17
+    calls_in: 2
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust.render_trust_policy:
+    name: render_trust_policy
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust
+    line: 67
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 0
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_revision_hash:
+    name: calculate_revision_hash
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 60
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 3
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._validate_uris:
+    name: _validate_uris
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
+    line: 87
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 1
+  onlydsl.ssot.registry.ProjectRegistry.register:
+    name: register
+    module: onlydsl.ssot.registry
+    line: 66
+    cyclomatic_complexity: 2
+    calls_out: 9
+    calls_in: 0
+  intentdsl.parse_dsl:
+    name: parse_dsl
+    module: intentdsl
+    line: 160
+    cyclomatic_complexity: 10
+    calls_out: 14
+    calls_in: 4
+  evolution._q:
+    name: _q
+    module: evolution
+    line: 27
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 15
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common.list_value:
+    name: list_value
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common
+    line: 47
+    cyclomatic_complexity: 2
+    calls_out: 2
+    calls_in: 5
+  packages.onlydsl-contracts.src.onlydsl_contracts.ifuri._validate_uri_parts:
+    name: _validate_uri_parts
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.ifuri
+    line: 71
+    cyclomatic_complexity: 8
+    calls_out: 4
+    calls_in: 1
+  digital_twin._validate_twin_edges:
+    name: _validate_twin_edges
+    module: digital_twin
+    line: 337
+    cyclomatic_complexity: 4
+    calls_out: 2
+    calls_in: 1
+  ifuri_core.transport._js_response:
+    name: _js_response
+    module: ifuri_core.transport
+    line: 417
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 3
+  multiruntime.typescript.ifuri.toNatsSubject:
+    name: toNatsSubject
+    module: multiruntime.typescript.ifuri
+    line: 15
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.evidence_set.parse_evidence_set:
+    name: parse_evidence_set
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.evidence_set
+    line: 36
+    cyclomatic_complexity: 12
+    calls_out: 19
+    calls_in: 1
+  source_ingest._sid:
+    name: _sid
+    module: source_ingest
+    line: 21
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence.parse_development_evidence:
+    name: parse_development_evidence
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
+    line: 170
+    cyclomatic_complexity: 6
+    calls_out: 10
+    calls_in: 1
+  onlydsl.ssot.io.atomic_write_json:
+    name: atomic_write_json
+    module: onlydsl.ssot.io
+    line: 24
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 3
+  digital_twin.parse_twindsl:
+    name: parse_twindsl
+    module: digital_twin
+    line: 253
+    cyclomatic_complexity: 11
+    calls_out: 21
+    calls_in: 12
+  server._compile_context:
+    name: _compile_context
+    module: server
+    line: 337
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._validate_metadata:
+    name: _validate_metadata
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
+    line: 56
+    cyclomatic_complexity: 4
+    calls_out: 3
+    calls_in: 1
+  onlydsl.ssot.cli.main:
+    name: main
+    module: onlydsl.ssot.cli
+    line: 90
+    cyclomatic_complexity: 23
+    calls_out: 62
+    calls_in: 0
+  digital_twin._render_twin_nodes:
+    name: _render_twin_nodes
+    module: digital_twin
+    line: 408
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan._parse_plan_directive:
+    name: _parse_plan_directive
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
+    line: 116
+    cyclomatic_complexity: 11
+    calls_out: 15
+    calls_in: 1
+  intentdsl._slug_words:
+    name: _slug_words
+    module: intentdsl
+    line: 410
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 1
+  boundary.build_twin_bootstrap_bundle:
+    name: build_twin_bootstrap_bundle
+    module: boundary
+    line: 107
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 2
+  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._validate_approval:
+    name: _validate_approval
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
+    line: 173
+    cyclomatic_complexity: 10
+    calls_out: 10
+    calls_in: 0
+  source_ingest.SourceIndex.to_markdown:
+    name: to_markdown
+    module: source_ingest
+    line: 48
+    cyclomatic_complexity: 7
+    calls_out: 14
+    calls_in: 0
+  digital_twin._parse_twin_scalar:
+    name: _parse_twin_scalar
+    module: digital_twin
+    line: 189
+    cyclomatic_complexity: 7
+    calls_out: 20
+    calls_in: 1
+  governance.authorize_patch:
+    name: authorize_patch
+    module: governance
+    line: 26
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 0
+  evolution._qid:
+    name: _qid
+    module: evolution
+    line: 22
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 10
+  onlydsl.ssot.registry.parse_registry:
+    name: parse_registry
+    module: onlydsl.ssot.registry
+    line: 35
+    cyclomatic_complexity: 13
+    calls_out: 16
+    calls_in: 1
+  contextdsl._ident:
+    name: _ident
+    module: contextdsl
+    line: 70
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 28
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._validate_development_evidence_fields:
+    name: _validate_development_evidence_fields
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
+    line: 190
+    cyclomatic_complexity: 6
+    calls_out: 9
+    calls_in: 1
+  onlydsl.ssot.io.atomic_write_bytes:
+    name: atomic_write_bytes
+    module: onlydsl.ssot.io
+    line: 9
+    cyclomatic_complexity: 1
+    calls_out: 10
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption._parse_assumption:
+    name: _parse_assumption
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption
+    line: 55
+    cyclomatic_complexity: 4
+    calls_out: 13
+    calls_in: 1
+  llm_client._request_json:
+    name: _request_json
+    module: llm_client
+    line: 50
+    cyclomatic_complexity: 5
+    calls_out: 14
+    calls_in: 1
+  digital_twin._render_twin_evolution_block:
+    name: _render_twin_evolution_block
+    module: digital_twin
+    line: 625
+    cyclomatic_complexity: 4
+    calls_out: 7
+    calls_in: 1
+  onlydsl.ssot.validation._is_excluded_dsl_content:
+    name: _is_excluded_dsl_content
+    module: onlydsl.ssot.validation
+    line: 95
+    cyclomatic_complexity: 4
+    calls_out: 2
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._parse_range:
+    name: _parse_range
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
+    line: 102
+    cyclomatic_complexity: 6
+    calls_out: 7
+    calls_in: 1
+  onlydsl.runtime.repair_controller.plan_integrity_repairs:
+    name: plan_integrity_repairs
+    module: onlydsl.runtime.repair_controller
+    line: 39
+    cyclomatic_complexity: 8
+    calls_out: 18
+    calls_in: 1
+  packages.onlydsl-core.src.onlydsl_core.capabilities.CapabilityRegistry.register:
+    name: register
+    module: packages.onlydsl-core.src.onlydsl_core.capabilities
+    line: 79
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  intentdsl.eval_expr:
+    name: eval_expr
+    module: intentdsl
+    line: 218
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 4
+  contextdsl._parse_legacy_scalar:
+    name: _parse_legacy_scalar
+    module: contextdsl
+    line: 127
+    cyclomatic_complexity: 4
+    calls_out: 8
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.verified_manifest:
+    name: verified_manifest
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.reader
+    line: 21
+    cyclomatic_complexity: 5
+    calls_out: 13
+    calls_in: 0
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust._parse_role:
+    name: _parse_role
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust
+    line: 39
+    cyclomatic_complexity: 4
+    calls_out: 7
+    calls_in: 1
+  server.main:
+    name: main
+    module: server
+    line: 524
+    cyclomatic_complexity: 3
+    calls_out: 10
+    calls_in: 0
+  digital_twin.twindsl_schema:
+    name: twindsl_schema
+    module: digital_twin
+    line: 648
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 4
+  packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.history:
+    name: history
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.reader
+    line: 57
+    cyclomatic_complexity: 2
+    calls_out: 7
+    calls_in: 0
+  digital_twin._parse_twin_evolution_block:
+    name: _parse_twin_evolution_block
+    module: digital_twin
+    line: 138
+    cyclomatic_complexity: 8
+    calls_out: 16
+    calls_in: 1
+  onlydsl.ssot.validation._validate_known_dsl:
+    name: _validate_known_dsl
+    module: onlydsl.ssot.validation
+    line: 24
+    cyclomatic_complexity: 14
+    calls_out: 19
+    calls_in: 1
+  digital_twin._render_twin_goals:
+    name: _render_twin_goals
+    module: digital_twin
+    line: 576
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 1
+  llm_client.analyze_context:
+    name: analyze_context
+    module: llm_client
+    line: 309
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 1
+  evolution.EvolutionStore.add_event:
+    name: add_event
+    module: evolution
+    line: 164
+    cyclomatic_complexity: 3
+    calls_out: 13
+    calls_in: 0
+  intentdsl.extract_intentdsl:
+    name: extract_intentdsl
+    module: intentdsl
+    line: 47
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 4
+  contextdsl.compiler_from_payload:
+    name: compiler_from_payload
+    module: contextdsl
+    line: 419
+    cyclomatic_complexity: 9
+    calls_out: 25
+    calls_in: 2
+  digital_twin._parse_twin_capability_block:
+    name: _parse_twin_capability_block
+    module: digital_twin
+    line: 88
+    cyclomatic_complexity: 12
+    calls_out: 27
+    calls_in: 1
+  intentdsl.codegen:
+    name: codegen
+    module: intentdsl
+    line: 465
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 1
+  intent_codegen._codegen_php:
+    name: _codegen_php
+    module: intent_codegen
+    line: 90
+    cyclomatic_complexity: 14
+    calls_out: 31
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.create_manifest:
+    name: create_manifest
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 64
+    cyclomatic_complexity: 2
+    calls_out: 11
+    calls_in: 2
+  scripts.startup_testql.verify:
+    name: verify
+    module: scripts.startup_testql
+    line: 85
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 1
+  digital_twin.twin_to_mermaid:
+    name: twin_to_mermaid
+    module: digital_twin
+    line: 400
+    cyclomatic_complexity: 1
+    calls_out: 7
+    calls_in: 1
+  source_ingest.build_source_index:
+    name: build_source_index
+    module: source_ingest
+    line: 157
+    cyclomatic_complexity: 9
+    calls_out: 35
+    calls_in: 2
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim.parse_claims:
+    name: parse_claims
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim
+    line: 89
+    cyclomatic_complexity: 9
+    calls_out: 19
+    calls_in: 1
+  server.Handler._post_routes:
+    name: _post_routes
+    module: server
+    line: 401
+    cyclomatic_complexity: 1
+    calls_out: 19
+    calls_in: 0
+  llm_client._demo_update_twin:
+    name: _demo_update_twin
+    module: llm_client
+    line: 369
+    cyclomatic_complexity: 11
+    calls_out: 11
+    calls_in: 1
+  multiruntime.php.ifuri.nats_subject:
+    name: nats_subject
+    module: multiruntime.php.ifuri
+    line: 20
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 0
+  ifuri_core.transport.capability_pattern_to_subject:
+    name: capability_pattern_to_subject
+    module: ifuri_core.transport
+    line: 394
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 1
+  diagnostics._candidate_paths:
+    name: _candidate_paths
+    module: diagnostics
+    line: 248
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan.render_repair_plan:
+    name: render_repair_plan
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan
+    line: 74
+    cyclomatic_complexity: 3
+    calls_out: 11
+    calls_in: 1
+  source_ingest._parse_text_content:
+    name: _parse_text_content
+    module: source_ingest
+    line: 109
+    cyclomatic_complexity: 10
+    calls_out: 27
+    calls_in: 1
+  ifuri_core.transport.NatsJetStream.stream_info:
+    name: stream_info
+    module: ifuri_core.transport
+    line: 263
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 0
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.render_manifest:
+    name: render_manifest
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 118
+    cyclomatic_complexity: 6
+    calls_out: 17
+    calls_in: 2
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption.render_assumptions:
+    name: render_assumptions
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption
+    line: 90
+    cyclomatic_complexity: 2
+    calls_out: 8
+    calls_in: 2
+  ifuri_core.llm_gateway._extract_source_payload:
+    name: _extract_source_payload
+    module: ifuri_core.llm_gateway
+    line: 61
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 2
+  contextdsl.ContextCompiler.legacy_log:
+    name: legacy_log
+    module: contextdsl
+    line: 223
+    cyclomatic_complexity: 7
+    calls_out: 20
+    calls_in: 0
+  contextdsl.extract_contextdsl:
+    name: extract_contextdsl
+    module: contextdsl
+    line: 284
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 3
+  contextdsl.ContextCompiler.metric:
+    name: metric
+    module: contextdsl
+    line: 171
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  onlydsl.ssot.cli.build_parser:
+    name: build_parser
+    module: onlydsl.ssot.cli
+    line: 29
+    cyclomatic_complexity: 2
+    calls_out: 48
+    calls_in: 1
+  digital_twin._parse_twin_declaration:
+    name: _parse_twin_declaration
+    module: digital_twin
+    line: 207
+    cyclomatic_complexity: 11
+    calls_out: 21
+    calls_in: 1
+  ifuri_core.transport.NatsJetStream.publish:
+    name: publish
+    module: ifuri_core.transport
+    line: 267
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 0
+  intentdsl.demo_english_to_dsl:
+    name: demo_english_to_dsl
+    module: intentdsl
+    line: 415
+    cyclomatic_complexity: 6
+    calls_out: 5
+    calls_in: 1
+  source_ingest.parse_markdown:
+    name: parse_markdown
+    module: source_ingest
+    line: 147
+    cyclomatic_complexity: 1
+    calls_out: 9
+    calls_in: 1
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common.extract_one:
+    name: extract_one
+    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common
+    line: 19
+    cyclomatic_complexity: 5
+    calls_out: 11
+    calls_in: 10
+  digital_twin.demo_build_plan:
+    name: demo_build_plan
+    module: digital_twin
+    line: 730
+    cyclomatic_complexity: 1
+    calls_out: 15
+    calls_in: 1
   packages.onlydsl-contracts.src.onlydsl_contracts.ifuri._path_segments:
     name: _path_segments
     module: packages.onlydsl-contracts.src.onlydsl_contracts.ifuri
@@ -1699,47 +2280,103 @@ nodes:
     cyclomatic_complexity: 4
     calls_out: 3
     calls_in: 1
-  contextdsl.validate_context_markdown:
-    name: validate_context_markdown
-    module: contextdsl
-    line: 404
-    cyclomatic_complexity: 5
-    calls_out: 9
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.parse_manifest:
+    name: parse_manifest
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 135
+    cyclomatic_complexity: 8
+    calls_out: 13
     calls_in: 3
-  intent_codegen._codegen_javascript_like:
-    name: _codegen_javascript_like
-    module: intent_codegen
-    line: 58
-    cyclomatic_complexity: 13
-    calls_out: 28
-    calls_in: 1
-  intentdsl._auth_recovery_lines:
-    name: _auth_recovery_lines
-    module: intentdsl
-    line: 429
+  contextdsl.render_context_markdown:
+    name: render_context_markdown
+    module: contextdsl
+    line: 280
     cyclomatic_complexity: 1
-    calls_out: 0
+    calls_out: 1
     calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._build_development_evidence:
-    name: _build_development_evidence
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-    line: 204
-    cyclomatic_complexity: 3
-    calls_out: 7
+  contextdsl.parse_context_dsl:
+    name: parse_context_dsl
+    module: contextdsl
+    line: 363
+    cyclomatic_complexity: 15
+    calls_out: 20
+    calls_in: 3
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest._parse_manifest_entries:
+    name: _parse_manifest_entries
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 153
+    cyclomatic_complexity: 12
+    calls_out: 8
     calls_in: 1
-  onlydsl.ssot.registry.parse_registry:
-    name: parse_registry
-    module: onlydsl.ssot.registry
-    line: 35
-    cyclomatic_complexity: 13
-    calls_out: 16
+  intentdsl.validate_program:
+    name: validate_program
+    module: intentdsl
+    line: 264
+    cyclomatic_complexity: 14
+    calls_out: 27
+    calls_in: 2
+  onlydsl.ssot.validation.validate_tree:
+    name: validate_tree
+    module: onlydsl.ssot.validation
+    line: 56
+    cyclomatic_complexity: 8
+    calls_out: 9
+    calls_in: 0
+  patchdsl._parse_change:
+    name: _parse_change
+    module: patchdsl
+    line: 43
+    cyclomatic_complexity: 10
+    calls_out: 22
     calls_in: 1
-  boundary.source_text_dsl:
-    name: source_text_dsl
+  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.validate_candidate:
+    name: validate_candidate
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
+    line: 73
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 2
+  server.evolution_authority_status:
+    name: evolution_authority_status
+    module: server
+    line: 88
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.manifest:
+    name: manifest
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.reader
+    line: 18
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 0
+  evolution.EvolutionStore.add_diagnostic:
+    name: add_diagnostic
+    module: evolution
+    line: 151
+    cyclomatic_complexity: 1
+    calls_out: 4
+    calls_in: 0
+  boundary.build_source_compile_bundle:
+    name: build_source_compile_bundle
     module: boundary
-    line: 79
+    line: 96
+    cyclomatic_complexity: 1
+    calls_out: 6
+    calls_in: 1
+  boundary.build_repair_bundle:
+    name: build_repair_bundle
+    module: boundary
+    line: 239
     cyclomatic_complexity: 2
     calls_out: 7
+    calls_in: 1
+  onlydsl.runtime.integrity.parse_project_integrity:
+    name: parse_project_integrity
+    module: onlydsl.runtime.integrity
+    line: 62
+    cyclomatic_complexity: 12
+    calls_out: 21
     calls_in: 4
   ifuri_core.llm_gateway._reply:
     name: _reply
@@ -1748,409 +2385,31 @@ nodes:
     cyclomatic_complexity: 2
     calls_out: 14
     calls_in: 6
-  packages.onlydsl-core.src.onlydsl_core.capabilities.Capability.match:
-    name: match
-    module: packages.onlydsl-core.src.onlydsl_core.capabilities
-    line: 43
-    cyclomatic_complexity: 4
-    calls_out: 4
-    calls_in: 0
-  server._external_revision:
-    name: _external_revision
-    module: server
-    line: 108
-    cyclomatic_complexity: 5
-    calls_out: 5
-    calls_in: 1
-  twin_store.TwinStore.load:
-    name: load
-    module: twin_store
-    line: 36
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 0
-  packages.onlydsl-core.src.onlydsl_core.capabilities.CapabilityRegistry.register:
-    name: register
-    module: packages.onlydsl-core.src.onlydsl_core.capabilities
-    line: 79
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 0
-  ifuri_core.transport.NatsJetStream.stream_info:
-    name: stream_info
-    module: ifuri_core.transport
-    line: 263
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 0
-  source_ingest.extract_source_refs:
-    name: extract_source_refs
-    module: source_ingest
-    line: 218
-    cyclomatic_complexity: 9
-    calls_out: 16
-    calls_in: 3
-  boundary.task_dsl:
-    name: task_dsl
-    module: boundary
-    line: 69
-    cyclomatic_complexity: 1
-    calls_out: 0
-    calls_in: 6
-  diagnostics._candidate_paths:
-    name: _candidate_paths
-    module: diagnostics
-    line: 248
-    cyclomatic_complexity: 4
-    calls_out: 5
-    calls_in: 1
-  llm_client._request_json:
-    name: _request_json
-    module: llm_client
-    line: 50
-    cyclomatic_complexity: 5
-    calls_out: 14
-    calls_in: 1
-  server._run_intent:
-    name: _run_intent
-    module: server
-    line: 358
-    cyclomatic_complexity: 2
-    calls_out: 7
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence.parse_development_evidence:
-    name: parse_development_evidence
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-    line: 170
-    cyclomatic_complexity: 6
-    calls_out: 10
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.verified_manifest:
-    name: verified_manifest
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.reader
-    line: 21
-    cyclomatic_complexity: 5
-    calls_out: 13
-    calls_in: 0
-  intent_codegen._codegen_python:
-    name: _codegen_python
-    module: intent_codegen
-    line: 33
-    cyclomatic_complexity: 11
-    calls_out: 15
-    calls_in: 1
-  source_ingest._sid:
-    name: _sid
-    module: source_ingest
-    line: 21
-    cyclomatic_complexity: 3
-    calls_out: 7
-    calls_in: 1
-  digital_twin._render_twin_nodes_block:
-    name: _render_twin_nodes_block
-    module: digital_twin
-    line: 580
-    cyclomatic_complexity: 4
-    calls_out: 7
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_revision_hash:
-    name: calculate_revision_hash
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 60
-    cyclomatic_complexity: 1
-    calls_out: 4
-    calls_in: 3
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.is_immutable_urn:
-    name: is_immutable_urn
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 27
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 4
-  digital_twin._render_twin_capabilities_block:
-    name: _render_twin_capabilities_block
-    module: digital_twin
-    line: 592
-    cyclomatic_complexity: 8
-    calls_out: 10
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.candidate._prepare_candidate_tree:
-    name: _prepare_candidate_tree
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
-    line: 74
-    cyclomatic_complexity: 2
-    calls_out: 5
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.reader.SsotReader.history:
-    name: history
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.reader
-    line: 57
-    cyclomatic_complexity: 2
-    calls_out: 7
-    calls_in: 0
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.collect_file_hashes:
-    name: collect_file_hashes
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 38
-    cyclomatic_complexity: 5
-    calls_out: 12
-    calls_in: 5
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan._parse_task:
-    name: _parse_task
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
-    line: 44
-    cyclomatic_complexity: 6
-    calls_out: 24
-    calls_in: 1
-  onlydsl.ssot.validation._validate_tree_file:
-    name: _validate_tree_file
-    module: onlydsl.ssot.validation
-    line: 74
-    cyclomatic_complexity: 5
-    calls_out: 5
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._validate_value:
-    name: _validate_value
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
-    line: 66
-    cyclomatic_complexity: 9
-    calls_out: 7
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust.parse_trust_policy:
-    name: parse_trust_policy
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.trust
-    line: 49
-    cyclomatic_complexity: 9
-    calls_out: 15
-    calls_in: 1
-  contextdsl.ContextCompiler.legacy_log:
-    name: legacy_log
-    module: contextdsl
-    line: 223
-    cyclomatic_complexity: 7
-    calls_out: 20
-    calls_in: 0
-  contextdsl._ident:
-    name: _ident
-    module: contextdsl
-    line: 70
-    cyclomatic_complexity: 3
-    calls_out: 5
-    calls_in: 28
-  intentdsl.eval_expr:
-    name: eval_expr
-    module: intentdsl
-    line: 218
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 4
-  multiruntime.typescript.ifuri.parseIfUri:
-    name: parseIfUri
-    module: multiruntime.typescript.ifuri
-    line: 5
-    cyclomatic_complexity: 13
-    calls_out: 5
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim.render_claims:
-    name: render_claims
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim
-    line: 109
-    cyclomatic_complexity: 3
-    calls_out: 8
-    calls_in: 0
-  digital_twin._parse_twin_scalar:
-    name: _parse_twin_scalar
-    module: digital_twin
-    line: 189
-    cyclomatic_complexity: 7
-    calls_out: 20
-    calls_in: 1
-  server.main:
-    name: main
-    module: server
-    line: 524
-    cyclomatic_complexity: 3
-    calls_out: 10
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption.parse_assumptions:
-    name: parse_assumptions
+  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption._parse_assumption_fields:
+    name: _parse_assumption_fields
     module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption
-    line: 71
-    cyclomatic_complexity: 9
-    calls_out: 15
-    calls_in: 1
-  packages.onlydsl-core.src.onlydsl_core.capabilities._parse_pattern:
-    name: _parse_pattern
-    module: packages.onlydsl-core.src.onlydsl_core.capabilities
-    line: 210
-    cyclomatic_complexity: 1
+    line: 43
+    cyclomatic_complexity: 5
     calls_out: 3
-    calls_in: 2
-  ifuri_core.llm_gateway.build_llm_twin_update_handler:
-    name: build_llm_twin_update_handler
-    module: ifuri_core.llm_gateway
-    line: 119
-    cyclomatic_complexity: 1
-    calls_out: 12
-    calls_in: 0
-  server._plan_twin:
-    name: _plan_twin
-    module: server
-    line: 316
-    cyclomatic_complexity: 1
-    calls_out: 11
-    calls_in: 0
-  digital_twin._validate_twin_capabilities:
-    name: _validate_twin_capabilities
-    module: digital_twin
-    line: 319
-    cyclomatic_complexity: 9
-    calls_out: 7
     calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.ifuri._validate_uri_parts:
-    name: _validate_uri_parts
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.ifuri
-    line: 71
-    cyclomatic_complexity: 8
-    calls_out: 4
-    calls_in: 1
-  server._twin_status:
-    name: _twin_status
-    module: server
-    line: 75
-    cyclomatic_complexity: 2
-    calls_out: 6
-    calls_in: 1
-  contextdsl._parse_literal:
-    name: _parse_literal
-    module: contextdsl
-    line: 99
-    cyclomatic_complexity: 7
-    calls_out: 9
-    calls_in: 4
-  digital_twin._json_string:
-    name: _json_string
-    module: digital_twin
-    line: 34
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 1
-  scripts.startup_testql.synthetic_failure:
-    name: synthetic_failure
-    module: scripts.startup_testql
-    line: 59
-    cyclomatic_complexity: 1
-    calls_out: 8
-    calls_in: 2
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._commit_promotion:
-    name: _commit_promotion
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
-    line: 123
-    cyclomatic_complexity: 7
-    calls_out: 22
-    calls_in: 0
-  boundary.contract_dsl:
-    name: contract_dsl
-    module: boundary
-    line: 52
-    cyclomatic_complexity: 1
-    calls_out: 0
-    calls_in: 6
-  digital_twin.demo_bootstrap_twin:
-    name: demo_bootstrap_twin
-    module: digital_twin
-    line: 433
-    cyclomatic_complexity: 2
-    calls_out: 20
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.candidate.create_candidate:
-    name: create_candidate
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
-    line: 46
-    cyclomatic_complexity: 6
-    calls_out: 22
-    calls_in: 0
-  contextdsl.ContextCompiler.to_markdown:
-    name: to_markdown
-    module: contextdsl
-    line: 249
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 0
-  server.Handler._post_routes:
-    name: _post_routes
-    module: server
-    line: 401
-    cyclomatic_complexity: 1
-    calls_out: 19
-    calls_in: 0
-  packages.onlydsl-ssot.src.onlydsl_ssot.candidate.validate_candidate:
-    name: validate_candidate
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.candidate
-    line: 116
-    cyclomatic_complexity: 4
-    calls_out: 17
-    calls_in: 0
-  llm_client._call_dsl_validated:
-    name: _call_dsl_validated
-    module: llm_client
-    line: 189
-    cyclomatic_complexity: 6
-    calls_out: 11
-    calls_in: 4
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._write_json_append_only:
-    name: _write_json_append_only
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
-    line: 165
-    cyclomatic_complexity: 3
-    calls_out: 5
-    calls_in: 0
-  evolution.EvolutionStore.diagnostic_for_incident:
-    name: diagnostic_for_incident
-    module: evolution
-    line: 208
-    cyclomatic_complexity: 2
-    calls_out: 4
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence._validate_identifiers:
-    name: _validate_identifiers
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-    line: 71
-    cyclomatic_complexity: 5
-    calls_out: 4
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.normalize_relative_path:
-    name: normalize_relative_path
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.digest_bytes:
+    name: digest_bytes
     module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 31
-    cyclomatic_complexity: 5
-    calls_out: 6
-    calls_in: 4
-  digital_twin._render_twin_invariants_block:
-    name: _render_twin_invariants_block
-    module: digital_twin
-    line: 615
-    cyclomatic_complexity: 4
-    calls_out: 6
-    calls_in: 1
-  onlydsl.ssot.io.atomic_write_json:
-    name: atomic_write_json
-    module: onlydsl.ssot.io
-    line: 24
+    line: 23
     cyclomatic_complexity: 1
     calls_out: 2
-    calls_in: 3
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._parse_parameter_fields:
-    name: _parse_parameter_fields
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
-    line: 90
-    cyclomatic_complexity: 5
-    calls_out: 3
     calls_in: 1
-  digital_twin._render_twin_sources_block:
-    name: _render_twin_sources_block
-    module: digital_twin
-    line: 634
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.calculate_section_hashes:
+    name: calculate_section_hashes
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 51
+    cyclomatic_complexity: 4
+    calls_out: 10
+    calls_in: 3
+  packages.onlydsl-ssot.src.onlydsl_ssot.manifest._validate_manifest_hashes:
+    name: _validate_manifest_hashes
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
+    line: 111
     cyclomatic_complexity: 3
     calls_out: 3
     calls_in: 1
@@ -2161,279 +2420,6 @@ nodes:
     cyclomatic_complexity: 2
     calls_out: 7
     calls_in: 1
-  digital_twin._parse_twin_node_block:
-    name: _parse_twin_node_block
-    module: digital_twin
-    line: 65
-    cyclomatic_complexity: 9
-    calls_out: 17
-    calls_in: 1
-  server._integrity_repair_plan:
-    name: _integrity_repair_plan
-    module: server
-    line: 146
-    cyclomatic_complexity: 5
-    calls_out: 22
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract._parse_range:
-    name: _parse_range
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.parameter_contract
-    line: 102
-    cyclomatic_complexity: 6
-    calls_out: 7
-    calls_in: 1
-  packages.onlydsl-core.src.onlydsl_core.dsl_document.validate_dsl_document:
-    name: validate_dsl_document
-    module: packages.onlydsl-core.src.onlydsl_core.dsl_document
-    line: 33
-    cyclomatic_complexity: 5
-    calls_out: 6
-    calls_in: 6
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence.create_development_evidence:
-    name: create_development_evidence
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.development_evidence
-    line: 109
-    cyclomatic_complexity: 1
-    calls_out: 5
-    calls_in: 2
-  diagnostics.diagnose_incident:
-    name: diagnose_incident
-    module: diagnostics
-    line: 260
-    cyclomatic_complexity: 7
-    calls_out: 18
-    calls_in: 1
-  multiruntime.javascript.ifuri.canonical:
-    name: canonical
-    module: multiruntime.javascript.ifuri
-    line: 18
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 1
-  evolution._now:
-    name: _now
-    module: evolution
-    line: 18
-    cyclomatic_complexity: 1
-    calls_out: 3
-    calls_in: 3
-  ifuri_core.llm_gateway.build_llm_twin_bootstrap_handler:
-    name: build_llm_twin_bootstrap_handler
-    module: ifuri_core.llm_gateway
-    line: 92
-    cyclomatic_complexity: 1
-    calls_out: 9
-    calls_in: 0
-  server._twin_payload:
-    name: _twin_payload
-    module: server
-    line: 236
-    cyclomatic_complexity: 5
-    calls_out: 8
-    calls_in: 3
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim._parse_claim_fields:
-    name: _parse_claim_fields
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim
-    line: 47
-    cyclomatic_complexity: 5
-    calls_out: 3
-    calls_in: 1
-  ifuri_core.transport.NatsWireClient.subscribe:
-    name: subscribe
-    module: ifuri_core.transport
-    line: 125
-    cyclomatic_complexity: 3
-    calls_out: 8
-    calls_in: 0
-  patchdsl._validate_change:
-    name: _validate_change
-    module: patchdsl
-    line: 104
-    cyclomatic_complexity: 14
-    calls_out: 15
-    calls_in: 1
-  packages.onlydsl-core.src.onlydsl_core.dsl_document.make_dsl_document:
-    name: make_dsl_document
-    module: packages.onlydsl-core.src.onlydsl_core.dsl_document
-    line: 20
-    cyclomatic_complexity: 2
-    calls_out: 9
-    calls_in: 6
-  server.Handler._send:
-    name: _send
-    module: server
-    line: 375
-    cyclomatic_complexity: 4
-    calls_out: 12
-    calls_in: 0
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._promotion_lock:
-    name: _promotion_lock
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
-    line: 182
-    cyclomatic_complexity: 3
-    calls_out: 10
-    calls_in: 0
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._write_append_only:
-    name: _write_append_only
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
-    line: 158
-    cyclomatic_complexity: 3
-    calls_out: 4
-    calls_in: 0
-  onlydsl.ssot.registry.ProjectRegistry.entries:
-    name: entries
-    module: onlydsl.ssot.registry
-    line: 63
-    cyclomatic_complexity: 2
-    calls_out: 3
-    calls_in: 0
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.spatial_class_from_twin:
-    name: spatial_class_from_twin
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class
-    line: 131
-    cyclomatic_complexity: 4
-    calls_out: 35
-    calls_in: 1
-  intentdsl._parse_program_declaration:
-    name: _parse_program_declaration
-    module: intentdsl
-    line: 123
-    cyclomatic_complexity: 14
-    calls_out: 35
-    calls_in: 1
-  digital_twin._bootstrap_invariant_lines:
-    name: _bootstrap_invariant_lines
-    module: digital_twin
-    line: 526
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest.render_manifest:
-    name: render_manifest
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 118
-    cyclomatic_complexity: 6
-    calls_out: 17
-    calls_in: 2
-  boundary.build_source_compile_bundle:
-    name: build_source_compile_bundle
-    module: boundary
-    line: 96
-    cyclomatic_complexity: 1
-    calls_out: 6
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan.validate_bound_build_plan:
-    name: validate_bound_build_plan
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan
-    line: 144
-    cyclomatic_complexity: 10
-    calls_out: 10
-    calls_in: 1
-  contextdsl.render_context_markdown:
-    name: render_context_markdown
-    module: contextdsl
-    line: 280
-    cyclomatic_complexity: 1
-    calls_out: 1
-    calls_in: 1
-  onlydsl.governance.authority_projection.project_authority:
-    name: project_authority
-    module: onlydsl.governance.authority_projection
-    line: 20
-    cyclomatic_complexity: 2
-    calls_out: 5
-    calls_in: 1
-  digital_twin._render_twin_goals:
-    name: _render_twin_goals
-    module: digital_twin
-    line: 576
-    cyclomatic_complexity: 2
-    calls_out: 1
-    calls_in: 1
-  source_ingest.validate_sourceindex_markdown:
-    name: validate_sourceindex_markdown
-    module: source_ingest
-    line: 202
-    cyclomatic_complexity: 12
-    calls_out: 18
-    calls_in: 5
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore.promote:
-    name: promote
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
-    line: 85
-    cyclomatic_complexity: 1
-    calls_out: 8
-    calls_in: 0
-  llm_client._provider_config:
-    name: _provider_config
-    module: llm_client
-    line: 73
-    cyclomatic_complexity: 9
-    calls_out: 17
-    calls_in: 2
-  digital_twin.twin_to_mermaid:
-    name: twin_to_mermaid
-    module: digital_twin
-    line: 400
-    cyclomatic_complexity: 1
-    calls_out: 7
-    calls_in: 1
-  server.Handler.do_GET:
-    name: do_GET
-    module: server
-    line: 419
-    cyclomatic_complexity: 15
-    calls_out: 37
-    calls_in: 0
-  packages.onlydsl-ssot.src.onlydsl_ssot.manifest._parse_manifest_entries:
-    name: _parse_manifest_entries
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.manifest
-    line: 153
-    cyclomatic_complexity: 12
-    calls_out: 8
-    calls_in: 1
-  ifuri_core.llm_gateway._extract_source_payload:
-    name: _extract_source_payload
-    module: ifuri_core.llm_gateway
-    line: 61
-    cyclomatic_complexity: 5
-    calls_out: 11
-    calls_in: 2
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption._parse_assumption_fields:
-    name: _parse_assumption_fields
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.assumption
-    line: 43
-    cyclomatic_complexity: 5
-    calls_out: 3
-    calls_in: 1
-  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._prepare_promotion:
-    name: _prepare_promotion
-    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
-    line: 94
-    cyclomatic_complexity: 9
-    calls_out: 12
-    calls_in: 0
-  intentdsl.extract_intentdsl:
-    name: extract_intentdsl
-    module: intentdsl
-    line: 47
-    cyclomatic_complexity: 3
-    calls_out: 7
-    calls_in: 4
-  digital_twin._parse_twin_evolution_block:
-    name: _parse_twin_evolution_block
-    module: digital_twin
-    line: 138
-    cyclomatic_complexity: 8
-    calls_out: 16
-    calls_in: 1
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common.quoted:
-    name: quoted
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.common
-    line: 38
-    cyclomatic_complexity: 1
-    calls_out: 2
-    calls_in: 10
   boundary.code_dsl:
     name: code_dsl
     module: boundary
@@ -2441,20 +2427,34 @@ nodes:
     cyclomatic_complexity: 2
     calls_out: 7
     calls_in: 1
-  intentdsl.expr_names:
-    name: expr_names
-    module: intentdsl
-    line: 213
+  digital_twin._parse_json_text:
+    name: _parse_json_text
+    module: digital_twin
+    line: 54
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 10
+  patchdsl.validate_patch_policy:
+    name: validate_patch_policy
+    module: patchdsl
+    line: 140
     cyclomatic_complexity: 4
-    calls_out: 3
-    calls_in: 2
-  packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan.render_repair_plan:
-    name: render_repair_plan
-    module: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan
-    line: 74
-    cyclomatic_complexity: 3
-    calls_out: 11
+    calls_out: 5
     calls_in: 1
+  contextdsl.render_context_dsl:
+    name: render_context_dsl
+    module: contextdsl
+    line: 253
+    cyclomatic_complexity: 9
+    calls_out: 35
+    calls_in: 1
+  packages.onlydsl-ssot.src.onlydsl_ssot.writer.SsotStore._write_json_append_only:
+    name: _write_json_append_only
+    module: packages.onlydsl-ssot.src.onlydsl_ssot.writer
+    line: 165
+    cyclomatic_complexity: 3
+    calls_out: 5
+    calls_in: 0
 edges:
 - caller: contextdsl._event_code_from_text
   callee: contextdsl._ident
@@ -2956,6 +2956,135 @@ edges:
   call_type: resolved
 - caller: governance.reject_envelope
   callee: governance.canonical_hash
+  call_type: resolved
+- caller: digital_twin.intent_fingerprint
+  callee: digital_twin.normalize_intent
+  call_type: resolved
+- caller: digital_twin._parse_json_text
+  callee: digital_twin._json_string
+  call_type: resolved
+- caller: digital_twin._parse_twin_node_block
+  callee: digital_twin._parse_json_text
+  call_type: resolved
+- caller: digital_twin._parse_twin_evolution_block
+  callee: digital_twin._parse_json_text
+  call_type: resolved
+- caller: digital_twin._parse_twin_source
+  callee: digital_twin._parse_json_text
+  call_type: resolved
+- caller: digital_twin._parse_twin_scalar
+  callee: digital_twin._parse_json_text
+  call_type: resolved
+- caller: digital_twin._parse_twin_declaration
+  callee: digital_twin._parse_twin_scalar
+  call_type: resolved
+- caller: digital_twin._parse_twin_declaration
+  callee: digital_twin._parse_twin_node_block
+  call_type: resolved
+- caller: digital_twin._parse_twin_declaration
+  callee: digital_twin._parse_twin_capability_block
+  call_type: resolved
+- caller: digital_twin.parse_twindsl
+  callee: digital_twin._build_twin_document
+  call_type: resolved
+- caller: digital_twin.parse_twindsl
+  callee: digital_twin.validate_twin
+  call_type: resolved
+- caller: digital_twin.validate_twin
+  callee: digital_twin._validate_twin_basics
+  call_type: resolved
+- caller: digital_twin.validate_twin
+  callee: digital_twin._validate_twin_capabilities
+  call_type: resolved
+- caller: digital_twin.validate_twin
+  callee: digital_twin._validate_twin_edges
+  call_type: resolved
+- caller: digital_twin.validate_twin
+  callee: digital_twin._validate_twin_invariants
+  call_type: resolved
+- caller: digital_twin.validate_twin
+  callee: digital_twin._validate_twin_sources
+  call_type: resolved
+- caller: digital_twin.validate_twin
+  callee: digital_twin._validate_twin_nodes
+  call_type: resolved
+- caller: digital_twin.validate_twin_markdown
+  callee: digital_twin.parse_twindsl
+  call_type: resolved
+- caller: digital_twin.validate_twin_markdown
+  callee: digital_twin.extract_twindsl
+  call_type: resolved
+- caller: digital_twin.validate_twin_update
+  callee: digital_twin.validate_twin
+  call_type: resolved
+- caller: digital_twin.twin_to_mermaid
+  callee: digital_twin._render_twin_nodes
+  call_type: resolved
+- caller: digital_twin.twin_to_mermaid
+  callee: digital_twin._render_twin_capabilities
+  call_type: resolved
+- caller: digital_twin.twin_to_mermaid
+  callee: digital_twin._render_twin_edges
+  call_type: resolved
+- caller: digital_twin.demo_bootstrap_twin
+  callee: digital_twin.normalize_intent
+  call_type: resolved
+- caller: digital_twin.demo_bootstrap_twin
+  callee: digital_twin.intent_fingerprint
+  call_type: resolved
+- caller: digital_twin.demo_bootstrap_twin
+  callee: digital_twin._bootstrap_node_lines
+  call_type: resolved
+- caller: digital_twin._bootstrap_node_lines
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._bootstrap_capability_lines
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._bootstrap_invariant_lines
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._bootstrap_evolution_lines
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin.render_twin
+  callee: digital_twin._render_twin_header
+  call_type: resolved
+- caller: digital_twin._render_twin_header
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_goals
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_nodes_block
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_capabilities_block
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_invariants_block
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_evolution_block
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_sources_block
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin._render_twin_questions_block
+  callee: digital_twin._quoted
+  call_type: resolved
+- caller: digital_twin.validate_buildplan_markdown
+  callee: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan.validate_bound_build_plan
+  call_type: resolved
+- caller: digital_twin.validate_buildplan_markdown
+  callee: digital_twin.render_twin
+  call_type: resolved
+- caller: digital_twin.demo_build_plan
+  callee: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan.semantic_twin_hash
+  call_type: resolved
+- caller: digital_twin.demo_build_plan
+  callee: digital_twin._quoted
   call_type: resolved
 - caller: boundary.DslBundle.validate_for_llm
   callee: boundary.assert_dsl_only
@@ -3625,135 +3754,6 @@ edges:
   call_type: resolved
 - caller: multiruntime.php.ifuri.nats_subject
   callee: multiruntime.php.ifuri.parse_ifuri
-  call_type: resolved
-- caller: digital_twin.intent_fingerprint
-  callee: digital_twin.normalize_intent
-  call_type: resolved
-- caller: digital_twin._parse_json_text
-  callee: digital_twin._json_string
-  call_type: resolved
-- caller: digital_twin._parse_twin_node_block
-  callee: digital_twin._parse_json_text
-  call_type: resolved
-- caller: digital_twin._parse_twin_evolution_block
-  callee: digital_twin._parse_json_text
-  call_type: resolved
-- caller: digital_twin._parse_twin_source
-  callee: digital_twin._parse_json_text
-  call_type: resolved
-- caller: digital_twin._parse_twin_scalar
-  callee: digital_twin._parse_json_text
-  call_type: resolved
-- caller: digital_twin._parse_twin_declaration
-  callee: digital_twin._parse_twin_scalar
-  call_type: resolved
-- caller: digital_twin._parse_twin_declaration
-  callee: digital_twin._parse_twin_node_block
-  call_type: resolved
-- caller: digital_twin._parse_twin_declaration
-  callee: digital_twin._parse_twin_capability_block
-  call_type: resolved
-- caller: digital_twin.parse_twindsl
-  callee: digital_twin._build_twin_document
-  call_type: resolved
-- caller: digital_twin.parse_twindsl
-  callee: digital_twin.validate_twin
-  call_type: resolved
-- caller: digital_twin.validate_twin
-  callee: digital_twin._validate_twin_basics
-  call_type: resolved
-- caller: digital_twin.validate_twin
-  callee: digital_twin._validate_twin_capabilities
-  call_type: resolved
-- caller: digital_twin.validate_twin
-  callee: digital_twin._validate_twin_edges
-  call_type: resolved
-- caller: digital_twin.validate_twin
-  callee: digital_twin._validate_twin_invariants
-  call_type: resolved
-- caller: digital_twin.validate_twin
-  callee: digital_twin._validate_twin_sources
-  call_type: resolved
-- caller: digital_twin.validate_twin
-  callee: digital_twin._validate_twin_nodes
-  call_type: resolved
-- caller: digital_twin.validate_twin_markdown
-  callee: digital_twin.parse_twindsl
-  call_type: resolved
-- caller: digital_twin.validate_twin_markdown
-  callee: digital_twin.extract_twindsl
-  call_type: resolved
-- caller: digital_twin.validate_twin_update
-  callee: digital_twin.validate_twin
-  call_type: resolved
-- caller: digital_twin.twin_to_mermaid
-  callee: digital_twin._render_twin_nodes
-  call_type: resolved
-- caller: digital_twin.twin_to_mermaid
-  callee: digital_twin._render_twin_capabilities
-  call_type: resolved
-- caller: digital_twin.twin_to_mermaid
-  callee: digital_twin._render_twin_edges
-  call_type: resolved
-- caller: digital_twin.demo_bootstrap_twin
-  callee: digital_twin.normalize_intent
-  call_type: resolved
-- caller: digital_twin.demo_bootstrap_twin
-  callee: digital_twin.intent_fingerprint
-  call_type: resolved
-- caller: digital_twin.demo_bootstrap_twin
-  callee: digital_twin._bootstrap_node_lines
-  call_type: resolved
-- caller: digital_twin._bootstrap_node_lines
-  callee: digital_twin._quoted
-  call_type: resolved
-- caller: digital_twin._bootstrap_capability_lines
-  callee: digital_twin._quoted
-  call_type: resolved
-- caller: digital_twin._bootstrap_invariant_lines
-  callee: digital_twin._quoted
-  call_type: resolved
-- caller: digital_twin._bootstrap_evolution_lines
-  callee: digital_twin._quoted
-  call_type: resolved
-- caller: digital_twin.render_twin
-  callee: digital_twin._render_twin_header
-  call_type: resolved
-- caller: digital_twin._render_twin_header
-  callee: digital_twin._quoted
-  call_type: resolved
-- caller: digital_twin._render_twin_goals
-  callee: digital_twin._quoted
-  call_type: resolved
-- caller: digital_twin._render_twin_nodes_block
-  callee: digital_twin._quoted
-  call_type: resolved
-- caller: digital_twin._render_twin_capabilities_block
-  callee: digital_twin._quoted
-  call_type: resolved
-- caller: digital_twin._render_twin_invariants_block
-  callee: digital_twin._quoted
-  call_type: resolved
-- caller: digital_twin._render_twin_evolution_block
-  callee: digital_twin._quoted
-  call_type: resolved
-- caller: digital_twin._render_twin_sources_block
-  callee: digital_twin._quoted
-  call_type: resolved
-- caller: digital_twin._render_twin_questions_block
-  callee: digital_twin._quoted
-  call_type: resolved
-- caller: digital_twin.validate_buildplan_markdown
-  callee: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan.validate_bound_build_plan
-  call_type: resolved
-- caller: digital_twin.validate_buildplan_markdown
-  callee: digital_twin.render_twin
-  call_type: resolved
-- caller: digital_twin.demo_build_plan
-  callee: packages.onlydsl-contracts.src.onlydsl_contracts.dsl.build_plan.semantic_twin_hash
-  call_type: resolved
-- caller: digital_twin.demo_build_plan
-  callee: digital_twin._quoted
   call_type: resolved
 modules:
   aql:

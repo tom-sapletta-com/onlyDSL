@@ -5,11 +5,11 @@
 
 - **Project**: /home/tom/github/tom-sapletta-com/onlyDSL
 - **Primary Language**: python
-- **Languages**: python: 91, json: 6, shell: 4, yaml: 4, toml: 4
+- **Languages**: python: 91, yaml: 6, json: 6, shell: 4, toml: 4
 - **Analysis Mode**: static
 - **Total Functions**: 531
 - **Total Classes**: 111
-- **Modules**: 120
+- **Modules**: 122
 - **Entry Points**: 227
 
 ## Architecture by Module
@@ -500,19 +500,19 @@ Functions exposed as public API (no underscore prefix):
 - `ifuri_core.event_store.SqliteEventStore.append` - 23 calls
 - `llm_client.plan_build` - 22 calls
 - `packages.onlydsl-ssot.src.onlydsl_ssot.candidate.create_candidate` - 22 calls
+- `digital_twin.parse_twindsl` - 21 calls
 - `packages.onlydsl-contracts.src.onlydsl_contracts.dsl.repair_plan.parse_repair_plan` - 21 calls
 - `ifuri_core.postgres_store.PostgresEventStore.append` - 21 calls
 - `onlydsl.runtime.integrity.parse_project_integrity` - 21 calls
-- `digital_twin.parse_twindsl` - 21 calls
 - `contextdsl.ContextCompiler.legacy_log` - 20 calls
 - `contextdsl.parse_context_dsl` - 20 calls
-- `scripts.startup_testql.render_testqldsl` - 20 calls
 - `digital_twin.demo_bootstrap_twin` - 20 calls
+- `scripts.startup_testql.render_testqldsl` - 20 calls
+- `digital_twin.render_twin` - 19 calls
 - `packages.onlydsl-contracts.src.onlydsl_contracts.dsl.spatial_class.parse_spatial_class` - 19 calls
 - `packages.onlydsl-contracts.src.onlydsl_contracts.dsl.evidence_set.parse_evidence_set` - 19 calls
 - `packages.onlydsl-contracts.src.onlydsl_contracts.dsl.claim.parse_claims` - 19 calls
 - `ifuri_core.transport.NatsTransport.serve_capability` - 19 calls
-- `digital_twin.render_twin` - 19 calls
 - `diagnostics.diagnose_incident` - 18 calls
 - `source_ingest.validate_sourceindex_markdown` - 18 calls
 
