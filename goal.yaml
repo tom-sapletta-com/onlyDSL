@@ -1,5 +1,5 @@
 # goal.yaml - Goal configuration file
-# Generated: 2026-08-08 18:40:48
+# Generated: 2026-08-09 23:44:45
 # Documentation: https://github.com/wronai/goal#configuration
 #
 # This file configures Goal's behavior for:
@@ -238,7 +238,7 @@ publishing:
 strategies:
   python:
     test: pytest tests/ -v
-    build: python -m build
+    build: python scripts/workspace_release.py build --version {version}
     publish: twine upload dist/onlyDSL-{version}*
     publish_enabled: true
     dependencies:
@@ -247,7 +247,7 @@ strategies:
   nodejs:
     test: npm test
     build: npm run build
-    publish: npm publish
+    publish: twine upload dist/onlyDSL-{version}*
     publish_enabled: true
     dependencies:
       file: package-lock.json
@@ -255,7 +255,7 @@ strategies:
   rust:
     test: cargo test
     build: cargo build --release
-    publish: cargo publish
+    publish: twine upload dist/onlyDSL-{version}*
     publish_enabled: true
     dependencies:
       file: Cargo.lock

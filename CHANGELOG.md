@@ -104,6 +104,22 @@
 - Fix ast-unused-imports issues (ticket-17f64932)
 - Fix ast-sorted-imports issues (ticket-5f092505)
 
+## [0.0.11] - 2026-08-09
+
+### Docs
+- Update README.md
+
+### Test
+- Update tests/test_package_workspace.py
+
+### Other
+- Update packages/onlydsl-contracts/src/onlydsl_contracts/__init__.py
+- Update packages/onlydsl-core/pyproject.toml
+- Update packages/onlydsl-core/src/onlydsl_core/__init__.py
+- Update packages/onlydsl-ssot/pyproject.toml
+- Update scripts/workspace_release.py
+- Update uv.lock
+
 ## [0.0.10] - 2026-08-09
 
 ### Docs

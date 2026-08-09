@@ -22,7 +22,7 @@ from .ssot import (
 try:
     __version__ = version("onlydsl-contracts")
 except PackageNotFoundError:
-    __version__ = "0.0.9"
+    __version__ = "0+unknown"
 
 __all__ = [
     "CandidateRevision", "DevelopmentEvidenceBundle", "IfUri", "IfUriError", "PromotionApproval",
