@@ -87,73 +87,50 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def _run_scan(args: argparse.Namespace) -> int:
+    source_root = Path(args.source_root)
+    if not source_root.is_absolute(): source_root = Path(args.root) / source_root
+    index = build_source_index(source_root); envelope = index.envelope(); content_hash = envelope["contentHash"]
+    value = SsotStore(args.root).create_candidate(updates={"sources/source-index.dsl": envelope["sourceIndexDSL"].encode("utf-8")}, candidate_id=args.id, evidence_uris=("urn:subactor:source-index:" + content_hash,))
+    report = SsotStore(args.root).validate_candidate(value.candidate_id)
+    _json({"candidate_id": value.candidate_id, "ok": report.ok, "content_hash": content_hash, "generated_at": envelope["generatedAt"], "documents": len(index.documents), "issues": report.issues})
+    return 0 if report.ok else 2
+
+
+def _run_candidate(args: argparse.Namespace) -> int:
+    store = SsotStore(args.root)
+    if args.candidate_command == "create":
+        value = store.create_candidate(updates=_updates(args.section), removals=tuple(args.remove), candidate_id=args.id, evidence_uris=tuple(args.evidence))
+        _json({"candidate_id": value.candidate_id, "base_revision": value.base_revision, "state": value.state}); return 0
+    report = store.validate_candidate(args.candidate_id)
+    _json({"candidate_id": report.candidate_id, "ok": report.ok, "issues": report.issues, "candidate_revision": report.candidate_revision})
+    return 0 if report.ok else 2
+
+
+def _run_registry(args: argparse.Namespace) -> int:
+    if args.registry_command == "add": _json(asdict(ProjectRegistry(args.registry).register(args.root)))
+    else: _json({"projects": [asdict(entry) for entry in ProjectRegistry(args.registry).entries()]})
+    return 0
+
+
+def _run_command(args: argparse.Namespace) -> int:
+    if args.command == "init":
+        manifest = SsotStore(args.root).initialize(args.project_id, project_dsl=args.project_dsl); _json({"status": "initialized", "revision": manifest.revision_hash, "ssot": str(SsotStore(args.root).ssot_root)})
+    elif args.command in {"status", "verify"}: _json(SsotStore(args.root).status() | {"verified": True})
+    elif args.command == "scan": return _run_scan(args)
+    elif args.command == "history": _json({"revisions": [{"revision": item.revision_hash, "parent": item.parent_hash, "created_at": item.created_at} for item in SsotStore(args.root).history()]})
+    elif args.command == "candidate": return _run_candidate(args)
+    elif args.command == "diff": print(SsotStore(args.root).candidate_diff(args.candidate_id), end="")
+    elif args.command == "reconcile":
+        store = SsotStore(args.root); value = store.create_candidate(updates=_updates(args.section), removals=tuple(args.remove), candidate_id=args.id, evidence_uris=tuple(args.evidence)); report = store.validate_candidate(value.candidate_id); print(store.candidate_diff(value.candidate_id), end=""); return 0 if report.ok else 2
+    elif args.command == "promote":
+        manifest = SsotStore(args.root).promote(args.candidate_id, PromotionApproval(args.authority_hash, tuple(args.testql), tuple(args.eql), args.integrity, args.completeness, args.allow_incomplete)); _json({"status": "accepted", "revision": manifest.revision_hash, "parent": manifest.parent_hash})
+    elif args.command == "registry": return _run_registry(args)
+    else: raise ValueError("unsupported SSOT command")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
-    args = build_parser().parse_args(argv)
-    try:
-        if args.command == "init":
-            manifest = SsotStore(args.root).initialize(args.project_id, project_dsl=args.project_dsl)
-            _json({"status": "initialized", "revision": manifest.revision_hash, "ssot": str(SsotStore(args.root).ssot_root)})
-        elif args.command in {"status", "verify"}:
-            store = SsotStore(args.root)
-            _json(store.status() | {"verified": True})
-        elif args.command == "scan":
-            store = SsotStore(args.root)
-            source_root = Path(args.source_root)
-            if not source_root.is_absolute():
-                source_root = Path(args.root) / source_root
-            index = build_source_index(source_root)
-            envelope = index.envelope()
-            content_hash = envelope["contentHash"]
-            value = store.create_candidate(
-                updates={"sources/source-index.dsl": envelope["sourceIndexDSL"].encode("utf-8")},
-                candidate_id=args.id,
-                evidence_uris=("urn:subactor:source-index:" + content_hash,),
-            )
-            report = store.validate_candidate(value.candidate_id)
-            _json({
-                "candidate_id": value.candidate_id, "ok": report.ok,
-                "content_hash": content_hash, "generated_at": envelope["generatedAt"],
-                "documents": len(index.documents), "issues": report.issues,
-            })
-            return 0 if report.ok else 2
-        elif args.command == "history":
-            values = SsotStore(args.root).history()
-            _json({"revisions": [{"revision": item.revision_hash, "parent": item.parent_hash, "created_at": item.created_at} for item in values]})
-        elif args.command == "candidate" and args.candidate_command == "create":
-            value = SsotStore(args.root).create_candidate(
-                updates=_updates(args.section), removals=tuple(args.remove),
-                candidate_id=args.id, evidence_uris=tuple(args.evidence),
-            )
-            _json({"candidate_id": value.candidate_id, "base_revision": value.base_revision, "state": value.state})
-        elif args.command == "candidate" and args.candidate_command == "validate":
-            report = SsotStore(args.root).validate_candidate(args.candidate_id)
-            _json({"candidate_id": report.candidate_id, "ok": report.ok, "issues": report.issues, "candidate_revision": report.candidate_revision})
-            return 0 if report.ok else 2
-        elif args.command == "diff":
-            print(SsotStore(args.root).candidate_diff(args.candidate_id), end="")
-        elif args.command == "reconcile":
-            store = SsotStore(args.root)
-            value = store.create_candidate(
-                updates=_updates(args.section), removals=tuple(args.remove),
-                candidate_id=args.id, evidence_uris=tuple(args.evidence),
-            )
-            report = store.validate_candidate(value.candidate_id)
-            print(store.candidate_diff(value.candidate_id), end="")
-            if not report.ok:
-                return 2
-        elif args.command == "promote":
-            manifest = SsotStore(args.root).promote(args.candidate_id, PromotionApproval(
-                args.authority_hash, tuple(args.testql), tuple(args.eql), args.integrity,
-                args.completeness, args.allow_incomplete,
-            ))
-            _json({"status": "accepted", "revision": manifest.revision_hash, "parent": manifest.parent_hash})
-        elif args.command == "registry" and args.registry_command == "add":
-            _json(asdict(ProjectRegistry(args.registry).register(args.root)))
-        elif args.command == "registry" and args.registry_command == "list":
-            _json({"projects": [asdict(entry) for entry in ProjectRegistry(args.registry).entries()]})
-        else:
-            raise ValueError("unsupported SSOT command")
-        return 0
+    try: return _run_command(build_parser().parse_args(argv))
     except (SsotError, ValueError, OSError) as exc:
-        _json({"error": type(exc).__name__, "message": str(exc)})
-        return 2
+        _json({"error": type(exc).__name__, "message": str(exc)}); return 2
